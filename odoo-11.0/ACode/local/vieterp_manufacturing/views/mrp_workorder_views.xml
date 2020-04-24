@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="mrp_production_workcenter_form_view_inherit">
+            <field name="name">mrp.production.work.order.form</field>
+            <field name="model">mrp.workorder</field>
+            <field name="inherit_id" ref="mrp.mrp_production_workcenter_form_view_inherit"/>
+            <field name="arch" type="xml">
+                <button name="button_start" position="after">
+                    <button name="button_send_manager" string="Send to Manager" states="progress"
+                            class="oe_highlight"/>
+                    <button name="send_mail" string="Send by Email" type="object" class="oe_highlight"/>
+                </button>
+                <field name="state" position="replace">
+                    <field name="state" widget="statusbar" statusbar_visible="ready,waiting_director,progress,done"/>
+                </field>
+                <button name="record_production" position="replace">
+                    <button name="button_approve" string="Approve" states="waiting_director" class="oe_highlight"/>
+                    <button name="button_refuse" string="Refuse" states="waiting_director" class="oe_highlight"/>
+                    <button name="button_cancel2" string="Cancel" states="done"/>
+                </button>
+<!--
+                <field name="sequence" position="after">
+                    <field name="employee_id"/>
+                    <field name="groups_id_many" widget="many2many_tags"/>
+                </field>
+
+                <notebook position="before">
+                    <group string="Product to Produce" col="8">
+                        <group colspan="2">
+                            <field name="image_medium" widget="image" class="oe_avatar oe_left" nolabel="1"/>
+                        </group>
+                        <group colspan="6">
+                            <field name="product"/>
+                            <field name="qty"/>
+                            <field name="weight"/>
+                            <field name="uom" widget="selection"/>
+                            <field name="amount"/>
+                        </group>
+                    </group>
+                </notebook>
+                -->
+                <!--
+                <page position="after">
+                    <page string="Internotes Move">
+                        <group string="Delivery">
+                            <field name="delivery" nolabel="1"/>
+                        </group>
+                        <group string="Return">
+                            <field name="return_" nolabel="1"/>
+                        </group>
+                        <group string="Lost">
+                            <field name="lost" nolabel="1"/>
+                        </group>
+                    </page>
+                </page>
+                -->
+            </field>
+        </record>
+
+        <!--
+        <record id="hp_view_mrp_production_workcenter_form_view_filter" model="ir.ui.view">
+            <field name="name">hp.mrp.production.workcenter.line.select</field>
+            <field name="model">mrp.production.workcenter.line</field>
+            <field name="inherit_id" ref="mrp_operations.view_mrp_production_workcenter_form_view_filter"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="so_id" string="Sale Order"/>
+                </field>
+                <xpath expr="//group/filter[1]" position="after">
+                    <filter name="group_sale" string="Sale Order" icon="terp-go-home" domain="[]"
+                            context="{'group_by':'so_id'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hp_mrp_production_workcenter_tree_view_inherit">
+            <field name="name">hp.mrp.production.workcenter.line.tree</field>
+            <field name="model">mrp.production.workcenter.line</field>
+            <field name="inherit_id" ref="mrp_operations.mrp_production_workcenter_tree_view_inherit"/>
+            <field name="arch" type="xml">
+                <field name="production_id" position="after">
+                    <field name="so_id"/>
+                    <field name="employee_id"/>
+                </field>
+            </field>
+        </record>
+        -->
+    </data>
+</odoo>

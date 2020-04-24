@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="assets_backend" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/tts_journal_entry/static/src/js/nkc_tree.js"></script>
+            </xpath>
+        </template>
+
+        <record id="attachment_export_nkc" model="ir.attachment">
+            <field name="public" eval="True"/>
+            <field name="name">Mẫu nhập nhật ký chung.xls</field>
+            <field name="datas_fname">Mẫu nhập nhật ký chung.xls</field>
+            <field name="res_model">ir.ui.view</field>
+            <field name="type">url</field>
+            <field name="url">/tts_journal_entry/import_nkc.xls</field>
+        </record>
+
+        <record id="import_nhat_ky_chung_view" model="ir.ui.view">
+            <field name="name">Import NKC</field>
+            <field name="model">import.tts_journal_entry.nhatkychung</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="data_import" string="Tải file của bạn lên"/>
+                    </group>
+                     <footer>
+                        <button name="import_data_excel" string="Nhập" type="object" default_focus="1"
+                                class="oe_highlight"/>
+                        hoặc
+                         <button name="export_data_excel" string="Xuất mẫu" type="object" default_focus="1"
+                                class="oe_highlight"/>
+                        hoặc
+                        <button string="Huỷ" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="nhat_ky_chung_action" model="ir.actions.act_window">
+            <field name="name">Nhập nhật ký chung</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">import.tts_journal_entry.nhatkychung</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="nhat_ky_chung_menu_parent" name="Nhập nhật ký chung" parent="account.menu_finance_entries" sequence="200"/>
+        <menuitem id="nhat_ky_chung_menu" name="Nhập nhật ký chung" parent="nhat_ky_chung_menu_parent" action="nhat_ky_chung_action"/>
+    </data>
+</odoo>

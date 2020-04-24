@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="product_template_form_view_multi_ean13" model="ir.ui.view">
+            <field name="name">product.normal.form.multi.ean13</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/notebook/page[@name='notes']" position="after">
+                    <page string="Barcode" name="barcode">
+                        <field name="barcode_ids">
+                        <form string="Barcode">
+                            <field name="name"/>
+                        </form>
+                        <tree string="Barcode" editable="inline">
+                            <field name="sequence" widget="handle"/>
+                            <field name="name"/>
+                        </tree>
+                    </field>
+                    </page>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="_barcode_scanned" widget="barcode_handler"/>
+                </xpath>
+                    <!--<field name="barcode_ids">-->
+                        <!--<form string="Barcode">-->
+                            <!--<field name="name"/>-->
+                        <!--</form>-->
+                        <!--<tree string="Barcode">-->
+                            <!--<field name="sequence" widget="handle"/>-->
+                            <!--<field name="name"/>-->
+                        <!--</tree>-->
+                    <!--</field>-->
+                <!--</xpath>-->
+            </field>
+        </record>
+
+        <record id="product_template_barcode_tree_view_inherit" model="ir.ui.view">
+            <field name="name">product.template.tree</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="modifier_product.product_template_barcode_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="purchase_code" position="after">
+                    <field name="barcode_text"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

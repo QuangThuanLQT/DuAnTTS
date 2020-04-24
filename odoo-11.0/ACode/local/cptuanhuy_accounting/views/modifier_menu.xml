@@ -1,0 +1,11 @@
+<odoo>
+    <data>
+         <record id="account_unc.mandate_menu" model="ir.ui.menu">
+            <field name="active" eval="False"/>
+         </record>
+
+         <record id="account_gbn.account_payment_gbn_menu" model="ir.ui.menu">
+            <field name="active" eval="False"/>
+         </record>
+    </data>
+</odoo>

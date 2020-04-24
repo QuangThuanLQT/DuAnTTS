@@ -1,0 +1,124 @@
+<odoo>
+    <data>
+        <record id="stock_picking_type_kanban_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.type.form</field>
+            <field name="model">stock.picking.type</field>
+            <field name="priority">20</field>
+            <field name="inherit_id" ref="stock.stock_picking_type_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name=&quot;stock_picking&quot;]" position="replace">
+                    <div t-if="['incoming', 'outgoing','internal'].indexOf(record.code.raw_value) &gt; -1" name="stock_picking">
+                        <div t-attf-class="#{kanban_color(record.color.raw_value)}">
+                            <div class="o_kanban_card_header">
+                                <div class="o_kanban_card_header_title">
+                                    <div class="o_primary">
+                                        <a type="object" name="get_stock_picking_action_picking_type">
+                                            <field name="name"/>
+                                        </a>
+                                    </div>
+                                    <div class="o_secondary"><field class="o_secondary" name="warehouse_id"/></div>
+                                </div>
+                                <div class="o_kanban_manage_button_section">
+                                    <a class="o_kanban_manage_toggle_button" href="#">Thêm <i class="fa fa-caret-down"/></a>
+                                </div>
+                            </div>
+                            <div class="container o_kanban_card_content o_visible">
+                                <div class="row">
+                                    <div class="col-xs-6 o_kanban_primary_left">
+                                        <button class="btn btn-primary" name="get_action_picking_tree_ready" type="object">
+                                            <span t-if="record.code.raw_value =='incoming'"><t t-esc="record.count_picking_ready.value"/> Nhận Hàng</span>
+                                            <span t-if="record.code.raw_value =='outgoing'"><t t-esc="record.count_picking_ready.value"/> Cần Làm</span>
+                                            <span t-if="record.code.raw_value =='internal'"><t t-esc="record.count_picking_ready.value"/> Cần Chuyển</span>
+                                        </button>
+                                    </div>
+                                    <div class="col-xs-6 o_kanban_primary_right">
+                                        <div t-if="record.count_picking_ready.raw_value &gt; 0" class="row">
+                                        </div>
+
+                                        <div t-if="record.count_picking_waiting.raw_value &gt; 0" class="row">
+                                            <div class="col-xs-9">
+                                                <a name="get_action_picking_tree_waiting" type="object">
+                                                    Chờ
+                                                </a>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <field name="count_picking_waiting"/>
+                                            </div>
+                                        </div>
+
+                                        <div t-if="record.count_picking_late.raw_value &gt; 0" class="row">
+                                            <div class="col-xs-9">
+                                                <a class="oe_kanban_stock_picking_type_list" name="get_action_picking_tree_late" type="object">
+                                                    Trễ
+                                                </a>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <field name="count_picking_late"/>
+                                            </div>
+                                        </div>
+
+                                        <div t-if="record.count_picking_backorders.raw_value &gt; 0" class="row">
+                                            <div class="col-xs-9">
+                                                <a class="oe_kanban_stock_picking_type_list" name="get_action_picking_tree_backorder" type="object">
+                                                    Back Orders
+                                                </a>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <field name="count_picking_backorders"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><div class="container o_kanban_card_manage_pane o_invisible">
+                                <div class="row">
+                                    <div class="col-xs-6 o_kanban_card_manage_section o_kanban_manage_view">
+                                        <div class="o_kanban_card_manage_title">
+                                            <span>Xem</span>
+                                        </div>
+                                        <div>
+                                            <a name="get_stock_picking_action_picking_type" type="object">Tất cả</a>
+                                        </div>
+                                        <div>
+                                            <a name="303" type="action">Sẵn sàng</a>
+                                        </div>
+                                        <div>
+                                            <a name="get_action_picking_tree_waiting" type="object">Đang chờ</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 o_kanban_card_manage_section o_kanban_manage_new">
+                                        <div class="o_kanban_card_manage_title">
+                                            <span>Mới</span>
+                                        </div>
+                                        <div>
+                                            <a name="309" type="action">Chuyển hàng</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div t-if="widget.editable" class="o_kanban_card_manage_settings row">
+                                    <div class="col-xs-8">
+                                        <ul class="oe_kanban_colorpicker" data-field="color"/>
+                                    </div>
+                                    <div class="col-xs-4 text-right">
+                                        <a type="edit">Thiết lập</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_picking_type_form_inherit_add_account_analytic" model="ir.ui.view">
+            <field name="name">stock.picking.type.inherit.form</field>
+            <field name="model">stock.picking.type</field>
+            <field name="inherit_id" ref="stock.view_picking_type_form"/>
+            <field name="arch" type="xml">
+                <field name="default_location_src_id" position="before">
+                    <field name="account_analytic_ids" widget="many2many_tags"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

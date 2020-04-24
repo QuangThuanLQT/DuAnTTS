@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="partner_export_button">
+        <button type="button" class='btn btn-sm o_partner_buttons_print_excel' style="background: lightgray;border :1px solid gray">Xuất Excel</button>
+    </t>
+</templates>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_account_payment_invoice_form_inherit" model="ir.ui.view">
+            <field name="name">account.payment.form</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="///field[@name='communication']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="///field[@name='communication']" position="after">
+                    <field name="original_documents" required="True"/>
+                </xpath>
+                <xpath expr="///field[@name='journal_id']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('original_documents', '=', False)]}</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

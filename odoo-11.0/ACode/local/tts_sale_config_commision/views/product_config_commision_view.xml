@@ -1,0 +1,57 @@
+<odoo>
+    <data>
+        <record id="product_commsion_tree_view" model="ir.ui.view">
+            <field name="name">product.product</field>
+            <field name="model">product.product</field>
+            <field name="arch" type="xml">
+                <tree create="false" delete="false">
+                    <field name="categ_id"/>
+                    <field name="default_code"/>
+                    <field name="name"/>
+                    <field name="attribute_value_ids"/>
+                    <field name="trang_thai_hd"/>
+                    <field name="commision"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="product_commsion_form_view" model="ir.ui.view">
+            <field name="name">product.product</field>
+            <field name="model">product.product</field>
+            <field name="arch" type="xml">
+                <form create="false" delete="false">
+                    <group>
+                        <group>
+                            <field name="categ_id" readonly="1"/>
+                            <field name="default_code" readonly="1"/>
+                            <field name="name" readonly="1"/>
+                            <field name="attribute_value_ids" widget="many2many_tags" readonly="1"/>
+                            <field name="trang_thai_hd"/>
+                        </group>
+                        <group>
+                            <field name="commision"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="product_commision_action" model="ir.actions.act_window">
+            <field name="name">Product Commsion</field>
+            <field name="res_model">product.product</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">['|', ('active', '=', False), ('active', '=', True)]</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('product_commsion_tree_view')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('product_commsion_form_view')})
+            ]"/>
+        </record>
+
+        <menuitem id="product_commision_menu"
+            name="Product Commision"
+            action="product_commision_action"
+            parent="sale.prod_config_main"/>
+    </data>
+</odoo>

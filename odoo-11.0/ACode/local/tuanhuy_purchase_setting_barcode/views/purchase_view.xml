@@ -1,0 +1,38 @@
+<odoo>
+    <template id="assets_backend" name="Sale form" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/tuanhuy_purchase_setting_barcode/static/src/js/tuanhuy.js"></script>
+        </xpath>
+    </template>
+
+    <data>
+        <record id="purchase_order_form_modifier_barcode_inherit" model="ir.ui.view">
+            <field name="name">purchase.order.form.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <field name="order_line" position="before">
+                     <field name="check_show_ma_bin" invisible="1"/>
+                     <field name="ma_bin" class="ma_bin_input purchase_ma_bin_input" style="width: 10%" placeholder="Mã Pin" password="True" attrs="{'invisible':[('check_show_ma_bin','=',False)]}"/>
+                     <field name="check_show_add_line" invisible="1"/>
+                    <field name="check_used_ma_bin" invisible="1"/>
+                </field>
+                <xpath expr="//field[@name='order_line']" position="attributes">
+                    <attribute name="class">order_tree</attribute>
+                    <!--<attribute name="attrs">{'readonly': ['!',('state', 'in', ('done', 'cancel')),('check_show_add_line','=',False)]}</attribute>-->
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_purchase_configuration_inherit" model="ir.ui.view">
+            <field name="name">purchase.config.settings.form</field>
+            <field name="model">purchase.config.settings</field>
+            <field name="inherit_id" ref="purchase.view_purchase_configuration"/>
+            <field name="arch" type="xml">
+                <field name="group_warning_purchase" position="after">
+                    <field name="allow_input_barcode" widget="radio"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

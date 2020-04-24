@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="stock_internal_main_type" model="stock.internal.type">
+            <field name="name">Vật tư chính</field>
+        </record>
+
+        <record id="stock_internal_sub_type" model="stock.internal.type">
+            <field name="name">Vật tư phụ</field>
+        </record>
+
+        <record id="stock_internal_grow_type" model="stock.internal.type">
+            <field name="name">Vật tư phát sinh</field>
+        </record>
+
+        <record id="stock_internal_other_type" model="stock.internal.type">
+            <field name="name">Vật tư khác</field>
+        </record>
+
+        <record id="location_kct" model="stock.location">
+            <field name="name">KCT</field>
+            <field name="usage">view</field>
+        </record>
+
+        <record id="location_kct_stock" model="stock.location">
+            <field name="name">Stock</field>
+            <field name="usage">internal</field>
+            <field name="location_id" ref="cptuanhuy_stock.location_kct"/>
+        </record>
+
+
+        <record id="update_quantity_in_out_cron" model="ir.cron">
+            <field name="name">Update Nhap Xuat qty stock move</field>
+            <field eval="False" name="active"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'stock.move'"></field>
+            <field name="function" eval="'update_stock_move_quantity_in_out'"/>
+        </record>
+    </data>
+    <function model="stock.picking" name="create_stock_picking_type"/>
+</odoo>

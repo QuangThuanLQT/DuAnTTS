@@ -1,0 +1,143 @@
+<odoo>
+    <data>
+        <!--Contract Email Cron Job-->
+
+        <record id="contract_notification_cron" model="ir.cron">
+            <field name="name">Contract Notification</field>
+            <field eval="True" name="active"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'contract.notification.settings'"></field>
+            <field name="function" eval="'send_email_contract_notification'"/>
+        </record>
+
+        <!--Contract Email Template-->
+
+        <record id="contract_notification_1_day" model="mail.template">
+            <field name="name">Contract Email Template 1</field>
+            <field name="model_id" ref="cptuanhuy_contract_notification.model_contract_notification_settings"/>
+            <field name="email_from">info@tuanhuyco.com</field>
+            <field name="email_to">${object.create_uid.email}</field>
+            <field name="subject">Guarantee Notification</field>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+<p><strong>Contract Notification</strong></p>
+<br/>
+<br/>
+<p>Chào ${object.name},</p>
+    <p>
+        Bạn có 1 thông báo về hợp đồng sẽ hết hạn trong ngày mai.
+    </p>
+
+<div style="display:table;">
+    <div style="display:table-header-group;">
+        <div style="display:table-row;">
+            <div style="display:table-cell;padding:3px;border-left:1px solid black;border-right:1px solid black;">Tên</div>
+            <div style="display:table-cell;padding:3px;border-right:1px solid black;">Dự án</div>
+            <div style="display:table-cell;padding:3px;border-right:1px solid black;">Quản lý dự án</div>
+            <div style="display:table-cell;padding:3px;border-right:1px solid black;">Ngày đến hạn</div>
+        </div>
+    </div
+    <div style="display:table-row-group;">
+        % for line in ctx.get('data'):
+        <div style="display:table-row;">
+            <div style="display:table-cell;border-left:1px solid black;border-right:1px solid black;padding:3px">${line.name}</div>
+            <div style="display:table-cell;border-right:1px solid black;padding:3px">${line.project_id.name}</div>
+            <div style="display:table-cell;border-right:1px solid black;padding:3px">${line.project_manager_id.name}</div>
+            <div style="display:table-cell;border-right:1px solid black;padding:3px">${line.date_end}</div>
+        </div>
+        % endfor
+    </div>
+</div>
+
+
+            ]]></field>
+        </record>
+
+
+        <record id="contract_notification_3_day" model="mail.template">
+            <field name="name">Contract Email Template 3</field>
+            <field name="model_id" ref="cptuanhuy_contract_notification.model_contract_notification_settings"/>
+            <field name="email_from">info@tuanhuyco.com</field>
+            <field name="email_to">${object.create_uid.email}</field>
+            <field name="subject">Guarantee Notification</field>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+<p><strong>Contract Notification</strong></p>
+<br/>
+<br/>
+<p>Chào ${object.name},</p>
+    <p>
+        Bạn có 1 thông báo về bảo lãnh sẽ đến hạn vào 3 ngày tới.
+    </p>
+
+<div style="display:table;">
+    <div style="display:table-header-group;">
+        <div style="display:table-row;">
+            <div style="display:table-cell;padding:3px;border-left:1px solid black;border-right:1px solid black;">Tên</div>
+            <div style="display:table-cell;padding:3px;border-right:1px solid black;">Dự án</div>
+            <div style="display:table-cell;padding:3px;border-right:1px solid black;">Hợp đồng</div>
+            <div style="display:table-cell;padding:3px;border-right:1px solid black;">Ngày đến hạn</div>
+        </div>
+    </div
+    <div style="display:table-row-group;">
+        % for line in ctx.get('data'):
+        <div style="display:table-row;">
+            <div style="display:table-cell;border-left:1px solid black;border-right:1px solid black;padding:3px">${line.name}</div>
+            <div style="display:table-cell;border-right:1px solid black;padding:3px">${line.project_id.name}</div>
+            <div style="display:table-cell;border-right:1px solid black;padding:3px"></div>
+            <div style="display:table-cell;border-right:1px solid black;padding:3px">${line.end_date}</div>
+        </div>
+        % endfor
+    </div>
+</div>
+
+
+            ]]></field>
+        </record>
+
+
+        <record id="contract_notification_7_day" model="mail.template">
+            <field name="name">Contract Email Template 7</field>
+            <field name="model_id" ref="cptuanhuy_contract_notification.model_contract_notification_settings"/>
+            <field name="email_from">info@tuanhuyco.com</field>
+            <field name="email_to">${object.create_uid.email}</field>
+            <field name="subject">Guarantee Notification</field>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+<p><strong>Contract Notification</strong></p>
+<br/>
+<br/>
+<p>Chào ${object.name},</p>
+    <p>
+        Bạn có 1 thông báo về bảo lãnh sẽ đến hạn vào 7 ngày tới.
+    </p>
+
+<div style="display:table;">
+    <div style="display:table-header-group;">
+        <div style="display:table-row;">
+            <div style="display:table-cell;padding:3px;border-left:1px solid black;border-right:1px solid black;">Tên</div>
+            <div style="display:table-cell;padding:3px;border-right:1px solid black;">Dự án</div>
+            <div style="display:table-cell;padding:3px;border-right:1px solid black;">Hợp đồng</div>
+            <div style="display:table-cell;padding:3px;border-right:1px solid black;">Ngày đến hạn</div>
+        </div>
+    </div
+    <div style="display:table-row-group;">
+        % for line in ctx.get('data'):
+        <div style="display:table-row;">
+            <div style="display:table-cell;border-left:1px solid black;border-right:1px solid black;padding:3px">${line.name}</div>
+            <div style="display:table-cell;border-right:1px solid black;padding:3px">${line.project_id.name}</div>
+            <div style="display:table-cell;border-right:1px solid black;padding:3px"></div>
+            <div style="display:table-cell;border-right:1px solid black;padding:3px">${line.end_date}</div>
+        </div>
+        % endfor
+    </div>
+</div>
+
+
+            ]]></field>
+        </record>
+    </data>
+</odoo>

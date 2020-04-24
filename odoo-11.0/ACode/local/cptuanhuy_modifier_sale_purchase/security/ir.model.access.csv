@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cptuanhuy_modifier_sale_purchase_cptuanhuy_modifier_sale_purchase,cptuanhuy_modifier_sale_purchase.cptuanhuy_modifier_sale_purchase,model_cptuanhuy_modifier_sale_purchase_cptuanhuy_modifier_sale_purchase,,1,0,0,0

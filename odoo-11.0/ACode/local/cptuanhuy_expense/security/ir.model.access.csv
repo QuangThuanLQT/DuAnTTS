@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cptuanhuy_expense_cptuanhuy_expense,cptuanhuy_expense.cptuanhuy_expense,model_cptuanhuy_expense_cptuanhuy_expense,,1,0,0,0

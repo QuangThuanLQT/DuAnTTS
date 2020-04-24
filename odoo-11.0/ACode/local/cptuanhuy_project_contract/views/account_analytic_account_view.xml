@@ -1,0 +1,133 @@
+<odoo>
+    <data>
+        <template id="assets_backend" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/cptuanhuy_project_contract/static/src/js/tree.js"></script>
+            </xpath>
+        </template>
+
+        <!--<record id="view_account_analytic_account_form_inherit_budget_inherit" model="ir.ui.view">-->
+            <!--<field name="name">account.analytic.account.form</field>-->
+            <!--<field name="model">account.analytic.account</field>-->
+            <!--<field name="inherit_id" ref="account_budget.view_account_analytic_account_form_inherit_budget"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<xpath expr="//form/sheet/notebook" position="replace">-->
+                <!--</xpath>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <record id="view_account_analytic_account_list_inherit" model="ir.ui.view">
+            <field name="name">account.analytic.account.form</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_account_list"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="project_id" string="Dự án"/>
+                </field>
+            </field>
+         </record>
+
+        <record id="view_account_analytic_account_form_inherit" model="ir.ui.view">
+            <field name="name">account.analytic.account.form</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
+            <field name="arch" type="xml">
+                <field name="tag_ids" position="after">
+                    <field name="check_payment"/>
+                    <field name="check_guarantee"/>
+                </field>
+            </field>
+         </record>
+
+         <record id="account_analytic_account_form_form_inherit" model="ir.ui.view">
+            <field name="name">account.analytic.account.form</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="stable_account_analytic_analysis.account_analytic_account_form_form"/>
+            <field name="arch" type="xml">
+                <field name="contract_type_id" position="after">
+                    <field name="project_manager_id" required="1"/>
+                    <field name="user_email"/>
+                    <field name="user_phone"/>
+                </field>
+                <field name="partner_id" position="before">
+                    <field name="project_id"/>
+                </field>
+                <xpath expr="//form/header" position="replace">
+                    <header>
+                        <button name="action_approve" string="Xác nhận" type="object" states="draft"/>
+                        <button name="action_open" string="Thực thi" type="object" states="approve"/>
+                        <button name="action_done" string="Hoàn thành" type="object" states="open"/>
+                        <button name="set_to_draft" string="Thiết lập về soạn thảo" type="object" states="cancel"/>
+                        <button name="action_cancel" string="Huỷ" type="object" states="approve,open,done"/>
+                        <field name="state" readonly="1" widget="statusbar"/>
+                    </header>
+                </xpath>
+                <xpath expr="//form/sheet/div[@name='button_box']" position="inside">
+                    <button name="action_open_account_guarantee" type="object" class="oe_stat_button" icon="fa-book">
+                        <field string="Bảo lãnh" name="account_guarantee_count" widget="statinfo"/>
+                    </button>
+                    <button name="action_open_sale_order" type="object" class="oe_stat_button" icon="fa-building-o">
+                        <field string="Đơn hàng" name="sale_order_count" widget="statinfo"/>
+                    </button>
+                </xpath>
+                <xpath expr="//form/sheet/notebook" position="inside">
+                    <page string="Lịch sử hợp đồng" invisible="0">
+                        <field name="contract_history" readonly="1">
+                            <tree>
+                                <field name="date"/>
+                                <field name="description"/>
+                                <field name="name" invisible="1"/>
+                                <field name="old_data" invisible="1"/>
+                                <field name="new_date" invisible="1"/>
+                                <field name="user_id"/>
+                            </tree>
+                            <group>
+                                <group>
+                                    <field name="date"/>
+                                    <field name="description"/>
+                                    <field name="user_id"/>
+                                </group>
+                                <group></group>
+                            </group>
+                        </field>
+                    </page>
+                    <page string="Ngân sách">
+                        <field name="crossovered_budget_line" widget="one2many_list" colspan="4" nolabel="1" mode="tree">
+                            <tree string="Budget Items" editable="top">
+                                <field name="crossovered_budget_id"/>
+                                <field name="general_budget_id"/>
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                                <field name="paid_date"/>
+                                <field name="planned_amount" widget="monetary"/>
+                                <field name="practical_amount" sum="Practical Amount" widget="monetary"/>
+                                <field name="theoritical_amount" sum="Theoritical Amount" widget="monetary"/>
+                                <field name="percentage"/>
+                            </tree>
+                            <form string="Budget Items">
+                                <field name="crossovered_budget_id"/>
+                                <field name="general_budget_id"/>
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                                <field name="paid_date"/>
+                                <field name="planned_amount" widget="monetary"/>
+                            </form>
+                        </field>
+                    </page>
+                    <page string="Báo giá" name="job_costing">
+                        <field name="job_costing_ids"/>
+                    </page>
+                </xpath>
+                <xpath expr="//page[@name='job_costing']" position="after">
+                    <page name="maintenance_request" string="Phụ Lục">
+                        <field name="maintenance_ids"/>
+                    </page>
+                </xpath>
+            </field>
+         </record>
+
+        <record id="stable_account_analytic_analysis.action_account_analytic_overdue_all" model="ir.actions.act_window">
+            <field name="context">{'default_type': 'contract', 'default_manager_id':uid, 'default_is_project': 1}</field>
+        </record>
+    </data>
+</odoo>

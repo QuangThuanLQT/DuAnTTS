@@ -1,0 +1,87 @@
+<odoo>
+    <data>
+        <record id="view_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="order_line" position="attributes">
+                    <attribute name="context">{'only_show_default_code':True,'sale_order_ctx':sale_order_return_ids,'sale_from_project':sale_from_project,'check_so_type_sx':check_so_type_sx
+                        ,'analytic_tag_ids':so_type_id,}</attribute>
+                </field>
+                <field name="partner_shipping_id" position="after">
+                    <field name="check_so_type_sx" invisible="1"/>
+                    <field name="so_type_id" widget="selection"/>
+                    <!--<field name="mrp_routing_id" attrs="{'invisible' : ['|',('sale_from_project', '=', False),('check_so_type_sx','=',False)]}"/>-->
+                    <field name="sale_from_project" invisible="1"/>
+                    <!--<field name="location_dest_id" attrs="{'invisible' : [('sale_from_project', '=', False)],'required':[('sale_from_project','=',True)]}"/>-->
+                </field>
+                <xpath expr="//form/sheet/group/group[2]" position="inside">
+                    <field name="sale_project_id"/>
+                    <!--
+                           attrs="{'required':['|', ('so_type_id', '=', %(cptuanhuy_project_contract.sale_order_type_sx)d),
+                                                    ('so_type_id', '=', %(cptuanhuy_project_contract.sale_order_type_cong_trinh)d)]}" -->
+                    <field name="project_manager_id" attrs="{'invisible' : [('sale_from_project', '=', False)]}"/>
+                    <field name="user_email"/>
+                    <field name="user_phone"/>
+                    <field name="contract_id" domain="[('project_id', '=', sale_project_id)]"/>
+                    <!-- attrs="{'required':['|', ('so_type_id', '=', %(cptuanhuy_project_contract.sale_order_type_sx)d),
+                                                    ('so_type_id', '=', %(cptuanhuy_project_contract.sale_order_type_cong_trinh)d)]}" -->
+                </xpath>
+                <xpath expr="//form/sheet/div[@name='button_box']" position="inside">
+                    <button name="action_show_contract_attachment" type="object" icon="fa-book" class="oe_stat_button" attrs="{'invisible':['|',('sale_from_project','!=',True),('contract_attachment_count','=',0)]}">
+                        <field name="contract_attachment_count" widget="statinfo" string="Attachments" />
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="action_orders_from_contract" model="ir.actions.act_window">
+            <field name="name">Đơn hàng</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
+            <field name="search_view_id" ref="sale.sale_order_view_search_inherit_sale"/>
+            <field name="context">{'sale_from_project':True}</field>
+            <field name="domain">[('sale_from_project','=',True)]
+            </field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create a Quotation, the first step of a new sale.
+                </p>
+                <p>
+                    Once the quotation is confirmed, it becomes a sales order.
+                    You'll be able to invoice it and collect payments.
+                    From the <i>Sales Orders</i> menu, you can track delivery
+                    orders or services.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="orders_from_contract_menu" name="Đơn hàng"
+            action="action_orders_from_contract" parent="cptuanhuy_project.menu_project_contract_parent"/>
+
+        <record id="view_order_tree_inherit_add_so_type" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit.so.type</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="so_type_id"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_order_line_tree_inherit_add_so_type" model="ir.ui.view">
+            <field name="name">sale.order.line.form.inherit.so.type</field>
+            <field name="model">sale.order.line</field>
+            <field name="inherit_id" ref="sale.view_order_line_tree"/>
+            <field name="arch" type="xml">
+                <field name="order_id" position="after">
+                    <field name="analytic_tag_ids" string="Loại doanh thu" widget="many2many_tags"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

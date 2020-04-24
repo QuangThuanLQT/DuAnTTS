@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="sale_order_report_popup_view" model="ir.ui.view">
+            <field name="name">sale.order.report.poup.form</field>
+            <field name="model">sale.order.report.poup</field>
+            <field name="arch" type="xml">
+                <form string="Báo cáo hiệu quả kinh doanh">
+                    <sheet>
+                        <group col="4">
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="do_print" string="In" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Huỷ" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_server_print_sale_report" model="ir.actions.act_window">
+            <field name="name">Báo cáo hiệu quả kinh doanh</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order.report.poup</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="cptuanhuy_sale_report.sale_order_report_popup_view"/>
+            <field name="target">new</field>
+        </record>
+
+        <record model="ir.values" id="action_sale_report_value">
+            <field name="model">sale.order</field>
+            <field name="name">Báo cáo hiệu quả kinh doanh</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('action_server_print_sale_report'))" />
+        </record>
+
+        <record id="action_server_theo_doi_sale_excel" model="ir.actions.server">
+            <field name="name">Báo cáo excel</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_sale_order"/>
+            <field name="state">code</field>
+            <field name="code">action = record.theo_doi_sale_excel();
+            </field>
+        </record>
+
+
+        <record model="ir.values" id="action_theo_doi_sale_excel_value">
+            <field name="model">sale.order</field>
+            <field name="name">Báo cáo excel</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_server_theo_doi_sale_excel'))" />
+        </record>
+    </data>
+</odoo>

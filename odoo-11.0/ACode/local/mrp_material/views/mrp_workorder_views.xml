@@ -1,0 +1,45 @@
+<odoo>
+    <data>
+        <record id="mrp_production_workcenter_form_view_inherit" model="ir.ui.view">
+            <field name="name">mrp.workorder.form.inherit</field>
+            <field name="model">mrp.workorder</field>
+            <field name="inherit_id" ref="mrp.mrp_production_workcenter_form_view_inherit"/>
+            <field name="arch" type="xml">
+                <field name="move_raw_ids" position="replace">
+                    <group string="Raw Materials">
+                        <field name="move_raw_ids"/>
+                    </group>
+                </field>
+                <notebook position="inside">
+                    <page string="Materials" groups="mrp.group_mrp_manager">
+                        <group string="Request">
+                            <field name="material_request_ids">
+                                <tree editable="bottom">
+                                    <field name="date_expected"/>
+                                    <field name="date"/>
+                                    <field name="name"/>
+                                    <field name="product_id"/>
+                                    <field name="ordered_qty"/>
+                                    <field name="product_uom"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group string="Return">
+                            <field name="material_return_ids">
+                                <tree editable="bottom">
+                                    <field name="date"/>
+                                    <field name="name"/>
+                                    <field name="product_id"/>
+                                    <field name="returned_qty"/>
+                                    <field name="product_uom"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+    </data>
+</odoo>

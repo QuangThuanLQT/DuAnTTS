@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-name="WebTreeGantt">
+        <button type="button" class="btn btn-icon fa fa-lg fa-tasks o_cp_switch_gantt web_tree_gantt_button" style="float:right" data-original-title="Gantt"/>
+        <button type="button" class="btn btn-icon fa fa-lg fa-list-ul o_cp_switch_list web_tree_gantt_button active" style="float:right" data-original-title="Danh sách"/>
+        <div id="gantt_here" class="hidden" style="width:100%; height:1700px;"></div>
+    </t>
+</templates>

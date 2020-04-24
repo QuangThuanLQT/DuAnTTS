@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+
+        <record id="lock_sale_puchase_form" model="ir.ui.view">
+            <field name="name">lock.sale.puchase.popup</field>
+            <field name="model">lock.sale.puchase.popup</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group><field name="date_start"/></group>
+                            <group><field name="date_end"/></group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="confirm_lock" string="Confirm" type="object" class="oe_highlight"/> or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="lock_sale_puchase_action" model="ir.actions.act_window">
+            <field name="name">Khoá phiếu</field>
+            <field name="res_model">lock.sale.puchase.popup</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem name="Khoá phiếu" action="lock_sale_puchase_action" id="lock_sale_puchase_menu" parent="sales_team.menu_sale_config" sequence="1"/>
+    </data>
+</odoo>

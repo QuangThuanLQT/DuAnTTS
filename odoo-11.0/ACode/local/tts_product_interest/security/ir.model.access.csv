@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_interest_all_user,name_product_interest_all_user,model_product_interest,,1,1,1,1

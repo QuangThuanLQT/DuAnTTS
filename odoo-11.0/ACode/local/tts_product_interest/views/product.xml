@@ -1,0 +1,41 @@
+<odoo>
+    <data>
+        <record id="product_interest_tree_view" model="ir.ui.view">
+            <field name="name">product.interest</field>
+            <field name="model">product.interest</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="default_code"/>
+                    <field name="product_id"/>
+                    <field name="date_interest"/>
+                    <field name="list_price"/>
+                    <field name="qty_available"/>
+                    <field name="sp_ban_chua_giao"/>
+                    <field name="sp_da_bao_gia"/>
+                    <field name="sp_co_the_ban"/>
+                    <field name="product_active" invisible="1"/>
+                    <field name="trang_thai_hd" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        <record id="product_interest_view_search" model="ir.ui.view">
+            <field name="name">product.interest.search</field>
+            <field name="model">product.interest</field>
+            <field name="arch" type="xml">
+                <search>
+                    <filter name="product_active" string='Trạng Thái Đang Kinh Doanh'
+                            domain="[('product_active', '=', 'True')]"/>
+                </search>
+            </field>
+        </record>
+        <record id="product_interest_action" model="ir.actions.act_window">
+            <field name="name">Product Interest</field>
+            <field name="res_model">product.interest</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,search</field>
+            <field name="context">{}</field>
+            <field name="view_id" ref="product_interest_tree_view"/>
+        </record>
+
+    </data>
+</odoo>

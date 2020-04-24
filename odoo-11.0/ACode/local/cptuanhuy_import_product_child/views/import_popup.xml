@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="import_product_child_view_result" model="ir.ui.view">
+            <field name="name">Import phụ kiện</field>
+            <field name="model">import.product.child</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="not_find_product" string="Sản phẩm không tìm thấy" attrs="{'invisible': [('not_find_product','=',False)]}"/>
+                        <field name="not_find_pk" string="Phụ kiện không tìm thấy" attrs="{'invisible': [('not_find_pk','=',False)]}"/>
+                    </group>
+                    <footer>
+                        <button string="Huỷ" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="import_product_child_view" model="ir.ui.view">
+            <field name="name">Import phụ kiện</field>
+            <field name="model">import.product.child</field>
+            <field name="arch" type="xml">
+                <form>
+                    <label string=""/>
+                    <group>
+                        <field name="data_import" string="Tải file của bạn lên"/>
+                    </group>
+                    <footer>
+                        <button name="import_data_excel" string="Import" type="object" default_focus="1"
+                                class="oe_highlight"/>
+                        hoặc
+                        <button string="Huỷ" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="import_product_child_action" model="ir.actions.act_window">
+            <field name="name">Import phụ kiện</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">import.product.child</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="cptuanhuy_import_product_child.import_product_child_view"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="import_product_child_menu" name="Import phụ kiện" parent="sale.prod_config_main" action="import_product_child_action" sequence="15"/>
+    </data>
+</odoo>

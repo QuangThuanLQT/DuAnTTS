@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="project_notification_cron" model="ir.cron">
+            <field name="name">Create MRP Picking</field>
+            <field eval="True" name="active"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'stock.picking'"></field>
+            <field name="function" eval="'cron_create_mrp_picking_id'"/>
+        </record>
+        <!--<record id="ir_cron_update_mrp_picking" model="ir.cron">-->
+            <!--<field name="name">Update Mrp Picking</field>-->
+            <!--<field eval="False" name="active" />-->
+            <!--<field name="user_id" ref="base.user_root" />-->
+            <!--<field name="interval_number">11111</field>-->
+            <!--<field name="interval_type">minutes</field>-->
+            <!--<field name="numbercall">-1</field>-->
+            <!--<field eval="False" name="doall" />-->
+            <!--<field eval="'stock.picking'" name="model" />-->
+            <!--<field eval="'cron_update_picking_mrp'" name="function" />-->
+        <!--</record>-->
+
+        <record id="create_project_picking_cron_action" model="ir.cron">
+            <field name="name">Create Project Picking</field>
+            <field eval="False" name="active"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'stock.picking'"></field>
+            <field name="function" eval="'cron_create_project_picking'"/>
+        </record>
+    </data>
+</odoo>

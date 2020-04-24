@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!--NV kho-->
+
+        <record id="group_nv_kho" model="res.groups">
+            <field name="name">NV Kho</field>
+            <field name="category_id" ref="tts_modifier_access_right.kho_giaonhan_category"/>
+            <field name="implied_ids"
+                    eval="[(4, ref('base.group_user')),
+                   (4,ref('stock.group_stock_manager')),
+                   (4,ref('tts_modifier_inventory.manager_department_inventory_group')),
+                   (4,ref('stock.group_stock_multi_locations'))
+                   ]"/>
+        </record>
+
+        <record id="access_group_nv_kho" model="access.rights.group">
+            <field name="name">NV Kho</field>
+            <field name="group_ids" eval="[(4, ref('group_nv_kho'))]"/>
+        </record>
+    </data>
+</odoo>

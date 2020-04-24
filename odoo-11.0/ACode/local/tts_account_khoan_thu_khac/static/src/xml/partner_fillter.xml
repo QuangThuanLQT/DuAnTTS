@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template_account_ktk" xml:space="preserve">
+    <t t-name="export_button">
+        <button type="button" class='btn btn-sm btn-default o_buttons_print_excel'>Export Overview</button>
+    </t>
+</templates>

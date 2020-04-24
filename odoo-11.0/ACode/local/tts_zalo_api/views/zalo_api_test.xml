@@ -1,0 +1,81 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="zalo_api_test_wizard_success">
+            <field name="name">zalo.api.test.wizard.success</field>
+            <field name="model">zalo.api.test</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <span>Gửi thành công!.</span>
+                    </group>
+                    <footer>
+                        <button string="OK" special="cancel" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="zalo_api_test_wizard_fail">
+            <field name="name">zalo.api.test.wizard.fail</field>
+            <field name="model">zalo.api.test</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <span>Gửi lỗi!.</span>
+                    </group>
+                    <footer>
+                        <button string="OK" special="cancel" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="zalo_api_test_form">
+            <field name="name">zalo.api.test.form</field>
+            <field name="model">zalo.api.test</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button string="Send" name="send_message" type="object" class="btn-primary"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="phone"/>
+                            <field name="mess"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="zalo_api_test_tree">
+            <field name="name">zalo.api.test.tree</field>
+            <field name="model">zalo.api.test</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="phone"/>
+                    <field name="mess"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="zalo_api_test_action">
+            <field name="name">Zalo API Test</field>
+            <field name="res_model">zalo.api.test</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="zalo_api_test_action">
+            <field name="name">Zalo API Test</field>
+            <field name="res_model">zalo.api.test</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Zalo Test API" id="tts_zalo_test" parent="zalo_api_root"
+                  action="zalo_api_test_action" sequence="5"/>
+
+    </data>
+</odoo>

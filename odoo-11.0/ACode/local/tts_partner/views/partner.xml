@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_partner_form_feosco_inherit" model="ir.ui.view">
+            <field name="name">res.partner.form.feosco.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="feosco_base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='feosco_district_id']" position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_edit': True, 'no_open': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='feosco_city_id']" position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_edit': True, 'no_open': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='feosco_ward_id']" position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_edit': True, 'no_open': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='street']" position="replace"></xpath>
+                <xpath expr="//field[@name='feosco_ward_id']" position="after">
+                    <field name="street" placeholder="Số nhà, đường (thôn/xóm)" class="o_address_street"
+                           attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='ref']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='feosco_business_type']" position="after">
+                    <field name="loai_hinh_kd_id" options="{'no_quick_create':True, 'no_create_edit':True}"/>
+                </xpath>
+                <xpath expr="//field[@name='feosco_business_type']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_partner_from_inherit_tts" model="ir.ui.view">
+            <field name="name">res.partner.form.tts.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/group[1]/group[1]" position="inside">
+                    <field name="sale_type" groups="tts_modifier_access_right.group_giam_doc_kd, tts_modifier_access_right.group_truong_kd"/>
+                    <!--<field name="sale_order_ids" widget="many2many_tags"/>-->
+                    <field name="payment_method"/>
+                    <!--<field name="active" invisible="1"/>-->
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_partner_tree_inherit_tts" model="ir.ui.view">
+            <field name="name">res.partner.tree.tts.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='email']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+                <xpath expr="///field[@name='user_id']" position="after">
+                    <field name="create_date"/>
+                    <field name="last_invoice_date" invisible="1"/>
+                    <field name="last_invoice_date_sub" invisible="0"/>
+                    <field name="sale_amount" string="Tổng bán"/>
+                    <field name="return_amount"/>
+                    <field name="sale_total_amount" string="Tổng bán trừ tổng trả hàng"/>
+                    <field name="sale_type"/>
+                    <field name="active" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_vendors_tree_inherit_tts" model="ir.ui.view">
+            <field name="name">res.partner.tree.tts.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <!--<xpath expr="//field[@name='email']" position="attributes">-->
+                        <!--<attribute name="invisible">1</attribute>-->
+                    <!--</xpath>-->
+                    <!--<xpath expr="//field[@name='user_id']" position="attributes">-->
+                        <!--<attribute name="invisible">0</attribute>-->
+                    <!--</xpath>-->
+                    <field name="display_name" string="Name"/>
+                    <field name="phone"/>
+                    <field name="email" invisible="1"/>
+                    <field name="user_id"/>
+                    <field name="create_date"/>
+                    <field name="last_invoice_date" invisible="1"/>
+                    <field name="last_invoice_date_sub" invisible="0"/>
+                    <field name="sale_amount" string="Tổng mua"/>
+                    <field name="return_amount"/>
+                    <field name="sale_total_amount" string="Tổng mua trừ tổng trả hàng"/>
+                    <field name="sale_type"/>
+                    <field name="active" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="vendors_action">
+            <field name="name">Vendors</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+        <record id="base.action_partner_supplier_form" model="ir.actions.act_window">
+            <field name="context">{'tree_view_ref': 'tts_partner.view_vendors_tree_inherit_tts','search_default_supplier': 1,'default_customer': 0,'default_supplier': 1}</field>
+        </record>
+
+        <record id="view_res_partner_filter_assign_tree_invisible_field" model="ir.ui.view">
+            <field name="name">res.partner.tree.tts.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="website_crm_partner_assign.view_res_partner_filter_assign_tree"/>
+            <field name="arch" type="xml">
+                <field name="date_review_next" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="grade_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="activation" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+
+        <!--<record id="base.action_partner_form" model="ir.actions.act_window">-->
+        <!--<field name="domain">[('sale_type','=','allow')]</field>-->
+        <!--</record>-->
+
+        <record id="seq_ref_partner" model="ir.sequence">
+            <field name="name">Ref Partner</field>
+            <field name="code">res.ref.partner</field>
+            <field name="prefix">KH</field>
+            <field name="padding">6</field>
+        </record>
+
+        <record id="seq_ref_vendor" model="ir.sequence">
+            <field name="name">Ref Vendor</field>
+            <field name="code">vendor.sequence</field>
+            <field name="prefix">NCC</field>
+            <field name="padding">6</field>
+        </record>
+
+
+        <record id="view_res_partner_filter_inherit" model="ir.ui.view">
+            <field name="name">res.partner.select.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="phone"
+                           filter_domain="['|',('phone','ilike',self),('mobile','ilike',self)]"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_partner_form_inherit_ihr" model="ir.ui.view">
+            <field name="name">res.partner.view.inherit.ihr</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="tuanhuy_modifier_partner.view_partner_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='group_kh1_id']" position="attributes">
+                    <attribute name="string">PK theo Danh Mục KD</attribute>
+                </xpath>
+                <xpath expr="//field[@name='group_kh2_id']" position="attributes">
+                    <attribute name="string">PK theo Mô Hình KD</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_partner_form_ihr" model="ir.ui.view">
+            <field name="name">view_partner_form.ihr</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="feosco_base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='ref']" position="attributes">
+                    <attribute name="string">Mã KH Nội Bộ</attribute>
+                </xpath>
+                <xpath expr="//field[@name='function']" position="before">
+                    <label for="maKH"/>
+                    <div>
+                        KH<field name="maKH" attrs="{'required': [('customer', '=', True), ('supplier', '=', False)]}"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+        <record id="attachment_co" model="sale.attachment">
+            <field name="name"><![CDATA[CO]]></field>
+        </record>
+
+        <record id="attachment_cq" model="sale.attachment">
+            <field name="name"><![CDATA[CQ]]></field>
+        </record>
+
+        <record id="attachment_hd" model="sale.attachment">
+            <field name="name"><![CDATA[Hoá đơn]]></field>
+        </record>
+
+        <record id="attachment_bbgn" model="sale.attachment">
+            <field name="name"><![CDATA[Biên bản giao nhận]]></field>
+        </record>
+    </data>
+</odoo>

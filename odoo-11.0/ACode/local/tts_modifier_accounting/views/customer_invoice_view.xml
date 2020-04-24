@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="invoice_tree_inherit_add_date_order_inherit">
+            <field name="name">account.invoice.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="tuanhuy_invoice.invoice_tree_inherit_add_date_order"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='record_checked']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='change_record_checked']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='number_origin']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="invoice_form_form_inherit_tts">
+            <field name="name">account.invoice.inherit.tts</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="tuanhuy_invoice.invoice_form_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="options">{'no_create_edit': True, 'no_quick_create':True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='product_id']" position="attributes">
+                    <attribute name="options">{'no_create_edit': True, 'no_quick_create':True}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="invoice_supplier_form_inherit_tts">
+            <field name="name">account.invoice.supplier.form.tts</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="tuanhuy_invoice.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="options">{'no_create_edit': True, 'no_quick_create':True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='product_id']" position="attributes">
+                    <attribute name="options">{'no_create_edit': True, 'no_quick_create':True}</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

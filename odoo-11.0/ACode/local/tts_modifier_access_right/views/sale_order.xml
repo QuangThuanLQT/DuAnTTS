@@ -1,0 +1,42 @@
+<odoo>
+    <data>
+        <menuitem id="sales_team.menu_sale_report" name="Reports" parent="sales_team.menu_base_partner" sequence="99"
+                  groups="sales_team.group_sale_manager,tts_modifier_access_right.group_ketoan_tonghop,tts_modifier_access_right.group_ketoan_kho"/>
+
+        <record model="ir.ui.view" id="view_order_form_ihr_accessright">
+            <field name="name">tuanhuy_sale.view_order_form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="tts_modifier_sale.tuanhuy_sale_view_order_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit_sub']" position="attributes">
+                    <attribute name="groups">tts_modifier_access_right.group_nv_nganh_hang,
+                        tts_modifier_access_right.group_nvkd,tts_modifier_access_right.group_ketoan_kho,
+                        tts_modifier_access_right.group_ketoan_tonghop
+                    </attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                    <attribute name="groups">
+                        tts_modifier_access_right.group_giam_doc_kd,tts_modifier_access_right.group_truong_kd
+                    </attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_order_form_nvkd_tnkd">
+            <field name="name">sale.order.form.user_id.nvkd.tnkd</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='sales_person']/field[@name='user_id']" position="attributes">
+                    <attribute name="groups">
+                        tts_modifier_access_right.group_truong_kd,tts_modifier_access_right.group_nvkd
+                    </attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

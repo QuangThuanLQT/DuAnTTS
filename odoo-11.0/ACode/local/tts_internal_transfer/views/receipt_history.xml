@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="receipt_history_tree">
+            <field name="name">stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="priority">99</field>
+            <field name="arch" type="xml">
+                <tree create="false" delete="false">
+                    <field name="origin"/>
+                    <field name="receipt_confirm_order"/>
+                    <field name="total_dh_receipt"/>
+                    <field name="receiver"/>
+                    <field name="receive_increase"/>
+                    <field name="receipt_id" invisible="1"/>
+                    <field name="user_checking_receipt"/>
+                    <field name="checking_increase_receipt"/>
+                    <field name="state" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="receipt_history_action">
+            <field name="name">Lịch sử nhận hàng</field>
+            <field name="res_model">stock.picking</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">['|', ('origin', '=like', 'PO%'), ('origin', '=like', 'RT%'), ('picking_type_code','=', 'incoming')]</field>
+            <field name="view_id" ref="tts_internal_transfer.receipt_history_tree"/>
+        </record>
+
+        <menuitem id="receipt_history_menu" parent="stock.menu_warehouse_report" action="receipt_history_action"/>
+    </data>
+</odoo>

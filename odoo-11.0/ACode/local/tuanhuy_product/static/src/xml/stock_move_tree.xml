@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-extend="ControlPanel">
+        <t t-jquery="div.o_search_options" t-operation="after">
+            <div class="product_onhand hidden" style="margin-left:40%; margin-top: 8px">
+                <strong><span>On Hand : </span><span class="product_onhand_value">0</span></strong>
+            </div>
+        </t>
+    </t>
+
+
+    <t t-extend="ExportDialog">
+        <t t-jquery="div.o_import_compat" t-operation="replace">
+            <div class="o_import_compat">
+                <div><input type="radio" name="o_import_compat_name" value=""/><label>Import-Compatible Export</label></div>
+                <div><input type="radio" name="o_import_compat_name" value="yes" checked="checked"/><label>Export all Data</label></div>
+            </div>
+        </t>
+    </t>
+
+
+</templates>

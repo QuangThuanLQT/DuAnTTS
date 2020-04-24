@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="view_partner_inherit_product_interest" model="ir.ui.view">
+            <field name="name">res.partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="priority">100</field>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@class='oe_button_box']" position="inside">
+                    <button class="oe_stat_button" name="action_view_product_interest" type="object" icon="fa-heart">
+                        <field name="count_product_interest" widget="statinfo" modifiers="{}" String="Product Interested"/>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

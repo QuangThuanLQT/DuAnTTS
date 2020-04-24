@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="tuanhuy_product.report_simple_barcode">
+            <div class="col-xs-4" style="padding:0;">
+                <table style="border-spacing:0;margin-bottom:0;height:5cm;width:5cm;page-break-inside:avoid;" class="table">
+                    <thead>
+                        <tr style="width: 3in;">
+                            <td style="border: 2px solid black;width: 2.63in;" colspan="2" class="col-xs-8 danger text-center">
+                                <strong t-field="product.default_code"/>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="width: 1in;">
+                            <td style="border: 2px solid black;text-align: center; vertical-align: middle;" class="col-xs-12">
+                                <img t-if="product.barcode and len(product.barcode) == 13" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', product.barcode, 600, 150)" style="width:100%;height:20%;"/>
+                                <img t-elif="product.barcode and len(product.barcode) == 8" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN8', product.barcode, 600, 150)" style="width:100%;height:20%;"/>
+                                <img t-else="" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', product.barcode, 600, 150)" style="width:100%;height:20%;"/>
+                                <span t-field="product.barcode"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </template>
+
+        <template id="tuanhuy_product.report_producttemplate_barcode">
+            <t t-call="report.html_container">
+                <div class="page">
+                    <t t-foreach="docs" t-as="template">
+                        <t t-foreach="template.product_variant_ids" t-as="product">
+                            <t t-call="tuanhuy_product.report_simple_barcode">
+                                <t t-set="product" t-value="product"/>
+                            </t>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </template>
+
+        <report
+            id="report_product_template_barcode"
+            string="In Nhãn Sản Phẩm"
+            model="product.template"
+            report_type="qweb-pdf"
+            name="tuanhuy_product.report_producttemplate_barcode"
+            file="tuanhuy_product.report_producttemplate_barcode"/>
+
+        <record id="report_product_template_barcode_format_a4" model="report.paperformat">
+            <field name="name">Barcode A4</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">297</field>
+            <field name="page_width">210</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">13</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">30</field>
+            <field name="margin_right">3</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">9</field>
+            <field name="dpi">90</field>
+        </record>
+
+         <record id="tuanhuy_product.report_product_template_barcode" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="report_product_template_barcode_format_a4"/>
+        </record>
+
+    </data>
+</odoo>

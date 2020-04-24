@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="exported_history_tree">
+            <field name="name">stock.picking.tree.exported</field>
+            <field name="model">stock.picking</field>
+            <field name="priority">99</field>
+            <field name="arch" type="xml">
+                <tree create="false" delete="false">
+                    <field name="origin"/>
+                    <field name="export_confirm_order_sub"/>
+                    <field name="export_confirm_order" invisible="1"/>
+                    <field name="total_dh_export"/>
+                    <field name="export_user_pick"/>
+                    <field name="export_kiem_hang_tc"/>
+                    <field name="export_user_pack"/>
+                    <field name="export_dong_goi_tc"/>
+                    <field name="user_delivery_id"/>
+                    <field name="giao_hang_tang_cuong"/>
+                    <field name="state" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="exported_history_action">
+            <field name="name">Lịch sử xuất hàng</field>
+            <field name="res_model">stock.picking</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">['|', ('origin', '=like', 'SO%'), ('origin', '=like', 'RTP%'), ('picking_type_code', '=', 'outgoing')]</field>
+            <field name="view_id" ref="tts_internal_transfer.exported_history_tree"/>
+        </record>
+
+        <menuitem id="exported_history_menu" parent="stock.menu_warehouse_report" action="exported_history_action"/>
+    </data>
+</odoo>

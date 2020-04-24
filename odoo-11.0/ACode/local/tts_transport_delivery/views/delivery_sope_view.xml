@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="tts_delivery_scope_view_tree">
+            <field name="name">tts.delivery.scope.view.tree</field>
+            <field name="model">tts.delivery.scope</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="feosco_city_id"/>
+                    <field name="feosco_district_id"/>
+                    <field name="phuong_xa"/>
+                    <field name="state"/>
+                    <field name="khu_vuc"/>
+                    <field name="phi_giao_hang"/>
+                    <field name="thuong_giao_hang"/>
+                    <field name="thuong_giao_hang_tang_ca"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="tts_delivery_scope_view_form">
+            <field name="name">tts.delivery.scope.view.form</field>
+            <field name="model">tts.delivery.scope</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="feosco_city_id"/>
+                                <field name="feosco_district_id"/>
+                                <field name="phuong_xa"/>
+                                <field name="state"/>
+                                <field name="khu_vuc"/>
+                            </group>
+                            <group>
+                                <field name="phi_giao_hang"/>
+                                <field name="thuong_giao_hang"/>
+                                <field name="thuong_giao_hang_tang_ca"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="delivery_sope_view_action">
+            <field name="name">Phạm vi giao hàng</field>
+            <field name="res_model">tts.delivery.scope</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="delivery_sope_view_menu" name="Phạm vi giao hàng"
+                  parent="delivery.sale_menu_delivery"
+                  action="delivery_sope_view_action" sequence="51"/>
+    </data>
+</odoo>

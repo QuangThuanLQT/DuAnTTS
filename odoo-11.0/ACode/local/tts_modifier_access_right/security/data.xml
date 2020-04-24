@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!--Kinh doanh Category-->
+
+        <record model="ir.module.category" id="kinh_doanh_category">
+            <field name="name">Kinh doanh</field>
+            <field name="sequence">11</field>
+        </record>
+
+        <!--Giám đốc KD-->
+
+        <record id="group_giam_doc_kd" model="res.groups">
+            <field name="name">Giám đốc KD</field>
+            <field name="implied_ids"
+                   eval="[(4,ref('base.group_user')),
+                   (4,ref('stock.group_stock_manager')),
+                   (4,ref('tts_modifier_inventory.manager_department_inventory_group')),
+                   (4,ref('stock.group_stock_multi_locations')),
+                   (4,ref('stock.group_stock_multi_warehouses')),
+                   (4,ref('sales_team.group_sale_manager')),
+                   (4,ref('purchase.group_purchase_manager'))
+                   ]"/>
+            <field name="category_id" ref="kinh_doanh_category"/>
+        </record>
+
+        <record id="access_group_giam_doc_kd" model="access.rights.group">
+            <field name="name">Giám đốc KD</field>
+            <field name="group_ids" eval="[(4, ref('group_giam_doc_kd'))]"/>
+        </record>
+
+        <!--NV ngành hàng-->
+
+        <record id="group_nv_nganh_hang" model="res.groups">
+            <field name="name">NV ngành hàng</field>
+            <field name="category_id" ref="kinh_doanh_category"/>
+            <field name="implied_ids"
+                   eval="[(4, ref('base.group_user')),
+                   (4,ref('stock.group_stock_user')),
+                   (4,ref('sales_team.group_sale_manager')),
+                   (4,ref('purchase.group_purchase_manager')),
+                   ]"/>
+        </record>
+
+        <record id="access_group_nv_nganh_hang" model="access.rights.group">
+            <field name="name">NV ngành hàng</field>
+            <field name="group_ids" eval="[(4, ref('group_nv_nganh_hang'))]"/>
+        </record>
+
+        <!--NV mua hàng-->
+
+        <record id="group_nv_mua_hang" model="res.groups">
+            <field name="name">NV mua hàng</field>
+            <field name="category_id" ref="kinh_doanh_category"/>
+            <field name="implied_ids"
+                   eval="[(4, ref('base.group_user')),
+                   (4,ref('purchase.group_purchase_manager')),
+                   ]"/>
+        </record>
+
+        <record id="access_group_nv_mua_hang" model="access.rights.group">
+            <field name="name">NV mua hàng</field>
+            <field name="group_ids" eval="[(4, ref('group_nv_mua_hang'))]"/>
+        </record>
+
+        <!--Trưởng nhóm KD-->
+
+        <record id="group_truong_kd" model="res.groups">
+            <field name="name">Trưởng nhóm KD</field>
+            <field name="category_id" ref="kinh_doanh_category"/>
+            <field name="implied_ids"
+                   eval="[(4, ref('base.group_user')),
+                   (4,ref('sales_team.group_sale_manager')),
+                   ]"/>
+        </record>
+
+        <record id="access_group_truong_kd" model="access.rights.group">
+            <field name="name">Trưởng nhóm KD</field>
+            <field name="group_ids" eval="[(4, ref('group_truong_kd')),(4, ref('hr_holidays.group_hr_holidays_user')),(4, ref('base.group_erp_manager'))]"/>
+        </record>
+
+        <!--NVKD-->
+
+        <record id="group_nvkd" model="res.groups">
+            <field name="name">NVKD</field>
+            <field name="category_id" ref="kinh_doanh_category"/>
+            <field name="implied_ids"
+                   eval="[(4, ref('base.group_user')),
+                   (4,ref('sales_team.group_sale_manager')),
+                   ]"/>
+        </record>
+
+
+        <record id="access_group_nvkd" model="access.rights.group">
+            <field name="name">NVKD</field>
+            <field name="group_ids" eval="[(4, ref('group_nvkd'))]"/>
+        </record>
+
+        <!--TC-KT Category-->
+
+        <record model="ir.module.category" id="tc_kt_category">
+            <field name="name">TC-KT</field>
+            <field name="sequence">12</field>
+        </record>
+
+        <!--Kế toán tổng hợp-->
+
+        <record id="group_ketoan_tonghop" model="res.groups">
+            <field name="name">Kế toán tổng hợp</field>
+            <field name="implied_ids"
+                   eval="[(4, ref('base.group_user')),
+                   (4,ref('stock.group_stock_user')),
+                   (4,ref('account.group_account_manager')),
+                   (3,ref('sales_team.group_sale_salesman')),
+                   (4,ref('sales_team.group_sale_salesman_all_leads')),
+                   (4,ref('purchase.group_purchase_manager')),
+                   (4,ref('stock.group_stock_multi_locations')),
+                   (4,ref('hr_expense.group_hr_expense_manager')),
+                   (4, ref('hr_holidays.group_hr_holidays_user')),
+                   ]"/>
+            <field name="category_id" ref="tc_kt_category"/>
+        </record>
+
+        <record id="access_group_ketoan_tonghop" model="access.rights.group">
+            <field name="name">Kế toán tổng hợp</field>
+            <field name="group_ids" eval="[(4, ref('group_ketoan_tonghop'))]"/>
+        </record>
+
+        <!--Kế toán kho-->
+
+        <record id="group_ketoan_kho" model="res.groups">
+            <field name="name">Kế toán kho</field>
+            <field name="category_id" ref="tc_kt_category"/>
+            <field name="implied_ids"
+                   eval="[(4, ref('base.group_user')),
+                   (4,ref('stock.group_stock_user')),
+                   (4,ref('account.group_account_manager')),
+                   (3,ref('sales_team.group_sale_salesman')),
+                   (4,ref('sales_team.group_sale_salesman_all_leads')),
+                   (4,ref('purchase.group_purchase_manager')),
+                   (4,ref('stock.group_stock_multi_locations')),
+                   ]"/>
+        </record>
+
+        <record id="access_group_ketoan_kho" model="access.rights.group">
+            <field name="name">Kế toán kho</field>
+            <field name="group_ids" eval="[(4, ref('group_ketoan_kho'))]"/>
+        </record>
+
+
+        <!--Kho - Giao nhận Category-->
+
+        <record model="ir.module.category" id="kho_giaonhan_category">
+            <field name="name">Kho - Giao nhận</field>
+            <field name="sequence">12</field>
+        </record>
+
+        <!--QL Kho-->
+
+        <record id="group_ql_kho" model="res.groups">
+            <field name="name">QL Kho</field>
+            <field name="implied_ids"
+                   eval="[(4, ref('base.group_user')),
+                   (4,ref('stock.group_stock_manager')),
+                   (4,ref('tts_modifier_inventory.manager_department_inventory_group')),
+                   (4,ref('stock.group_stock_multi_locations'))
+                   ]"/>
+            <field name="category_id" ref="kho_giaonhan_category"/>
+        </record>
+
+        <record id="access_group_ql_kho" model="access.rights.group">
+            <field name="name">QL Kho</field>
+            <field name="group_ids" eval="[(4, ref('group_ql_kho'))]"/>
+        </record>
+
+        <!--NV Nhập hàng-->
+
+        <record id="group_nv_nhap_hang" model="res.groups">
+            <field name="name">NV Nhập hàng</field>
+            <field name="category_id" ref="kho_giaonhan_category"/>
+            <field name="implied_ids"
+                   eval="[(4, ref('base.group_user')),
+                   (4,ref('tts_modifier_inventory.manager_department_inventory_group')),
+                   (4,ref('stock.group_stock_user'))]"/>
+        </record>
+
+        <record id="access_group_nv_nhap_hang" model="access.rights.group">
+            <field name="name">NV Nhập hàng</field>
+            <field name="group_ids" eval="[(4, ref('group_nv_nhap_hang'))]"/>
+        </record>
+
+        <!--NV Soạn + Đóng gói-->
+
+        <record id="group_soan_donggoi" model="res.groups">
+            <field name="name">NV Soạn + Đóng gói</field>
+            <field name="implied_ids"
+                   eval="[(4, ref('base.group_user')),
+                   (4,ref('tts_modifier_inventory.manager_department_inventory_group')),
+                   (4,ref('stock.group_stock_user'))
+                   ]"/>
+            <field name="category_id" ref="kho_giaonhan_category"/>
+        </record>
+        <record id="access_group_soan_donggoi" model="access.rights.group">
+            <field name="name">NV Soạn + Đóng gói</field>
+            <field name="group_ids" eval="[(4, ref('group_soan_donggoi'))]"/>
+        </record>
+
+        <!--NV Giao hàng-->
+
+        <record id="group_nv_giao_hang" model="res.groups">
+            <field name="name">NV Giao hàng</field>
+            <field name="category_id" ref="kho_giaonhan_category"/>
+            <field name="implied_ids"
+                   eval="[(4, ref('base.group_user')),
+                   (4,ref('stock.group_stock_manager'))
+                   ]"/>
+        </record>
+
+        <record id="access_group_nv_giao_hang" model="access.rights.group">
+            <field name="name">NV Giao hàng</field>
+            <field name="group_ids" eval="[(4, ref('group_nv_giao_hang'))]"/>
+        </record>
+
+
+        <!--Khách hàng-->
+
+        <record id="group_khach_hang" model="res.groups">
+            <field name="name">Khách hàng</field>
+            <field name="implied_ids"
+                   eval="[(4, ref('base.group_user')),
+                   (4,ref('sales_team.group_sale_manager'))
+                   ]"/>
+        </record>
+
+        <record id="access_group_khach_hang" model="access.rights.group">
+            <field name="name">Khách hàng</field>
+            <field name="group_ids" eval="[(4, ref('group_khach_hang'))]"/>
+        </record>
+
+
+        <!--Sales Purchase Manager-->
+
+        <record id="group_sale_purchase_manager" model="res.groups">
+            <field name="name">Sales Purchase Manager</field>
+            <field name="implied_ids"
+                   eval="[(4, ref('sales_team.group_sale_manager')), (4, ref('purchase.group_purchase_manager'))]"/>
+        </record>
+
+        <record id="access_group_sale_purchase_manager" model="access.rights.group">
+            <field name="name">Sales Purchase Manager</field>
+            <field name="group_ids" eval="[(4, ref('group_sale_purchase_manager'))]"/>
+        </record>
+
+
+        <!--Nhân sự-->
+
+        <record id="group_nhan_su" model="res.groups">
+            <field name="name">Nhân sự</field>
+            <field name="implied_ids"
+                   eval="[(4, ref('base.group_erp_manager')),
+                   (4, ref('hr_recruitment.group_hr_recruitment_manager')),
+                   (4, ref('hr_holidays.group_hr_holidays_manager')),
+                   (4, ref('hr.group_hr_manager')),
+                   (4, ref('hr_expense.group_hr_expense_user')),
+                   (4, ref('hr_attendance.group_hr_attendance_manager')),
+                   (4, ref('hr_payroll.group_hr_payroll_manager'))]"/>
+        </record>
+
+        <record id="access_group_nhan_su" model="access.rights.group">
+            <field name="name">Nhân sự</field>
+            <field name="group_ids" eval="[(4, ref('group_nhan_su'))]"/>
+        </record>
+
+    </data>
+</odoo>

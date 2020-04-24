@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="account_guarantee_form_inherit_add_project" model="ir.ui.view">
+            <field name="name">account.guarantee.form.add.project</field>
+            <field name="model">account.guarantee</field>
+            <field name="inherit_id" ref="account_guarantee.account_guarantee_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="project_id"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="account_form_view_inherit" model="ir.ui.view">
+            <field name="name">Account Form View Inherit</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_form" />
+            <field name="arch" type="xml">
+                <field name="user_type_id" position="after">
+                    <field name="parent_id" domain="[('internal_type','=','view')]"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="chart_of_accounts_tree_view" model="ir.ui.view">
+            <field name="name">Chart Of Accounts Tree View</field>
+            <field name="model">account.account</field>
+            <field name="field_parent">child_account_ids</field>
+            <field name="arch" type="xml">
+                <tree string="Chart Of Accounts">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="debit"/>
+                    <field name="credit"/>
+                    <field name="balance"/>
+                    <field name="currency_id"/>
+                    <field name="company_id"/>
+                    <field name="user_type_id"/>
+                    <field name="parent_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_chart_of_accounts_tree" model="ir.actions.act_window">
+            <field name="name">Chart of Accounts</field>
+            <field name="res_model">account.account</field>
+            <field name="view_type">tree</field>
+            <field name="view_id" ref="chart_of_accounts_tree_view"/>
+            <field name="domain">[('parent_id','=',False)]</field>
+        </record>
+
+        <act_window
+            id="action_account_move_line_select"
+            name="Journal Items"
+            context="{'search_default_account_id': [active_id]}"
+            res_model="account.move.line"
+            src_model="account.account"
+            key2="tree_but_open"/>
+
+        <!--Change COA menu name-->
+        <record id="account.action_account_form" model="ir.actions.act_window">
+            <field name="name">Accounts</field>
+        </record>
+
+        <menuitem action="account.action_account_form" id="account.menu_action_account_form" parent="account.menu_finance_entries" sequence="20"/>
+
+    </data>
+</odoo>

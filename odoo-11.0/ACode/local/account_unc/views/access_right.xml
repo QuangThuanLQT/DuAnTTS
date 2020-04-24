@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="group_ke_toan_truong" model="res.groups">
+            <field name="name">Group Kế toán trưởng</field>
+        </record>
+
+        <record id="group_pho_giam_doc_tai_chinh" model="res.groups">
+            <field name="name">Group Phó Giám đốc tài chính</field>
+        </record>
+
+        <record id="group_tong_giam_doc" model="res.groups">
+            <field name="name">Group Tổng Giám đốc</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,23 @@
+<odoo>
+    <data>
+        <record id="view_warehouse_inherit_printiz" model="ir.ui.view">
+            <field name="name">stock.warehouse.inherit</field>
+            <field name="model">stock.warehouse</field>
+            <field name="inherit_id" ref="stock.view_warehouse"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='wh_output_stock_loc_id']" position="after">
+                    <field name="wh_print_stock_loc_id" readonly="1"/>
+                    <field name="wh_kcs1_stock_loc_id" readonly="1"/>
+                    <field name="wh_kcs2_stock_loc_id" readonly="1"/>
+                </xpath>
+                <xpath expr="//field[@name='out_type_id']" position="after">
+                    <field name="produce_name_type_id" readonly="1"/>
+                    <field name="produce_image_type_id" readonly="1"/>
+                    <field name="print_type_id" readonly="1"/>
+                    <field name="kcs1_type_id" readonly="1"/>
+                    <field name="kcs2_type_id" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

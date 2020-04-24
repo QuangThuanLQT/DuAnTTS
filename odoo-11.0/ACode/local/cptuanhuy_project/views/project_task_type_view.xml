@@ -1,0 +1,28 @@
+<odoo>
+    <data>
+        <record id="task_type_edit_inherit" model="ir.ui.view">
+            <field name="name">project.task.type.form</field>
+            <field name="model">project.task.type</field>
+            <field name="inherit_id" ref="project.task_type_edit"/>
+            <field name="arch" type="xml">
+                <field name="mail_template_id" position="after">
+                    <field name="stage_start"/>
+                    <field name="stage_end"/>
+                </field>
+            </field>
+        </record>
+    </data>
+
+    <data noupdate="1">
+        <record id="email_template_project_task_type" model="mail.template">
+            <field name="name">Mẫu email thay đổi trạng thái công việc</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Nhiệm vụ thay đổi trạng thái sang ${object.state_id.name}</field>
+            <field name="email_to">${object.user_id_email|safe}</field>
+            <field name="model_id" ref="project.model_project_task"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html">
+            </field>
+        </record>
+    </data>
+</odoo>

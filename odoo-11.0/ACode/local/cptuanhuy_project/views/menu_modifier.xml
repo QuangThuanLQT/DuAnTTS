@@ -1,0 +1,23 @@
+<odoo>
+    <data>
+        <menuitem sequence="0" action="project.action_config_settings" name="Thiết lập" id="menu_config_settings_job" parent="odoo_job_costing_management.menu_job_cost_configuration"/>
+
+        <menuitem action="project.project_tags_action" id="menu_project_tags_action_job" parent="odoo_job_costing_management.menu_job_cost_configuration"/>
+        <record id="odoo_job_costing_management.menu_job_cost_budget" model="ir.ui.menu">
+            <field name="active" eval="False"/>
+        </record>
+        <record id="odoo_job_costing_management.notes_job_project_menu" model="ir.ui.menu">
+            <field name="active" eval="False"/>
+        </record>
+        <menuitem sequence="3" name="Hợp đồng" id="menu_project_contract_parent" parent="odoo_job_costing_management.menu_job_managmt"/>
+        <menuitem sequence="0" action="stable_account_analytic_analysis.action_account_analytic_overdue_all" name="Hợp đồng" id="menu_project_contract" parent="menu_project_contract_parent"/>
+
+        <menuitem id="odoo_job_costing_management.menu_job_cost_orders" parent="odoo_job_costing_management.menu_job_managmt" name="Job Orders" sequence="1"/>
+        <menuitem id="odoo_job_costing_management.menu_job_cost_managmt" parent="odoo_job_costing_management.menu_job_managmt" name="Job Costs" sequence="2" groups="project.group_project_manager"/>
+
+        <record id="sales_team.sales_team_config" model="ir.ui.menu">
+            <field name="name">Team dự án</field>
+            <field name="parent_id" ref="odoo_job_costing_management.menu_job_cost_configuration"/>
+        </record>
+    </data>
+</odoo>

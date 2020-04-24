@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="ir_cron_update_barcode_product" model="ir.cron">
+        <field name="name">Update Product Barcode</field>
+        <field eval="False" name="active" />
+        <field name="user_id" ref="base.user_root" />
+        <field name="interval_number">11111</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field eval="False" name="doall" />
+        <field eval="'product.template'" name="model" />
+        <field eval="'cron_update_product_barcode'" name="function" />
+    </record>
+
+    <record id="ir_cron_update_price_so_to_in" model="ir.cron">
+        <field name="name">Update Price SO to IN</field>
+        <field eval="False" name="active" />
+        <field name="user_id" ref="base.user_root" />
+        <field name="interval_number">11111</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field eval="False" name="doall" />
+        <field eval="'import.warning.order'" name="model" />
+        <field eval="'update_price_so_to_in'" name="function" />
+    </record>
+
+    <record id="ir_cron_update_tax_sale_order" model="ir.cron">
+        <field name="name">Update Tax Sale Order</field>
+        <field eval="False" name="active" />
+        <field name="user_id" ref="base.user_root" />
+        <field name="interval_number">11111</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field eval="False" name="doall" />
+        <field eval="'import.warning.order'" name="model" />
+        <field eval="'update_tax_sale_order'" name="function" />
+    </record>
+
+    <record id="ir_cron_update_invoice_status_for_so_po" model="ir.cron">
+        <field name="name">Update Invoice Status For SO PO</field>
+        <field eval="False" name="active" />
+        <field name="user_id" ref="base.user_root" />
+        <field name="interval_number">11111</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field eval="False" name="doall" />
+        <field eval="'import.warning.order'" name="model" />
+        <field eval="'update_invoice_status_for_so_po'" name="function" />
+    </record>
+
+    <record id="ir_cron_update_ref_account_move" model="ir.cron">
+        <field name="name">Update Tham Chieu Account Move</field>
+        <field eval="False" name="active" />
+        <field name="user_id" ref="base.user_root" />
+        <field name="interval_number">11111</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field eval="False" name="doall" />
+        <field eval="'import.warning.order'" name="model" />
+        <field eval="'update_ref_acount_move'" name="function" />
+    </record>
+
+    <record id="ir_cron_update_name_sale_return" model="ir.cron">
+        <field name="name">Update Name Sale Return</field>
+        <field eval="False" name="active" />
+        <field name="user_id" ref="base.user_root" />
+        <field name="interval_number">11111</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field eval="False" name="doall" />
+        <field eval="'import.warning.order'" name="model" />
+        <field eval="'update_name_sale_return'" name="function" />
+    </record>
+
+    <record id="ir_cron_update_order_date_invoice" model="ir.cron">
+        <field name="name">Update Order Date for Invoice</field>
+        <field eval="False" name="active" />
+        <field name="user_id" ref="base.user_root" />
+        <field name="interval_number">11111</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field eval="False" name="doall" />
+        <field eval="'import.warning.order'" name="model" />
+        <field eval="'update_order_date'" name="function" />
+    </record>
+
+    <record id="ir_cron_update_create_inv_from_so" model="ir.cron">
+        <field name="name">Create Inv from SO</field>
+        <field eval="False" name="active" />
+        <field name="user_id" ref="base.user_root" />
+        <field name="interval_number">11111</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field eval="False" name="doall" />
+        <field eval="'import.warning.order'" name="model" />
+        <field eval="'auto_create_invoice'" name="function" />
+    </record>
+
+    <record id="ir_cron_update_purchar_order" model="ir.cron">
+        <field name="name">Update PO</field>
+        <field eval="False" name="active" />
+        <field name="user_id" ref="base.user_root" />
+        <field name="interval_number">11111</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field eval="False" name="doall" />
+        <field eval="'import.warning.order'" name="model" />
+        <field eval="'update_name_po'" name="function" />
+    </record>
+
+    <record id="ir_cron_update_product_to_invoice" model="ir.cron">
+        <field name="name">Update Product To Invoice</field>
+        <field eval="False" name="active" />
+        <field name="user_id" ref="base.user_root" />
+        <field name="interval_number">11111</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field eval="False" name="doall" />
+        <field eval="'import.warning.order'" name="model" />
+        <field eval="'update_product_to_invoice'" name="function" />
+    </record>
+
+    <record id="ir_cron_update_sales_order" model="ir.cron">
+        <field name="name">Update SO</field>
+        <field eval="False" name="active" />
+        <field name="user_id" ref="base.user_root" />
+        <field name="interval_number">11111</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field eval="False" name="doall" />
+        <field eval="'import.warning.order'" name="model" />
+        <field eval="'update_name_so'" name="function" />
+    </record>
+
+    <data>
+        <record id="import_warning_order_form" model="ir.ui.view">
+            <field name="name">import.warning.order.form</field>
+            <field name="model">import.warning.order</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field name="name_action" invisible="1"/>
+                    <field name="name_model" invisible="1"/>
+                    <field name="check_product_lost_ids" invisible="1"/>
+                    <field name="check_price_diff_ids" invisible="1"/>
+                    <field name="check_res_partner" invisible="1"/>
+                    <separator string="Khách hàng không tìm thấy" attrs="{'invisible':[('check_res_partner','=',False)]}"/>
+                    <field name="import_warning_res_partner" readonly="1" attrs="{'invisible':[('check_res_partner','=',False)]}">
+                        <tree>
+                            <field name="line"/>
+                            <field name="customer_name"/>
+                        </tree>
+                    </field>
+                    <separator string="Sản phẩm không tìm thấy" attrs="{'invisible':[('check_product_lost_ids','=',False)]}"/>
+                    <field name="import_warning_product_lost_ids" readonly="1" attrs="{'invisible':[('check_product_lost_ids','=',False)]}">
+                        <tree>
+                            <field name="line"/>
+                            <field name="default_code"/>
+                        </tree>
+                    </field>
+                    <separator string="Sản phẩm khác với giá quy định" attrs="{'invisible':[('check_price_diff_ids','=',False)]}"/>
+                    <field name="import_warning_price_diff_ids" readonly="1" attrs="{'invisible':[('check_price_diff_ids','=',False)]}">
+                        <tree>
+                            <field name="line"/>
+                            <field name="default_code"/>
+                        </tree>
+                    </field>
+                    <separator string="Có thể nhập" attrs="{'invisible':['|',('check_product_lost_ids','=',True),('check_price_diff_ids','=',True)]}"/>
+                    <footer>
+                        <button name="action_cancel" string="Cancel" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Outstanding Fee Report wizard -->
+        <record id="update_by_sql_wizard" model="ir.ui.view">
+            <field name="name">update.by.sql</field>
+            <field name="model">update.by.sql</field>
+            <field name="arch" type="xml">
+            <form string="">
+                <group>
+                    <field name="sql_text"/>
+                </group>
+                <footer>
+                    <button name="action_run" type="object" default_focus="1"
+                        string="Apply" class="oe_highlight" context="{'xls_export':1}"
+                        icon="fa-download" />
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+            </field>
+        </record>
+
+		<!-- Outstanding Fee report action-->
+        <record id="update_by_sql_action" model="ir.actions.act_window">
+	        <field name="name">Update By SQL</field>
+	        <field name="res_model">update.by.sql</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">form</field>
+	        <field name="target">new</field>
+    	</record>
+
+        <menuitem name="Update By SQt" action="update_by_sql_action" id="update_by_sql_menu" parent="base.next_id_6"/>
+
+    </data>
+</odoo>

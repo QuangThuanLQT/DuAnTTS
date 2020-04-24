@@ -1,0 +1,25 @@
+<odoo>
+    <data>
+        <template id="assets_editor_ihr" inherit_id="website.assets_backend" name="Modifier frontend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/prinizi_sale_order/static/src/css/form_view.css"/>
+            </xpath>
+        </template>
+        <template id="assets_backend_ihr" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/prinizi_sale_order/static/src/js/search_by_range.js"></script>
+            </xpath>
+        </template>
+        <record id="ir_cron_update_size_ttits" model="ir.cron">
+            <field name="name">Update Size Thong tin in them so</field>
+            <field eval="False" name="active"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">10</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'thong.tin.its'" name="model"/>
+            <field eval="'update_size_ttits'" name="function"/>
+        </record>
+    </data>
+</odoo>

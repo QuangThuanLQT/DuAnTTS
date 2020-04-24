@@ -1,0 +1,59 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="tuanhuy_update_sequence.list">
+      <field name="name">tuanhuy_update_sequence list</field>
+      <field name="model">tuanhuy_update_sequence.tuanhuy_update_sequence</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="tuanhuy_update_sequence.action_window">
+      <field name="name">tuanhuy_update_sequence window</field>
+      <field name="res_model">tuanhuy_update_sequence.tuanhuy_update_sequence</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="tuanhuy_update_sequence.action_server">
+      <field name="name">tuanhuy_update_sequence server</field>
+      <field name="model_id" ref="model_tuanhuy_update_sequence_tuanhuy_update_sequence"/>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="tuanhuy_update_sequence" id="tuanhuy_update_sequence.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="tuanhuy_update_sequence.menu_1" parent="tuanhuy_update_sequence.menu_root"/>
+    <menuitem name="Menu 2" id="tuanhuy_update_sequence.menu_2" parent="tuanhuy_update_sequence.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="tuanhuy_update_sequence.menu_1_list" parent="tuanhuy_update_sequence.menu_1"
+              action="tuanhuy_update_sequence.action_window"/>
+    <menuitem name="Server to list" id="tuanhuy_update_sequence" parent="tuanhuy_update_sequence.menu_2"
+              action="tuanhuy_update_sequence.action_server"/>
+    -->
+  </data>
+</odoo>

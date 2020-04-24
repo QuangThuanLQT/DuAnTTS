@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_tts_sms_inbox,access_tts_sms_inbox,model_tts_sms_inbox,,1,1,1,1
+access_tts_sms_outbox,access_tts_sms_outbox,model_tts_sms_outbox,,1,0,0,0

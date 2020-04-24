@@ -1,0 +1,164 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="account_loan_modifier_form">
+            <field name="name">account.loan.modifier.form</field>
+            <field name="model">account.loan</field>
+            <field name="inherit_id" ref="account_loan.account_loan_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header/button[2]" position="replace">
+                    <button name="post" type="object" states="draft" string="Vào sổ"/>
+                </xpath>
+                <xpath expr="//field[@name='is_leasing']" position="attributes">
+                    <attribute name="attrs">{'invisible':True}</attribute>
+                </xpath>
+                <xpath expr="//sheet/group[3]" position="inside">
+                    <group>
+                        <field name="asset_ids" widget="many2many_tags" invisible="1"/>
+                        <field name="period_number"/>
+                    </group>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page name="estimate_value" string="Tài sản thế chấp">
+                        <field name="estimate_value_ids">
+                            <tree editable="bottom">
+                                <field name="asset_id"/>
+                                <field name="mortgage_value" widget="monetary" sum="Mortgage"/>
+                                <field name="remaind_value" widget="monetary" sum="Remaind"/>
+                                <field name="amount" widget="monetary" sum="Amount"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="account_loan_tree_inherit">
+            <field name="name">account.loan.modifier.tree</field>
+            <field name="model">account.loan</field>
+            <field name="inherit_id" ref="account_loan.account_loan_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="replace">
+                    <tree colors="red:color == 'red'; blue:color == 'blue'; #ff9900:color == 'orange'; #ff66ff:color == 'pink'; gray:color == 'gray';">
+                        <field name="partner_id"/>
+                        <field name="name"/>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                        <field name="loan_fund" sum="Tổng cầm cố thế chấp"/>
+                        <field name="asset_code"/>
+                        <field name="loan_credit"/>
+                        <field name="rate_period"/>
+                        <field name="remain_period"/>
+                        <field name="loan_amount" sum="Tổng số tiền giải ngân"/>
+                        <field name="payment_amount" sum="Tổng số tiền đã trả"/>
+                        <field name="pending_principal_amount" sum="Tổng số tiền còn nợ"/>
+                        <field name="interests_amount" sum="Tổng số tiền lãi đã trả"/>
+                        <field name="rate"/>
+                        <field name="average_rate"/>
+                        <field name="state"/>
+                        <field name="color" invisible="1"/>
+                    <!--<field name="tien_con_no" sum="Tổng số tiền lãi"/>-->
+                    <!--<field name="tien_tra_goc_theo_ky" sum="Tổng số tiền trả gốc theo kỳ"/>-->
+                    <!--<field name="tien_lai_theo_ky" sum="Tổng số tiền lãi theo kỳ"/>-->
+                    </tree>
+                </xpath>
+                <!--<xpath expr="//field[@name='is_leasing']" position="attributes">-->
+                    <!--<attribute name="invisible">True</attribute>-->
+                <!--</xpath>-->
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="account_loan_line_form_inherit">
+            <field name="name">account.loan.line.modifier.form</field>
+            <field name="model">account.loan.line</field>
+            <field name="inherit_id" ref="account_loan.account_loan_line_form"/>
+            <field name="arch" type="xml">
+                <field name="principal_amount" position="after">
+                    <field name="principal_direct_amount"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="account_asset_asset_add_asset_value">
+            <field name="name">account.asset.asset.modifier.tree</field>
+            <field name="model">account.asset.asset</field>
+            <field name="inherit_id" ref="account_asset.view_account_asset_asset_form"/>
+            <field name="arch" type="xml">
+                <field name="value_residual" position="after">
+                    <field name="already_asset_value"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="account_guarantee_form" model="ir.ui.view">
+            <field name="name">account.guarantee.modifier.form</field>
+            <field name="model">account.guarantee</field>
+            <field name="inherit_id" ref="account_guarantee.account_guarantee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page name="estimate_value" string="Tài sản thế chấp">
+                        <field name="estimate_value_ids">
+                            <tree editable="bottom">
+                                <field name="asset_id"/>
+                                <field name="mortgage_value" widget="monetary" sum="Mortgage"/>
+                                <field name="remaind_value" widget="monetary" sum="Remaind"/>
+                                <field name="amount" widget="monetary" sum="Amount"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="account_estimate_tree" model="ir.ui.view">
+            <field name="name">account.guarantee.modifier.tree</field>
+            <field name="model">account.guarantee</field>
+            <field name="inherit_id" ref="account_guarantee.account_guarantee_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='guarantee_fee']" position="after">
+                    <field name="color" invisible="1"/>
+                </xpath>
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="colors">red:color == 'red'; blue:color == 'blue'; #ff9900:color == 'orange'; #ff66ff:color == 'pink'</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="account_estimate_form" model="ir.ui.view">
+            <field name="name">bank.estimate.modifier.form</field>
+            <field name="model">bank.estimate</field>
+            <field name="inherit_id" ref="account_bank_base.bank_estimate_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page name="loan" string="Các khoản vay">
+                        <field name="loan_ids"/>
+                    </page>
+                    <page name="guarantee" string="Bảo lãnh">
+                        <field name="guarantee_ids"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="account_asset_asset_add_asset_value">
+            <field name="name">bank.estimate.modifier.tree</field>
+            <field name="model">bank.estimate</field>
+            <field name="inherit_id" ref="account_bank_base.bank_estimate_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" poson="inside">
+                        <field name="loan_ids" widget="many2many_tags" string="Các khoản vay"/>
+                        <field name="guarantee_ids" string="Bảo lãnh"/>
+                        <field name="color" invisible="1" />
+                </xpath>
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="colors">red:color == 'red'; blue:color == 'blue'; #ff9900:color == 'orange'; #00b36b:color == 'green'; gray:color == 'gray';</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <menuitem id="account_loan.account_loan_menu"
+              parent="account.menu_finance_bank_management" sequence="15"
+              name="Loans"
+              action="account_loan.account_loan_action"/>
+    </data>
+</odoo>

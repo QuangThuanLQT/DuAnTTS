@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="lydotrahang_sale_inherit_form_view1">
+            <field name="name">lydotrahang</field>
+            <field name="model">ly.do.tra.hang</field>
+            <field name="arch" type="xml">
+                <form string="lydoTH Form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="lydotrahang_list_action">
+            <field name="name">Lý do trả hàng</field>
+            <field name="res_model">ly.do.tra.hang</field>
+            <field name="view_type">form</field>
+        </record>
+
+         <menuitem id="lydo_menu" name="Lý do"
+                  parent="sale.menu_sale_config"/>
+
+        <menuitem id="lydotrahang_menu" name="Lý do trả hàng"
+                  parent="sale_customers.lydo_menu"
+                  action="lydotrahang_list_action"/>
+
+        <record model="ir.ui.view" id="lydo_sale_inherit_form_view">
+            <field name="name">lydotrahang</field>
+            <field name="model">ly.do.tra.hang</field>
+            <field name="arch" type="xml">
+                <tree string="Ly do">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>
+

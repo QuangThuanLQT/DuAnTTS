@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <record id="account_journal_form_ihr" model="ir.ui.view">
+            <field name="name">Journal</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='code']" position="after">
+                    <field name="bank_name" string="Long Code" attrs="{'invisible': [('type', '!=', 'bank')], 'required': [('type', '=', 'bank')]}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

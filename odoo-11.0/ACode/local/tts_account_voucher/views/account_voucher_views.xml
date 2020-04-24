@@ -1,0 +1,134 @@
+<odoo>
+    <data>
+        <record id="view_sale_receipt_form_inherit" model="ir.ui.view">
+            <field name="name">account.voucher.inherit</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_sale_receipt_form"></field>
+            <field name="arch" type="xml">
+                <field name="company_id" position="after">
+                    <field name="amount_input"/>
+                    <field name="note"/>
+                </field>
+                <field name="state" position="attributes">
+                    <attribute name="statusbar_visible">draft,checked,posted</attribute>
+                </field>
+                <xpath expr="//button[@name='proforma_voucher']" position="attributes">
+                    <attribute name="states">checked</attribute>
+                </xpath>
+                <xpath expr="//button[@name='cancel_voucher'][1]" position="attributes">
+                    <attribute name="states">proforma</attribute>
+                </xpath>
+                <xpath expr="//button[@name='proforma_voucher']" position="after">
+                    <button name="action_checked" string="Checked" states="draft" class="oe_highlight" type="object"/>
+                </xpath>
+                <field name="partner_id" position="attributes">
+                    <attribute name="options">{'no_create_edit': True, 'no_quick_create':True}</attribute>
+                </field>
+                <xpath expr="//form/sheet/notebook/page" position="before">
+                    <page name="sale_order" string="Đơn bán hàng">
+                        <field name="voucher_sale_line_ids" nolabel="1">
+                            <tree editable="bottom" create="false">
+                                <field name="order_id" invisible="1"/>
+                                <field name="order_name"/>
+                                <field name="date_order" widget="date"/>
+                                <field name="amount_total"/>
+                                <field name="so_tien_da_thu" readonly="True"/>
+                                <field name="con_phai_thu" readonly="True"/>
+                                <field name="trang_thai_tt" readonly="True"/>
+                                <field name="check"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_sale_receipt_form_inherit_inherit" model="ir.ui.view">
+            <field name="name">account.voucher.inherit</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="tuanhuy_account_voucher.view_sale_receipt_form_inherit"></field>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="attributes">
+                    <attribute name="string">Customer</attribute>
+                    <attribute name="options">{'no_create_edit': True, 'no_quick_create':True}</attribute>
+                </field>
+                <field name="collect_type" position="after">
+                    <field name="payment_date"/>
+                    <field name="created_person"/>
+                    <field name="check_date"/>
+                    <field name="checked_person"/>
+                    <field name="validate_date"/>
+                    <field name="validated_person"/>
+                </field>
+            </field>
+        </record>
+
+
+        <record id="view_purchase_receipt_form_inherit" model="ir.ui.view">
+            <field name="name">account.voucher.purchase.form</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_purchase_receipt_form"></field>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="attributes">
+                    <attribute name="options">{'no_create_edit': True, 'no_quick_create':True}</attribute>
+                </field>
+
+            </field>
+        </record>
+
+        <record id="show_warning_vourcher_form" model="ir.ui.view">
+            <field name="name">show.warning.vourcher.form</field>
+            <field name="model">show.warning.vourcher</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="name" nolable="1" string=" "/>
+                    </group>
+                    <footer>
+                        <button string="Ok" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="show_warning_vourcher_action" model="ir.actions.act_window">
+            <field name="name">Warning</field>
+            <field name="res_model">show.warning.vourcher</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+        <record id="view_voucher_sale_tree_inherit" model="ir.ui.view">
+            <field name="name">account.voucher.tree</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="tuanhuy_account_voucher.view_voucher_sale_tree"></field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='explain']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='account_line_id_sub']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='amount']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='record_checked']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='change_record_checked']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='amount']" position="after">
+                    <field name="sale_id"/>
+                    <field name="amount_dathu"/>
+                    <field name="amount_con_phaithu"/>
+                    <field name="amount_sale"/>
+                    <button name="proforma_voucher" type="object" string="Validate" class="oe_highlight"
+                            attrs="{'invisible': [('state', '!=', 'checked')]}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

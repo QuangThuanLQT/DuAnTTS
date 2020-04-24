@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="not_sellable_product_tree">
+            <field name="name">location.save.product.form</field>
+            <field name="model">product.product</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="attribute_value_ids" widget="many2many_tags"/>
+                    <field name="qty_available"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="not_sellable_product_action">
+            <field name="name">Not Sellable Products</field>
+            <field name="res_model">product.product</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="tts_modifier_inventory.not_sellable_product_tree"/>
+            <field name="context">{'not_sellable_product': True}</field>
+        </record>
+
+        <menuitem id="not_sellable_product_menu" name="Not Sellable Products" parent="stock.menu_stock_inventory_control" action="not_sellable_product_action" sequence="30"/>
+
+        <record id="action_export_detail_product" model="ir.actions.server">
+            <field name="name">Export Detail</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_product_product"/>
+            <field name="state">code</field>
+            <field name="code">action = record.export_detail();
+            </field>
+        </record>
+
+        <record model="ir.values" id="action_export_detail">
+            <field name="model">product.product</field>
+            <field name="name">Export Detail</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('tts_modifier_inventory.action_export_detail_product'))" />
+        </record>
+    </data>
+</odoo>

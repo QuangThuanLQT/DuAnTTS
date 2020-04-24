@@ -1,0 +1,39 @@
+<odoo>
+    <data>
+        <record id="import_stock_in_view" model="ir.ui.view">
+            <field name="name">Import Stock In</field>
+            <field name="model">import.stock.in</field>
+            <field name="arch" type="xml">
+                <form>
+                    <label string=""/>
+                    <group>
+                        <field name="data_import" string="Tải file của bạn lên"/>
+                        <field name="picking_type_id"/>
+                    </group>
+                    <footer>
+                        <!--<button name="print_report" string="Print" type="object" default_focus="1"-->
+                        <!--class="oe_highlight"/>-->
+                        <!--or-->
+                        <button name="import_data_excel" string="Import" type="object" default_focus="1"
+                                class="oe_highlight"/>
+                        hoặc
+                        <button string="Huỷ" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="import_stock_in_action" model="ir.actions.act_window">
+            <field name="name">Import Stock In</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">import.stock.in</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="import_stock_in_menu" name="Import Stock Picking" parent="stock.menu_warehouse_config"
+                  action="import_stock_in_action" sequence="50"
+        />
+    </data>
+</odoo>

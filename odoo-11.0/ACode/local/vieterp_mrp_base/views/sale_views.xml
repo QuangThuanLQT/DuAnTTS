@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_order_form" model="ir.ui.view">
+            <field name="name">Sale.Order.Form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/group" position="after">
+                    <group>
+                        <group name="order_type">
+                            <field name="sale_order_type"/>
+                            <field name="routing_id" attrs="{'invisible': [('sale_order_type', '!=', 'customize')]}" string="Quy trình sản xuất"/>
+                        </group>
+                        <group name="order_menu" attrs="{'invisible': [('sale_order_type', '!=', 'customize')]}" col="8">
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after">
+                    <field name="wo_id"/>
+            		<field name="wo_state"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="vieterp_view_order_line_tree" model="ir.ui.view">
+            <field name="name">vieterp.sale.order.line.tree</field>
+            <field name="model">sale.order.line</field>
+            <field name="inherit_id" ref="sale.view_order_line_tree" />
+            <field name="arch" type="xml">
+            	<field name="salesman_id" position="after">
+            		<field name="wo_id"/>
+            		<field name="wo_state"/>
+            	</field>
+            </field>
+        </record>
+
+        <record id="action_order_line_tree" model="ir.actions.act_window">
+			<field name="name">Sales Order Lines</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">sale.order.line</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form,graph</field>
+			<field name="view_id" eval="False" />
+		</record>
+
+		<menuitem action="action_order_line_tree" id="menu_action_order_line_tree"
+			parent="sales_team.menu_sales" sequence="12"
+			groups="sales_team.group_sale_manager,sales_team.group_sale_salesman" />
+    </data>
+</odoo>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--# SHOW POP UP-->
+        <record id="bao_cao_doanh_thu_view" model="ir.ui.view">
+            <field name="name">Báo cáo doanh thu</field>
+            <field name="model">bao.cao.doanh.thu</field>
+            <field name="arch" type="xml">
+                <form>
+                    <label string=""/>  <!-- binding for inherited views -->
+                    <group>
+                        <group>
+                            <field name="start_date" string="Ngày bắt đầu"/>
+                        </group>
+                        <group>
+                            <field name="end_date" string="Ngày kết thúc"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="print_excel" string="In Excel" type="object" default_focus="1"
+                                class="oe_highlight"/>
+                        or
+                        <button string="Huỷ" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="bao_cao_doanh_thu_action" model="ir.actions.act_window">
+            <field name="name">Báo cáo doanh thu</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">bao.cao.doanh.thu</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="bao_cao_doanh_thu_menu" name="Báo cáo doanh thu" parent="sales_team.menu_sale_report" action="bao_cao_doanh_thu_action"/>
+    </data>
+</odoo>

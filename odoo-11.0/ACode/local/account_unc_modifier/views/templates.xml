@@ -1,0 +1,57 @@
+<odoo>
+    <data>
+        <record id="mandate_form_view_inherit" model="ir.ui.view">
+            <field name="model">account.payment.unc</field>
+            <field name="inherit_id" ref="account_unc.mandate_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/header" position='replace'>
+                    <header>
+                        <field name="state" widget="statusbar" nolabel="1"/>
+
+                        <!--Gửi xác nhận-->
+                        <button name="change_status_unc" string="Gửi xác nhận" type="object" class="oe_highlight"
+                                states="draft"/>
+
+                        <!--Xác nhận-->
+                        <button name="change_status_unc" string="Xác nhận" type="object" class="oe_highlight"
+                                groups="account_unc.group_tong_giam_doc" states="GD_doing"/>
+
+                        <!--Quay về bản nháp-->
+                        <button name="set_status_unc_to_draft" string="Quay về bản nháp" type="object" class="oe_highlight"
+                                groups="account_unc.group_tong_giam_doc" states="GD_doing,cancel"/>
+
+                         <!--Huỷ-->
+                        <button name="set_status_unc_to_cancel" string="Huỷ" type="object" class="oe_highlight"
+                                groups="account_unc.group_tong_giam_doc" states="GD_doing,done"/>
+                        <button name="%(account_unc_modifier.payment_unc_printout)d" string="In" type="action" class="oe_highlight"/>
+                    </header>
+                </xpath>
+                <field name="bank_id" position="after">
+                    <field name="acc_number"/>
+                </field>
+
+            </field>
+        </record>
+
+        <record id="account_unc.group_tong_giam_doc" model="res.groups">
+            <field name="name">Group Giám đốc</field>
+        </record>
+
+        <record id="action_multi_change_status_unc" model="ir.actions.server">
+            <field name="name">Gửi xác nhận</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_account_payment_unc"/>
+            <field name="state">code</field>
+            <field name="code">action = record.multi_change_status_unc();
+            </field>
+        </record>
+
+        <record model="ir.values" id="value_multi_change_status_unc">
+            <field name="model">account.payment.unc</field>
+            <field name="name">Gửi xác nhận</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_multi_change_status_unc'))" />
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="1">
+    <record id="tuanhuy_shop_delivery" model="delivery.carrier">
+        <field name="name">Tại Chỗ</field>
+    </record>
+    <record id="tuanhuy_shop_delivery_1" model="delivery.carrier">
+        <field name="name">Tận Nơi</field>
+    </record>
+</odoo>

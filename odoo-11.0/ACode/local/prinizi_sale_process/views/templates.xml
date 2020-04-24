@@ -1,0 +1,5 @@
+<odoo>
+    <data noupdate="1">
+        <function model="stock.warehouse" name="create_picking_type"/>
+    </data>
+</odoo>

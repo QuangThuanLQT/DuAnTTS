@@ -1,0 +1,153 @@
+<odoo>
+
+    <menuitem id="odoo_job_costing_management.menu_job_cost_managmt" parent="odoo_job_costing_management.menu_job_managmt" name="Job Costs" sequence="1" groups="project.group_project_manager"/>
+
+    <menuitem id="odoo_job_costing_management.menu_sub_job_costing" parent="odoo_job_costing_management.menu_job_cost_managmt" name="Job Cost Sheets" action="odoo_job_costing_management.action_job_costing" sequence="1"/>
+
+    <menuitem id="odoo_job_costing_management.menu_job_cost_order" name="Job Orders" parent="odoo_job_costing_management.menu_job_cost_orders" action="odoo_job_costing_management.action_view_job_orders" sequence="1" />
+
+    <menuitem id="odoo_job_costing_management.menu_job_cost_orders" parent="odoo_job_costing_management.menu_job_managmt" name="Job Orders" sequence="3"/>
+
+    <menuitem id="odoo_job_costing_management.job_cost_sub_contractors" parent="odoo_job_costing_management.menu_job_managmt" name="Contractors " sequence="4"/>
+    
+    <menuitem id="odoo_job_costing_management.menu_item_contractors" name="Contractors" parent="odoo_job_costing_management.job_cost_sub_contractors" action="odoo_job_costing_management.action_partner_contractor_form" sequence="7"/>
+
+     <menuitem id="odoo_job_costing_management.menu_materials" parent="odoo_job_costing_management.menu_job_managmt" name="Materials  " sequence="5"/>
+    
+     <menuitem id="odoo_job_costing_management.menu_job_cost_mat_req" name="Materials Requisitions " parent="odoo_job_costing_management.menu_materials" action="odoo_job_costing_management.action_picking_tree_all_const" sequence="2" />
+    
+
+    <!--Making customer field mandetory -->
+
+    <record id="inherit_edit_project" model="ir.ui.view">
+      <field name="name">project.form</field>
+      <field name="model">project.project</field>
+      <field name="inherit_id" ref="project.edit_project"/>
+      <field name="arch" type="xml">
+        <field name="partner_id" position="attributes">
+          <attribute name="required">1</attribute>
+        </field>
+      </field>
+    </record>
+
+
+    <record id="odoo_job_costing_management.action_view_job_orders" model="ir.actions.act_window">
+        <field name="name">Job Orders</field>
+        <field name="res_model">project.task</field>
+        <field name="view_mode">kanban,tree,form,calendar,pivot,graph</field>
+        <field name="context">{'search_default_my_tasks': 1, 'default_group_by' : 'project_id'}</field>
+        <field name="search_view_id" ref="project.view_task_search_form"/>
+        <field name="help" type="html">
+            <p>
+                Odoo's Job Orders management allows you to manage the pipeline of your Jobs efficiently. You can track progress, discuss on jobs, attach documents, etc.
+            </p>
+        </field>
+    </record>
+
+    <record id="hr_timesheet.act_project_task_sub_task" model="ir.actions.act_window">
+      <field name="name">Sub-tasks</field>
+      <field name="res_model">project.task</field>
+      <field name="view_mode">kanban,tree,form,calendar,pivot,graph</field>
+      <field name="domain">[('parent_task_id', '=', active_id)]</field>
+      <field name="context">
+      {
+          'default_parent_id' : active_id,
+          'default_project_id' : project_id,
+          'default_name' : name + ':',
+          'default_partner_id' : partner_id,
+      }
+      </field>
+      <field name="search_view_id" ref="project.view_task_search_form"/>
+    </record>
+
+    <record id="job_costing_form" model="ir.ui.view">
+    <field name="name">Job Costing Form</field>
+    <field name="model">job.costing</field>
+    <field name="inherit_id" ref="odoo_job_costing_management.job_costing_form_view"/>
+    <field name="arch" type="xml">
+      <field name="task_id" position="attributes">
+        <attribute name="domain">[('project_id','=', project_id)]</attribute>
+      </field>
+      <field name="project_id" position="attributes">
+        <attribute name="required">1</attribute>
+      </field>
+    </field>
+    </record>
+
+    <record id="note_costing_form" model="ir.ui.view">
+    <field name="name">Notes</field>
+    <field name="model">note.note</field>
+    <field name="inherit_id" ref="odoo_job_costing_management.view_project_note_note_form"/>
+    <field name="arch" type="xml">
+        <field name="task_id" position="attributes">
+          <attribute name="domain">[('project_id','=', project_id)]</attribute>
+        </field>
+        <field name="project_id" position="replace">
+        </field>
+        <field name="task_id" position="before">
+          <field name="project_id" string="Project" options="{'no_create_edit': True}" attrs="{'required': [('is_project', '=', True)]}"/>
+        </field>
+    </field>
+    </record>
+    <record model="ir.actions.act_window" id="job_estimate_action">
+      <field name="name">Job Estimate</field>
+      <field name="res_model">sale.estimate.job</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('project_id', '=', active_id)]</field>
+      <field name="context">
+      {
+          
+          'default_project_id' : active_id,
+          
+                }
+      </field>
+
+      <field name="help" type="html">
+          <p class="oe_view_nocontent_create">Create a Job Estimate Count
+          </p>
+      </field>
+  </record>
+
+    <record id="edit_project" model="ir.ui.view">
+    <field name="name">project.project</field>
+    <field name="model">project.project</field>
+    <field name="inherit_id" ref="project.edit_project"/>
+    <field name="arch" type="xml">
+      <xpath expr="//notebook" position="inside">
+        <page name="sub_contractor" string="Sub Contractor">
+          <field name="sub_contractor_ids" >
+            <tree>
+              <field name="name"/>
+            </tree>
+          </field>
+        </page>
+        <page name="site_location" string="Site Location">
+          <field name="site_location">
+            <tree>
+              <field name="name"/>
+            </tree>
+          </field>
+        </page>
+      </xpath>
+
+      <!-- <xpath expr="//div[@name='buttons']" position="inside">
+
+        <button class="oe_inline oe_stat_button" type="action" name="%(job_estimate_action)d"
+               
+               >
+          <field string="Payments" name="voucher_count" widget="statinfo"/>
+        </button>
+      </xpath> -->
+
+      <button name="toggle_active" position="before">
+               <button class="oe_inline oe_stat_button" type="action" name="%(job_estimate_action)d" icon="fa-briefcase">
+          <field string="Job Estimates" name="job_estimate_count" widget="statinfo"/>
+        </button>
+      </button>
+
+    </field>
+    </record>
+
+  
+</odoo> 

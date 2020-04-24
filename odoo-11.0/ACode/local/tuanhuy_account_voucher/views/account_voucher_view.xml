@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!--TODO Xac nhan windown action-->
+        <record id="action_multi_proforma_voucher" model="ir.actions.server">
+            <field name="name">Xác Nhận</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_account_voucher"/>
+            <field name="state">code</field>
+            <field name="code">action = record.multi_proforma_voucher();
+            </field>
+        </record>
+
+        <record model="ir.values" id="multi_proforma_voucher">
+            <field name="model">account.voucher</field>
+            <field name="name">Xác Nhận</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_multi_proforma_voucher'))" />
+        </record>
+
+        <record id="view_sale_receipt_form_inherit" model="ir.ui.view">
+            <field name="name">account.voucher.form</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_sale_receipt_form"/>
+            <field name="arch" type="xml">
+                <field name="date_due" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="tax_amount" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="date" position="after">
+                    <field name="number_voucher" string="Số Phiếu Thu"/>
+                </field>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='product_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='quantity']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                    <attribute name="required">0</attribute>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='tax_ids']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='price_subtotal']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <field name="payment_journal_id" position="replace">
+                    <field name="payment_journal_id" attrs="{'required': [('pay_now', '=', 'pay_now')]}"/>
+                </field>
+                <field name="partner_id" position="replace">
+                    <field name="partner_id" domain="[]" string="Người thu" context="{'show_address': 1}" options='{"always_reload": True}'/>
+                </field>
+                <field name="name" position="after">
+                    <field name="collect_type"/>
+                </field>
+                <xpath expr="//field[@name='line_ids']" position="attributes">
+                    <attribute name="context">{'collect_type' : collect_type, 'voucher_type': voucher_type}</attribute>
+                </xpath>
+                <xpath expr="//form" position="attributes">
+                    <attribute name="duplicate">false</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_purchase_receipt_form_inherit" model="ir.ui.view">
+            <field name="name">account.voucher.form</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_purchase_receipt_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="attributes">
+                    <attribute name="duplicate">false</attribute>
+                </xpath>
+                <field name="date_due" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="tax_amount" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="date" position="after">
+                    <field name="number_voucher" string="Số Phiếu Chi"/>
+                </field>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='product_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='account_analytic_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='quantity']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                    <attribute name="required">0</attribute>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='tax_ids']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='price_subtotal']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='name']" position="attributes">
+                    <attribute name="string">Lý do chi</attribute>
+                </xpath>
+                <field name="partner_id" position="replace">
+                    <field name="partner_id" domain="[]" string="Người nhận" context="{'default_customer': 0, 'default_supplier': 1}"/>
+                </field>
+                <field name="name" position="after">
+                    <field name="pay_type"/>
+                </field>
+                <xpath expr="//field[@name='line_ids']" position="attributes">
+                    <attribute name="context">{'pay_type' : pay_type,'voucher_type': voucher_type}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+         <record id="view_voucher_sale_tree" model="ir.ui.view">
+            <field name="name">account.voucher.form</field>
+            <field name="model">account.voucher</field>
+            <field name="arch" type="xml">
+                <tree decoration-info="state == 'draft'" decoration-muted="state == 'cancel'" string="Voucher Entries">
+                    <field name="date"/>
+                    <field name="number"/>
+                    <field name="partner_id" string="Đối tác"/>
+                    <field name="number_voucher" string="Số Phiếu Thu"/>
+                    <field name="explain"/>
+                    <field name="account_line_id" invisible="1"/>
+                    <field name="account_line_id_sub" string="Tài Khoản"/>
+                    <field name="amount" sum="Total Amount"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="record_checked"/>
+                    <button name="change_record_checked" type="object" string="Checked"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+         </record>
+
+        <record id="view_voucher_purchase_tree" model="ir.ui.view">
+            <field name="name">account.voucher.form</field>
+            <field name="model">account.voucher</field>
+            <field name="arch" type="xml">
+                <tree decoration-info="state == 'draft'" decoration-muted="state == 'cancel'" string="Voucher Entries">
+                    <field name="date"/>
+                    <field name="number"/>
+                    <field name="partner_id" string="Đối tác"/>
+                    <field name="number_voucher" string="Số Phiếu Chi"/>
+                    <field name="explain"/>
+                    <field name="account_line_id" invisible="1"/>
+                    <field name="account_line_id_sub" string="Tài Khoản"/>
+                    <field name="amount" sum="Total Amount"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="record_checked"/>
+                    <button name="change_record_checked" type="object" string="Checked"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+         </record>
+
+
+        <record id="view_voucher_filter_sale_inherit" model="ir.ui.view">
+            <field name="name">account.voucher.sale.select</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_voucher_filter_sale"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date']" position="after">
+                    <field name="explain_sub"/>
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <record id="view_voucher_filter_vendor_inherit" model="ir.ui.view">
+            <field name="name">account.voucher.purchase.select</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_voucher_filter_vendor"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='number_voucher']" position="after">
+                    <field name="explain_sub"/>
+                    <field name="account_line_id"/>
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <record id="action_update_check_account_voucher" model="ir.actions.server">
+            <field name="name">Huỷ kiểm tra</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_account_voucher"/>
+            <field name="state">code</field>
+            <field name="code">action = record.update_check_account_voucher();
+            </field>
+        </record>
+
+        <record model="ir.values" id="action_update_check_account_voucher">
+            <field name="model">account.voucher</field>
+            <field name="name">Huỷ kiểm tra</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_update_check_account_voucher'))" />
+        </record>
+
+        <!-- Sales Voucher -->
+        <record id="account_voucher.action_sale_receipt" model="ir.actions.act_window">
+            <field name="view_id" eval="False"/>
+            <field name="view_ids"
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('view_voucher_sale_tree')}),
+                          (0, 0, {'view_mode': 'kanban', 'view_id': ref('account_voucher.view_voucher_kanban')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('account_voucher.view_sale_receipt_form')}),
+                          ]"/>
+        </record>
+
+        <!-- Purchase Voucher -->
+        <record id="account_voucher.action_purchase_receipt" model="ir.actions.act_window">
+            <field name="view_id" eval="False"/>
+            <field name="view_ids"
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('view_voucher_purchase_tree')}),
+                          (0, 0, {'view_mode': 'kanban', 'view_id': ref('account_voucher.view_voucher_kanban')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('account_voucher.view_purchase_receipt_form')}),
+                          ]"/>
+        </record>
+
+        <menuitem id="thu_chi_menu" name="Thu Chi" parent="account.menu_finance" sequence="3"/>
+
+        <record id="account_voucher.menu_action_sale_receipt" model="ir.ui.menu">
+            <field name="parent_id" eval="ref('tuanhuy_account_voucher.thu_chi_menu')"/>
+            <field name="sequence" eval="1"/>
+        </record>
+
+        <record id="account_voucher.menu_action_purchase_receipt" model="ir.ui.menu">
+            <field name="parent_id" eval="ref('tuanhuy_account_voucher.thu_chi_menu')"/>
+            <field name="sequence" eval="2"/>
+        </record>
+
+    </data>
+</odoo>

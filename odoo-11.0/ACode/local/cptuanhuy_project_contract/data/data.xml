@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="sale_order_type_sx" model="sale.order.type">
+            <field name="name">Sản xuất</field>
+            <field name="account_analytic_tag_ids" eval="[(6,0,[ref('cptuanhuy_project.account_analytic_tag_san_xuat')])]"/>
+            <field name="cost_account_analytic_tag_ids" eval="[(6,0,[ref('cptuanhuy_project.cost_account_analytic_tag_san_xuat')])]"/>
+        </record>
+
+        <record id="sale_order_type_cong_trinh" model="sale.order.type">
+            <field name="name">Công trình</field>
+            <field name="account_analytic_tag_ids" eval="[(6,0,[ref('cptuanhuy_project.account_analytic_tag_congtrinh')])]"/>
+            <field name="cost_account_analytic_tag_ids" eval="[(6,0,[ref('cptuanhuy_project.cost_account_analytic_tag_congtrinh')])]"/>
+        </record>
+
+        <record id="sale_order_type_thuong_mai" model="sale.order.type">
+            <field name="name">Thương mại</field>
+            <field name="account_analytic_tag_ids" eval="[(6,0,[ref('cptuanhuy_project.account_analytic_tag_thuong_mai')])]"/>
+            <field name="cost_account_analytic_tag_ids" eval="[(6,0,[ref('cptuanhuy_project.cost_account_analytic_tag_thuong_mai')])]"/>
+        </record>
+    </data>
+</odoo>

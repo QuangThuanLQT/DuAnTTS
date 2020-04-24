@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+        <record id="view_picking_form_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="shipper"/>
+                    <field name="receiver"/>
+                </xpath>
+                <field name="picking_type_id" position="after">
+                    <field name="mrp_picking_id" attrs="{'invisible' : [('mrp_picking_id','=',False)]}"/>
+                    <field name="project_picking_id" attrs="{'invisible' : [('project_picking_id','=',False)]}"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

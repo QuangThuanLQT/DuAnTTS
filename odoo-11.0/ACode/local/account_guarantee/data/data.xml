@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="guarantee_type_1" model="account.guarantee.type">
+            <field name="name"><![CDATA[Dự thầu]]></field>
+        </record>
+
+        <record id="guarantee_type_2" model="account.guarantee.type">
+            <field name="name"><![CDATA[Tạm ứng]]></field>
+        </record>
+
+        <record id="guarantee_type_3" model="account.guarantee.type">
+            <field name="name"><![CDATA[Thực hiện HĐ]]></field>
+        </record>
+
+        <record id="guarantee_type_4" model="account.guarantee.type">
+            <field name="name"><![CDATA[Thanh toán]]></field>
+        </record>
+
+        <record id="guarantee_type_5" model="account.guarantee.type">
+            <field name="name"><![CDATA[Bảo hành]]></field>
+        </record>
+
+        <!--Guarantee Email Cron Job-->
+
+        <record id="guarantee_notification_cron" model="ir.cron">
+            <field name="name">Guarantee Notification</field>
+            <field eval="True" name="active"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'guarantee.notification.settings'"></field>
+            <field name="function" eval="'send_email_guarantee_notification'"/>
+        </record>
+
+        <!--Guarantee Email Template-->
+
+        <record id="guarantee_notification_1_day" model="mail.template">
+        <field name="name">Guarantee Email Template 1</field>
+        <field name="model_id" ref="account_guarantee.model_guarantee_notification_settings"/>
+        <field name="email_from">info@tuanhuyco.com</field>
+        <field name="email_to">${object.create_uid.email}</field>
+        <field name="subject">Guarantee Notification</field>
+        <field name="auto_delete" eval="True"/>
+        <field name="body_html"><![CDATA[
+<p><strong>Guarantee Notification</strong></p>
+<br/>
+<br/>
+<p>Chào ${object.name},</p>
+    <p>
+        Bạn có 1 thông báo về bảo lãnh sẽ đến hạn trong ngày mai.
+    </p>
+
+<div style="display:table;">
+    <div style="display:table-header-group;">
+        <div style="display:table-row;">
+            <div style="display:table-cell;padding:3px;border-left:1px solid black;border-right:1px solid black;">Tên</div>
+            <div style="display:table-cell;padding:3px;border-right:1px solid black;">Dự án</div>
+            <div style="display:table-cell;padding:3px;border-right:1px solid black;">Hợp đồng</div>
+            <div style="display:table-cell;padding:3px;border-right:1px solid black;">Ngày đến hạn</div>
+        </div>
+    </div
+    <div style="display:table-row-group;">
+        % for line in ctx.get('data'):
+        <div style="display:table-row;">
+            <div style="display:table-cell;border-left:1px solid black;border-right:1px solid black;padding:3px">${line.name}</div>
+            <div style="display:table-cell;border-right:1px solid black;padding:3px">${line.project_id.name}</div>
+            <div style="display:table-cell;border-right:1px solid black;padding:3px"></div>
+            <div style="display:table-cell;border-right:1px solid black;padding:3px">${line.end_date}</div>
+        </div>
+        % endfor
+    </div>
+</div>
+
+
+            ]]></field>
+        </record>
+
+
+
+        <record id="guarantee_notification_3_day" model="mail.template">
+        <field name="name">Guarantee Email Template 3</field>
+        <field name="model_id" ref="account_guarantee.model_guarantee_notification_settings"/>
+        <field name="email_from">info@tuanhuyco.com</field>
+        <field name="email_to">${object.create_uid.email}</field>
+        <field name="subject">Guarantee Notification</field>
+        <field name="auto_delete" eval="True"/>
+        <field name="body_html"><![CDATA[
+<p><strong>Guarantee Notification</strong></p>
+<br/>
+<br/>
+<p>Chào ${object.name},</p>
+    <p>
+        Bạn có 1 thông báo về bảo lãnh sẽ đến hạn vào 3 ngày tới.
+    </p>
+
+<div style="display:table;">
+    <div style="display:table-header-group;">
+        <div style="display:table-row;">
+            <div style="display:table-cell;padding:3px;border-left:1px solid black;border-right:1px solid black;">Tên</div>
+            <div style="display:table-cell;padding:3px;border-right:1px solid black;">Dự án</div>
+            <div style="display:table-cell;padding:3px;border-right:1px solid black;">Hợp đồng</div>
+            <div style="display:table-cell;padding:3px;border-right:1px solid black;">Ngày đến hạn</div>
+        </div>
+    </div
+    <div style="display:table-row-group;">
+        % for line in ctx.get('data'):
+        <div style="display:table-row;">
+            <div style="display:table-cell;border-left:1px solid black;border-right:1px solid black;padding:3px">${line.name}</div>
+            <div style="display:table-cell;border-right:1px solid black;padding:3px">${line.project_id.name}</div>
+            <div style="display:table-cell;border-right:1px solid black;padding:3px"></div>
+            <div style="display:table-cell;border-right:1px solid black;padding:3px">${line.end_date}</div>
+        </div>
+        % endfor
+    </div>
+</div>
+
+
+            ]]></field>
+        </record>
+
+
+        <record id="guarantee_notification_7_day" model="mail.template">
+        <field name="name">Guarantee Email Template 7</field>
+        <field name="model_id" ref="account_guarantee.model_guarantee_notification_settings"/>
+        <field name="email_from">info@tuanhuyco.com</field>
+        <field name="email_to">${object.create_uid.email}</field>
+        <field name="subject">Guarantee Notification</field>
+        <field name="auto_delete" eval="True"/>
+        <field name="body_html"><![CDATA[
+<p><strong>Guarantee Notification</strong></p>
+<br/>
+<br/>
+<p>Chào ${object.name},</p>
+    <p>
+        Bạn có 1 thông báo về bảo lãnh sẽ đến hạn vào 7 ngày tới.
+    </p>
+
+<div style="display:table;">
+    <div style="display:table-header-group;">
+        <div style="display:table-row;">
+            <div style="display:table-cell;padding:3px;border-left:1px solid black;border-right:1px solid black;">Tên</div>
+            <div style="display:table-cell;padding:3px;border-right:1px solid black;">Dự án</div>
+            <div style="display:table-cell;padding:3px;border-right:1px solid black;">Hợp đồng</div>
+            <div style="display:table-cell;padding:3px;border-right:1px solid black;">Ngày đến hạn</div>
+        </div>
+    </div
+    <div style="display:table-row-group;">
+        % for line in ctx.get('data'):
+        <div style="display:table-row;">
+            <div style="display:table-cell;border-left:1px solid black;border-right:1px solid black;padding:3px">${line.name}</div>
+            <div style="display:table-cell;border-right:1px solid black;padding:3px">${line.project_id.name}</div>
+            <div style="display:table-cell;border-right:1px solid black;padding:3px"></div>
+            <div style="display:table-cell;border-right:1px solid black;padding:3px">${line.end_date}</div>
+        </div>
+        % endfor
+    </div>
+</div>
+
+
+            ]]></field>
+        </record>
+    </data>
+</odoo>

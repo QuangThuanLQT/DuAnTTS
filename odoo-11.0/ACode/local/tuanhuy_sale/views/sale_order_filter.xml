@@ -1,0 +1,58 @@
+<odoo>
+    <data>
+        <record id="sale_order_filter_action_view" model="ir.ui.view">
+            <field name="name">Lọc Đơn Hàng</field>
+            <field name="model">sale.order.filter</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <!--<button name="print_report" string="Print" type="object" default_focus="1"-->
+                        <!--class="oe_highlight"/>-->
+                        <!--or-->
+                        <button name="filter_order_by_partner" string="Lọc" type="object" default_focus="1"
+                                class="oe_highlight"/>
+                        <!--hoặc-->
+                        <!--<button string="Huỷ" class="oe_link" special="cancel"/>-->
+
+                    </header>
+                    <label string=""/>
+                    <group>
+                        <group>
+                            <field name="partner_id" options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                        <group>
+                            <field name="start_date" />
+                            <field name="end_date" />
+                        </group>
+                        <!--<notebook>-->
+                            <!--<page string="Hoá Đơn">-->
+                                <field name="order_ids" options="{'no_create': True}"/>
+                            <!--</page>-->
+                        <!--</notebook>-->
+                    </group>
+                    <footer>
+                        <!--<button name="filter_order_by_partner" string="Lọc" type="object" default_focus="1"-->
+                                <!--class="oe_highlight"/>-->
+                        <!--hoặc-->
+                        <button string="Huỷ" class="oe_link" special="cancel"/>
+
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="sale_order_filter_action" model="ir.actions.act_window">
+            <field name="name">Lọc Đơn Hàng</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order.filter</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <!--<menuitem id="sale_order_filter_menu" name="Lọc Đơn Hàng" parent="sales_team.menu_sale_report"-->
+                  <!--action="sale_order_filter_action"-->
+        />
+
+    </data>
+</odoo>

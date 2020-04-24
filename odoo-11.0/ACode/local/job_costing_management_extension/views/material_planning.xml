@@ -1,0 +1,21 @@
+<odoo> 
+	<record model="ir.ui.view" id="material_planning">
+	    <field name="model">stock.picking</field>
+	    <field name="name">Material.Planning</field>
+	    <field name="inherit_id" ref="stock.view_picking_form"/>
+	    <field name="arch" type="xml">
+     		<xpath expr="//form/sheet/notebook" position="inside">
+           		<page name="material_planning" string="Material Plannings">
+                   <field name="material_plan_ids" readonly="1">
+                        <tree>
+                            <field name="description"/>
+                            <field name="product_uom_qty"/>
+                            <field name="product_uom"/>
+                            <field name="product_id"/>
+                        </tree>
+                    </field>
+           		</page>
+     		</xpath>
+    	</field>
+    </record>
+</odoo>

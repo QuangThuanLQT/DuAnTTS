@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_account_asset_value_user,account_asset_value_user_group,model_account_asset_value,,1,1,1,1
+access_account_loan_generate_wizard_users,account_loan_generate_wizard_user_group,account_loan.model_account_loan_generate_wizard,,1,1,1,1
+access_account_loan_pay_amount_users,account_loan_pay_amount_user_group,account_loan.model_account_loan_pay_amount,,1,1,1,1
+access_account_loan_post_users,account_loan_post_user_group,account_loan.model_account_loan_post,,1,1,1,1

@@ -1,0 +1,2091 @@
+<odoo>
+    <data>
+
+        <record id="website.default_website" model="website">
+            <field name="user_id" ref="base.public_user"/>
+        </record>
+
+
+        <template id="assets_editor" inherit_id="website.assets_frontend" name="Modifier Editor">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/tts_modifier_website/static/src/js/web_assets_editor.js"></script>
+            </xpath>
+        </template>
+
+        <template id="assets_frontend_sale" inherit_id="website_sale.assets_frontend" name="Shop">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/tts_modifier_website/static/src/css/website_sale.css"/>
+            </xpath>
+        </template>
+
+        <!--<template id="website_assets_frontend_ihr" name="option_color_stone" inherit_id="theme_default.option_layout_boxed">-->
+        <!--<xpath expr="." position="replace">-->
+        <!--<link rel="stylesheet" href="/tts_modifier_website/static/src/css/website_sale.less" type="text/less"/>-->
+        <!--</xpath>-->
+        <!--</template>-->
+
+        <template id="theme_default.option_layout_boxed" name="option_layout_boxed" inherit_id="website.assets_frontend"
+                  active="False" customize_show="False">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/tts_modifier_website/static/src/css/website_sale.less" type="text/less"/>
+            </xpath>
+        </template>
+
+
+        <template id="assets_backend_ihr" inherit_id="web.assets_backend" name="Modifier Backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/tts_modifier_website/static/src/css/form_view.less"/>
+            </xpath>
+        </template>
+
+        <template id="footer_default_modifier" inherit_id="website.footer_default" customize_show="True"
+                  name="Automatic Footer">
+            <data inherit_id="website.footer_custom" customize_show="True" name="Automatic Footer">
+                <xpath expr="//div[@id='footer']" position="replace">
+                    <div id="footer" class="container hidden-print" style="width:98%;">
+                        <div class="row">
+                            <div class="col-md-4 col-lg-2">
+                                <h4>
+
+                                </h4>
+                                <ul class="list-unstyled" id="products">
+                                    <li>
+                                    </li>
+                                </ul>
+                                <div style="color:#BDBDBD;">
+                                    &#169; 2019 TheThaoSi.vn by TheThaoSi.net
+                                </div>
+                            </div>
+                            <div class="col-md-4  col-lg-3" id="info" style="padding-left:50px">
+                                <h4>Về Thể Thao Sỉ</h4>
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <a href="http://alphasportsholdings.vn/">Giới thiệu</a>
+                                    </li>
+                                    <li>
+                                        <a href="http://thethaosi.vn/cung-cap-nguon-hang/">Nhà Cung Cấp</a>
+                                    </li>
+                                    <li>
+                                        <a href="http://thethaosi.vn/chinh-sach-bao-mat/">Chính Sách Bảo Mật</a>
+                                    </li>
+                                    <li>
+                                        <a href="http://thethaosi.vn/giai-quyet-khieu-nai/">Giải Quyết Khiếu Nại</a>
+                                    </li>
+                                </ul>
+                                <ul class="list-unstyled hidden">
+                                    <li t-ignore="true">
+                                        <i class="fa fa-phone"/>
+                                        <span t-field="res_company.phone"/>
+                                    </li>
+                                    <li t-ignore="true">
+                                        <i class="fa fa-envelope"/>
+                                        <span t-field="res_company.email"/>
+                                    </li>
+                                </ul>
+                                <h2>
+                                    <a t-att-href="website.social_facebook" t-if="website.social_facebook">
+                                        <i class="fa fa-facebook-square"/>
+                                    </a>
+                                    <a t-att-href="website.social_twitter" t-if="website.social_twitter">
+                                        <i class="fa fa-twitter"/>
+                                    </a>
+                                    <a t-att-href="website.social_linkedin" t-if="website.social_linkedin">
+                                        <i class="fa fa-linkedin"/>
+                                    </a>
+                                    <a t-att-href="website.social_youtube" t-if="website.social_youtube">
+                                        <i class="fa fa-youtube-play"/>
+                                    </a>
+                                    <a t-att-href="website.social_googleplus" t-if="website.social_googleplus"
+                                       rel="publisher">
+                                        <i class="fa fa-google-plus-square"/>
+                                    </a>
+                                    <a t-att-href="website.social_github" t-if="website.social_github">
+                                        <i class="fa fa-github"/>
+                                    </a>
+                                </h2>
+                            </div>
+                            <div class="col-md-4  col-lg-3" id="info">
+                                <h4>Chăm Sóc Khách Hàng</h4>
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <a href="http://thethaosi.vn/huong-dan-thanh-toan/">Hướng Dẫn Thanh Toán</a>
+                                    </li>
+                                    <li>
+                                        <a href="http://thethaosi.vn/quy-dinh-giao-hang/">Quy Định Giao Hàng</a>
+                                    </li>
+                                    <li>
+                                        <a href="http://thethaosi.vn/chinh-sach-doi-tra/">Chính Sách Đổi Trả</a>
+                                    </li>
+                                    <li>
+                                        <a href="http://thethaosi.vn/chinh-sach-ban-hang/">Chính Sách Bán Hàng</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4  col-lg-3" id="info">
+                                <h4>Liên Kết</h4>
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <a href="https://thethaosi.vn/">Thethaosi.vn</a>
+                                    </li>
+                                    <li>
+                                        <a href="http://alphasportsholdings.vn/">Alpha Sports</a>
+                                    </li>
+                                    <li>
+                                        <a href=": http://thethaoiwin.vn/trang-chu/">iWinSports.vn</a>
+                                    </li>
+                                    <li>
+                                        <a href="http://choithethao.vn/">ChoiTheThao.vn</a>
+                                    </li>
+                                    <li>
+                                        <t t-call="website.language_selector"/>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4 col-lg-5 col-lg-offset-1 hidden">
+                                <h4>
+                                    <span t-field="res_company.name"/>
+                                    <small/>
+                                </h4>
+                                <div/>
+                                <t t-call="website.language_selector"/>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </data>
+
+        </template>
+
+        <template id="website.user_navbar" inherit_id="website.layout">
+            <xpath expr="//t[@t-set='html_data']" position="after">
+                <t t-set="body_classname" t-value="'o_connected_user' if env['ir.ui.view'].user_has_groups('base.group_user') else None"/>
+            </xpath>
+            <xpath expr="//div[@id='wrapwrap']" position="before">
+                <nav groups="base.group_user" t-if="website and menu_data" id="oe_main_menu_navbar" class="o_main_navbar">
+                    <ul id="oe_applications">
+                        <li class="dropdown active">
+                            <a class="dropdown full" data-toggle="dropdown" href="#">
+                                <i class="fa fa-th-large"/> WEBSITE <b class="caret"/>
+                            </a>
+                            <ul class="dropdown-menu" t-if="menu_data and menu_data.get('children')">
+                                <li t-as="menu" t-foreach="menu_data['children']">
+                                    <t t-set="debug_param" t-value="'?&amp;debug=' if debug else ''"/>
+                                    <a t-att-class="'oe_menu_toggler' if menu and menu.get('children') else 'oe_menu_leaf'" t-att-data-action-id="menu['action'] and menu['action'].split(',')[1] or None" t-att-data-action-model="menu['action'] and menu['action'].split(',')[0] or None" t-att-data-menu="menu['id']" t-att-href="'/web%s#menu_id=%s&amp;action=%s' % (debug_param, menu['id'], menu['action'] and menu['action'].split(',')[1] or '')">
+                                        <i t-attf-class="fa #{menu.get('icon')} fa-lg fa-fw" t-if="menu.get('icon')"/>
+                                        <span class="oe_menu_text">
+                                            <t t-esc="menu['name']"/>
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <button type="button" class="fa fa-bars pull-right visible-xs-block o_mobile_menu_toggle"/>
+
+                    <div class="o_menu_brand">Website</div>
+
+                    <ul class="o_menu_sections" groups="website.group_website_designer">
+                        <!-- Content -->
+                        <li class="dropdown content" t-if="editable">
+                            <a id="content-menu-button" class="dropdown-toggle waves" data-toggle="dropdown" href="#">Content</a>
+                            <ul class="dropdown-menu oe_content_menu" role="menu">
+                                <li>
+                                    <a data-action="edit_menu" href="#" title="Edit Top Menu">Edit Menu</a>
+                                </li>
+                                <li t-if="deletable" role="separator" class="divider"></li>
+                                <li t-if="deletable"><a href="#" data-action="rename_page">Rename Page</a></li>
+                                <li t-if="deletable"><a href="#" data-action="delete_page">Delete Page</a></li>
+                            </ul>
+                        </li>
+                        <!-- Customize -->
+                        <li class="dropdown" id="customize-menu">
+                            <a class="dropdown-toggle waves" data-toggle="dropdown" href="#" id="customize-menu-button">Customize</a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li id="html_editor"><a data-action="ace" href="#advanced-view-editor">HTML Editor</a></li>
+                                <li id="theme_customize"><a href="#">Customize Theme</a></li>
+                                <li id="install_apps"><a href="/web#return_label=Website&amp;action=website.action_module_website">Install Apps</a></li>
+                                <li class="divider"/>
+                            </ul>
+                        </li>
+                        <!-- Promote -->
+                        <li class="dropdown">
+                            <a class="dropdown-toggle waves" data-toggle="dropdown" href="#" id="promote-menu-button">Promote</a>
+                            <ul class="dropdown-menu oe_promote_menu" role="menu">
+                                <li><a data-action="promote-current-page" href="#" title="Promote page on the web">Optimize SEO</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <ul class="o_menu_systray hidden-xs" groups="website.group_website_publisher">
+                        <!-- Mobile preview -->
+                        <li class="o_mobile_preview">
+                            <a data-action="show-mobile-preview" href="#"><span title="Mobile preview" class="fa fa-mobile"/></a>
+                        </li>
+                        <!-- Page Edition -->
+                        <li>
+                            <a data-action="new_page" href="#" data-toggle="modal" data-target="#o_website_add_page_modal"><span class="fa fa-plus"/>New</a>
+                        </li>
+                        <li t-if="not translatable">
+                            <a data-action="edit" href="#"><span class="fa fa-pencil"/>Edit</a>
+                        </li>
+                        <li t-if="translatable">
+                            <a data-action="translate" href="#">TRANSLATE</a>
+                        </li>
+                        <li t-if="translatable">
+                            <a data-action="edit_master" href="#">or Edit Master</a>
+                        </li>
+                    </ul>
+                </nav>
+            </xpath>
+
+            <!-- Add new page/content modal -->
+            <xpath expr="//div[@id='wrapwrap']" position="after">
+                <div groups="website.group_website_publisher" class="modal" id="o_website_add_page_modal">
+                    <div class="modal-dialog modal-lg">
+                        <ul>
+                            <li groups="website.group_website_designer"><a href="#" data-action="new_page"><i class="fa fa-file-o"/><p>New Page</p></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+
+        <template id="login_modifier" customize_show="True" inherit_id="web.login" name="Login modifier">
+            <xpath expr="//t[@t-call='web.login_layout']" position="replace">
+                <t t-call="web.login_layout">
+                    <form class="oe_login_form" role="form" t-attf-action="/web/login{{ '?debug' if debug else '' }}"
+                          method="post" onsubmit="this.action = this.action + location.hash" style="padding-top:60px;">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                        <div class="form-group field-db hidden" t-if="databases and len(databases) &gt; 1">
+                            <label for="db" class="control-label">Database</label>
+                            <div class="input-group">
+                                <input type="text" name="db" t-att-value="request.db" id="db" class="form-control"
+                                       required="required" readonly="readonly"/>
+                                <span class="input-group-btn">
+                                    <a href="/web/database/selector" class="btn btn-default">Select
+                                        <i class="fa fa-database"></i>
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group field-login">
+                            <div style="font-size:28px;color:#2D52A3;">Chào mừng quay trở lại</div>
+                        </div>
+
+                        <div class="form-group field-login">
+                            <label for="login" class="control-label hidden">Số điện thoại hay email</label>
+                            <div style="font-size:15px;padding-bottom:10px;color:#2D52A3;">Tên đăng nhập
+                                <span style="color:red">*</span>
+                            </div>
+                            <input type="text" name="login" t-att-value="login" id="login" class="form-control"
+                                   required="required" autofocus="autofocus" autocapitalize="off"
+                                   placeholder="Vui lòng nhập Tên đăng nhập"/>
+                        </div>
+
+
+                        <div class="form-group field-password">
+                            <label for="password" class="control-label hidden">Mật khẩu</label>
+                            <div style="font-size:15px;padding-bottom:10px;">
+                                <span style="color:#2D52A3;">Mật khẩu</span>
+                                <span style="color:red;padding-right:170px;">*</span>
+                                <span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                Hiện
+                            </div>
+                            <input type="password" name="password" id="password" class="form-control"
+                                   required="required" autocomplete="current-password"
+                                   t-att-autofocus="'autofocus' if login else None" maxlength="4096"
+                                   placeholder="Vui lòng nhập Mật khẩu"/>
+                        </div>
+                        <div class="form-group form-check">
+
+                            <label style="font-size:15px;font-weight:normal;">
+                                <input type="checkbox" value="remember_me" id="remember_me"/>
+                                Nhớ mật khẩu
+                            </label>
+                        </div>
+                        <p class="alert alert-danger" t-if="error">
+                            <t t-esc="error"/>
+                        </p>
+                        <p class="alert alert-success" t-if="message">
+                            <t t-esc="message"/>
+                        </p>
+
+                        <input type="hidden" name="redirect" t-att-value="redirect"/>
+                        <div class="clearfix oe_login_buttons">
+                            <button type="submit" class="btn btn-warning btn-lg btn-block">
+                                <div style="color:black;">
+                                    <img src="https://image.flaticon.com/icons/svg/16/16036.svg" alt="Smiley face"
+                                         height="20" width="20"/>
+                                    Đăng nhập
+                                </div>
+                            </button>
+                        </div>
+                    </form>
+                </t>
+            </xpath>
+        </template>
+
+        <template id="website.show_sign_in" customize_show="True" inherit_id="website.layout" name="Show Sign In">
+            <xpath expr="//ul[@id='top_menu']" position="inside">
+                <li class="divider" groups="base.group_public"/>
+                <li groups="base.group_public">
+                    <a t-attf-href="/web/login">
+                        <b>Đăng nhập</b>
+                    </a>
+                </li>
+            </xpath>
+        </template>
+
+        <template id="auth_signup.login" inherit_id="web.login" name="Sign up - Reset Password">
+            <xpath expr="//button[@type='submit']" position="before">
+                <!--<a t-if="signup_enabled" t-attf-href="/web/signup?{{ keep_query() }}" class="btn btn-link pull-right">Sign up</a>-->
+                <a t-if="reset_password_enabled" t-attf-href="/web/reset_password?{{ keep_query() }}"
+                   class="btn btn-link pull-right">Reset Password
+                </a>
+            </xpath>
+        </template>
+
+
+        <template id="warning_error" name="Optional Products">
+            <div id="modal_optional_products" class="modal fade" tabindex="-1" role="dialog"
+                 aria-labelledby="myModalLabel">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                            <h4 class="modal-title" id="myModalLabel">Warning</h4>
+                        </div>
+                        <div class="modal-body">
+                            <t t-esc="note"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template id="website_sale.wizard_checkout" name="Wizard Checkout">
+            <t t-set="website_sale_order" t-value="website.sale_get_order()"/>
+            <ul class="wizard pull-right">
+                <li t-att-class="step==10 and 'text-primary' or 'text-muted'" id="step10">
+                    <t t-if="step&gt;10 and step&lt;50">
+                        <a href="/shop/cart" class="text-success">
+                            Review Order
+                            <span class="chevron"></span>
+                        </a>
+                    </t>
+                    <t t-if="not (step&gt;10 and step&lt;50)">
+                        Review Order
+                        <span class="chevron"></span>
+                    </t>
+                </li>
+                <li t-att-class="(step==20 and 'text-primary') or 'text-muted'" id="step20">
+                    <t t-if="step&gt;20 and step&lt;50">
+                        <a href="/shop/checkout" class="text-success">
+                            <!-- billing if not loggedin - TODO -->
+                            Shipping
+                            <span class="chevron"/>
+                            <!--<t t-if="not website_sale_order or not website_sale_order.website_order_line or not website_sale_order.only_services">Shipping &amp;</t>-->
+                            <!--Billing<span class="chevron"/>-->
+                        </a>
+                    </t>
+                    <t t-if="not (step&gt;20 and step&lt;50)">
+                        Shipping
+                        <span class="chevron"/>
+                        <!--<t t-if="not website_sale_order or not website_sale_order.website_order_line or not website_sale_order.only_services">Shipping &amp;</t>-->
+                        <!--Billing<span class="chevron"/>-->
+                    </t>
+                </li>
+                <li t-att-class="(step==40 and 'text-primary') or 'text-muted'" id="step40">
+                    Confirm Order
+                    <span class="chevron"></span>
+                    <!--Payment<span class="chevron"></span>-->
+                </li>
+                <li t-att-class="(step==50 and 'text-primary') or 'text-muted'" id="step50">
+                    Confirmation
+                    <span class="chevron"></span>
+                </li>
+            </ul>
+        </template>
+
+        <template id="website_display_menu" name="Conditional display menu"
+                  inherit_id="website.layout"
+                  active="True" customize_show="True">
+            <xpath expr="//ul[@id='top_menu']/t/t" position="replace">
+                <t t-if="(submenu.user_logged and request.uid !=  %(base.public_user)d) or (submenu.user_not_logged and request.uid == %(base.public_user)d)">
+                    <t t-call="website.submenu"/>
+                </t>
+            </xpath>
+
+        </template>
+
+        <template id="orders_followup_inherit" name="Sales Order"
+                  inherit_id="website_portal_sale.orders_followup">
+            <xpath expr="//div[@class='panel-body']" position="replace">
+                <div class="panel-body">
+                    <div class='row'>
+                        <div class="col-md-4">
+                            <h5>
+                                <strong>THÔNG TIN KHÁCH HÀNG</strong>
+                            </h5>
+
+                            <div>
+                                Khách hàng:
+                                <strong>
+                                    <span t-field="order.partner_id.name"/>
+                                </strong>
+                            </div>
+                            <div>
+                                Địa Chỉ:
+                                <span t-esc="order.get_address_partner(order.partner_id)"/>
+                            </div>
+                            <div>
+                                Điện thoại:
+                                <span t-field="order.partner_id.phone"/>
+                            </div>
+                            <div>
+                                Email:
+                                <span t-field="order.partner_id.email"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h5>
+                                <strong>THÔNG TIN GIAO HÀNG</strong>
+                            </h5>
+                            <div>
+                                <span>
+                                    <strong>Phương thức giao hàng:</strong>
+                                    <span t-field="order.delivery_method"/>
+                                </span>
+                            </div>
+                            <t t-if="order.delivery_method == 'transport'">
+                                <div>
+                                    <strong>Thông tin nhà xe:</strong>
+                                </div>
+                                <div>
+                                    <span t-field="order.transport_route_id.transporter_id.name"/>
+                                </div>
+                                <div>
+                                    Điện thoại:
+                                    <span t-field="order.transport_route_id.transporter_id.phone_number"/>
+                                </div>
+                                <div>
+                                    Địa Chỉ:
+                                    <span t-esc="order.get_address_transporter(order.transport_route_id.transporter_id)"/>
+                                </div>
+                            </t>
+                        </div>
+                        <div class="col-md-4">
+                            <h5>
+                                <strong>TRẠNG THÁI ĐƠN HÀNG</strong>
+                            </h5>
+                            <t t-set="i" t-value="1"/>
+                            <t t-foreach="order.order_state_ids" t-as="ol">
+                                <t t-if="ol.order_state == order.so_state">
+                                    <div class="row orders_vertical_align">
+                                        <div id='product_name' class="col-md-3 text-left">
+                                            <strong t-field="ol.date" t-options='{"widget": "date"}'/>
+                                        </div>
+                                        <div class="col-md-3 text-left">
+                                            <strong t-field="ol.date" t-options='{"format": "HH:MM"}'/>
+                                        </div>
+                                        <div class="col-md-6 text-left">
+                                            <strong t-field="ol.order_state"/>
+                                        </div>
+                                    </div>
+                                </t>
+                                <t t-else="">
+                                    <div class="row orders_vertical_align">
+                                        <div id='product_name' class="col-md-3 text-left">
+                                            <span t-field="ol.date" t-options='{"widget": "date"}'/>
+                                        </div>
+                                        <div class="col-md-3 text-left">
+                                            <span t-field="ol.date" t-options='{"format": "HH:MM"}'/>
+                                        </div>
+                                        <div class="col-md-6 text-left">
+                                            <span t-field="ol.order_state"/>
+                                        </div>
+                                    </div>
+                                </t>
+                            </t>
+                        </div>
+                    </div>
+                    <hr/>
+                    <t t-foreach="order.product_order_line" t-as="product_tmpl_line">
+                        <t t-if="product_tmpl_line.product_qty > 0">
+                            <div class="row" style="margin-bottom: 20px;">
+                                <div class="col-md-1" align="center" style="left: 7px">
+                                    <img t-att-src="product_tmpl_line.product_tmpl_id.image_small and ('data:image/png;base64,' + product_tmpl_line.product_tmpl_id.image_small) or '/web/static/src/img/placeholder.png'"/>
+                                </div>
+                                <div class="col-md-4" align="left"
+                                     style="top: 7px; padding-left: 32px;margin-top: 15px;">
+                                    <strong>
+                                        <span t-esc="product_tmpl_line.product_tmpl_id.name"/>
+                                        <t t-if="product_tmpl_line.attribute_value_id">
+                                            (
+                                            <span t-esc="product_tmpl_line.attribute_value_id.name"/>
+                                            )
+                                        </t>
+                                    </strong>
+
+                                </div>
+                                <div class="col-md-3" align="center" style="top: 7px;margin-top: 15px;">
+                                    <strong>SL:</strong>
+                                    <strong>
+                                        <span t-esc="product_tmpl_line.product_qty"
+                                              t-options="{'widget': 'float', 'precision': 0}"/>
+                                    </strong>
+                                </div>
+                                <div class="col-md-3" align="center" style="top: 7px;margin-top: 15px;">
+                                    <strong>
+                                        <span t-esc="product_tmpl_line.amount_untaxed"
+                                              t-options="{'widget': 'float', 'precision': 0}"/>
+                                        <span t-esc="website.currency_id.symbol"/>
+                                    </strong>
+                                </div>
+                                <t class="col-md-2" align="right">
+                                    <button class="btn btn-success dropdown-toggle" data-toggle="dropdown"
+                                            style="margin-top: 15px;">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <table style="width:84%; margin-left: 32px; padding-top: 0px; padding-bottom: 0px; position:inherit; border: 2px solid #666666"
+                                           class="dropdown-menu table table-bordered">
+                                        <tr>
+                                            <td class="col-sm-4" style="width: 317px" align="center">
+                                                <strong t-if="product_tmpl_line.attribute_value_id">Size</strong>
+                                            </td>
+                                            <td class="col-sm-4" align="center">
+                                                <strong>Số lượng</strong>
+                                            </td>
+                                            <td class="col-sm-4" align="center">
+                                                <strong>Đơn giá</strong>
+                                            </td>
+                                        </tr>
+                                        <tr t-foreach="product_tmpl_line.order_line.sorted(key=lambda r: r.product_id.default_code, reverse=False)"
+                                            t-as="line">
+                                            <t t-if="line.product_uom_qty > 0">
+                                                <td align="center">
+                                                    <t t-set='variable_attributes'
+                                                       t-value="line.product_id.attribute_line_ids.filtered(lambda l: len(l.value_ids) >= 1).mapped('attribute_id').filtered(lambda att: att.id != product_tmpl_line.attribute_id.id)"/>
+                                                    <span t-if="product_tmpl_line.attribute_value_id"
+                                                          t-esc="line.product_id.attribute_value_ids._variant_name(variable_attributes)"/>
+                                                </td>
+                                                <td align="center">
+                                                    <t t-if="line._name == 'sale.order.line'">
+                                                        <span t-esc="line.product_uom_qty"
+                                                              t-options="{'widget': 'float', 'precision': 0}"/>
+                                                    </t>
+                                                    <t t-if="line._name == 'account.invoice.line'">
+                                                        <span t-esc="line.quantity"
+                                                              t-options="{'widget': 'float', 'precision': 0}"/>
+                                                    </t>
+                                                </td>
+                                                <td align="center">
+                                                    <span t-esc="line.price_unit"
+                                                          t-options="{'widget': 'float', 'precision': 0}"/>
+                                                    <span t-esc="website.currency_id.symbol"/>
+                                                </td>
+                                            </t>
+
+                                        </tr>
+                                    </table>
+                                </t>
+                            </div>
+                        </t>
+                    </t>
+
+                    <hr/>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!--<div>-->
+                            <!--<strong>Contact</strong>-->
+                            <!--</div>-->
+                            <!--<div t-field="order.user_id.partner_id"-->
+                            <!--t-options='{"widget": "contact", "fields": ["email", "phone"]}'/>-->
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-9 text-right">
+                                    Tổng số lượng:
+                                </div>
+                                <div class="col-md-2 text-right" style="padding-right: 0px;padding-left:0px">
+                                    <span t-field="order.total_quantity"
+                                          t-options="{'widget': 'float', 'precision': 0}"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-9 text-right">
+                                    Untaxed Amount:
+                                </div>
+                                <div class="col-md-2 text-right" style="padding-right: 0px;padding-left:0px">
+                                    <span t-field="order.amount_untaxed"
+                                          t-options="{'widget': 'float', 'precision': 0}"/>
+                                    <span t-esc="website.currency_id.symbol"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-9 text-right">
+                                    Phụ phí giao hàng:
+                                </div>
+                                <div class="col-md-2 text-right" style="padding-right: 0px;padding-left:0px">
+                                    <span t-field="order.delivery_amount"
+                                          t-options="{'widget': 'float', 'precision': 0}"/>
+                                    <span t-esc="website.currency_id.symbol"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-9 text-right">
+                                    Trả trước phí ship nhà xe:
+                                </div>
+                                <div class="col-md-2 text-right" style="padding-right: 0px;padding-left:0px">
+                                    <span t-field="order.transport_amount"
+                                          t-options="{'widget': 'float', 'precision': 0}"/>
+                                    <span t-esc="website.currency_id.symbol"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-9 text-right">
+                                    <strong>Total:</strong>
+                                </div>
+                                <div class="col-md-2 text-right" style="padding-right: 0px;padding-left:0px">
+                                    <strong>
+                                        <span t-field="order.amount_total"
+                                              t-options="{'widget': 'float', 'precision': 0}"/>
+                                        <span t-esc="website.currency_id.symbol"/>
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-9 text-right">
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="not_have_attribute">
+            <table width="100%" class="js_product_not_have_attribute cart_table">
+                <tbody>
+                    <tr>
+                        <td width="20%" class="header">
+                            Tồn kho
+                        </td>
+                        <td width="60%;" class="header">
+                            Số lượng
+                        </td>
+                        <td width="20%" class="header">Đơn giá</td>
+                        <td width="0%" class="hidden"></td>
+                    </tr>
+                    <tr class="js_product_quantity">
+                        <td class="text-center">
+                            <a class="sp_co_the_ban" style="font-size: 12px;"></a>
+                        </td>
+                        <td class="text-center" id="td-qty">
+                            <div class="input-group oe_website_spinner" style="padding: 3px;">
+                                <a t-attf-href="#" class="mb8 input-group-addon-modifier js_add_cart_json"
+                                   data-no-instant="" style="height: 20px;">
+                                    <i class="fa fa-minus"></i>
+                                </a>
+                                <input type="text" class="js_quantity form-control quantity abc" value="0" style="height: 20px;width: 20%; margin: 0px 33%"/>
+                                <a t-attf-href="#"
+                                   class="mb8 float_left input-group-addon-modifier js_add_cart_json"
+                                   data-no-instant="" style="height: 20px;">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <a type="text" class="gia_ban_san_pham" style="font-size: 12px;"/>
+                        </td>
+                        <td class="hidden">
+                            <a type="text" class="product_size_id hidden" t-att-value="0"/>
+                            <a type="text" class="product_status_qty hidden"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </template>
+
+        <template id="only_attribute_not_size">
+            <strong t-field="variant_id.attribute_id.name"/>
+            <ul class="list-inline">
+                <t t-set="inc" t-value="0"/>
+                <li t-foreach="variant_id.value_ids" t-as="value_id"
+                    style="height: 30px; width: 70px;text-align: center;display: inline-table;" >
+                    <label t-attf-style="background-color:#{value_id.html_color or '#337ab7'};width: 60px;height: 30px;border-radius: 5px;display: table;"
+                           t-attf-class="text_center css_attribute_color #{'active' if not inc else ''}">
+                        <t t-if="not value_id.html_color">
+                            <p style="color:#FFFFFF;white-space: nowrap;display: table-cell;vertical-align: middle;padding: 0px 3px;font-size: 13px;" t-esc="value_id.name">
+                            </p>
+                        </t>
+                        <input type="radio"
+                               t-att-class="'js_variant_change hidden' if variant_id.attribute_id.create_variant else 'hidden'"
+                               t-att-checked="'checked' if not inc else None"
+                               t-att-name="'attribute-%s-%s' % (product.id, variant_id.attribute_id.id)"
+                               t-att-value="value_id.id"
+                               t-att-title="value_id.name"></input>
+                    </label>
+                    <t t-set="inc" t-value="inc+1"/>
+                </li>
+            </ul>
+
+            <table width="100%" class="js_product_not_size cart_table">
+                <tbody>
+                    <tr>
+                        <td width="20%" class="header">
+                            Tồn kho
+                        </td>
+                        <td width="60%;" class="header">
+                            Số lượng
+                        </td>
+                        <td width="20%" class="header">Đơn giá</td>
+                        <td width="0%" class="hidden"></td>
+                    </tr>
+                    <tr class="js_product_quantity">
+                        <td class="text-center">
+                            <a class="sp_co_the_ban" style="font-size: 12px;"></a>
+                        </td>
+                        <td class="text-center" id="td-qty">
+                            <div class="input-group oe_website_spinner" style="padding: 3px;">
+                                <a t-attf-href="#" class="mb8 input-group-addon-modifier js_add_cart_json"
+                                   data-no-instant="" style="height: 20px;">
+                                    <i class="fa fa-minus"></i>
+                                </a>
+                                <input type="text" class="js_quantity form-control quantity abc" value="0" style="height: 20px;width: 20%; margin: 0px 33%"/>
+                                <a t-attf-href="#"
+                                   class="mb8 float_left input-group-addon-modifier js_add_cart_json"
+                                   data-no-instant="" style="height: 20px;">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <a type="text" class="gia_ban_san_pham" style="font-size: 12px;"/>
+                        </td>
+                        <td class="hidden">
+                            <a type="text" class="product_size_id hidden" t-att-value="0"/>
+                            <a type="text" class="product_status_qty hidden"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </template>
+
+        <template id="only_attribute_size">
+            <table width="100%" class="js_product_only_size cart_table">
+                <tbody>
+                    <tr>
+                        <td width="18%" class="text-center header">
+                            Tồn kho
+                        </td>
+                        <td width="14%" class="text-center header">
+                            <strong t-field="variant_id.attribute_id.name"/>
+                        </td>
+                        <td width="50%;" class="text-center header">
+                            <strong>Số lượng</strong>
+                        </td>
+                        <td width="18%" class="text-center header">
+                            <strong>Đơn giá</strong>
+                        </td>
+                        <td width="0%" class="hidden"></td>
+                    </tr>
+                    <tr t-foreach="variant_id.value_ids" t-as="value_id" class="js_product_quantity">
+                        <td t-att-name="'quatity-%s-%s' % (product.id, variant_id.attribute_id.id)"
+                            class="text-center" style="font-size: 12px;">
+                            <a class="sp_co_the_ban"></a>
+                        </td>
+                        <td class="text-center" style="font-size: 12px;">
+                            <span t-field="value_id.name"/>
+                        </td>
+                        <td class="text-center" id="td-qty">
+                            <div class="input-group oe_website_spinner" style="padding: 3px;">
+                                <a t-attf-href="#" class="mb8 input-group-addon-modifier js_add_cart_json"
+                                   data-no-instant="" style="height: 20px;">
+                                    <i class="fa fa-minus"></i>
+                                </a>
+                                <input type="text" class="js_quantity form-control quantity abc"
+                                       t-att-name="'attribute-%s-%s' % (product.id, value_id.id)"
+                                       value="0" style="height: 20px;width: 20%; margin: 0px 28%"/>
+                                <a t-attf-href="#"
+                                   class="mb8 input-group-addon-modifier float_left js_add_cart_json"
+                                   data-no-instant="">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <a type="text" class="gia_ban_san_pham" style="font-size: 12px;"/>
+                        </td>
+                        <td class="hidden">
+                            <a type="text" class="product_size_id hidden"
+                               t-att-name="'attribute-%s-%s' % (product.id, value_id.id)"
+                               t-att-value_id="'%s' % (value_id.id)"
+                               t-att-value="0"/>
+                            <a type="text" class="product_status_qty"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </template>
+
+        <template id="two_attribute_have_size">
+            <strong t-field="variant_not_size_id.attribute_id.name"/>
+            <ul class="list-inline">
+                <t t-set="inc" t-value="0"/>
+                <li t-foreach="variant_not_size_id.value_ids" t-as="value_id"
+                    style="height: 30px; width: 70px;text-align: center;display: inline-table;" >
+                    <label t-attf-style="background-color:#{value_id.html_color or '#337ab7'};width: 60px;height: 30px;border-radius: 5px;display: table;"
+                           t-attf-class="text_center css_attribute_color #{'active' if not inc else ''}">
+                        <t t-if="not value_id.html_color">
+                            <p style="color:#FFFFFF;white-space: nowrap;display: table-cell;vertical-align: middle;padding: 0px 3px;font-size: 13px;" t-esc="value_id.name">
+                            </p>
+                        </t>
+                        <input type="radio"
+                               t-att-class="'js_variant_change hidden' if variant_not_size_id.attribute_id.create_variant else 'hidden'"
+                               t-att-checked="'checked' if not inc else None"
+                               t-att-name="'attribute-%s-%s' % (product.id, variant_not_size_id.attribute_id.id)"
+                               t-att-value="value_id.id"
+                               t-att-title="value_id.name"></input>
+                    </label>
+                    <t t-set="inc" t-value="inc+1"/>
+                </li>
+            </ul>
+            <table width="100%" class="js_product_size cart_table">
+                <tbody>
+                    <tr>
+                        <td width="18%" class="text-center header">
+                            Tồn kho
+                        </td>
+                        <td width="14%" class="text-center header">
+                            <strong t-field="variant_size_id.attribute_id.name"/>
+                        </td>
+                        <td width="50%;" class="text-center header">
+                            <strong>Số lượng</strong>
+                        </td>
+                        <td width="18%" class="text-center header">
+                            <strong>Đơn giá</strong>
+                        </td>
+                        <td width="0%" class="hidden"></td>
+                    </tr>
+                    <tr t-foreach="variant_size_id.value_ids" t-as="value_id" class="js_product_quantity">
+                        <td t-att-name="'quatity-%s-%s' % (product.id, variant_size_id.attribute_id.id)"
+                            class="text-center" style="font-size: 12px;">
+                            <a class="sp_co_the_ban"></a>
+                        </td>
+                        <td class="text-center" style="font-size: 12px;">
+                            <span t-field="value_id.name"/>
+                        </td>
+                        <td class="text-center" id="td-qty">
+                            <div class="input-group oe_website_spinner" style="padding: 3px;">
+                                <a t-attf-href="#" class="mb8 input-group-addon-modifier js_add_cart_json"
+                                   data-no-instant="" style="height: 20px;">
+                                    <i class="fa fa-minus"></i>
+                                </a>
+                                <input type="text" class="js_quantity form-control quantity abc"
+                                       t-att-name="'attribute-%s-%s' % (product.id, value_id.id)"
+                                       value="0" style="height: 20px;width: 20%; margin: 0px 28%"/>
+                                <a t-attf-href="#"
+                                   class="mb8 input-group-addon-modifier float_left js_add_cart_json"
+                                   data-no-instant="">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <a type="text" class="gia_ban_san_pham" style="font-size: 12px;"/>
+                        </td>
+                        <td class="hidden">
+                            <a type="text" class="product_size_id"
+                               t-att-name="'attribute-%s-%s' % (product.id, value_id.id)"
+                               t-att-value="0"/>
+                            <a type="text" class="product_status_qty"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </template>
+
+        <template id="website_sale.variants">
+            <t t-set="attribute_value_ids" t-value="get_attribute_value_ids(product)"/>
+            <ul t-attf-class="list-unstyled js_add_cart_variants #{ul_class}"
+                t-att-data-attribute_value_ids="attribute_value_ids">
+                <li t-if="len(product.attribute_line_ids) == 0">
+                    <t t-call="tts_modifier_website.not_have_attribute"/>
+                </li>
+                <li t-if="len(product.attribute_line_ids) == 1">
+                    <t t-set="variant_id" t-value="product.attribute_line_ids[0]"/>
+                    <t t-if="variant_id.attribute_id.name in ['CLB','Khối lượng','Màu']">
+                        <t t-call="tts_modifier_website.only_attribute_not_size"/>
+                    </t>
+                    <t t-else="">
+                        <t t-call="tts_modifier_website.only_attribute_size"/>
+                    </t>
+                </li>
+                <li t-if="len(product.attribute_line_ids) == 2">
+                    <t t-set="variant_not_size_id" t-value="0"/>
+                    <t t-set="variant_size_id" t-value="0"/>
+                    <t t-foreach="product.attribute_line_ids" t-as="variant_id">
+                        <t t-if="variant_id.attribute_id.name in ['CLB','Khối lượng','Màu']">
+                            <t t-set="variant_not_size_id" t-value="variant_id"/>
+                        </t>
+                        <t t-else="">
+                            <t t-set="variant_size_id" t-value="variant_id"/>
+                        </t>
+                    </t>
+                    <t t-if="variant_not_size_id != 0 and variant_size_id != 0">
+                        <t t-call="tts_modifier_website.two_attribute_have_size"/>
+                    </t>
+                </li>
+                <!--<t t-foreach="product.attribute_line_ids.sorted(key=lambda x: x.attribute_id.sequence)"-->
+                   <!--t-as="variant_id">-->
+                    <!--<li t-if="len(variant_id.value_ids) > 1">-->
+
+                        <!--<t t-if="variant_id.attribute_id.type in ['select', 'hidden']">-->
+                            <!--<strong t-field="variant_id.attribute_id.name"/>-->
+                            <!--<select t-attf-class="form-control #{'js_variant_change' if variant_id.attribute_id.create_variant else ''}"-->
+                                    <!--t-att-name="'attribute-%s-%s' % (product.id, variant_id.attribute_id.id)">-->
+                                <!--<t t-foreach="variant_id.value_ids" t-as="value_id">-->
+                                    <!--<option t-att-value="value_id.id">-->
+                                        <!--<span t-field="value_id.name"/>-->
+                                        <!--<span t-if="value_id.price_extra">-->
+                                            <!--<t t-esc="value_id.price_extra > 0 and '+' or ''"/>-->
+                                            <!--<span t-field="value_id.price_extra" style="white-space: nowrap;"-->
+                                                  <!--t-options='{-->
+                                                   <!--"widget": "monetary",-->
+                                                    <!--"from_currency": product.currency_id,-->
+                                                   <!--"display_currency": website.currency_id-->
+                                               <!--}'/>-->
+                                        <!--</span>-->
+                                    <!--</option>-->
+                                <!--</t>-->
+                            <!--</select>-->
+                        <!--</t>-->
+
+                        <!--<t t-if="variant_id.attribute_id.type == 'radio'">-->
+                            <!--<table width="100%" class="js_product_size">-->
+                                <!--<tbody>-->
+                                    <!--<tr>-->
+                                        <!--<td width="15%" class="text-center">-->
+                                            <!--<strong t-field="variant_id.attribute_id.name"/>-->
+                                        <!--</td>-->
+                                        <!--<td width="35%;" class="text-center">-->
+                                            <!--<strong>SL đặt hàng</strong>-->
+                                        <!--</td>-->
+                                        <!--<td width="30%" class="text-center">-->
+                                            <!--<strong>SL có thể đặt</strong>-->
+                                        <!--</td>-->
+                                        <!--<td width="20%"></td>-->
+                                    <!--</tr>-->
+                                    <!--<tr t-foreach="variant_id.value_ids" t-as="value_id" class="js_product_quantity">-->
+                                        <!--<td class="text-center">-->
+                                            <!--<span t-field="value_id.name"/>-->
+                                        <!--</td>-->
+                                        <!--<td class="text-center" id="td-qty">-->
+                                            <!--<div class="input-group oe_website_spinner"-->
+                                                 <!--style="width: 35px;padding-left: 7%;padding-top: 3px;padding-left: 7px">-->
+                                                <!--<a t-attf-href="#" class="mb8 input-group-addon js_add_cart_json"-->
+                                                   <!--data-no-instant="" style="height: 20px;">-->
+                                                    <!--<i class="fa fa-minus"></i>-->
+                                                <!--</a>-->
+                                                <!--<input type="text" class="js_quantity form-control quantity abc"-->
+                                                       <!--t-att-name="'attribute-%s-%s' % (product.id, value_id.id)"-->
+                                                       <!--value="0"/>-->
+                                                <!--<a t-attf-href="#"-->
+                                                   <!--class="mb8 input-group-addon float_left js_add_cart_json"-->
+                                                   <!--data-no-instant="">-->
+                                                    <!--<i class="fa fa-plus"></i>-->
+                                                <!--</a>-->
+                                            <!--</div>-->
+                                        <!--</td>-->
+                                        <!--<td t-att-name="'quatity-%s-%s' % (product.id, variant_id.attribute_id.id)"-->
+                                            <!--class="text-center">-->
+                                            <!--<a class="sp_co_the_ban"></a>-->
+                                        <!--</td>-->
+                                        <!--<td>-->
+                                            <!--<a type="text" class="product_size_id hidden"-->
+                                               <!--t-att-name="'attribute-%s-%s' % (product.id, value_id.id)"-->
+                                               <!--t-att-value="0"/>-->
+                                            <!--<a type="text" class="product_status_qty"/>-->
+                                        <!--</td>-->
+                                    <!--</tr>-->
+                                <!--</tbody>-->
+                            <!--</table>-->
+                        <!--</t>-->
+
+                        <!--<t t-if="variant_id.attribute_id.type == 'color'">-->
+                            <!--<strong t-field="variant_id.attribute_id.name"/>-->
+                            <!--<ul class="list-inline">-->
+                                <!--<t t-set="inc" t-value="0"/>-->
+                                <!--<li t-foreach="variant_id.value_ids" t-as="value_id"-->
+                                    <!--style="height: 55px; width: 70px;text-align: center">-->
+                                    <!--<label t-attf-style="background-color:#{value_id.html_color or '#337ab7'};width: 60px;height: 40px;border-radius: 10px;"-->
+                                           <!--t-attf-class="text_center css_attribute_color #{'active' if not inc else ''}">-->
+                                        <!--<t t-if="not value_id.html_color">-->
+                                            <!--<p style="color:#FFFFFF;white-space: nowrap" t-esc="value_id.name">-->
+                                            <!--</p>-->
+                                        <!--</t>-->
+                                        <!--<input type="radio"-->
+                                               <!--t-att-class="'js_variant_change hidden' if variant_id.attribute_id.create_variant else 'hidden'"-->
+                                               <!--t-att-checked="'checked' if not inc else None"-->
+                                               <!--t-att-name="'attribute-%s-%s' % (product.id, variant_id.attribute_id.id)"-->
+                                               <!--t-att-value="value_id.id"-->
+                                               <!--t-att-title="value_id.name"></input>-->
+                                    <!--</label>-->
+                                    <!--<t t-set="inc" t-value="inc+1"/>-->
+                                <!--</li>-->
+                            <!--</ul>-->
+                        <!--</t>-->
+
+                    <!--</li>-->
+                <!--</t>-->
+            </ul>
+        </template>
+
+        <template id="website_sale_modifier_product" inherit_id="website_sale.product" customize_show="True"
+                  name="Select Quantity">
+            <xpath expr="//section[@id='product_detail']" position="attributes">
+                <attribute name="t-attf-class">container mt8 oe_website_sale_modifier
+                    #{(compute_currency(product.lst_price) - product.website_price) &gt; 0.01 and website.get_current_pricelist().discount_policy == 'without_discount'  and 'discount'}
+                </attribute>
+            </xpath>
+        </template>
+
+        <template id="website_sale.product_price">
+            <div itemprop="offers" itemscope="itemscope" itemtype="http://schema.org/Offer" class="product_price mt16">
+                <div class="oe_price_h4 css_editable_mode_hidden" style="margin-left: 0%;">
+                    <table style="width: 70%;">
+                        <tr>
+                            <td width="30%"/>
+                            <td width="45%" class="text-right">
+                                Tổng SL:
+                            </td>
+                            <td width="25%" class="text-center">
+                                <input type="text" class="total_qty text-center" style="border: 0pt solid black; font-weight: bold;"
+                                       readonly="1"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td/>
+                            <td class="text-right">
+                                Tổng Tiền:
+                            </td>
+                            <td class="text-center">
+                                <input type="text" class="total_price text-center" style="border: 0pt solid black; font-weight: bold;"
+                                       readonly="1"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <h4 class="hidden oe_not_available bg-warning">Product not available</h4>
+            </div>
+        </template>
+
+        <template id="website_sale.product_quantity" inherit_id="website_sale.product" customize_show="True"
+                  name="Select Quantity">
+            <xpath expr="//a[@id='add_to_cart']" position="before">
+            </xpath>
+        </template>
+
+        <template id="website_sale_options.modal" name="Optional Products">
+            <div id="modal_optional_products" class="modal fade" tabindex="-1" role="dialog"
+                 aria-labelledby="myModalLabel">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                            <h4 class="modal-title" id="myModalLabel">Product to add in your shopping cart</h4>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-striped table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">Product</th>
+                                        <th style="min-width: 140px;"></th>
+                                        <th width="100">Price</th>
+                                        <th width="120">Quantity</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="product_list" t-as="product_value">
+                                        <t t-set="product" t-value="product_value.get('product')"/>
+                                        <t t-set="quantity" t-value="product_value.get('quantity')"/>
+                                        <tr id="product_confirmation" class="js_product">
+                                            <td width="100">
+                                                <span t-field="product.image_medium" t-options='{"widget": "image" }'/>
+                                            </td>
+                                            <td colspan="2">
+                                                <strong t-field="product.display_name"/>
+                                                <div class="text-muted">
+                                                    <div t-field="product.description_sale"/>
+                                                    <div class="js_attributes"/>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <!--<ul class="hidden js_add_cart_variants"-->
+                                                <!--t-att-data-attribute_value_ids="main_product_attr_ids"></ul>-->
+                                                <!--<div class="hidden oe_unchanged_value_ids"-->
+                                                <!--t-att-data-unchanged_value_ids="main_product_attr_ids[0][1]"></div>-->
+                                                <span t-attf-class="text-danger oe_default_price oe_striked_price {{ (compute_currency(product.lst_price) - product.website_price) &lt; 0.01 and 'hidden' }}"
+                                                      t-field="product.lst_price"
+                                                      t-options='{
+                                      "widget": "monetary",
+                                      "from_currency": product.currency_id,
+                                      "display_currency": website.currency_id
+                                   }'/>
+                                                <span class="oe_price product_id" style="white-space: nowrap;"
+                                                      t-att-data-product-id="product.id"
+                                                      t-esc="product.website_price / quantity"
+                                                      t-options='{
+                                       "widget": "monetary",
+                                       "display_currency": website.currency_id
+                                   }'/>
+                                            </td>
+                                            <td>
+                                                <div class="input-group oe_website_spinner">
+                                                    <a t-attf-href="#" class="mb8 input-group-addon js_add_cart_json">
+                                                        <i class="fa fa-minus"></i>
+                                                    </a>
+                                                    <input type="text" class="js_quantity form-control quantity"
+                                                           data-min="1" name="add_qty" t-att-value="quantity"
+                                                           t-att-name="'product_id_%s' % (product.id)"/>
+                                                    <a t-attf-href="#"
+                                                       class="mb8 input-group-addon float_left js_add_cart_json">
+                                                        <i class="fa fa-plus"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="btn btn-default a-submit js_goto_shop">
+                                <i class="fa fa-chevron-left"></i>
+                                <span class="hidden-xs">Continue Shopping</span>
+                                <span class="visible-xs-inline">Continue</span>
+                            </a>
+                            <a class="btn btn-primary pull-right a-submit">
+                                <i class="fa fa-shopping-cart fa-fw"></i>
+                                <span class="hidden-xs">Proceed to checkout</span>
+                                <span class="visible-xs-inline">Checkout</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template id="website_modifier_my_acount" inherit_id="website_portal.details" customize_show="True"
+                  name="Account Details">
+            <xpath expr="//t/div[@id='wrap']" position="replace">
+                <div id="wrap">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <ol class="breadcrumb mt8">
+                                    <li>
+                                        <a href="/my/home">
+                                            <i class="fa fa-home"/>
+                                        </a>
+                                    </li>
+                                    <li>Details</li>
+                                </ol>
+                            </div>
+                        </div>
+                        <h1>Contact Details</h1>
+                        <form action="/my/account" method="post">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <div class="row o_website_portal_details">
+                                <div class="col-md-8">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div t-if="error_message" class="alert alert-danger">
+                                                <t t-foreach="error_message" t-as="err">
+                                                    <t t-esc="err"/>
+                                                    <br/>
+                                                </t>
+                                            </div>
+                                        </div>
+                                        <div t-attf-class="form-group #{error.get('name') and 'has-error' or ''} col-lg-6">
+                                            <label class="control-label" for="name">Your Name</label>
+                                            <input type="text" name="name" class="form-control"
+                                                   t-att-value="name or partner.name"/>
+                                        </div>
+                                        <div t-attf-class="form-group #{error.get('email') and 'has-error' or ''} col-lg-6">
+                                            <label class="control-label" for="email">Email</label>
+                                            <input type="email" name="email" class="form-control"
+                                                   t-att-value="email or partner.email"/>
+                                        </div>
+                                        <div t-attf-class="form-group #{error.get('company_name') and 'has-error' or ''} col-lg-6">
+                                            <label class="control-label label-optional" for="company_name">Company
+                                                Name
+                                            </label>
+                                            <p t-if="partner.commercial_partner_id.is_company" class="form-control"
+                                               t-esc="partner.commercial_company_name"/>
+                                            <input t-else="" type="text" name="company_name" class="form-control"
+                                                   t-att-value="company_name or partner.company_name"/>
+                                        </div>
+                                        <div t-attf-class="form-group #{error.get('phone') and 'has-error' or ''} col-lg-6">
+                                            <label class="control-label" for="phone">Phone</label>
+                                            <input type="tel" name="phone" class="form-control"
+                                                   t-att-value="phone or partner.phone"/>
+                                        </div>
+
+                                        <!--<div t-if="has_check_vat" t-attf-class="form-group #{error.get('vat') and 'has-error' or ''} col-lg-6">-->
+                                        <!--<label class="control-label label-optional" for="vat">VAT Number</label>-->
+                                        <!--<input type="text" name="vat" class="form-control" t-att-value="vat or partner.vat" />-->
+                                        <!--</div>-->
+
+                                        <div class="clearfix"/>
+                                        <!--<div t-attf-class="form-group #{error.get('street') and 'has-error' or ''} col-lg-6">-->
+                                        <!--<label class="control-label label-optional" for="street">Street</label>-->
+                                        <!--<input type="text" name="street" class="form-control" t-att-value="street or partner.street"/>-->
+                                        <!--</div>-->
+                                        <!--<div t-attf-class="form-group #{error.get('city') and 'has-error' or ''} col-lg-6">-->
+                                        <!--<label class="control-label" for="city">City</label>-->
+                                        <!--<input type="text" name="city" class="form-control" t-att-value="city or partner.city" />-->
+                                        <!--</div>-->
+                                        <!--<div t-attf-class="form-group #{error.get('zip') and 'has-error' or ''} col-lg-6">-->
+                                        <!--<label class="control-label" for="zipcode">Zip / Postal Code</label>-->
+                                        <!--<input type="text" name="zipcode" class="form-control" t-att-value="zipcode or partner.zip" />-->
+                                        <!--</div>-->
+                                        <!--<div t-attf-class="form-group #{error.get('country_id') and 'has-error' or ''} col-lg-6">-->
+                                        <!--<label class="control-label" for="country_id">Country</label>-->
+                                        <!--<select name="country_id" class="form-control">-->
+                                        <!--<option value="">Country...</option>-->
+                                        <!--<t t-foreach="countries or []" t-as="country">-->
+                                        <!--<option t-att-value="country.id" t-att-selected="country.id == int(country_id) if country_id else country.id == partner.country_id.id">-->
+                                        <!--<t t-esc="country.name" />-->
+                                        <!--</option>-->
+                                        <!--</t>-->
+                                        <!--</select>-->
+                                        <!--</div>-->
+                                        <div t-attf-class="form-group #{error.get('city_id') and 'has-error' or ''} col-lg-6">
+                                            <label class="control-label" for="city_id">Tỉnh/Thành phố</label>
+                                            <select name="city_id" class="form-control">
+                                                <option value="">Tỉnh/Thành phố</option>
+                                                <t t-foreach="city or []" t-as="rec">
+                                                    <option t-att-value="rec.id">
+                                                        <t t-esc="rec.name"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <div t-attf-class="form-group #{error.get('district_id') and 'has-error' or ''} col-lg-6">
+                                            <label class="control-label" for="district_id">Quận/Huyện</label>
+                                            <select name="district_id" class="form-control">
+                                                <option value="">Quận/Huyện</option>
+                                                <t t-foreach="district or []" t-as="dis">
+                                                    <option t-att-value="dis.id" t-att-data-city_id="dis.city_id.id"
+                                                            t-att-selected="dis.id == partner.feosco_district_id.id">
+                                                        <t t-esc="dis.name"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <div t-attf-class="form-group #{error.get('ward_id') and 'has-error' or ''} col-lg-6">
+                                            <label class="control-label" for="ward_id">Phường/Xã</label>
+                                            <select name="ward_id" class="form-control">
+                                                <option value="">Phường/Xã</option>
+                                                <t t-foreach="wards or []" t-as="ward">
+                                                    <option t-att-value="ward.id">
+                                                        <!--t-att-data-city_id="dis.district_id.id" t-att-selected="ward.id == partner.feosco_ward_id.id"-->
+                                                        <t t-esc="ward.name"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <!--<div t-attf-class="form-group #{error.get('state_id') and 'has-error' or ''} col-lg-6">-->
+                                        <!--<label class="control-label label-optional" for="state_id">State / Province</label>-->
+                                        <!--<select name="state_id" class="form-control">-->
+                                        <!--<option value="">select...</option>-->
+                                        <!--<t t-foreach="states or []" t-as="state">-->
+                                        <!--<option t-att-value="state.id" t-att-data-country_id="state.country_id.id" t-att-selected="state.id == partner.state_id.id">-->
+                                        <!--<t t-esc="state.name" />-->
+                                        <!--</option>-->
+                                        <!--</t>-->
+                                        <!--</select>-->
+                                        <!--</div>-->
+                                        <input type="hidden" name="redirect" t-att-value="redirect"/>
+                                    </div>
+                                    <div class="clearfix">
+                                        <button type="submit" class="btn btn-default btn-primary pull-right mb32 ">
+                                            Confirm
+                                            <span class="fa fa-long-arrow-right"/>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="suggested_products_list_inherit" inherit_id="website_sale.suggested_products_list" active="False"
+                  customize_show="False">
+            <xpath expr="//table[2]" position="replace">
+            </xpath>
+        </template>
+
+        <template id="suggested_products_list_new" customize_show="True" name="Alternative Products in my cart (new)">
+            <table t-if="suggested_products" class="js_cart_lines table table-striped table-condensed">
+                <colgroup>
+                    <col width="80"/>
+                    <col/>
+                    <col width="100"/>
+                    <col width="120"/>
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th colspan="4">Suggested Accessories:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="suggested_products" t-as="product">
+                        <td>
+                            <a t-attf-href="/shop/product/#{ slug(product.product_tmpl_id) }">
+                                <span t-field="product.image_small"
+                                      t-options="{'widget': 'image', 'class': 'img-rounded'}"/>
+                            </a>
+                        </td>
+                        <td>
+                            <div>
+                                <a t-attf-href="/shop/product/#{ slug(product.product_tmpl_id) }">
+                                    <strong t-field="product.display_name"/>
+                                </a>
+                            </div>
+                            <div class="text-muted" t-field="product.description_sale"/>
+                        </td>
+                        <td>
+                            <t t-if="product.website_price_difference  and website.get_current_pricelist().discount_policy=='without_discount'">
+                                <del class="text-danger mr8" style="white-space: nowrap;" t-field="product.lst_price"
+                                     t-options="{'widget': 'monetary','from_currency': product.currency_id, 'display_currency': website.currency_id}"/>
+                            </t>
+                            <span t-field="product.website_price" style="white-space: nowrap;"
+                                  t-options="{'widget': 'monetary','display_currency': website.currency_id}"/>
+                        </td>
+                        <td class="text-center">
+                            <input class="js_quantity" name="product_id" t-att-data-product-id="product.id"
+                                   type="hidden"/>
+                            <a class="btn btn-link js_add_suggested_products">
+                                <strong>Add to Cart</strong>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </template>
+
+        <template id="website_sale_cart_lines" inherit_id="website_sale.cart_lines" name="Shopping Cart Lines">
+            <!--<xpath expr="//table/tbody/t/tr/td[3]/div[2]" position="replace"></xpath>-->
+            <xpath expr="//table" position="replace">
+                <div class="row js_cart_lines" t-if="website_sale_order and website_sale_order.website_order_line"
+                     id="cart_product_group"
+                     style="padding-bottom:10px">
+                    <t t-foreach="website_sale_order.product_order_line" t-as="product_tmpl_line">
+                        <t t-if="len(product_tmpl_line.order_line) > 0">
+                            <div class="row">
+                                <div class="col-md-2" align="center">
+                                    <t t-if="product_tmpl_line.attribute_value_id">
+                                        <t t-set="product_image_ids"
+                                           t-value="product_tmpl_line.product_tmpl_id.product_variant_ids.filtered(lambda p: product_tmpl_line.attribute_value_id in p.attribute_value_ids)"/>
+                                        <t t-if="product_image_ids">
+                                            <img t-att-src="product_image_ids[0].image_small and ('data:image/png;base64,' + product_image_ids[0].image_small) or '/web/static/src/img/placeholder.png'"/>
+                                        </t>
+                                        <t t-else="">
+                                            <img t-att-src="product_tmpl_line.product_tmpl_id.image_small and ('data:image/png;base64,' + product_tmpl_line.product_tmpl_id.image_small) or '/web/static/src/img/placeholder.png'"/>
+                                        </t>
+                                    </t>
+                                    <t t-else="">
+                                        <img t-att-src="product_tmpl_line.product_tmpl_id.image_small and ('data:image/png;base64,' + product_tmpl_line.product_tmpl_id.image_small) or '/web/static/src/img/placeholder.png'"/>
+                                    </t>
+                                </div>
+                                <div class="col-md-4" align="left" style="padding-top:20px">
+                                    <strong>
+                                        <span t-esc="product_tmpl_line.product_tmpl_id.name"/>
+                                        <t t-if="product_tmpl_line.attribute_value_id">
+                                            <span>-
+                                                <span t-esc="product_tmpl_line.attribute_value_id.name"/>
+                                            </span>
+                                        </t>
+                                    </strong>
+                                </div>
+                                <div class="col-md-2" align="center" style="margin-top:20px">
+                                    <strong>SL:</strong>
+                                    <strong>
+                                        <span t-esc="product_tmpl_line.product_qty" t-options="{'widget': 'integer'}"/>
+                                    </strong>
+                                </div>
+                                <div class="col-md-3" align="center" style="margin-top:20px" id="total_product_amount">
+                                    <strong>
+                                        <span t-esc="product_tmpl_line.amount_untaxed"
+                                              t-options='{"widget": "integer", "display_currency": product_tmpl_line.order_id.pricelist_id.currency_id}'/>
+                                        <span t-esc="website.currency_id.symbol"/>
+                                    </strong>
+                                </div>
+                                <t class="col-md-2" align="center" style="margin-top:15px">
+                                    <button class="btn btn-success dropdown-toggle" data-toggle="dropdown"
+                                            style="margin-top:15px">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <table style="position:inherit;" id="cart_products"
+                                           class="col-md-9 dropdown-menu table-striped table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <td class="col-md-2" align="center">
+                                                    <strong>Tồn kho</strong>
+                                                </td>
+                                                <td class="col-md-3" align="center">
+                                                    <strong t-if="product_tmpl_line.attribute_value_id">Size</strong>
+                                                </td>
+                                                <td class="col-md-2" align="center">
+                                                    <strong>Số lượng</strong>
+                                                </td>
+                                                <td class="col-md-3" align="center">
+                                                    <strong>Đơn giá</strong>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr t-foreach="product_tmpl_line.order_line.sorted(key=lambda r: r.product_id.default_code, reverse=False)"
+                                                t-as="line">
+                                                <td align="center" class="sp_co_the_ban">
+                                                    <span class="sp_co_the_ban_span"
+                                                          t-att-class="'%s' % (line.product_id.id)"
+                                                          t-esc="line.product_id.sp_co_the_ban"/>
+                                                </td>
+                                                <td align="center">
+                                                    <t t-set='variable_attributes'
+                                                       t-value="line.product_id.attribute_line_ids.filtered(lambda l: len(l.value_ids) >= 1).mapped('attribute_id').filtered(lambda att: att.id != product_tmpl_line.attribute_id.id)"/>
+                                                    <span t-if="product_tmpl_line.attribute_value_id"
+                                                          t-esc="line.product_id.attribute_value_ids._variant_name(variable_attributes)"/>
+                                                </td>
+                                                <td class="text-center" id="td-qty">
+                                                    <div class="input-group oe_website_spinner">
+                                                        <a t-attf-href="#"
+                                                           class="mb8 input-group-addon js_add_cart_all_json"
+                                                           data-no-instant="">
+                                                            <i class="fa fa-minus"></i>
+                                                        </a>
+                                                        <t t-if="line.product_uom_qty == 0">
+                                                            <input type="text"
+                                                                   class="js_quantity_all form-control quantity"
+                                                                   t-att-data-line-id="line.id"
+                                                                   t-att-data-product-id="line.product_id.id"
+                                                                   t-att-data-product_tmpl_line-id="product_tmpl_line.id"
+                                                                   t-att-value="'0'"
+                                                                   t-att-product_uom_qty="'0'"
+                                                            />
+                                                        </t>
+                                                        <t t-else="">
+                                                            <input type="text"
+                                                                   class="js_quantity_all form-control quantity"
+                                                                   t-att-data-line-id="line.id"
+                                                                   t-att-data-product-id="line.product_id.id"
+                                                                   t-att-data-product_tmpl_line-id="product_tmpl_line.id"
+                                                                   t-att-value="int(line.product_uom_qty) == line.product_uom_qty and int(line.product_uom_qty) or line.product_uom_qty"
+                                                                   t-att-product_uom_qty="line.product_uom_qty"
+                                                            />
+                                                        </t>
+                                                        <!--<t t-if="line.product_id.sp_co_the_ban == 0">-->
+                                                            <!--<a t-attf-href="#" style="pointer-events: none;"-->
+                                                               <!--class="mb8 input-group-addon float_left js_add_cart_all_json disabled"-->
+                                                               <!--data-no-instant="">-->
+                                                                <!--<i class="fa fa-plus"></i>-->
+                                                            <!--</a>-->
+                                                        <!--</t>-->
+                                                        <!--<t t-else="">-->
+                                                            <a t-attf-href="#"
+                                                               class="mb8 input-group-addon float_left js_add_cart_all_json"
+                                                               data-no-instant="">
+                                                                <i class="fa fa-plus"></i>
+                                                            </a>
+                                                        <!--</t>-->
+
+                                                    </div>
+                                                </td>
+                                                <td class="text-center" id="td-price" name="price">
+                                                    <t t-if="(compute_currency(line.product_id.lst_price) - line.price_reduce ) &gt; 0.01  and website.get_current_pricelist().discount_policy=='without_discount'">
+                                                        <del t-attf-class="#{'text-danger mr8'}"
+                                                             style="white-space: nowrap;"
+                                                             t-esc="compute_currency(line.product_id.website_public_price)"
+                                                             t-options="{'widget': 'integer', 'display_currency': website.get_current_pricelist().currency_id, 'from_currency': website.currency_id}"/>
+                                                    </t>
+                                                    <span t-field="line.price_reduce_taxexcl"
+                                                          style="white-space: nowrap;"
+                                                          t-options="{'widget': 'integer', 'from_currency': website_sale_order.pricelist_id.currency_id, 'display_currency': website.currency_id}"
+                                                          groups="sale.group_show_price_subtotal"/>
+                                                    <span t-field="line.price_reduce_taxinc"
+                                                          style="white-space: nowrap;"
+                                                          t-options="{'widget': 'integer', 'from_currency': website_sale_order.pricelist_id.currency_id, 'display_currency': website.currency_id}"
+                                                          groups="sale.group_show_price_total"/>
+                                                    <span t-esc="website.currency_id.symbol"/>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td class="col-md-2" align="center">
+
+                                                </td>
+                                                <td class="col-md-3" align="center">
+                                                    <a id="btn_cart_delete" class="btn btn-danger js_cart_delete"
+                                                       t-attf-href="#"
+                                                       data-no-instant=""
+                                                       t-att-data-product_tmpl_line-id="product_tmpl_line.id">
+                                                        <span>Xóa</span>
+                                                    </a>
+                                                </td>
+                                                <td class="col-md-2" align="center">
+                                                    <a id="btn_cart_update" class="btn btn-success js_cart_update_all"
+                                                       t-attf-href="#"
+                                                       data-no-instant=""
+                                                       t-att-data-product_tmpl_line-id="product_tmpl_line.id">
+                                                        <span>Cập nhật lại số lượng</span>
+                                                    </a>
+                                                </td>
+                                                <td class="col-md-3" align="center">
+                                                    <strong>Đơn giá</strong>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </t>
+
+                            </div>
+                        </t>
+
+                    </t>
+                </div>
+            </xpath>
+
+            <xpath expr="//t[@t-set='extra_class']" position="replace">
+                <t t-set='extra_class' t-value='"col-sm-5 col-sm-offset-7 col-xs-12"'/>
+            </xpath>
+
+        </template>
+
+        <template id="website_sale_total" inherit_id="website_sale.total">
+            <xpath expr="//div[@id='order_total_untaxed']" position="replace">
+                <div class="row" id="order_total_untaxed">
+                    <span class="col-xs-7 text-right text-muted">Subtotal:</span>
+                    <span class="col-xs-5 text-right text-muted">
+                        <span t-field="website_sale_order.amount_untaxed" style="white-space: nowrap;"
+                              t-options="{'widget': 'integer','from_currency': website_sale_order.pricelist_id.currency_id,'display_currency': website.currency_id}"/>
+                        <span t-esc="website.currency_id.symbol"/>
+                    </span>
+                </div>
+                <div class="row" id="order_delivery_amount">
+                    <span class="col-xs-7 text-right text-muted">Phụ phí giao hàng:</span>
+
+                    <span class="col-xs-5 text-right text-muted">
+                        <span t-field="website_sale_order.delivery_amount" style="white-space: nowrap;"
+                              t-options="{'widget': 'integer', 'from_currency': website_sale_order.pricelist_id.currency_id, 'display_currency': website.currency_id}"/>
+                        <span t-esc="website.currency_id.symbol"/>
+                    </span>
+                </div>
+                <div t-if="website_sale_order.ship_type_check" class="row" id="order_transport_amount">
+                    <span class="col-xs-7 text-right text-muted">Trả trước phí ship nhà xe:</span>
+                    <span class="col-xs-5 text-right text-muted">
+                        <span t-field="website_sale_order.transport_amount" style="white-space: nowrap;"
+                              t-options="{'widget': 'integer', 'from_currency': website_sale_order.pricelist_id.currency_id, 'display_currency': website.currency_id}"/>
+                        <span t-esc="website.currency_id.symbol"/>
+                    </span>
+                </div>
+            </xpath>
+
+            <xpath expr="//div[@id='order_total_taxes']" position="replace">
+            </xpath>
+
+            <xpath expr="//div[@id='order_total']" position="replace">
+                <div class="row" id="order_total">
+                    <span class="col-xs-7 text-right h4">Total:</span>
+                    <span class="col-xs-5 text-right h4" style="white-space: nowrap;">
+                        <span t-field="website_sale_order.amount_total" style="white-space: nowrap;"
+                              t-options="{'widget': 'integer','from_currency': website_sale_order.pricelist_id.currency_id,'display_currency': website.currency_id}"/>
+                        <span t-esc="website.currency_id.symbol"/>
+                    </span>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="website_sale_cart_inherit" inherit_id="website_sale.cart" name="Shopping Cart">
+            <xpath expr="//div[@id='wrap']/div[@class='container oe_website_sale']/div[@class='row']/div[1]/div[@class='oe_structure']"
+                   position="after">
+                <t t-call="tts_modifier_website.suggested_products_list_new"/>
+            </xpath>
+
+            <xpath expr="//t[@t-call='website_sale.wizard_checkout']" position="replace">
+            </xpath>
+
+            <xpath expr="//div[@id='wrap']/div[@class='container oe_website_sale']/div[@class='row']/div[@id='right_column']"
+                   position="replace">
+                <div class="col-lg-3 col-lg-offset-1 col-sm-3 col-md-3 text-muted" id="right_column">
+                    <h4>THÔNG TIN KHÁCH HÀNG</h4>
+                    <ul class="list-unstyled mb32">
+                        <li>Khách hàng:
+                            <t t-esc="website_sale_order.partner_id.name"/>
+                        </li>
+                        <li>Điện thoại:
+                            <t t-esc="website_sale_order.partner_id.phone"/>
+                        </li>
+                        <li>Địa chỉ:
+                            <t t-esc="website_sale_order.get_address_partner(website_sale_order.partner_id)"/>
+                        </li>
+                    </ul>
+                    <h4>THÔNG TIN GIAO HÀNG</h4>
+                    <ul class="list-unstyled mb32">
+                        <li>Phương thức giao hàng:
+                            <span t-field="website_sale_order.delivery_method"/>
+                        </li>
+                        <t t-if="website_sale_order.delivery_method == 'transport'">
+                            <t t-if="website_sale_order.partner_id.delivery_method == 'transport'">
+                                <li>Nhà xe:
+                                    <t t-esc="website_sale_order.partner_id.transport_route_id.transporter_id.name"/>
+                                </li>
+                                <li>Điện thoại:
+                                    <t t-esc="website_sale_order.partner_id.transport_route_id.transporter_phone"/>
+                                </li>
+                                <li>Địa chỉ:
+                                    <t t-esc="website_sale_order.partner_id.transport_route_id.transporter_address"/>
+                                </li>
+                            </t>
+                        </t>
+                    </ul>
+                </div>
+            </xpath>
+
+            <xpath expr="//a[@href='/shop/checkout']/span[@class='hidden-xs']" position="replace">
+                <span class="hidden-xs">Xác nhận đơn hàng</span>
+
+            </xpath>
+            <xpath expr="//a[@href='/shop/checkout']/span[@class='visible-xs-inline']" position="replace">
+                <span class="visible-xs-inline">Xác nhận đơn hàng</span>
+            </xpath>
+
+        </template>
+
+
+        <template id="new_product_show" name="Product Show">
+            <span itemprop="image"
+                  t-attf-content="{{request.httprequest.url_root}}web/image/product.template/{{product.id}}/image"
+                  t-field="product.image"
+                  t-options="{'widget': 'image', 'class': 'product_detail_img', 'alt-field': 'name', 'zoom': 'image'}"
+                  groups="!website_sale.group_website_multi_image"/>
+            <t groups="website_sale.group_website_multi_image">
+                <t t-set="variant_img" t-value="product.product_variant_id.image_variant"/>
+                <t t-set="image_ids" t-value="product.product_image_ids"/>
+                <div id="o-carousel-product" class="carousel slide" data-ride="carousel" data-interval="0">
+                    <div class="carousel-outer">
+                        <div class="carousel-inner">
+                            <div t-if="variant_img" class="item active" itemprop="image"
+                                 t-field="product.product_variant_id.image"
+                                 t-options="{'widget': 'image', 'class': 'product_detail_img js_variant_img', 'alt-field': 'name', 'zoom': 'image', 'unique': product['__last_update'] + (product.product_variant_id['__last_update'] or '')}"/>
+                            <div t-attf-class="item#{'' if variant_img else ' active'}" itemprop="image"
+                                 t-field="product.image"
+                                 t-options="{'widget': 'image', 'class': 'product_detail_img', 'alt-field': 'name', 'zoom': 'image', 'unique': product['__last_update']}"/>
+                            <t t-if="len(image_ids)" t-foreach="image_ids" t-as="pimg">
+                                <div class="item" t-field="pimg.image"
+                                     t-options='{"widget": "image", "class": "product_detail_img", "alt-field": "name", "zoom": "image" }'/>
+                            </t>
+                        </div>
+
+                        <t t-if="len(image_ids) or variant_img">
+                            <a class="carousel-control left" href="#o-carousel-product" role="button" data-slide="prev">
+                                <span class="fa fa-chevron-left" aria-hidden="true"/>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control right" href="#o-carousel-product" role="button"
+                               data-slide="next">
+                                <span class="fa fa-chevron-right" aria-hidden="true"/>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </t>
+                    </div>
+
+                    <ol class="carousel-indicators" t-if="len(image_ids) or variant_img">
+                        <li t-if="variant_img" data-target="#o-carousel-product" data-slide-to="0" class="active">
+                            <img class="img img-responsive js_variant_img_small"
+                                 t-attf-src="/website/image/product.product/{{product.product_variant_id.id}}/image/90x90"
+                                 t-att-alt="product.name"/>
+                        </li>
+                        <li data-target="#o-carousel-product" t-att-data-slide-to="1 if variant_img else 0"
+                            t-att-class="'' if variant_img else 'active'">
+                            <img class="img img-responsive"
+                                 t-attf-src="/website/image/product.template/{{product.id}}/image/90x90"
+                                 t-att-alt="product.name"/>
+                        </li>
+                        <t t-if="len(image_ids)" t-foreach="image_ids" t-as="pimg">
+                            <li data-target="#o-carousel-product"
+                                t-att-data-slide-to="pimg_index + (variant_img and 2 or 1)">
+                                <img class="img img-responsive"
+                                     t-attf-src="/website/image/product.image/{{pimg.id}}/image/90x90"
+                                     t-att-alt="pimg.name"/>
+                            </li>
+                        </t>
+                    </ol>
+                </div>
+            </t>
+        </template>
+
+        <template id="website_sale.products_item" name="Products item">
+            <form action="/shop/cart/update" method="post">
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                <div itemscope="itemscope" itemtype="http://schema.org/Product">
+                    <div class="ribbon-wrapper">
+                        <div class="ribbon btn btn-danger">Sale</div>
+                    </div>
+                    <div class="oe_product_image">
+                        <a itemprop="url"
+                           t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']&gt;1 else None))">
+                            <span itemprop="image"
+                                  t-attf-content="{{request.httprequest.url_root}}web/image/product.template/{{product.id}}/image"
+                                  t-field="product.image"
+                                  t-options="{'widget': 'image', 'resize': None if product_image_big else '300x300', 'zoom': 'image'}"
+                                  t-att-alt="product.name"/>
+                        </a>
+                    </div>
+                    <t t-if="show_publish">
+                        <div id="website_published_button" class="" groups="sales_team.group_sale_manager">
+                            <t t-call="website.publish_management">
+                                <t t-set="object" t-value="product"/>
+                                <t t-set="publish_edit" t-value="True"/>
+                                <t t-set="action" t-value="'product.product_template_action'"/>
+                            </t>
+                        </div>
+                    </t>
+                    <section>
+                        <div style="color: blue; height: 30px;">
+                            <p class="pull-right">
+                                <t t-esc="product.range_size"/>
+                            </p>
+                            <p class="pull-left">
+                                <t t-esc="product.color_number"/>
+                            </p>
+                        </div>
+                        <h5 style="margin-top: 0px;height: 20px;">
+                            <strong>
+                                <a itemprop="name"
+                                   t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']&gt;1 else None))"
+                                   t-att-content="product.name" t-field="product.name"/>
+                            </strong>
+                        </h5>
+                        <div>
+                            <b style="color: red">
+                                <!--<t>-->
+                                <!--<del class="text-danger mr8" style="white-space: nowrap;" t-esc="product.website_price"/>-->
+                                <!--</t>-->
+
+                                <span t-esc="product.website_sale_price"/>
+                                <span itemprop="price" style="display:none;" t-esc="product.website_price"/>
+                                <span itemprop="priceCurrency" style="display:none;" t-esc="website.currency_id.name"/>
+                            </b>
+                        </div>
+                        <div itemprop="offers" itemscope="itemscope" itemtype="http://schema.org/Offer"
+                             class="product_price" t-if="product.product_variant_ids" style="bottom: 1px;">
+
+                        </div>
+                    </section>
+                </div>
+            </form>
+        </template>
+
+        <template id="website_sale.products_description" inherit_id="website_sale.products_item" active="False">
+        </template>
+
+        <template id="products_item_inherit" inherit_id="website_sale.products_item">
+            <xpath expr="//div[@class='oe_product_image']" position="replace">
+                <div class="oe_product_image">
+                    <t groups="website_sale.group_website_multi_image">
+                        <t t-set="variant_img"
+                           t-value="product.product_variant_id"/>
+                        <t t-set="image_ids" t-value="product.product_image_ids"/>
+                        <div id="o-carousel-product" t-attf-class="carousel slide o-carousel-product#{product.id}"
+                             data-ride="carousel"
+                             data-interval="0">
+                            <div class="carousel-outer">
+                                <div class="carousel-inner">
+                                    <t t-if="len(image_ids)">
+                                        <t t-set="variant_img" t-value="image_ids[0]"/>
+                                    </t>
+                                    <div t-if="variant_img" class="item active" itemprop="image">
+                                        <a itemprop="url"
+                                           t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']&gt;1 else None))">
+                                            <img class="img img-responsive"
+                                                 t-att-src="'data:image/png;base64,%s' % (variant_img.image_300x300)"
+                                                 style="max-height:185px; max-width:185px;"
+                                                 t-att-alt="variant_img.name"/>
+                                        </a>
+                                    </div>
+                                    <!--<div t-attf-class="item#{'' if variant_img else ' active'}"-->
+                                         <!--itemprop="image">-->
+                                        <!--<a itemprop="url"-->
+                                           <!--t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']&gt;1 else None))">-->
+                                            <!--<img class="img img-responsive"-->
+                                                 <!--t-att-src="'data:image/png;base64,%s' % (product.image_300x300)"-->
+                                                 <!--t-att-alt="product.name" style="max-height:185px; max-width:185px;"/>-->
+                                        <!--</a>-->
+                                    <!--</div>-->
+                                    <t t-if="len(image_ids)">
+                                        <t t-set="show_image_ids" t-value="image_ids - image_ids[0]"/>
+                                        <t t-foreach="show_image_ids" t-as="pimg">
+                                            <div class="item">
+                                                <a itemprop="url"
+                                                   t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']&gt;1 else None))">
+                                                    <img class="img img-responsive"
+                                                         t-att-src="'data:image/png;base64,%s' % (pimg.image_300x300)"
+                                                         style="max-height:185px; max-width:185px;"
+                                                         t-att-alt="pimg.name"/>
+                                                </a>
+                                            </div>
+                                        </t>
+                                    </t>
+                                </div>
+
+                                <t t-if="len(image_ids) or variant_img">
+                                    <a class="carousel-control left"
+                                       t-attf-data-target=".o-carousel-product#{product.id}" href="#o-carousel-product"
+                                       role="button" data-slide="prev">
+                                        <span class="fa fa-chevron-left" aria-hidden="true"/>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control right"
+                                       t-attf-data-target=".o-carousel-product#{product.id}" href="#o-carousel-product"
+                                       role="button" data-slide="next">
+                                        <span class="fa fa-chevron-right" aria-hidden="true"/>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </t>
+                            </div>
+
+                            <ol class="carousel-indicators"
+                                t-if="len(image_ids) or variant_img">
+                                <t t-if="len(image_ids)">
+                                    <t t-set="variant_img" t-value="image_ids[0]"/>
+                                </t>
+                                <li t-if="variant_img" t-attf-data-target=".o-carousel-product#{product.id}"
+                                    data-slide-to="0" class="active">
+                                    <img class="img img-responsive js_variant_img_small"
+                                         t-att-src="'data:image/png;base64,%s' % (variant_img.image_90x90)"
+                                         t-att-alt="variant_img.name"/>
+                                </li>
+                                <!--<li t-attf-data-target=".o-carousel-product#{product.id}"-->
+                                    <!--t-att-data-slide-to="1 if variant_img else 0"-->
+                                    <!--t-att-class="'hidden' if variant_img else 'hidden active'">-->
+                                    <!--<img class="img img-responsive"-->
+                                         <!--t-att-src="'data:image/png;base64,%s' % (product.image_90x90)"-->
+                                         <!--t-att-alt="product.name"/>-->
+                                <!--</li>-->
+                                <t t-if="len(image_ids)">
+                                    <t t-set="show_image_ids" t-value="image_ids - image_ids[0]"/>
+                                    <t t-foreach="show_image_ids" t-as="pimg">
+                                        <li t-attf-data-target=".o-carousel-product#{product.id}"
+                                            t-att-data-slide-to="pimg_index + (variant_img and 1 or 0)">
+                                            <img class="img img-responsive"
+                                                 t-att-src="'data:image/png;base64,%s' % (pimg.image_90x90)"
+                                                 t-att-alt="pimg.name"/>
+                                        </li>
+                                    </t>
+                                </t>
+                            </ol>
+                        </div>
+                    </t>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="show_new_footer" inherit_id="website_sale.products" active="True" customize_show="True"
+                  name="Show Sort by">
+            <xpath expr="//div[@class='products_pager'][1]/div/t[3]" position="replace">
+            </xpath>
+            <xpath expr="//div[@class='products_pager'][2]" position="replace">
+            </xpath>
+            <xpath expr="//div[@id='products_grid']/table" position="after">
+                <div id="wk_loader" class="show">
+                    <a style="color:blue; cursor: pointer" t-href="">Xem thêm sản phẩm</a>
+                </div>
+            </xpath>
+            <!--<xpath expr="//div[@id='products_grid']/table" position="replace">-->
+            <!--<table width="100%">-->
+            <!--<tbody>-->
+            <!--<tr t-ignore="true">-->
+            <!--<td t-foreach="range(0,rows)" t-as="row" t-attf-width="#{100/rows}%"></td>-->
+            <!--</tr>-->
+            <!--<tr t-foreach="bins" t-as="tr_product">-->
+            <!--<t t-foreach="tr_product" t-as="td_product">-->
+            <!--<t t-if="td_product">-->
+            <!--<t t-set="product" t-value="td_product['product']"/>-->
+            <!--<td t-att-colspan="td_product['x'] != 1 and td_product['x']"-->
+            <!--t-att-rowspan="td_product['y'] != 1 and td_product['y']"-->
+            <!--t-attf-class="oe_product oe_grid oe-height-#{td_product['y']*2} #{ td_product['class'] }">-->
+            <!--<div class="oe_product_cart"-->
+            <!--t-att-data-publish="product.website_published and 'on' or 'off'">-->
+            <!---->
+            <!--<t t-call="website_sale.products_item"/>-->
+            <!--</div>-->
+            <!--</td>-->
+            <!--</t>-->
+            <!--<td t-if="not td_product" class="oe-height-2"/>-->
+            <!--</t>-->
+            <!--</tr>-->
+            <!--</tbody>-->
+            <!--</table>-->
+            <!--<div id="wk_loader" class="show">-->
+            <!--<a style="color:blue; cursor: pointer" t-href="">Xem thêm sản phẩm</a>-->
+            <!--</div>-->
+            <!--</xpath>-->
+        </template>
+
+        <template name="Show more product" id="add_product_to_page">
+            <tr t-foreach="bins" t-as="tr_product">
+                <t t-foreach="tr_product" t-as="td_product">
+                    <t t-if="td_product">
+                        <t t-set="product" t-value="td_product['product']"/>
+                        <td t-att-colspan="td_product['x'] != 1 and td_product['x']"
+                            t-att-rowspan="td_product['y'] != 1 and td_product['y']"
+                            t-attf-class="oe_product oe_grid oe-height-#{td_product['y']*2} #{ td_product['class'] }">
+                            <div class="oe_product_cart"
+                                 t-att-data-publish="product.website_published and 'on' or 'off'">
+                                <t t-set="product_image_big" t-value="td_product['x']+td_product['y'] &gt; 2"/>
+                                <t t-call="website_sale.products_item"/>
+                            </div>
+                        </td>
+                    </t>
+                    <td t-if="not td_product" class="oe-height-2"/>
+                </t>
+            </tr>
+        </template>
+
+        <template id="website.pager" name="Pager">
+            <ul t-if="pager['page_count'] > 1" t-attf-class="#{ classname or '' } pagination"
+                t-att-style="style or None">
+                <li t-att-class=" 'disabled' if pager['page']['num'] == 1 else None ">
+                    <a t-att-href=" pager['page_previous']['url'] if pager['page']['num'] != 1 else None">Prev</a>
+                </li>
+                <t t-foreach="pager['pages']" t-as="page">
+                    <li t-att-class=" 'active' if page['num'] == pager['page']['num'] else None ">
+                        <a t-att-href="page['url']" t-raw="page['num']"></a>
+                    </li>
+                </t>
+                <li t-att-class=" 'disabled pager_next' if pager['page']['num'] == pager['page_count'] else None ">
+                    <a t-att-href="pager['page_next']['url'] if pager['page']['num'] != pager['page_count'] else None">
+                        Next
+                    </a>
+                </li>
+            </ul>
+        </template>
+
+        <template id="portal_my_home_menu_sale_ihr" name="sales menu entries"
+                  inherit_id="website_portal_sale.portal_my_home_menu_sale">
+            <xpath expr="//*[@id='oe-help-navbar-collapse']/ul/li[1]/a" position="replace"/>
+        </template>
+
+        <template id="portal_my_home_sale_ihr" name="sales entries"
+                  inherit_id="website_portal_sale.portal_my_home_sale">
+            <xpath expr="//div[contains(@class,'o_my_home_content')]/h3[@class='page-header']" position="replace"/>
+        </template>
+
+        <template id="portal_my_orders_ihr" name="my_order" inherit_id="website_portal_sale.portal_my_orders">
+            <xpath expr="//table[@class='table table-hover o_my_status_table']/thead/tr[@class='active']"
+                   position="inside">
+                <th style="width: 170px">Status</th>
+            </xpath>
+            <xpath expr="//table[@class='table table-hover o_my_status_table']/thead/tr/th[2]" position="attributes">
+                <attribute name="style">width: 200px</attribute>
+            </xpath>
+            <xpath expr="//table[@class='table table-hover o_my_status_table']/thead/tr/th[3]" position="replace"/>
+            <xpath expr="//table[@class='table table-hover o_my_status_table']/thead/tr/th[1]" position="after">
+                <th></th>
+            </xpath>
+            <xpath expr="//t[@t-foreach='orders']/tr/td[3]" position="replace"/>
+            <xpath expr="//t[@t-foreach='orders']/tr/td[3]" position="replace"/>
+            <xpath expr="//t[@t-foreach='orders']/tr/td[1]" position="after">
+                <td></td>
+            </xpath>
+            <xpath expr="//t[@t-foreach='orders']/tr/td[3]" position="after">
+                <td>
+                    <span t-field="order.amount_total" t-options="{'widget': 'float', 'precision': 0}"/>
+                    <span t-esc="website.currency_id.symbol"/>
+                </td>
+                <td>
+                    <span t-field="order.so_state"/>
+                </td>
+            </xpath>
+        </template>
+
+        <template id="recommended_products_ihr" inherit_id="website_sale.recommended_products"
+                  name="Alternative Products">
+            <xpath expr="//div[@id='wrap']/div[@class='container mt32']" position="replace"/>
+        </template>
+
+        <template id="products_ihr" inherit_id="website_sale.product" name="Alternative Products">
+             <xpath expr="//*[@class='css_not_available_msg bg-danger']" position="after">
+                 <p t-if="len(product.product_variant_ids) == 1" class="css_not_available_msg bg-danger" style="padding: 15px;">Product not available</p>
+             </xpath>
+            <xpath expr="//div[@id='product_details']/h1[1]" position="replace">
+                <h3 itemprop="name" t-field="product.name">Product Name</h3>
+                <div style="display: flex;border-top: 2px solid #66ee66;border-bottom: 2px solid #66ee66;margin-bottom: 10px;">
+                </div>
+            </xpath>
+            <xpath expr="//*[@id='product_detail']/div[2]/div[1]" position="inside">
+                <div t-if="product.alternative_product_ids">
+                    <h3>Alternative Products:</h3>
+                    <div>
+                        <t t-foreach="product.alternative_product_ids" t-as="alt_product">
+                            <div class="col-md-3 thumbnail">
+                                <div class="text-center" style="height: 220px;">
+                                    <a t-attf-href="/shop/product/#{ slug(alt_product) }">
+                                        <div t-field="alt_product.image_medium" align="center"
+                                             t-options="{'widget': 'image', 'class': 'img-rounded'}"/>
+                                    </a>
+                                    <div style="color: blue; height: 20px;">
+                                        <p class="pull-right" style="margin-right: 10px">
+                                            <t t-esc="alt_product.range_size"/>
+                                        </p>
+                                        <p class="pull-left" style="margin-left: 10px">
+                                            <t t-esc="alt_product.color_number"/>
+                                        </p>
+                                    </div>
+                                    <h5>
+                                        <a t-attf-href="/shop/product/#{ slug(alt_product) }">
+                                            <span t-att-title="alt_product.name" t-field="alt_product.name"/>
+                                        </a>
+                                    </h5>
+                                    <div>
+                                        <b style="color: red">
+                                            <span t-esc="alt_product.website_sale_price"/>
+                                            <span itemprop="price" style="display:none;"
+                                                  t-esc="alt_product.website_price"/>
+                                            <span itemprop="priceCurrency" style="display:none;"
+                                                  t-esc="website.currency_id.name"/>
+                                        </b>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="publish_ihr" inherit_id="website.publish_management">
+            <xpath expr="//div[@class='pull-right css_editable_mode_hidden']" position="attributes">
+                <attribute name="t-if">website.website_user</attribute>
+            </xpath>
+        </template>
+        <template id="navbar_ihr" inherit_id="website.user_navbar">
+            <xpath expr="//nav[@id='oe_main_menu_navbar']" position="attributes">
+                <attribute name="t-if">website.website_user</attribute>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

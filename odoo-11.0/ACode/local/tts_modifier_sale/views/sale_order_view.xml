@@ -1,0 +1,385 @@
+<odoo>
+    <data>
+        <record id="seq_create_so" model="ir.sequence">
+            <field name="name">Create SO</field>
+            <field name="code">tao.lao</field>
+            <field name="prefix">ACB/%(range_year)s/</field>
+            <field name="padding">4</field>
+            <field eval="1" name="number_increment"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="implementation">no_gap</field>
+        </record>
+
+        <record id="sale.action_quotations" model="ir.actions.act_window">
+            <field name="domain">[('state', 'in', ('draft', 'sent', 'cancel', 'sale')), ('sale_order_return', '=',
+                False)]
+            </field>
+        </record>
+
+        <record id="sale.action_orders" model="ir.actions.act_window">
+            <field name="domain">[('state', 'not in', ('draft', 'sent')), ('sale_order_return', '=', False)]</field>
+        </record>
+
+        <record id="product_pack_inherited_view_sale_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="product_pack.product_pack_inherited_view_sale_order_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='wk_product_pack.action_wk_product_pack_wizard']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="product_multi_select_form_inherit">
+            <field name="name">product.multi.select.inherit</field>
+            <field name="model">product.multi.select</field>
+            <field name="inherit_id" ref="product_multi_select_sale.product_multi_select_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_ids']" position="attributes">
+                    <attribute name="context">{'tree_view_ref': 'product.product_product_tree_view'}</attribute>
+                </xpath>
+                <xpath expr="//form/field[@name='product_ids']/tree/field[@name='name']" position="after">
+                    <field name="attribute_value_ids"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="tuanhuy_sale_view_order_form_inherit">
+            <field name="name">tuanhuy_sale.view_order_form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="tuanhuy_sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_discount']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='tax_sub']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit_sub']" position="replace">
+                    <field name="price_unit_sub"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <!--<xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after">-->
+                <!--<field name="price_unit_sub"/>-->
+                <!--</xpath>-->
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="attributes">
+                    <attribute name="attrs">{}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='last_price_unit']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_default_code']"
+                       position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//form/sheet/group/group[1]/field[@name='partner_id']" position="attributes">
+                    <attribute name="domain">[('customer','=',True), ('sale_type','=','allow')]</attribute>
+                </xpath>
+                <xpath expr="//button[@name='directly_create_inv']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <!--<xpath expr="//button[@name='action_sale_cancel']" position="after">-->
+                    <!--<button name="update_sale_order" type="object" states="draft,sent" string="Refresh"/>-->
+                <!--</xpath>-->
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="discount_sale_view_form_inherit_inherit">
+            <field name="name">discount.sale.order.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="tuanhuy_cancel_function.discount_sale_view_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_cancel_reason']" position="attributes">
+                    <attribute name="states">draft</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_cancel_reason']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_order_form_inherit_inherit">
+            <field name="name">discount.sale.order.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_attachment.view_order_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//label[@for='attachment_ids']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='attachment_ids']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_order_form_with_carrier_inherit">
+            <field name="name">discount.sale.order.delivery.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_purchase_returns.view_order_form_with_carrier_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//label" position="replace">
+                    <!--<attribute name="attrs">{'invisible':[('sale_order_return','=',True)]}</attribute>-->
+                </xpath>
+                <xpath expr="//div[@name='carrier_selection']" position="replace">
+                    <!--<attribute name="attrs">{}</attribute>-->
+                    <!--<attribute name="invisible">1</attribute>-->
+                </xpath>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="discount_sale_view_form_inherit">
+            <field name="name">discount.sale.order.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_discount_total.discount_sale_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='discount']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='amount_discount']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_sale_order_tree_inheirt">
+            <field name="name">sale.order.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="replace">
+                    <tree>
+                        <field name="message_needaction" invisible="1"/>
+                        <field name="name" string="Mã báo giá"/>
+                        <field name="confirmation_date" string="Thời gian tạo"/>
+                        <field name="partner_id"/>
+                        <field name="user_id"/>
+                        <field name="product_line_id" invisible="1"/>
+                        <field name="note" string="Ghi chú"/>
+                        <field name="amount_total" sum="Total Tax Included" widget="monetary" digits="(16, 0)"/>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="state"/>
+                    </tree>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_order_form_inherit_delivery" model="ir.ui.view">
+            <field name="name">sale.order.form.delivery</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_shipping_id']" position="after">
+                    <field name="payment_address"
+                           attrs="{'invisible' : [('delivery_method', '=', 'warehouse')],'required' : [('delivery_method', '!=', 'warehouse')]}"/>
+                </xpath>
+                <xpath expr="//sheet/group[1]/group[2]" position="inside">
+                    <field name="payment_method" attrs="{'invisible':[('sale_order_return','=',True)], 'required' : [('sale_order_return','!=',True)],'readonly': [('state', 'in', ('done','cancel'))]}"/>
+                    <field name="delivery_method"/>
+                    <field name="transport_route_id"
+                           attrs="{'invisible': [('delivery_method', '!=', 'transport')], 'required': [('delivery_method', '=', 'transport')]}"
+                           options="{'no_create_edit': True, 'no_quick_create':True}"
+                    />
+                    <field name="delivery_scope_id"
+                           attrs="{'invisible' : [('delivery_method', '=', 'warehouse')],'required' : [('delivery_method', '!=', 'warehouse')]}"/>
+                    <field name="trang_thai_dh"/>
+                    <field name="create_uid" string="Create by" readonly="1"/>
+                    <field name="confirm_user_id" string="Validate by" attrs="{'invisible' :[('confirm_user_id', '=', False )]}"/>
+                </xpath>
+                <xpath expr="//sheet/notebook" position="inside">
+                    <page string="State Time" invisible="1">
+                        <group>
+                            <field name="order_state"/>
+                            <field name="order_state_ids">
+                                <tree>
+                                    <field name="order_state"/>
+                                    <field name="date"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="sale_order_view_amount_inherit" model="ir.ui.view">
+            <field name="name">sale.order.view.amount</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_discount_total.discount_sale_view_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='amount_untaxed']" position="after">
+                    <field name="delivery_amount"/>
+                    <field name="ship_type_check" invisible="1"/>
+                    <field name="transport_amount"
+                           attrs="{'invisible': [('delivery_method', '!=', 'transport')],'readonly' : [('ship_type_check', '!=', True)],
+                           'required': [('delivery_method', '=', 'transport'),('ship_type_check', '=', True)]}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_order_tree_inherit_color_inherit" model="ir.ui.view">
+            <field name="name">sale.order.view.</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="tuanhuy_sale.view_order_tree_inherit_color"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="replace">
+                    <tree string="Đơn hàng" decoration-bf="message_needaction==True" decoration-muted="state=='cancel'">
+                        <field name="message_needaction" invisible="1"/>
+                        <field name="name" string="Số đơn hàng"/>
+                        <field name="confirmation_date" string="Thời gian tạo"/>
+                        <field name="partner_id"/>
+                        <field name="city" string="Tỉnh/Thành phố"/>
+                        <field name="user_id"/>
+                        <field name="note" string="Ghi chú"/>
+                        <field name="payment_method"/>
+                        <field name="sale_order_return_ids" invisible="not context.get('sale_order_return', False)"/>
+                        <field name="amount_total" sum="Tổng tiền hàng " widget="monetary"/>
+                        <field name="con_phai_thu"/>
+                        <field name="so_tien_da_thu"/>
+                        <field name="currency_id" invisible="1"/>
+                        <!--<field name="invoice_return_status" invisible="1"/>-->
+                        <field name="invoice_status" string="Trạng thái thanh toán" invisible="1"/>
+                        <field name="trang_thai_tt" string="Trạng thái thanh toán"/>
+                        <field name="state" string="Trạng thái đơn hàng" invisible="0"/>
+                        <field name="trang_thai_dh" string="Trạng thái hoạt động"/>
+                        <field name="product_line_id" invisible="1"/>
+                        <!--<field name="delivery_status" invisible="1"/>-->
+                        <!--<field name="invoice_count" invisible="1"/>-->
+                        <!--<field name="delivery_count" invisible="1"/>-->
+                        <!--<field name="record_checked" invisible="1"/>-->
+                        <!--<field name="invoice_number_total_real" invisible="1"/>-->
+                        <button name="change_record_checked" invisible="1"/>
+                        <!--<field name="check_color_picking" invisible="1"/>-->
+                    </tree>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="tuanhuy_sale.sale_order_line_menu" model="ir.ui.menu">
+            <field name="active">0</field>
+        </record>
+        <record id="tuanhuy_sale.sale_order_line_return_menu" model="ir.ui.menu">
+            <field name="active">0</field>
+        </record>
+        <record id="tuanhuy_sale.sale_order_summaries_menu_parent" model="ir.ui.menu">
+            <field name="active">0</field>
+        </record>
+        <record id="product_pack.menu_product_pack_core" model="ir.ui.menu">
+            <field name="active">0</field>
+        </record>
+
+
+        <!--Sale Order Return-->
+        <record id="view_order_tree_return" model="ir.ui.view">
+            <field name="name">sale.order.view.</field>
+            <field name="model">sale.order</field>
+            <field name="arch" type="xml">
+                <tree string="Đơn hàng" decoration-bf="message_needaction==True" decoration-muted="state=='cancel'">
+                    <field name="message_needaction" invisible="1"/>
+                    <field name="name" string="Reference Return"/>
+                    <field name="confirmation_date" string="Thời gian tạo"/>
+                    <field name="partner_id"/>
+                    <field name="user_id"/>
+                    <field name="note" string="Ghi chú"/>
+                    <field name="amount_total" sum="Tổng tiền hàng " widget="monetary"/>
+                    <field name="con_phai_thu" string="Số tiền còn phải trả"/>
+                    <field name="so_tien_da_thu" string="Số tiền đã trả"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="trang_thai_tt" string="Trạng thái thanh toán"/>
+                    <field name="state" string="Trạng thái đơn hàng" />
+                    <field name="trang_thai_dh" string="Trạng thái hoạt động"/>
+                    <field name="product_line_id" invisible="1"/>
+                    <button name="change_record_checked" invisible="1"/>
+                    <field name="check_color_picking" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sale_purchase_returns.sale_order_return_action" model="ir.actions.act_window">
+            <field name="context">{'sale_order_return':True,
+                'tree_view_ref': 'tts_modifier_sale.view_order_tree_return'}
+            </field>
+        </record>
+        <record id="view_order_form" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_barcode.view_order_form"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//field[@name='import_data']" position="after">
+                    <field name="file_name" invisible="1"/>
+                </xpath>
+                 <xpath expr="//field[@name='import_data']" position="attributes">
+                    <attribute name="filename">file_name</attribute>
+                </xpath>
+                <xpath expr="//button[@name='import_data_excel']" position="attributes">
+                    <attribute name="class">btn-default</attribute>
+                    <attribute name="style">margin: 3px;</attribute>
+                </xpath>
+                <xpath expr="//button[@name='import_data_excel']" position="after">
+                    <button name="print_data_excel" type="object" string="Print" class="btn-default" style="margin: 3px;"/>
+                </xpath>
+                <!--<xpath expr="//field[@name='transport_route_id']" position="after">-->
+                    <!--<field name="transport_route_ids" invisible="1"></field>-->
+                <!--</xpath>-->
+                <xpath expr="//field[@name='transport_route_id']" position="attributes">
+                    <attribute name="context">{'partner_id':partner_id}</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="sale_view_form_inherit">
+            <field name="name">sale.order.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_done']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']" position="attributes">
+                    <attribute name="digits">(16, 0)</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="attributes">
+                    <attribute name="digits">(16, 0)</attribute>
+                </xpath>
+                <xpath expr="//field[@name='amount_untaxed']" position="attributes">
+                    <attribute name="digits">(16, 0)</attribute>
+                </xpath>
+                <xpath expr="//field[@name='amount_tax']" position="attributes">
+                    <attribute name="digits">(16, 0)</attribute>
+                </xpath>
+                <xpath expr="//field[@name='delivery_amount']" position="attributes">
+                    <attribute name="digits">(16, 0)</attribute>
+                </xpath>
+                <xpath expr="//field[@name='amount_total']" position="attributes">
+                    <attribute name="digits">(16, 0)</attribute>
+                </xpath>
+                <xpath expr="//field[@name='con_phai_thu']" position="attributes">
+                    <attribute name="digits">(16, 0)</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_order_tree_inherit" model="ir.ui.view">
+            <field name="name">sale.order.tree.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='amount_total']" position="attributes">
+                    <attribute name="digits">(16, 0)</attribute>
+                </xpath>
+                <xpath expr="//field[@name='con_phai_thu']" position="attributes">
+                    <attribute name="digits">(16, 0)</attribute>
+                </xpath>
+                <xpath expr="//field[@name='so_tien_da_thu']" position="attributes">
+                    <attribute name="digits">(16, 0)</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

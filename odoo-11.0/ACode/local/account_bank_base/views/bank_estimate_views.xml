@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="bank_estimate_search_view">
+            <field name="name">bank.estimate.search</field>
+            <field name="model">bank.estimate</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="asset_id"/>
+                    <field name="partner_id"/>
+                    <field name="state"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- override the automatically generated list view for courses -->
+        <record model="ir.ui.view" id="bank_estimate_tree_view">
+            <field name="name">bank.estimate.tree</field>
+            <field name="model">bank.estimate</field>
+            <field name="arch" type="xml">
+                <tree string="Estimate Tree">
+                    <field name="partner_id"/>
+                    <field name="asset_id"/>
+                    <field name="state"/>
+                    <field name="asset_value" sum="Tổng tài sản"/>
+                    <field name="estimate_value" sum="Tổng định giá"/>
+                    <field name="mortgage_value" sum="Tổng thể chấp"/>
+                    <field name="remaind_value" sum="Tổng còn lại"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="bank_estimate_form_view">
+            <field name="name">bank.estimate.form</field>
+            <field name="model">bank.estimate</field>
+            <field name="arch" type="xml">
+                <form string="Bank Estimate Form">
+                    <header>
+                        <button string="Hold" type="object" name="action_hold"
+                                states="draft" class="oe_highlight"/>
+                        <button string="Reset to draft" type="object" name="action_draft"
+                                states="hold"/>
+                        <button string="Cancel" type="object" name="action_cancel"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,ready,progress,cancelled"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="partner_id"
+                                       domain="[('bank', '=', True), ('bank_type', '=', 'internal')]"/>
+                                <field name="date"/>
+                                <field name="payment_state"/>
+                            </group>
+                            <group>
+                                <field name="asset_code"/>
+                                <field name="asset_id"/>
+                                <field name="asset_value"/>
+                                <field name="estimate_value"/>
+                                <field name="mortgage_value"/>
+                                <field name="remaind_value"/>
+                                <field name="estimate_date"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Items" name="items">
+                                <field name="line_ids">
+                                    <tree>
+                                        <field name="code"/>
+                                        <field name="partner_id"/>
+                                        <field name="date"/>
+                                        <field name="amount"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="bank_estimate_list_action">
+            <field name="name">Bank Estimate</field>
+            <field name="res_model">bank.estimate</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create the first bank estimation
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="bank_estimate_menu" name="Bank Estimate" parent="account.menu_finance_bank_management"
+                  action="bank_estimate_list_action"/>
+    </data>
+</odoo>

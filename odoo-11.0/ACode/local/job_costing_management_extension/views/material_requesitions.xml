@@ -1,0 +1,17 @@
+ <odoo>
+ 	<record id="material_request" model="ir.ui.view">
+ 		<field name="name">material</field>
+ 		<field name="model">stock.picking</field>
+ 		<field name="inherit_id" ref="odoo_job_costing_management.view_picking_form_inherit_purchase_requistion"/>
+ 		<field name="arch" type="xml">
+ 			<field name="task_id" position="attributes">
+ 				<attribute name="required">0</attribute>
+ 				<attribute name="string">Job Order</attribute>
+ 			</field>
+ 			<field name="task_user_id" position="attributes">
+ 			
+ 			<attribute name="string">Job Order User</attribute>
+ 			</field>
+ 		</field>
+    </record>
+ </odoo>

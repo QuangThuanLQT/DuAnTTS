@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_tuanhuy_product_group,tuanhuy_product_group,model_product_group,,1,1,1,1
+access_tuanhuy_product_group_sale,tuanhuy_product_group_sale,model_product_group_sale,,1,1,1,1
+access_tuanhuy_product_group_sale_line,tuanhuy_product_group_sale_line,model_product_group_sale_line,,1,1,1,1

@@ -1,0 +1,47 @@
+<odoo>
+    <data>
+        <record id="account_report_excel_view" model="ir.ui.view">
+            <field name="name">Báo Cáo Tiền</field>
+            <field name="model">account.excel.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <label string=""/>
+                    <group>
+                        <!--<group>-->
+                        <!--<field name="location_id" string="Location"/>-->
+                        <!--</group>-->
+                        <group>
+                            <field name="start_date" string="Start Date"/>
+                            <field name="end_date" string="End Date"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <!--<button name="print_report" string="Print" type="object" default_focus="1"-->
+                        <!--class="oe_highlight"/>-->
+                        <!--or-->
+                        <button name="print_bank_report_excel" string="In Báo Cáo Tiền" type="object" default_focus="1"
+                                class="oe_highlight"/>
+                        <!--hoặc-->
+                        <!--<button name="print_cash_report_excel" string="In Báo Cáo Tiền Mặt" type="object" default_focus="1"-->
+                                <!--class="oe_highlight"/>-->
+                        hoặc
+                        <button string="Huỷ" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="account_report_excel_menu_action" model="ir.actions.act_window">
+            <field name="name">Báo Cáo Tiền</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.excel.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="account_report_excel_menu" name="Báo Cáo Tiền" parent="account_detail_report_menu"
+                  action="account_report_excel_menu_action" sequence="5"/>
+
+    </data>
+</odoo>

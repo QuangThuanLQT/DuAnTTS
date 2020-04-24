@@ -1,0 +1,30 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="print_attribute_value_tree">
+            <field name="name">print.attribute.value.tree</field>
+            <field name="model">prinizi.product.attribute.value</field>
+            <field name="arch" type="xml">
+                <tree string="Print Attribute Value" editable="top">
+                    <field name="sequence" widget="handle"/>
+                    <field name="attribute"/>
+                    <field name="name"/>
+                    <field name="phi_in" string="Phí in/ 1 chi tiết"/>
+                    <field name="he_so_dien_tich" string="Hệ số diện tích"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="print_attribute_value_action" model="ir.actions.act_window">
+            <field name="name">Print Attributes Value</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">prinizi.product.attribute.value</field>
+            <field name="view_mode">tree</field>
+            <field name="view_type">form</field>
+        </record>
+
+        <menuitem name="Print Attribute Value" id="print_attribute_value_menu"
+                  parent="sale.prod_config_main"
+                  action="print_attribute_value_action" sequence="12"/>
+
+    </data>
+</odoo>

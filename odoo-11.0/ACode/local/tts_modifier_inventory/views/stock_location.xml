@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+        <record id="view_location_form_inherit" model="ir.ui.view">
+            <field name="name">inventory.location.form</field>
+            <field name="model">stock.location</field>
+            <field name="inherit_id" ref="stock.view_location_form"/>
+            <field name="arch" type="xml">
+                <field name="return_location" position="after">
+                    <field name="not_sellable"/>
+                </field>
+                <xpath expr="//form/div/button[@name='%(stock.act_product_location_open)d']" position="attributes">
+                    <attribute name="context">{'location_id': active_id, 'tree_view_ref':
+                        'tts_modifier_inventory.view_stock_location_product_tree_inheirt'}
+                    </attribute>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

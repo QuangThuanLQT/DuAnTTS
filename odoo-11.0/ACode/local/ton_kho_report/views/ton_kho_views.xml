@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--Report-->
+        <report
+                id="action_ton_kho_report"
+                model="ton.kho.report"
+                string="Báo Cáo Công Nợ"
+                name="ton_kho_report.ton_kho_report_template"
+                file="ton_kho_report.ton_kho_report_template"
+                report_type="qweb-pdf"/>
+
+        <!--Paperformat-->
+        <record id="ton_kho_report_format_a4" model="report.paperformat">
+            <field name="name">Phiếu bán hàng A4</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">297</field>
+            <field name="page_width">210</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">13</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">3</field>
+            <field name="margin_right">3</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">9</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="ton_kho_report.action_ton_kho_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="ton_kho_report_format_a4"/>
+        </record>
+
+        <!--Headers and Footers for Credit Note Report -->
+        <template id="ton_kho_report_header_footer">
+            <t t-if="not o and doc">
+                <t t-set="o" t-value="doc"/>
+            </t>
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"></t>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"></t>
+            </t>
+            <t t-raw="0"/>
+            <t t-call="ton_kho_report.ton_kho_report_footer"/>
+        </template>
+
+
+        <!--FOOTER-->
+        <template id="ton_kho_report.ton_kho_report_footer">
+            <div class="footer" style="font-size:10pt;">
+                <div class="row">
+                    <div class="col-xs-12 text-center">
+                        <div class="text-right" style="float:right">
+                            <ul class="list-inline">
+                                <li>Page:</li>
+                                <li>
+                                    <span class="page"/>
+                                </li>
+                                <li>of</li>
+                                <li>
+                                    <span class="topage"/>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template id="ton_kho_report.ton_kho_report_template">
+            <t t-call="report.html_container">
+                <t t-call="ton_kho_report.ton_kho_report_header_footer">
+                    <t t-foreach="docs" t-as="o">
+                        <t t-set="data" t-value="o.print_report_stock()"/>
+                        <div class="page">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:60%;" rowspan="3">Sản Phẩm</td>
+                                        <td style="width:10%;" colspan="2">Đầu kì</td>
+                                        <td style="width:10%;" colspan="2">Nhập kho</td>
+                                        <td style="width:10%;" colspan="2">Xuất kho</td>
+                                        <td style="width:10%;" colspan="2">Cuối kì</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="">Số lượng</td>
+                                        <td style="">Giá</td>
+                                        <td style="">Số lượng</td>
+                                        <td style="">Giá</td>
+                                        <td style="">Số lượng</td>
+                                        <td style="">Giá</td>
+                                        <td style="">Số lượng</td>
+                                        <td style="">Giá</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="text-right"><t t-esc="'{:,}'.format(int(data['total']['first_qty']))"/></td>
+                                        <td class="text-right"><t t-esc="'{:,}'.format(int(data['total']['price_first']))"/></td>
+                                        <td class="text-right"><t t-esc="'{:,}'.format(int(data['total']['incoming_qty']))"/></td>
+                                        <td class="text-right"><t t-esc="'{:,}'.format(int(data['total']['price_incoming']))"/></td>
+                                        <td class="text-right"><t t-esc="'{:,}'.format(int(data['total']['outgoing_qty']))"/></td>
+                                        <td class="text-right"><t t-esc="'{:,}'.format(int(data['total']['price_outgoing']))"/></td>
+                                        <td class="text-right"><t t-esc="'{:,}'.format(int(data['total']['last_qty']))"/></td>
+                                        <td class="text-right"><t t-esc="'{:,}'.format(int(data['total']['price_last']))"/></td>
+                                    </tr>
+                                    <t t-foreach="data['lines']" t-as="line">
+                                        <tr style="page-break-inside:avoid;">
+                                            <td><t t-esc="line['name']"/></td>
+                                            <td class="text-right"><t t-esc="'{:,}'.format(int(line['first_qty']))"/></td>
+                                            <td class="text-right"><t t-esc="'{:,}'.format(int(line['price_first']))"/></td>
+                                            <td class="text-right"><t t-esc="'{:,}'.format(int(line['incoming_qty']))"/></td>
+                                            <td class="text-right"><t t-esc="'{:,}'.format(int(line['price_incoming']))"/></td>
+                                            <td class="text-right"><t t-esc="'{:,}'.format(int(line['outgoing_qty']))"/></td>
+                                            <td class="text-right"><t t-esc="'{:,}'.format(int(line['price_outgoing']))"/></td>
+                                            <td class="text-right"><t t-esc="'{:,}'.format(int(line['last_qty']))"/></td>
+                                            <td class="text-right"><t t-esc="'{:,}'.format(int(line['price_last']))"/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <!--# SHOW POP UP-->
+        <record id="ton_kho_report_view" model="ir.ui.view">
+            <field name="name">Báo Cáo Tồn Kho</field>
+            <field name="model">ton.kho.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <!--<label string=""/>-->
+                        <group>
+                            <!--<group>-->
+                                <!--<field name="location_id" string="Location"/>-->
+                            <!--</group>-->
+                            <group>
+                                <field name="start_date" string="Start Date"/>
+                                <field name="end_date" string="End Date"/>
+                                <field name="product_xls" nolable="1"/>
+                                <!--<button name="product_xls_import" type="object" string="Import" class="oe_highlight"/>-->
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                        <separator string="Sản phẩm"/>
+                        <field name="product_ids" string="Products" nolable="1">
+                            <tree>
+                                <field name="barcode"/>
+                                <field name="default_code"/>
+                                <field name="name"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                    <footer>
+                        <button name="print_report_excel" string="Print Excel" type="object" default_focus="1"
+                                class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="ton_kho_report_action" model="ir.actions.act_window">
+            <field name="name">Báo Cáo Tồn Kho</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ton.kho.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="ton_kho_report_menu" name="Báo Cáo Tồn Kho Excel" parent="stock.menu_warehouse_report" action="ton_kho_report_action" sequence="130"
+        />
+    </data>
+</odoo>

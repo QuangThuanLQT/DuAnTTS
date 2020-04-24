@@ -1,0 +1,32 @@
+#wrapwrap {
+    @media (min-width: @screen-sm-min){
+        width: 95%;
+        margin: 0 auto;
+    }
+}
+
+.oe_product_image .carousel .carousel-control {
+    &.left {
+        left: -10px;
+        * {
+            position: absolute;
+            top: 50%;
+            z-index: 5;
+            right: 36%;
+        }
+    }
+    &.right {
+        right: -10px;
+        * {
+            position: absolute;
+            top: 50%;
+            z-index: 5;
+            left: 36%;
+        }
+    }
+}
+
+.oe_website_sale input.js_quantity_all {
+  min-width: 48px;
+  text-align: center;
+}

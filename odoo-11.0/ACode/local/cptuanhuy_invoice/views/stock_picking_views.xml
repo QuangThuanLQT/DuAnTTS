@@ -1,0 +1,31 @@
+<odoo>
+    <data>
+        <record id="stock_picking_form_inherit_add_invoice_button" model="ir.ui.view">
+            <field name="name">stock.picking.form.inherit.add.invoice.button</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button name="create_invoice" type="object" string="Tạo hóa đơn" class="oe_highlight" attrs="{'invisible' : ['|','|',('invoice_count','>',0),('state','!=','done'),('picking_type_code','not in',['incoming','outgoing'])]}"/>
+                </xpath>
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button type="object" name="action_view_invoice_ids" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible' : ['|',('state','!=','done'),('picking_type_code','not in',['incoming','outgoing'])]}">
+                        <field name="invoice_count" widget="statinfo" string="Hóa đơn"/>
+                        <!--<field name="invoice_ids" invisible="1"/>-->
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="vpicktree_inherit_add_invoice_list" model="ir.ui.view">
+            <field name="name">stock.picking.form.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="arch" type="xml">
+                <field name="state" position="before">
+                    <field name="invoice_ids" string="Hoá đơn"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

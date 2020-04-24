@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="mrp_production_form_view_inherit" model="ir.ui.view">
+            <field name="name">mrp.production.form</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/notebook" position="after">
+                    <label for="material_cost" attrs="{'invisible':[('state','!=','done')]}" string="Chi phí vật liệu"/>
+                    <field name="material_cost" attrs="{'invisible':[('state','!=','done')]}"/>
+                </xpath>
+                <xpath expr="//form/sheet/notebook" position="inside">
+                    <page string="Phân bổ">
+                        <field name="account_move_ids" readonly="1"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+         <record id="mrp_production_form_view_inherit_inheirt" model="ir.ui.view">
+            <field name="name">mrp.production.form</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="cptuanhuy_mrp.mrp_production_form_view_inherit"/>
+            <field name="arch" type="xml">
+                <field name="picking_ids" position="after">
+                    <separator string="Dịch chuyển vật liệu"/>
+                    <field name="raw_picking_ids"/>
+                </field>
+            </field>
+         </record>
+
+        <record id="action_update_production_price" model="ir.actions.server">
+            <field name="name">Cập nhật giá thành phẩm</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_mrp_production"/>
+            <field name="state">code</field>
+            <field name="code">action = record.update_production_price();
+            </field>
+        </record>
+
+        <record model="ir.values" id="mrp_production_update_price_value">
+            <field name="model">mrp.production</field>
+            <field name="name">Cập nhật giá thành phẩm</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_update_production_price'))" />
+        </record>
+    </data>
+</odoo>

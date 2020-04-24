@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+           <record id="dieu_chinh_gia_von_view" model="ir.ui.view">
+            <field name="name">Điều chỉnh giá vốn trung bình</field>
+            <field name="model">tinh.gia.von.tb</field>
+            <field name="arch" type="xml">
+                <form>
+                    <label string=""/>  <!-- binding for inherited views -->
+                    <group>
+                        <group>
+                            <field name="start_date" string="Ngày bắt đầu"/>
+                        </group>
+                        <group>
+                            <field name="end_date" string="Ngày kết thúc"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="" string="Xác nhận" type="object"
+                                class="oe_highlight"/>
+
+                        <button string="Huỷ" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="dieu_chinh_gia_von_action" model="ir.actions.act_window">
+            <field name="name">Điều chỉnh giá vốn trung bình</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">tinh.gia.von.tb</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <menuitem action="dieu_chinh_gia_von_action" id="menu_dieu_chinh_form" parent="stock.menu_stock_inventory_control" />
+    </data>
+</odoo>

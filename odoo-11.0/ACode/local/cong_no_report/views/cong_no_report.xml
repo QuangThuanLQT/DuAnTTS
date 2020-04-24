@@ -1,0 +1,338 @@
+<odoo>
+    <data>
+
+        <!-- Email template for send report cong no -->
+        <record id="send_mail_cong_no_report" model="mail.template">
+            <field name="name">Báo cáo công nợ</field>
+            <field name="model_id" ref="model_cong_no_report"/>
+            <field name="email_from">info@tuanhuyco.com</field>
+            <field name="email_to">${object.partner_id.email}</field>
+            <field name="subject">Báo cáo công nợ</field>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+                <p><strong>Báo cáo công nợ</strong></p>
+                <p>Kính gửi: ${object.partner_id.name}</p>
+            ]]></field>
+        </record>
+
+        <!--Report-->
+        <report
+                id="action_cong_no_report"
+                model="cong.no.report"
+                string="Báo Cáo Công Nợ"
+                name="cong_no_report.cong_no_report_template"
+                file="cong_no_report.cong_no_report_template"
+                report_type="qweb-pdf"/>
+
+        <!--Paperformat-->
+        <record id="cong_no_report_format_a4" model="report.paperformat">
+            <field name="name">Phiếu bán hàng A4</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">297</field>
+            <field name="page_width">210</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">13</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">3</field>
+            <field name="margin_right">3</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">9</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="action_cong_no_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="cong_no_report_format_a4"/>
+        </record>
+
+        <!--Headers and Footers for Credit Note Report -->
+        <template id="cong_no_report_header_footer">
+            <t t-if="not o and doc">
+                <t t-set="o" t-value="doc"/>
+            </t>
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"></t>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"></t>
+            </t>
+
+            <!--<t t-call="cong_no_report.cong_no_report_header"/>-->
+            <t t-raw="0"/>
+            <t t-call="cong_no_report.cong_no_report_footer"/>
+        </template>
+
+        <!--HEARDER-->
+        <!--<template id="cong_no_report.cong_no_report_header">-->
+            <!--<div class="header">-->
+                <!---->
+            <!--</div>-->
+        <!--</template>-->
+
+        <!--FOOTER-->
+        <template id="cong_no_report.cong_no_report_footer">
+            <div class="footer" style="font-size:10pt;">
+                <div class="row">
+                    <div class="col-xs-12 text-center">
+                        <div class="text-right" style="float:right">
+                            <ul class="list-inline">
+                                <li>Page:</li>
+                                <li>
+                                    <span class="page"/>
+                                </li>
+                                <li>of</li>
+                                <li>
+                                    <span class="topage"/>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template id="cong_no_report.cong_no_report_template">
+            <t t-call="report.html_container">
+                <t t-call="cong_no_report.cong_no_report_header_footer">
+                    <t t-foreach="docs" t-as="o">
+                        <t t-set="data" t-value="o.get_data_report()"/>
+                        <div class="page">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="7">Tài Khoản: <t t-esc="data['account']"/></td>
+                                        <td>Nợ</td>
+                                        <td>Có</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7">Số dư đầu kỳ: </td>
+                                        <td><t t-esc="data['no_before']"/> </td>
+                                        <td><t t-esc="data['co_before']"/></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7">Tổng phát sinh trong kỳ: </td>
+                                        <td><t t-esc="data['no_current']"/></td>
+                                        <td><t t-esc="data['co_current']"/></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7">Số dư cuối kỳ: </td>
+                                        <td><t t-esc="data['no_end']"/></td>
+                                        <td><t t-esc="data['co_end']"/></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:8%">Ngày Tháng</td>
+                                        <td style="width:8%">Bút toán sổ nhật ký</td>
+                                        <td style="width:8%">Sổ nhật ký</td>
+                                        <td style="width:15%">Nhãn</td>
+                                        <td style="width:8%">Tham chiếu</td>
+                                        <td style="width:15%">Đối tác</td>
+                                        <td style="width:10%">Tài khoản</td>
+                                        <td style="width:10%">Nợ</td>
+                                        <td style="width:10%">Có</td>
+                                        <td style="width:8%">Ngày đến hạn</td>
+                                    </tr>
+                                    <t t-foreach="data['data_line_report']" t-as="line">
+                                        <tr style="page-break-inside:avoid;">
+                                            <td><t t-esc="line['date']"/></td>
+                                            <td><t t-esc="line['move_id']"/></td>
+                                            <td><t t-esc="line['journal_id']"/></td>
+                                            <td><t t-esc="line['name']"/></td>
+                                            <td><t t-esc="line['ref']"/></td>
+                                            <td><t t-esc="line['partner_id']"/></td>
+                                            <td><t t-esc="line['account_id']"/></td>
+                                            <td><t t-esc="line['debit']"/></td>
+                                            <td><t t-esc="line['credit']"/></td>
+                                            <td><t t-esc="line['date_maturity']"/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <!--# SHOW POP UP-->
+        <record id="cong_no_report_view" model="ir.ui.view">
+            <field name="name">Báo Cáo Công Nợ</field>
+            <field name="model">cong.no.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <label string=""/>  <!-- binding for inherited views -->
+                    <group>
+                        <group>
+                            <field name="partner_ids" string="Đối tác" widget="many2many_tags" options="{'no_quick_create':True, 'no_create_edit':True, 'no_open': True,}"/>
+                            <field name="partner_id" invisible="1" options="{'no_quick_create':True, 'no_create_edit':True, 'no_open': True,}"/>
+                            <field name="account_id" required="1" options="{'no_quick_create':True, 'no_create_edit':True, 'no_open': True,}"/>
+                            <field name="group_by_partner"/>
+                            <field name="one_sheet" attrs="{'invisible': ['|', ('group_by_partner', '=', False), ('partner_id', '!=', False)]}"/>
+                        </group>
+                        <group>
+                            <field name="start_date" string="Start Date"/>
+                            <field name="end_date" string="End Date"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="print_excel" string="Print Excel" type="object" default_focus="1"
+                                class="oe_highlight"/>
+                        or
+                        <button name="send_mail_report" string="Gửi email" type="object" default_focus="1"
+                                class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="cong_no_report_action" model="ir.actions.act_window">
+            <field name="name">Báo Cáo Công Nợ</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cong.no.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+<!--
+        <record id="congno_web_view_pivot" model="ir.ui.view">
+            <field name="name">congno.web.report.pivot</field>
+            <field name="model">congno.web.report</field>
+            <field name="arch" type="xml">
+                <pivot string="Bao Cao Cong No" display_quantity="False" disable_linking="True">
+                    <field name="partner_id" type="row"/>
+                    <field name="date" type="row"/>
+                    <field name="confirm_date" type="row"/>
+                    <field name="move_id" type="row"/>
+                    <field name="move_line_id" type="row"/>
+                    <field name="account_code" type="row"/>
+                    <field name="debit" type="measure"/>
+                    <field name="credit" type="measure"/>
+                    <field name="debit_before" type="measure"/>
+                    <field name="credit_before" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="congno_web_view_graph" model="ir.ui.view">
+             <field name="name">congno.web.report.graph</field>
+             <field name="model">congno.web.report</field>
+             <field name="arch" type="xml">
+                 <graph string="Sales Analysis">
+                     <field name="partner_id" type="row"/>
+                     <field name="date" type="row"/>
+                    <field name="confirm_date" type="row"/>
+                    <field name="move_id" type="row"/>
+                    <field name="move_line_id" type="row"/>
+                    <field name="account_code" type="row"/>
+                    <field name="debit" type="measure"/>
+                    <field name="credit" type="measure"/>
+                    <field name="debit_before" type="measure"/>
+                    <field name="credit_before" type="measure"/>
+                 </graph>
+             </field>
+        </record>
+        <record id="congno_web_view_search" model="ir.ui.view">
+             <field name="name">congno.web.report.graph</field>
+             <field name="model">congno.web.report</field>
+             <field name="arch" type="xml">
+                 <search string="Expense">
+                    <field name="date"/>
+                    <field name="partner_id"/>
+                    <filter string="Today" name="today" domain="[('date','&gt;=',time.strftime('%%Y-%%m-%%d'))]"/>
+                    <filter string="This Month" name="thismonth" domain="[('date','&gt;=',time.strftime('%%Y-%%m-01'))]"/>
+                    <filter string="This Year" name="thisyear" domain="[('date','&gt;=',time.strftime('%%Y-01-01'))]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Khách hàng" name="group_partner_id" domain="[]" context="{'group_by': 'partner_id'}"/>
+                    </group>
+                </search>
+             </field>
+        </record>
+
+        <record id="congno_report_pivot_action" model="ir.actions.act_window">
+            <field name="name">Báo Cáo Công Nợ</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">congno.web.report</field>
+            <field name="view_id" ref="congno_web_view_pivot"/>
+            <field name="search_view_id" ref="congno_web_view_search"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">pivot,graph</field>
+            <field name="target">current</field>
+            <field name="context">{'search_default_today': 1, 'search_default_group_partner_id': 1}</field>
+        </record>
+        -->
+
+        <!-- Outstanding Fee Report wizard -->
+        <record id="sale_order_no_invoice_form_view" model="ir.ui.view">
+            <field name="name">sale.order.no.invoice.form</field>
+            <field name="model">sale.order.no.invoice</field>
+            <field name="arch" type="xml">
+            <form string="No Invoice Order">
+                <!--<group>-->
+                <separator string="Đơn Bán Không Có Hoá Đơn"/>
+                <field name="no_invoice_order_line_ids">
+                    <tree editable="top" delete="0" create="0">
+                        <field name="sale_order_id" readonly="1"/>
+                    </tree>
+                </field>
+                <separator string="Đơn Bán Có Hoá Đơn Không Hợp Lệ"/>
+                <field name="invalid_order_line_ids">
+                    <tree editable="top" delete="0" create="0">
+                        <field name="sale_order_id" readonly="1"/>
+                    </tree>
+                </field>
+                <footer>
+                    <button string='Update Invoice' name="upate_invoice_for_so" type="object" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+            </field>
+        </record>
+
+        <record id="purchase_order_no_invoice_form_view" model="ir.ui.view">
+            <field name="name">sale.order.no.invoice.form</field>
+            <field name="model">sale.order.no.invoice</field>
+            <field name="arch" type="xml">
+            <form string="No Invoice Order">
+                <!--<group>-->
+                <separator string="Đơn Mua Không Có Hoá Đơn"/>
+                <field name="no_invoice_order_line_ids">
+                    <tree editable="top" delete="0" create="0">
+                        <field name="purchase_order_id" readonly="1"/>
+                    </tree>
+                </field>
+                <separator string="Đơn Mua Có Hoá Đơn Không Hợp Lệ"/>
+                <field name="invalid_order_line_ids">
+                    <tree editable="top" delete="0" create="0">
+                        <field name="purchase_order_id" readonly="1"/>
+                    </tree>
+                </field>
+                <footer>
+                    <button string='Update Invoice' name="upate_invoice_for_po" type="object" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+            </field>
+        </record>
+
+		<!-- Outstanding Fee report action-->
+        <record id="sale_order_no_invoice_action" model="ir.actions.act_window">
+	        <field name="name">sale.order.no.invoice.action</field>
+	        <field name="res_model">sale.order.no.invoice</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">form</field>
+	        <field name="target">new</field>
+    	</record>
+
+        <menuitem id="cong_no_report_menu_parent" name="Báo Cáo Công Nợ" parent="account.menu_finance_reports"/>
+        <menuitem id="cong_no_report_menu" name="Báo Cáo Công Nợ" parent="cong_no_report_menu_parent" action="cong_no_report_action"/>
+        <!--<menuitem id="congno_report_pivot_menu" name="Báo Cáo Công Nợ Web" parent="cong_no_report_menu_parent" action="congno_report_pivot_action"-->
+        <!--/>-->
+    </data>
+</odoo>

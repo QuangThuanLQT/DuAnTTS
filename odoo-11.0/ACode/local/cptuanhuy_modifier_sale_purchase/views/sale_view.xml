@@ -1,0 +1,151 @@
+<odoo>
+
+    <template id="assets_backend" name="Sale form" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/cptuanhuy_modifier_sale_purchase/static/src/js/sale_order.js"></script>
+        </xpath>
+    </template>
+
+    <data>
+        <record id="view_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="tuanhuy_sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="options">{}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="attributes">
+                    <attribute name="options">{'always_reload': True}</attribute>
+                    <attribute name="attrs">{'readonly':[('state','in',['sale','done', 'cancel'])]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_default_code']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//div[@class='oe_button_box']" position="inside">
+                    <button name="action_open_manual_picking" type="object" class="oe_stat_button" icon="fa-book">
+                        <field string="Giao Nhận" name="manual_picking_count" widget="statinfo"/>
+                    </button>
+                </xpath>
+                <xpath expr="//field[@name='order_line']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('state', 'in', ['done', 'cancel'])]}</attribute>
+                </xpath>
+                <xpath expr="//button[@name='directly_create_inv'][1]" position="attributes">
+                    <attribute name="attrs">{}</attribute>
+                    <attribute name="states">sale</attribute>
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='directly_create_inv'][2]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='directly_create_inv'][2]" position="after">
+                    <button name="%(sale.action_view_sale_advance_payment_inv)d" string="Tạo hóa đơn"
+                        type="action" class="btn-primary" states="sale"/>
+                </xpath>
+                <xpath expr="//form/header" position="inside">
+                    <button name="check_sale_order_line_procurement" type="object" string="Check Cung Ứng"/>
+                </xpath>
+            </field>
+        </record>
+
+         <record id="view_order_tree_inherit" model="ir.ui.view">
+            <field name="name">sale.order.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <field name="date_order" position="after">
+                    <field name="validity_date" string="Ngày giao hàng"/>
+                </field>
+            </field>
+         </record>
+
+        <record id="view_order_form_inherit_edit_field" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit.edit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="cptuanhuy_project_contract.view_order_form_inherit"/>
+            <field name="arch" type="xml">
+                <field name="project_manager_id" position="attributes">
+                    <attribute name="attrs">{'invisible' : [('sale_from_project', '=', False)], 'readonly': [('state', 'in', ['sale', 'done', 'cancel'])]}</attribute>
+                </field>
+                <field name="user_email" position="attributes">
+                    <attribute name="attrs">{'readonly': [('state', 'in', ['sale', 'done', 'cancel'])]}</attribute>
+                </field>
+                <field name="user_phone" position="attributes">
+                    <attribute name="attrs">{'readonly': [('state', 'in', ['sale', 'done', 'cancel'])]}</attribute>
+                </field>
+                <field name="contract_id" position="attributes">
+                    <attribute name="attrs">{'readonly': [('state', 'in', ['done', 'cancel'])],'required':[('so_type_id', '=', %(cptuanhuy_project_contract.sale_order_type_cong_trinh)d)]}</attribute>
+                </field>
+                <field name="so_type_id" position="attributes">
+                    <attribute name="attrs">{'readonly': [('state', 'in', ['done', 'cancel'])]}</attribute>
+                </field>
+                <field name="sale_project_id" position="attributes">
+                    <attribute name="attrs">{'readonly': [('state', 'in', ['done', 'cancel'])]}</attribute>
+                </field>
+                <field name="confirmation_date" position="attributes">
+                    <attribute name="attrs">{'readonly': [('state', 'in', ['done', 'cancel'])]}</attribute>
+                </field>
+            </field>
+         </record>
+
+        <record id="view_order_form_inherit_add_baogia_edit_field" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit.edit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="cptuanhuy_job_cost_sale_order.view_order_form_inherit_add_baogia"/>
+            <field name="arch" type="xml">
+                <field name="job_costing_id" position="attributes">
+                    <attribute name="attrs">{'readonly': [('state', 'in', ['sale', 'done', 'cancel'])]}</attribute>
+                </field>
+            </field>
+         </record>
+
+        <record id="discount_sale_view_form_inherit_edit_field" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit.edit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="tuanhuy_sale.discount_sale_view_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[1]/group/group[1]/field[@name='tax_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('state', 'in', ['sale', 'done', 'cancel'])]}</attribute>
+                </xpath>
+            </field>
+         </record>
+
+
+        <!--view_quotation_tree-->
+
+        <record id="view_quotation_tree_inherit_cp" model="ir.ui.view">
+            <field name="name">sale.order.tree.qutation</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+                <field name="date_order" position="after">
+                    <field name="validity_date" string="Ngày giao hàng"/>
+                </field>
+                <field name="name" position="after">
+                    <field name="so_type_id"/>
+                </field>
+                <field name="amount_total" position="after">
+                    <field name="advance_payment" sum="Tạm ứng"/>
+                    <field name="payment_term_id"/>
+                    <field name="invoice_status"/>
+                    <field name="delivery_status"/>
+                    <field name="invoice_count"/>
+                    <field name="delivery_count"/>
+                    <field name="record_checked"/>
+                    <button name="change_record_checked" type="object" string="Checked"/>
+                </field>
+                <field name="user_id" position="after">
+                    <field name="sale_order_return_ids" invisible="not context.get('sale_order_return', False)"/>
+                </field>
+                <field name="state" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+         </record>
+
+        <menuitem action="account.action_payment_term_form" id="sale_menu_payment_term_form" name="Điều khoản thanh toán" parent="sales_team.menu_sale_config" sequence="3"/>
+    </data>
+</odoo>

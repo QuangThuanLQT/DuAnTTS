@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sale_order_state,access_sale_order_state,model_sale_order_state,,1,1,1,1
+access_model_setting_queue_server,access_model_setting_queue_servere,model_setting_queue_server,,1,1,1,1

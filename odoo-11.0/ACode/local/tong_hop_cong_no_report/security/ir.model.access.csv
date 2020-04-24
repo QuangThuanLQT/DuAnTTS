@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_tong_hop_cong_no_popup_users,access_tong_hop_cong_no_popup_user_group,model_tong_hop_cong_no_popup,,1,1,1,1
+access_tong_hop_cong_no_report_users,access_tong_hop_cong_no_report_user_group,model_tong_hop_cong_no_report,,1,1,1,1

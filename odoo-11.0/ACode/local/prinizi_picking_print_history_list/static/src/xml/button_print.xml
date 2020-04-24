@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="prinizi_lich_su_in_print">
+        <button type="button" class='btn btn-sm btn-default o_prinizi_lich_su_in_print'>Export Overview</button>
+    </t>
+</templates>

@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_tuanhuy_stock_check_product_tuanhuy_stock_check_product,access_tuanhuy_stock_check_product_tuanhuy_stock_check_product,model_tuanhuy_stock_check_productt,,1,1,1,1

@@ -1,0 +1,34 @@
+<odoo>
+    <data>
+        <record id="chart_of_accounts_tree_view_inherit" model="ir.ui.view">
+            <field name="name">Chart Of Accounts Tree View Inherit</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="clickable_chartofaccount.chart_of_accounts_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='debit']" position="replace">
+                </xpath>
+                <xpath expr="//field[@name='credit']" position="replace">
+                </xpath>
+                <xpath expr="//field[@name='balance']" position="replace">
+                </xpath>
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="before_debit"/>
+                    <field name="before_credit"/>
+                    <field name="current_debit"/>
+                    <field name="current_credit"/>
+                    <field name="after_debit"/>
+                    <field name="after_credit"/>
+                </xpath>
+                <field name="company_id" postion="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+
+        <template id="assets_backend" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/cptuanhuy_coa/static/src/js/account_account_tree.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

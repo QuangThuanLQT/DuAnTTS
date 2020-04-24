@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.sale.stock</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/header/button[@name='action_quotation_send']" position='before'>
+                    <button name="action_sale_block" class="oe_highlight" string="Block"
+                            type="object" attrs="{'invisible': ['|','|','|','|',('sale_order_return', '!=',False),('quy_trinh_ban_hang','!=','noprint'),('trang_thai_dh','not in',('packing','waiting_delivery')),('block_reason','!=',False)]}"/>
+                    <button name="sale_unblock" class="oe_highlight" string="UnBlock"
+                            type="object" attrs="{'invisible': [('block_reason','=',False)]}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_order_form_inherit_delivery_ihr" model="ir.ui.view">
+            <field name="name">sale.order.form.sale.stock</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="tts_modifier_sale.view_order_form_inherit_delivery"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='confirm_user_id']" position='after'>
+                    <field name="block_reason" attrs="{'invisible': [('block_reason','=',False)]}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_picking_form_ihr" model="ir.ui.view">
+            <field name="name">view.picking.form.ihr</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="tts_modifier_sale_return.view_picking_form_inherit_inherit_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='picking_note']" position='before'>
+                    <field name="block_reason" attrs="{'invisible': [('block_reason','=',False)]}"/>
+                </xpath>
+                <xpath expr="//button[@name='action_see_move_scrap']" position='before'>
+                    <button name='action_blocked' class="oe_stat_button" icon="fa-minus-circle" attrs="{'invisible': [('block_reason','=',False)]}" string="Blocked">
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_picking_form_inherit_ihr" model="ir.ui.view">
+            <field name="name">view.picking.form.ihr</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="tts_modifier_inventory.view_picking_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/header/button[@name='pack_action_do_new_transfer']" position="attributes">
+                    <attribute name="attrs">{'invisible' : ['|','|',('block_reason','!=',False),('check_is_pack','=',False),('state_pack','not in',('packing'))]}</attribute>
+                </xpath>
+                <xpath expr="//form/header/button[@name='delivery_action_assign']" position="attributes">
+                    <attribute name="attrs">{'invisible' : ['|','|',('block_reason','!=',False),('check_is_delivery','=',False),('state_delivery','not in',('waiting_delivery'))]}</attribute>
+                </xpath>
+                <xpath expr="//form/header/button[@name='do_new_transfer_modifier']" position="attributes">
+                    <attribute name="attrs">{'invisible' : ['|','|',('block_reason','!=',False),('check_is_delivery','=',False),('state_delivery','not in',('delivery'))]}</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

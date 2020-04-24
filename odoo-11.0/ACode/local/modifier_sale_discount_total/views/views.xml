@@ -1,0 +1,59 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="modifier_sale_discount_total.list">
+      <field name="name">modifier_sale_discount_total list</field>
+      <field name="model">modifier_sale_discount_total.modifier_sale_discount_total</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="modifier_sale_discount_total.action_window">
+      <field name="name">modifier_sale_discount_total window</field>
+      <field name="res_model">modifier_sale_discount_total.modifier_sale_discount_total</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="modifier_sale_discount_total.action_server">
+      <field name="name">modifier_sale_discount_total server</field>
+      <field name="model_id" ref="model_modifier_sale_discount_total_modifier_sale_discount_total"/>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="modifier_sale_discount_total" id="modifier_sale_discount_total.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="modifier_sale_discount_total.menu_1" parent="modifier_sale_discount_total.menu_root"/>
+    <menuitem name="Menu 2" id="modifier_sale_discount_total.menu_2" parent="modifier_sale_discount_total.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="modifier_sale_discount_total.menu_1_list" parent="modifier_sale_discount_total.menu_1"
+              action="modifier_sale_discount_total.action_window"/>
+    <menuitem name="Server to list" id="modifier_sale_discount_total" parent="modifier_sale_discount_total.menu_2"
+              action="modifier_sale_discount_total.action_server"/>
+    -->
+  </data>
+</odoo>

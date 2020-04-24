@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="picking_receipt_printout_template">
+            <t t-foreach="docs" t-as="doc">
+                <div class="page" style="font-family: Arial;font-size: 12px;">
+                    <div class="row" align="center">
+                        <strong>
+                            <span style="font-size:18px">PHIẾU NHẬN HÀNG</span>
+                        </strong>
+                    </div>
+                    <table style="width: 90%; margin-left: 10%; margin-top:3px;line-height:1.5">
+                        <tr>
+                            <td style="width: 50%">
+                                <strong>Đơn hàng:<![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]></strong>
+                                <t t-esc="doc.name"/>
+                            </td>
+                            <td style="width: 50%">
+                                <strong>Đối tác:<![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]></strong>
+                                <t t-esc="doc.partner_id.name"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Nhân viên mua hàng:<![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]></strong>
+                                <t t-esc="doc.user_purchase_id.name"/>
+                            </td>
+                            <td>
+                                <strong>Kho lưu trữ:<![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]></strong>
+                                <t t-esc="dict(doc.fields_get(allfields=['kho_luu_tru'])['kho_luu_tru']['selection'])[doc.kho_luu_tru]"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>Thời gian nhận hàng:</span>
+                                <span><t t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y %H:%M')"/></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>Ghi chú:</span>
+                                <!--<span><t t-esc="doc.get_notes_report_data()"/> </span>-->
+                                <span><t t-esc="doc.env['purchase.order'].search([('group_id', '=', doc.group_id.id)]).notes"/> </span>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="table table-bordered text-center" style="border-color:black;margin-top:20px">
+                        <tbody style="border-color:black;">
+                            <tr style="page-break-inside:avoid;text-align: center">
+                                <td style="border-color:black;padding:2px 5px 2px 5px !important;width: 5%"><strong>STT</strong></td>
+                                <td style="border-color:black;padding:2px 5px 2px 5px !important;width: 56%"><strong>Sản phẩm</strong></td>
+                                <td style="border-color:black;padding:2px 5px 2px 5px !important;width: 12%">Số lượng</td>
+                            </tr>
+                            <t t-set="i" t-value="1"/>
+                            <t t-set="qty" t-value="0"/>
+                            <t t-foreach="doc.get_receipt_report_data()" t-as="line">
+                                <tr style="height:5px !important;page-break-inside:avoid;text-align: left">
+                                    <td style="border-color:black;padding:0px 5px 0px 5px !important;vertical-align:middle;">
+                                        <span t-esc="i">.</span>
+                                        <t t-set="i" t-value="i+1"/>
+                                    </td>
+                                    <td style="border-color:black;padding:0px 5px 0px 5px !important; vertical-align:middle;"><t t-esc="line.get('product_name', '')"/></td>
+                                    <td style="border-color:black;padding:0px 5px 0px 5px !important; vertical-align:middle;"><t t-esc="line.get('product_uom_qty', '0')"/></td>
+                                    <t t-set="qty" t-value="qty+int(line.get('product_uom_qty', '0'))"/>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <div class="row" align="right">
+                        <span>Tổng số lượng: </span>
+                        <span style="padding-right:30px"><t t-esc="qty"/></span>
+                        <br/>
+                    </div>
+                    <div class="row" align="right">
+                        <span style="padding-right:30px">Người kiểm</span>
+                        <br/>
+                        <span style="padding-right:14px">(ký và ghi rõ họ tên)</span>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <template id="tts_modifier_inventory.printout_picking_receipt">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="tts_modifier_inventory.picking_receipt_printout_template" t-lang="doc.partner_id.lang"/>
+                </t>
+            </t>
+        </template>
+
+        <record id="picking_receipt_printout_format" model="report.paperformat">
+            <field name="name">phiếu nhận hàng</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">297</field>
+            <field name="page_width">210</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">13</field>
+            <field name="margin_bottom">5</field>
+            <field name="margin_left">3</field>
+            <field name="margin_right">3</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">9</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+            id="picking_receipt_printout"
+            string="Phiếu nhận hàng"
+            model="stock.picking"
+            report_type="qweb-pdf"
+            file="tts_modifier_inventory.printout_picking_receipt"
+            name="tts_modifier_inventory.printout_picking_receipt"
+        />
+
+        <record id="tts_modifier_inventory.picking_receipt_printout" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="picking_receipt_printout_format"/>
+        </record>
+    </data>
+</odoo>

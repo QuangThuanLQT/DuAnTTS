@@ -1,0 +1,39 @@
+<odoo>
+    <data>
+        <record id="chi_tiet_report_view" model="ir.ui.view">
+            <field name="name">Báo Cáo Chi Tiết</field>
+            <field name="model">chi.tiet.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <label string=""/>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                        </group>
+                        <group>
+                            <field name="start_date" string="Start Date"/>
+                            <field name="end_date" string="End Date"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="print_excel_report" string="Print Excel" type="object" default_focus="1"
+                                class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="chi_tiet_report_action" model="ir.actions.act_window">
+            <field name="name">Báo Cáo Chi Tiết</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">chi.tiet.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="chi_tiet_report_menu" name="Báo Cáo Chi Tiết" parent="l10n_vn.account_reports_vn_statements_menu" action="chi_tiet_report_action" sequence="15"/>
+    </data>
+</odoo>

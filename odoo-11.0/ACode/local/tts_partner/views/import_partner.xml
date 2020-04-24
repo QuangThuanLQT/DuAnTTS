@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="import_res_partner">
+            <field name="name">import_res_partner.view</field>
+            <field name="model">import.res.partner</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="data_import" widget="binary" required="1"/>
+                        </group>
+                        <footer>
+                            <button name="import_csv" type="object" nolabel="1" string="Import" class="oe_highlight"/>
+                            <button name="import_user" type="object" nolabel="1" string="Import User" class="oe_highlight"/>
+                            <button string="Cancel" special="cancel" class="oe_link"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="import_res_partner_action" model="ir.actions.act_window">
+            <field name="name">import_res_partner</field>
+            <field name="res_model">import.res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="pk_danh_muc" model="ir.ui.view">
+            <field name="name">pk_theo_danh_muc_tree</field>
+            <field name="model">partner.group.hk1</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" string="Name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="pk_danh_muc_action">
+            <field name="name">PK theo Danh Muc</field>
+            <field name="res_model">partner.group.hk1</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="pk_danh_muc"/>
+        </record>
+
+        <record id="pk_mo_hinh" model="ir.ui.view">
+            <field name="name">pk_theo_mo_hinh_tree</field>
+            <field name="model">partner.group.hk2</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" string="Name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="pk_mo_hinh_action">
+            <field name="name">PK theo Mo Hinh</field>
+            <field name="res_model">partner.group.hk2</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="pk_mo_hinh"/>
+        </record>
+
+
+
+        <menuitem name="Import Partner" action="import_res_partner_action" id="import_res_partner_menu"
+                  parent="delivery.sale_menu_delivery"/>
+
+        <menuitem name="PK theo Danh Mục KD" action="pk_danh_muc_action" id="pk_danh_muc_menu"
+                  parent="sale.prod_config_main" sequence="13"/>
+
+        <menuitem name="PK theo Mô Hình KD" action="pk_mo_hinh_action" id="pk_mo_hinh_menu"
+                  parent="sale.prod_config_main" sequence="14"/>
+    </data>
+</odoo>

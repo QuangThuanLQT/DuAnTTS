@@ -1,0 +1,41 @@
+<odoo>
+    <data>
+        <record id="inventory_scrap_form_view_inherit" model="ir.ui.view">
+            <field name="name">inventory.scrap.form</field>
+            <field name="model">stock.scrap</field>
+            <field name="inherit_id" ref="stock.stock_scrap_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/header" position="inside">
+                    <button name="action_confirm_scrap" string="Confirm Scrap" class="o_sale_confirm" context="{'skip_stock_move': False}" type="object" attrs="{'invisible': [('state', '=','done')]}"/>
+                </xpath>
+                <xpath expr="//form/sheet/group/group[1]" position="inside">
+                    <field name="reason"/>
+                    <field name="create_date" string="Created Date" readonly="1" attrs="{'invisible': [('create_date', '=', False)]}"/>
+                    <field name="create_uid" string="Created Person" readonly="1" attrs="{'invisible': [('create_uid', '=', False)]}"/>
+                    <field name="confirm_date" readonly="1" attrs="{'invisible': [('confirm_date', '=', False)]}"/>
+                    <field name="confirm_person" readonly="1" attrs="{'invisible': [('confirm_person', '=', False)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='product_id']" position="attributes">
+                    <attribute name="options">{'no_quick_create':True, 'no_create_edit':True}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="stock.action_stock_scrap">
+            <field name="context">{'skip_stock_move': True}</field>
+        </record>
+
+        <record id="inventory_scrap_form_view2_inherit" model="ir.ui.view">
+            <field name="name">inventory.scrap.form2</field>
+            <field name="model">stock.scrap</field>
+            <field name="inherit_id" ref="stock.stock_scrap_form_view2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/group/group[1]" position="inside">
+                    <field name="reason"/>
+                    <field name="confirm_date" readonly="1" attrs="{'invisible': [('confirm_date', '=', False)]}"/>
+                    <field name="confirm_person" readonly="1" attrs="{'invisible': [('confirm_person', '=', False)]}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

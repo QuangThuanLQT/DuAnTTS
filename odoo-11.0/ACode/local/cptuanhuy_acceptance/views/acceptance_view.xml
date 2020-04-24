@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="project_acceptance_tree" model="ir.ui.view">
+            <field name="name">project.acceptance.tree</field>
+            <field name="model">project.acceptance</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="contract_id"/>
+                    <field name="sale_order_id"/>
+                    <field name="partner_id"/>
+                    <field name="description"/>
+                    <field name="amount"/>
+                    <field name="date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="project_acceptance_form" model="ir.ui.view">
+            <field name="name">project.acceptance.form</field>
+            <field name="model">project.acceptance</field>
+            <field name="arch" type="xml">
+                <form string="Quản lý nghiệm thu">
+                    <header>
+                        <button name="create_invoice" states="draft" string="Tạo hoá đơn" type="object" class="oe_highlight"/>
+                        <button name="set_to_draft" type="object" states="cancel" string="Chuyển về nháp" class="oe_highlight"/>
+                        <button name="action_cancel" string="Huỷ" type="object" states="draft,done"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_invoice" type="object" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible': [('invoice_count', '=', 0)]}">
+                                <field name="invoice_count" widget="statinfo" string="Hoá đơn"/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" class="oe_inline"/>
+                            </h1>
+                        </div>
+                        <group name="main">
+                            <group>
+                                <field name="contract_id"/>
+                                <field name="location_id"/>
+                                <field name="sale_order_id" domain="[('contract_id','=',contract_id)]"/>
+                                <field name="partner_id"/>
+                            </group>
+                            <group>
+                                <field name="date"/>
+                                <field name="amount"/>
+                                <field name="picking_id" states="done"/>
+                            </group>
+                        </group>
+                        <label for="description"/>
+                        <field name="description"/>
+                        <group name="line_ids" string="Chi tiết"/>
+                        <field name="line_ids">
+                            <tree>
+                                <field name="product_id"/>
+                                <field name="product_qty"/>
+                                <field name="product_uom"/>
+                                <field name="list_price"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="project_acceptance_action" model="ir.actions.act_window">
+	        <field name="name">Quản lý nghiệm thu</field>
+	        <field name="res_model">project.acceptance</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">tree,form</field>
+    	</record>
+
+        <menuitem name="Quản lý nghiệm thu" action="project_acceptance_action" id="project_acceptance_menu" parent="cptuanhuy_project.menu_project_contract_parent"/>
+    </data>
+</odoo>

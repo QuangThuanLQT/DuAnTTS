@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Account.Analytic View inherit Form view-->
+        <record model="ir.ui.view" id="view_inherit_account_budget">
+            <field name="name">account.analytic.account</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="account_budget.view_account_analytic_account_form_inherit_budget"/>
+			<field name="priority">100</field>            
+            <field name="arch" type="xml">
+                <xpath expr="//notebook[@groups='account.group_account_user']" position="inside">
+                    <page string="Product Budget Lines" groups="account.group_account_user">
+                        <field name="product_budget_lines">
+                            <tree string="Product Lines" editable="top">
+                                <field name="crossovered_budget_id" invisible="1"/>
+								<field name="name" />                           
+                                <field name="group_product_id" required="1"/>
+                                <field name="start_date" required="1"/>
+                                <field name="end_date" required="1"/>
+                                <field name="planned_amount" sum="Planned Amount" required="1"/>
+                                <field name="amount_spent" sum="Amount Spent" readonly="1"/>
+                                <field name="balance_left" sum="Balance Left" readonly="1"/>
+                                <field name="percentage" readonly="1"/>
+                                <field name="percentage_left" readonly="1"/>
+                            </tree>
+                            <form string="bundle">
+                                <group>
+                                    <group>
+                                        <field name="crossovered_budget_id" required="1"/>
+                                        <field name="group_product_id" required="1"/>
+                                        <field name="start_date" required="1"/>
+                                        <field name="end_date" required="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="planned_amount" sum="Planned Amount" required="1"/>
+                                        <field name="amount_spent" sum="Amount Spent"/>
+                                        <field name="balance_left" sum="Balance Left"/>
+                                        <field name="percentage"/>
+                                    </group>
+                                </group>
+                                <field name="product_spent_lines">
+                                    <tree string="details" editable="bottom">
+                                        <field name="name"/>
+                                        <field name="product_id"/>
+                                        <field name="amount"/>
+                                    </tree>
+                                </field>
+                            </form>
+                        </field>
+                    </page>
+                    <!-- Needs to hide budget lines -->
+					<!--<xpath expr="//notebook[@groups='account.group_account_user']/page[0]" position="attributes">
+						<attribute name="invisible">1</attribute> 
+					</xpath>-->                    
+					<!--<field name="crossovered_budget_line" position="attributes">
+						<attribute name="invisible">True</attribute> 
+					</field>-->                    
+                </xpath>
+				<xpath expr="//notebook[@groups='account.group_account_user']/page[@name='budget_item']" position="replace">
+					<attribute name="invisible">1</attribute> 
+				</xpath>
+            </field>
+        </record>
+
+        <!-- Product Budget Lines View Action and Menu -->
+        <record id="view_product_budget_lines_form" model="ir.ui.view">
+            <field name="name">product_budget_lines.form</field>
+            <field name="model">product.budget.lines</field>
+            <field name="arch" type="xml">
+                <form string="Budget">
+                    <group>
+                        <group>
+                            <field name="account_id"/>
+                            <field name="crossovered_budget_id"/>
+                            <field name="group_product_id"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="planned_amount"/>
+                            <field name="amount_spent"/>
+                            <field name="balance_left"/>
+                            <field name="percentage"/>
+                            <field name="percentage_left"/>
+                        </group>
+                    </group>
+                    <field name="product_spent_lines"/>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_product_budget_lines_tree">
+            <field name="name">product.spent.lines.tree</field>
+            <field name="model">product.budget.lines</field>
+            <field name="arch" type="xml">
+                <tree string="Budget" create="false" edit="false" editable="bottom">
+                    <field name="account_id" string="Analytical Account"/>
+                    <field name="crossovered_budget_id" string="Budget"/>
+                    <field name="group_product_id"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="planned_amount"/>
+                    <field name="amount_spent"/>
+                    <field name="balance_left"/>
+                    <field name="percentage"/>
+                    <field name="percentage_left"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="product_budget_lines_search_view" model="ir.ui.view">
+            <field name="name">product.budget.lines.search</field>
+            <field name="model">product.budget.lines</field>
+            <field eval="10" name="priority"/>
+            <field name="arch" type="xml">
+                <search string="Budget">
+                    <field name="account_id"/>
+                    <field name="group_product_id"/>
+                    <group  expand='0' string='Group by...'>
+                       <filter name="filter_account_id"  string='Analytical Account' domain="[]" context="{'group_by' : 'account_id'}"/>
+                       <filter name="filter_crossovered_budget_id"  string='Budget' domain="[]" context="{'group_by' : 'crossovered_budget_id'}"/>
+                       <filter name="filter_group_product_id"  string='Product Group' domain="[]" context="{'group_by' : 'group_product_id'}"/>
+                   </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_product_spent_lines_valuess">
+            <field name="name">product.budget.lines.graph</field>
+            <field name="model">product.budget.lines</field>
+            <field eval="12" name="priority"/>
+            <field name="arch" type="xml">
+                <graph string="Spents" type="pie">
+                    <field name="group_product_id" type="row"/>
+                    <field name="account_id" type="row"/>
+                    <field name="planned_amount" type="measure"/>
+                    <field name="amount_spent" type="measure"/>
+                    <field name="balance_left" type="measure"/>
+                    <field name="percentage" type="measure"/>
+                    <field name="percentage_left" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="product_budget_lines_actions">
+            <field name="name">Budget</field>
+            <field name="res_model">product.budget.lines</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph</field>
+            <field name="context">{'search_default_filter_account_id': 1,'search_default_filter_crossovered_budget_id': 1}</field>
+        </record>
+
+        <menuitem name="Analytic Budget Analysis" id="analytic_report_menu" parent="account.menu_finance_reports" sequence="7"/>
+        <menuitem id="menu_analytic_report_menu_main" name="Budget Lines" parent="analytic_report_menu" sequence="2" action="product_budget_lines_actions"/>
+
+        <!-- Product Spent Lines View Action and Menu -->
+       <record id="view_product_spent_lines_form" model="ir.ui.view">
+            <field name="name">product.spent.lines.form</field>
+            <field name="model">product.spent.lines</field>
+            <field name="arch" type="xml">
+                <form string="Spents">
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="group_id"/>
+                            <field name="group_product_id"/>
+                            <field name="product_id"/>
+                            <field name="type"/>
+                            <field name="responsible_id"/>
+                            <field name="supplier_id"/>
+                            <field name="date_expense"/>
+                            <field name="percent_spent"/>
+                            <field name="amount"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_product_spent_lines_tree">
+            <field name="name">product.spent.lines.tree</field>
+            <field name="model">product.spent.lines</field>
+            <field name="arch" type="xml">
+                <tree string="Spents" create="false" edit="false">
+                    <field name="name"/>
+                    <field name="group_product_id"/>
+                    <field name="product_id"/>
+                    <field name="amount"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_product_spent_lines_value">
+            <field name="name">product.spent.lines.graph</field>
+            <field name="model">product.spent.lines</field>
+            <field eval="12" name="priority"/>
+            <field name="arch" type="xml">
+                <graph string="Spents" type="pie">
+                    <field name="group_product_id" type="row"/>
+                    <field name="type" type="row"/>
+                    <field name="product_id" type="row"/>
+                    <field name="amount" type="measure"/>
+                    <field name="date_expense" interval="month" type="col"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="product_spent_lines_search_view" model="ir.ui.view">
+            <field name="name">product.spent.lines.search</field>
+            <field name="model">product.spent.lines</field>
+            <field eval="10" name="priority"/>
+            <field name="arch" type="xml">
+                <search string="Spents">
+                    <field name="name" string="Origin"/>
+                    <field name="group_product_id"/>
+                    <field name="product_id"/>
+                    <field name="responsible_id"/>
+                    <field name="supplier_id"/>
+                    <field name="group_id"/>
+                    <group  expand='0' string='Group by...'>
+                       <filter name="filter_group_id"  string='Account Line' domain="[]" context="{'group_by' : 'group_id'}"/>
+                       <filter name="filter_type"  string='Spent Type' domain="[]" context="{'group_by' : 'type'}"/>
+                       <filter name="filter_group_product_id"  string='Product Group' domain="[]" context="{'group_by' : 'group_product_id'}"/>
+                       <filter name="filter_product_id"  string='Product' domain="[]" context="{'group_by' : 'product_id'}"/>
+                       <filter name="filter_responsible_id"  string='Responsible' domain="[]" context="{'group_by' : 'responsible_id'}"/>
+                       <filter name="filter_supplier_id"  string='Supplier' domain="[]" context="{'group_by' : 'supplier_id'}"/>
+                   </group>
+                </search>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="product_spent_lines_actions">
+            <field name="name">Spents</field>
+            <field name="res_model">product.spent.lines</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph,tree</field>
+            <field name="context">{'search_default_filter_type': 1,'search_default_filter_group_id': 1}</field>
+        </record>
+
+        <menuitem id="menu_analytic_report_menu" name="Spents" parent="analytic_report_menu" sequence="1" action="product_spent_lines_actions"/>
+
+        <!-- Group.Product Form view-->
+        <record id="view_group_products_form" model="ir.ui.view">
+            <field name="name">group.products.form</field>
+            <field name="model">group.products</field>
+            <field name="arch" type="xml">
+                <form string="Group Product">
+                    <group>
+                        <group>
+                            <field name="name" required="1"/>
+                        </group>
+                        <group>
+                            <field name="code" required="1"/>
+                        </group>
+                    </group>
+                    <separator string="Products"/>
+                    <field name="product_ids" required="1"/>
+                </form>
+            </field>
+        </record>        
+    </data>
+</odoo>

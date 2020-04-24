@@ -1,0 +1,58 @@
+<odoo>
+    <data>
+        <record id="action_sale_dashboard" model="ir.actions.act_window">
+            <field name="name">Sale Dashboard</field>
+            <field name="res_model">dashboard.sale.revenue</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">sale_dashboard_view</field>
+            <field name="context">{
+            'sale_dashboard_view_view_ref' : 'dashboard_sale_revenue.sale_dashboard_view'
+            }</field>
+        </record>
+
+
+        <record model="ir.ui.view" id="sale_dashboard_view">
+            <field name="name">Sale Dashboard</field>
+            <field name="model">dashboard.sale.revenue</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <!--<field name="name"/>-->
+                </kanban>
+            </field>
+        </record>
+
+        <menuitem id="menu_sale_dashboard"
+                  name="Sale Dashboard"
+                  action="action_sale_dashboard"
+                  parent="base.menu_board_root"
+                  sequence="1"/>
+
+        <template id="sale_assets_backend" name="Sale assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/dashboard_sale_revenue/static/src/js/sale_dashboard.js"/>
+                <script type="text/javascript" src="/dashboard_sale_revenue/static/lib/charts/Chart.min.js"/>
+                <script type="text/javascript" src="/dashboard_sale_revenue/static/lib/charts/Chart.bundle.min.js"/>
+                <!-- Datatable scripts -->
+                <script type="text/javascript" src="/dashboard_sale_revenue/static/lib/dataTables/datatables.min.js"/>
+                <script type="text/javascript" src="/dashboard_sale_revenue/static/lib/dataTables/dataTables.buttons.min.js"/>
+                <script type="text/javascript" src="/dashboard_sale_revenue/static/lib/dataTables/buttons.flash.min.js"/>
+                <script type="text/javascript" src="/dashboard_sale_revenue/static/lib/dataTables/buttons.html5.min.js"/>
+                <script type="text/javascript" src="/dashboard_sale_revenue/static/lib/dataTables/buttons.print.min.js"/>
+                <script type="text/javascript" src="/dashboard_sale_revenue/static/lib/dataTables/pdfmake.min.js"/>
+                <script type="text/javascript" src="/dashboard_sale_revenue/static/lib/dataTables/vfs_fonts.js"/>
+                <script type="text/javascript" src="/dashboard_sale_revenue/static/lib/dataTables/jszip.min.js"/>
+                <script type="text/javascript" src="/dashboard_sale_revenue/static/lib/dataTables/buttons.bootstrap.min.js"/>
+                <script type="text/javascript" src="/dashboard_sale_revenue/static/lib/dataTables/buttons.bootstrap4.min.js"/>
+                <script type="text/javascript" src="/dashboard_sale_revenue/static/lib/dataTables/buttons.colVis.min.js"/>
+                <!-- Scripts to export html to pdf -->
+                <script type="text/javascript" src="/dashboard_sale_revenue/static/lib/jsPdf/jspdf.min.js"/>
+                <script type="text/javascript" src="/dashboard_sale_revenue/static/lib/jsPdf/jspdf.debug.js"/>
+
+                <link rel="stylesheet" href="/dashboard_sale_revenue/static/src/css/dashboard.css"/>
+                <link rel="stylesheet" href="/dashboard_sale_revenue/static/lib/dataTables/datatables.min.css"/>
+                <link rel="stylesheet" href="/dashboard_sale_revenue/static/lib/dataTables/buttons.dataTables.min.css"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

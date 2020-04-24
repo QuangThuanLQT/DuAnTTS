@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+ 		<!-- Outstanding Fee Report wizard -->
+        <record id="import_cong_no_wizard" model="ir.ui.view">
+            <field name="name">import.cong.no</field>
+            <field name="model">import.cong.no</field>
+            <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="file_name" invisible="1"/>
+                    <field name="import_data" filename="file_name"/>
+                    <field name="name" string="Ghi Chú"/>
+                    <field name="check_import"/>
+                </group>
+                <footer>
+                    <button name="export_xls" type="object" default_focus="1"
+                        string="Tải Format" class="oe_highlight" context="{'xls_export':1}"
+                        icon="fa-download" />
+                    <button name="check_import_file" type="object" default_focus="1"
+                        string="Check Import" class="oe_highlight" context="{'xls_export':1}"
+                        icon="fa-download" />
+                    <button name="import_xls" type="object" default_focus="1"
+                        string="Import XLS" class="oe_highlight" context="{'xls_export':1}"
+                        icon="fa-download" />
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+            </field>
+        </record>
+
+		<!-- Outstanding Fee report action-->
+        <record id="import_cong_no_action" model="ir.actions.act_window">
+	        <field name="name">Nhập Công Nợ</field>
+	        <field name="res_model">import.cong.no</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">form</field>
+	        <field name="target">new</field>
+    	</record>
+
+        <menuitem name="Nhập Công Nợ" id="import_cong_no_menu_parent" parent="account.menu_finance_entries" sequence="150"/>
+        <menuitem name="Nhập Công Nợ" action="import_cong_no_action" id="import_cong_no_menu" parent="import_cong_no_menu_parent"/>
+
+</odoo>

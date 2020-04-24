@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="res_users_form_inherit" model="ir.ui.view">
+        <field name="name">Res Users Form Inherit</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="before">
+                <field name="access_rights_id" options="{'no_create_edit': True}"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

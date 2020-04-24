@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_voucher_sale_line_all_user,name_voucher_sale_line_all_user,model_voucher_sale_line,,1,1,1,1

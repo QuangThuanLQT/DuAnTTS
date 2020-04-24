@@ -1,0 +1,22 @@
+<odoo>
+    <data>
+        <template id="sms_inbox_assets_backend" name="SMS inbox" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" type="text/css" href="/tts_sms_to_email/static/src/css/style.css"/>
+                <script type="text/javascript" src="/tts_sms_to_email/static/src/js/style.js"></script>
+            </xpath>
+        </template>
+
+        <record id="ir_cron_mail_gateway_sms_action" model="ir.cron">
+            <field name="name">Fetchmail Service SMS</field>
+            <field name="interval_number">22</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model">fetchmail.server</field>
+            <field name="function">_fetch_mails_sms</field>
+            <field name="args">()</field>
+            <field name="active" eval="True"/>
+        </record>
+    </data>
+</odoo>

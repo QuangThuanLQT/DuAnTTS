@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+        <record id="hr_timesheet.timesheet_menu_root" model="ir.ui.menu">
+            <field name="active" eval="False"/>
+        </record>
+
+        <record id="project.menu_main_pm" model="ir.ui.menu">
+            <field name="active" eval="False"/>
+        </record>
+
+        <record id="odoo_job_costing_management.menu_job_cost_project" model="ir.ui.menu">
+            <field name="sequence" eval="0"/>
+        </record>
+
+        <record id="odoo_job_costing_management.menu_job_managmt" model="ir.ui.menu">
+            <field name="name">Dự án</field>
+        </record>
+    </data>
+</odoo>

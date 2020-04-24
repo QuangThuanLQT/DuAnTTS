@@ -1,0 +1,193 @@
+<odoo>
+    <data>
+
+            	<!-- inherit stock production lot form -->
+    	<record id="invoice_supplier_form" model="ir.ui.view">
+            <field name="name">account.invoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+            	<field name="date_due" position="after">
+            		<field name="has_co"/>
+                    <field name="has_cq"/>
+                    <field name="has_stock_receipt"/>
+            	</field>
+                <xpath expr="//form/sheet/notebook/page[2]/group/group[2]" position="replace">
+                    <group>
+                        <group>
+                            <field name="fiscal_position_id" options="{'no_create': True}" placeholder="Auto-detect"/>
+                            <field name="move_id" groups="account.group_account_manager" attrs="{'invisible': [('move_id', '=', False)]}"/>
+                            <field name="date" domain="[('state', '=', 'draft'), ('company_id', '=', company_id)]" groups="account.group_account_user"/>
+                            <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                        </group>
+                        <!--<group>-->
+                            <!--<field name="invoice_date_real"/>-->
+                            <!--<field name="invoice_number_real"/>-->
+                            <!--<field name="invoice_total_real"/>-->
+                            <!--<field name="number_origin"/>-->
+                        <!--</group>-->
+                    </group>
+                </xpath>
+                <xpath expr="//form/sheet/group/group[2]" position="inside">
+                    <field name="invoice_date_real"/>
+                    <field name="invoice_number_real"/>
+                    <field name="invoice_total_real"/>
+                    <field name="number_origin"/>
+                </xpath>
+                <button name="action_invoice_cancel" position="attributes">
+                    <attribute name="states">draft,proforma2,open</attribute>
+                </button>
+            </field>
+        </record>
+
+        <record id="invoice_form_form" model="ir.ui.view">
+            <field name="name">account.invoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/group/group[2]" position="inside">
+                    <field name="invoice_date_real"/>
+                    <field name="invoice_number_real"/>
+                    <field name="invoice_total_real"/>
+                    <field name="number_origin"/>
+                </xpath>
+                <field name="date_due" position="after">
+                    <field name="date_order"/>
+                </field>
+                <xpath expr="//button[@name='action_invoice_sent']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_invoice_sent'][1]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='invoice_print']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='invoice_print'][1]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='%(account.action_account_invoice_refund)d']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='amount_total']" position="attributes">
+                    <attribute name="digits">(16, 0)</attribute>
+                </xpath>
+                <xpath expr="//field[@name='residual']" position="attributes">
+                    <attribute name="digits">(16, 0)</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="account.menu_finance_entries" model="ir.ui.menu">
+            <field name="sequence">5</field>
+        </record>
+
+        <record id="invoice_tree_inherit_add_date_order" model="ir.ui.view">
+            <field name="name">account.invoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_tree"/>
+            <field name="arch" type="xml">
+                <field name="date_invoice" position="after">
+                    <field name="date_order"/>
+                </field>
+                <field name="amount_total_signed" position="replace">
+                </field>
+                <field name="residual_signed" position="replace">
+                </field>
+                <field name="partner_id" position="after">
+                    <field name="amount_total_signed" string="Total" sum="Total"/>
+                    <field name="residual_signed" string="Amount Due" sum="Amount Due"/>
+                </field>
+                <field name="origin" position="after">
+                    <field name="number_origin"/>
+                </field>
+                <field name="state" position="after">
+                    <field name="record_checked"/>
+                    <button name="change_record_checked" type="object" string="Done"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="action_unpayment_invoice_record" model="ir.actions.server">
+            <field name="name">Huỷ Thanh Toán</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_account_invoice"/>
+            <field name="state">code</field>
+            <field name="code">action = record.unpayment_invoice();
+            </field>
+        </record>
+
+        <record model="ir.values" id="action_value_unpayment_invoice_record">
+            <field name="model">account.invoice</field>
+            <field name="name">Huỷ Thanh Toán</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_unpayment_invoice_record'))" />
+        </record>
+
+        <record id="action_cancel_invoice" model="ir.actions.server">
+            <field name="name">Huỷ Hoá Đơn</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_account_invoice"/>
+            <field name="state">code</field>
+            <field name="code">action = record.multi_action_cancel_invoice();
+            </field>
+        </record>
+
+        <record model="ir.values" id="value_cancel_invoice">
+            <field name="model">account.invoice</field>
+            <field name="name">Huỷ Hoá Đơn</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_cancel_invoice'))" />
+        </record>
+
+        <record id="action_invoice_update_check_record" model="ir.actions.server">
+            <field name="name">Huỷ kiểm tra</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_account_invoice"/>
+            <field name="state">code</field>
+            <field name="code">action = record.action_update_check_record();
+            </field>
+        </record>
+
+        <record model="ir.values" id="invoice_update_check_record">
+            <field name="model">account.invoice</field>
+            <field name="name">Huỷ kiểm tra</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_invoice_update_check_record'))" />
+        </record>
+
+        <record id="invoice_supplier_tree_inherit" model="ir.ui.view">
+            <field name="name">account.invoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_tree"/>
+            <field name="arch" type="xml">
+                <field name="amount_total_signed" position="replace">
+                </field>
+                <field name="residual_signed" position="replace">
+                </field>
+                <field name="partner_id" position="after">
+                    <field name="amount_total_signed" string="Total" sum="Total"/>
+                    <field name="residual_signed" string="To Pay" sum="To pay"/>
+                </field>
+            </field>
+        </record>
+
+
+        <menuitem id="menu_customer_invoice_sub" parent="account.menu_finance_receivables" sequence="1" name="Customer Invoices"/>
+        <menuitem action="account.action_invoice_tree1" id="account.menu_action_invoice_tree1" parent="menu_customer_invoice_sub" />
+
+        <menuitem id="menu_sale_invoice_sub" parent="account.menu_finance_receivables" sequence="2" name="Sales"/>
+        <menuitem action="account.action_account_payments" id="account.menu_action_account_payments_receivable" parent="menu_sale_invoice_sub"
+                  sequence="20" groups="account.group_account_user"/>
+        <menuitem id="account.menu_account_customer" name="Customers" parent="menu_sale_invoice_sub"
+            action="base.action_partner_customer_form" sequence="100"/>
+        <menuitem id="account.menu_product_template_action" name="Sellable Products"
+            parent="menu_sale_invoice_sub"
+            action="product.product_template_action" sequence="110"/>
+
+
+    </data>
+</odoo>

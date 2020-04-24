@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_tts_reset_product_history_tts_reset_product_history,tts_reset_product_history.tts_reset_product_history,model_tts_reset_product_history_tts_reset_product_history,,1,0,0,0

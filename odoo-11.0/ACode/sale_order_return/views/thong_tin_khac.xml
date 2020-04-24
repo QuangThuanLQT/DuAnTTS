@@ -1,0 +1,40 @@
+<odoo>
+    <data>
+        <record id="view_order_form_its_ihr_1" model="ir.ui.view">
+            <field name="name">sale_order_return</field>
+            <field name="model">sale.order.return</field>
+            <field name="inherit_id" ref="sale_order_return.order_return_list"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/notebook/page[2]" position="after">
+                    <page string="Thông tin khác">
+                        <group>
+                            <group string="Thông tin vận chuyển" name="sale_shipping">
+                                <field name="warehouse_id"/>
+                                <field name="incoterm"/>
+                                <field name="picking_policy"/>
+                            </group>
+
+                            <group string="Thông tin bán hàng" name="sale_sales">
+                                <field name="tag_ids"/>
+                                <field name="team_id"/>
+                                <field name="client_order_ref"/>
+                            </group>
+
+                            <group string="Hóa đơn" name="sale_pay">
+                                <field name="fiscal_position_id"/>
+                            </group>
+
+                            <group string="Báo cáo" name="sale_report">
+                                <field name="origin"/>
+                                <field name="campaign_id"/>
+                                <field name="medium_id"/>
+                                <field name="source_id"/>
+                                <field name="opportunity_id"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

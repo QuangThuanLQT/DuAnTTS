@@ -1,0 +1,98 @@
+<odoo>
+    <data>
+        <record id="view_picking_form_inherit_merge_so" model="ir.ui.view">
+            <field name="name">stock.picking.merge.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="tts_modifier_sale_return.view_picking_form_inherit_inherit_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='picking_note']" position="after">
+                    <field name="sale_order_merge" attrs="{'invisible' : [('check_is_delivery','=',False)]}"/>
+                    <field name="sale_order_merge_ids"
+                           attrs="{'invisible' : ['|',('check_is_delivery','=',False),('sale_order_merge', '!=', True)]}"
+                           options="{'no_quick_create':True, 'no_create_edit':True}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="picking_delivery_tree_view" model="ir.ui.view">
+            <field name="name">stock.picking.view.tree</field>
+            <field name="model">stock.picking</field>
+            <field name="arch" type="xml">
+                <tree decoration-info="False" decoration-muted="state == 'cancel'" decoration-danger="False" string="Picking list" colors="red:check_return_picking == True;blue:state in ['partially_available','confirmed']">
+                    <field name="name"/>
+                    <field name="date_base_order" string="Ngày đặt hàng"/>
+                    <field name="location_id" can_create="true" can_write="true"/>
+                    <field name="export_confirm_order_sub" invisible="True"/>
+                    <field name="location_dest_id"/>
+                    <field name="partner_id"/>
+                    <field name="date" invisible="1"/>
+                    <field name="min_date"/>
+                    <field name="origin_sub"/>
+                    <field name="origin" invisible="1"/>
+                    <field name="group_id" invisible="1"/>
+                    <field name="backorder_id"/>
+                    <field name="picking_cancel" string="Đơn Hàng Đã Huỷ" invisible="1"/>
+                    <field name="need_to_confirm" invisible="1"/>
+                    <field name="state" invisible="1"/>
+                    <field name="sale_order_merge"/>
+                    <field name="sale_order_merge_ids"/>
+                    <field name="picking_state_show"/>
+                    <field name="priority" invisible="1"/>
+                    <field name="picking_type_id" invisible="1"/>
+                    <field name="check_color_picking" invisible="1"/>
+                    <field name="check_return_picking" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_picking_delivery_tree_waiting" model="ir.actions.act_window">
+            <field name="name">Waiting Transfers</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form,calendar</field>
+            <field name="domain"></field>
+            <field name="view_id" ref="picking_delivery_tree_view"/>
+            <field name="context">{
+                    'search_default_picking_type_id': [active_id],
+                    'default_picking_type_id': active_id,
+                    'contact_display': 'partner_address',
+                    'search_default_waiting': 1,
+            }
+            </field>
+            <field name="search_view_id" ref="stock.view_picking_internal_search"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click here to create a new transfer.
+              </p><p>
+                You can either do it immediately or mark it as Todo for future processing. Use your scanner to validate the transferred quantity quicker.
+              </p>
+            </field>
+        </record>
+
+        <record id="stock_picking_delivery_action_picking_type" model="ir.actions.act_window">
+            <field name="name">All Transfers</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form,calendar</field>
+            <field name="domain"></field>
+            <field name="view_id" ref="picking_delivery_tree_view"/>
+            <field name="context">{
+                    'search_default_picking_type_id': [active_id],
+                    'default_picking_type_id': active_id,
+                    'contact_display': 'partner_address',
+            }
+            </field>
+            <field name="search_view_id" ref="stock.view_picking_internal_search"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click here to create a new transfer.
+              </p><p>
+                You can either do it immediately or mark it as Todo for future processing. Use your scanner to validate the transferred quantity quicker.
+              </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

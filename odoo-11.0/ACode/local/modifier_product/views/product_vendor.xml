@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="product_vendor_form_view">
+            <field name="name">product_vendor_form.view</field>
+            <field name="model">product.vendor.price</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name" string="Tên"/>
+                            <field name="partner_id"/>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                        </group>
+                        <separator string="Danh sách sản phẩm"/>
+                        <div>
+                            <button name="button_upload_function" class="oe_highlight oe_edit_only"
+                                    string="Tải lên tập tin sản phẩm" type="object"/>
+                        </div>
+                        <field name="seller_ids">
+                            <tree string="Vendor Information" editable="bottom">
+                                <field name="sequence" widget="handle"/>
+                                <field name="name" invisible="1"/>
+                                <field name="product_tmpl_id" string="Sản phẩm"/>
+                                <field name="brand" string="Thương hiệu"/>
+                                <field name="made_in" string="Xuất sứ"/>
+                                <field name="listed_price" string="Giá niêm yết"/>
+                                <field name="delay"/>
+                                <field name="min_qty"/>
+                                <field name="price" string="Giá"/>
+                                <field name="date_start" invisible="1"/>
+                                <field name="date_end" invisible="1"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="product_vendor_tree_view">
+            <field name="name">product_vendor_tree.view</field>
+            <field name="model">product.vendor.price</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="partner_id"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="product_vendor_action">
+            <field name="name">Bảng giá</field>
+            <field name="res_model">product.vendor.price</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="usage">menu</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="product_purchase_action">
+            <field name="name">Cung ứng</field>
+            <field name="res_model">product.supplierinfo</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="usage">menu</field>
+            <field name="context">{'visible_product_tmpl_id': 0}</field>
+        </record>
+    </data>
+</odoo>

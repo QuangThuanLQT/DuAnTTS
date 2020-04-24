@@ -1,0 +1,15 @@
+<odoo>
+    <record id="sub_contract" model="ir.ui.view">
+        <field name="name">Job Order</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="hr_timesheet.view_task_form2_inherited"/>
+        <field name="arch" type="xml">
+            <field name="progress" position="after">
+                <field name="sub_contractor" 
+                    domain="[('is_subcontractor', '=', True), 
+                    ('sub_contractor_project_id', 'in', project_id)]" 
+                    context="{'default_is_subcontractor': True}"/>
+            </field>
+        </field>
+    </record>
+</odoo>

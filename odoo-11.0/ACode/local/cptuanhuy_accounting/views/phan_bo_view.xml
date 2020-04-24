@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="phan_bo_wizard" model="ir.ui.view">
+            <field name="name">phan.bo.form</field>
+            <field name="model">phan.bo</field>
+            <field name="arch" type="xml">
+                <form string="Product Template Import">
+                    <group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="account_id"/>
+                        </group>
+                        <group>
+                            <field name="end_date"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="action_phan_bo" type="object" string="Phân bổ" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="phan_bo_action" model="ir.actions.act_window">
+	        <field name="name">phan.bo.form</field>
+	        <field name="res_model">phan.bo</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">form</field>
+	        <field name="target">new</field>
+    	</record>
+
+        <menuitem name="Sản xuất" id="account_manufacturing_menu" parent="account.menu_finance" sequence="14"/>
+        <menuitem name="Phân bổ" action="phan_bo_action" id="phan_bo_menu" parent="account_manufacturing_menu"/>
+    </data>
+</odoo>

@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_config_product_print_all_user,name_config_product_print_all_user,model_config_product_print,,1,1,1,1
+access_lung_ao_its_all_user,name_lung_ao_its_all_user,model_lung_ao_its,,1,1,1,1
+access_mat_truoc_ao_its_all_user,name_mat_truoc_ao_its_all_user,model_mat_truoc_ao_its,,1,1,1,1
+access_ong_quan_its_all_user,name_ong_quan_its_all_user,model_ong_quan_its,,1,1,1,1
+access_ong_tay_ao_its_all_user,name_lung_ao_its_all_user,model_lung_ao_its,,1,1,1,1

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="view_coa_wizard_form" model="ir.ui.view">
+        <field name="name">View Coa Wizard Form</field>
+        <field name="model">coa.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Chart Of Accounts">
+                <group>
+                    <group>
+                        <field name="date_from"/>
+                        <field name="code"/>
+                        <field name="account_currency"/>
+                    </group>
+                    <group>
+                        <field name="date_to"/>
+                        <field name="company_id"/>
+                        <field name="type_id"/>
+                    </group>
+                    
+                </group>
+                <group>
+                    <field name="target_move" required="1"/>
+                </group>
+                <footer>
+                    <button string="Open Charts" name="chart_of_account_open_window" type="object" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_chart_of_accounts" model="ir.actions.act_window">
+        <field name="name">Chart of Accounts</field>
+        <field name="res_model">coa.wizard</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_coa_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem action="action_chart_of_accounts"
+        id="menu_chart_of_accounts_wizard"
+        parent="account.menu_finance_entries" sequence="4" />
+
+</odoo>

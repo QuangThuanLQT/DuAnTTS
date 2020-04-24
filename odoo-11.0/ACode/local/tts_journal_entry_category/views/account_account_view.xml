@@ -1,0 +1,36 @@
+<odoo>
+    <data>
+
+        <record id="view_account_form_inherit_group" model="ir.ui.view">
+            <field name="name">account.account.inherit</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_form"></field>
+            <field name="arch" type="xml">
+            	<field name="tag_ids" position="after">
+            		<field name="group_level_1"/>
+                    <field name="group_level_2"/>
+                    <field name="group_level_3"/>
+            	</field>
+            </field>
+        </record>
+
+        <record id="view_account_list_inherit" model="ir.ui.view">
+            <field name="name">account.account.inherit</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_list"></field>
+            <field name="arch" type="xml">
+            	<field name="code" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="name" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="code" position="after">
+                    <field name="name_sub"/>
+                    <field name="code_sub"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

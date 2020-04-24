@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!--Scheduler sync Receive Request-->
+        <record id="update_sequence_purchase" model="ir.cron">
+            <field name="name" >Update Sequence Purchase</field>
+            <field eval="False" name="active"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False" />
+            <field name="model" eval="'purchase.order'"></field>
+            <field name="function" eval="'update_sequence_purchase'"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,31 @@
+<odoo>
+    <data>
+        <record id="analytic_account_inherited_issue_form_inherit" model="ir.ui.view">
+            <field name="name">account.analytic.account.form</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="project_issue.analytic_account_inherited_issue_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='use_issues']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//label[@for='use_issues']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="account_analytic_account_form_form_inherit" model="ir.ui.view">
+            <field name="name">account.analytic.account.form</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="stable_account_analytic_analysis.account_analytic_account_form_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='use_timesheets']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//label[@for='use_timesheets']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+
+        <record id="reset_product_history_form" model="ir.ui.view">
+            <field name="name">reset.product.history</field>
+            <field name="model">reset.product.history</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="start_date"/>
+                                <field name="check_all"/>
+                            </group>
+                            <field name="import_data"/>
+                            <field name="product_ids">
+                            </field>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="reset_product_history" string="Reset Giá Vốn" type="object" class="oe_highlight"/> or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="reset_product_history_action" model="ir.actions.act_window">
+            <field name="name">Reset Giá Vốn</field>
+            <field name="res_model">reset.product.history</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem action="reset_product_history_action" id="reset_product_history_menu" parent="stock.menu_warehouse_config" sequence="11"/>
+    </data>
+</odoo>

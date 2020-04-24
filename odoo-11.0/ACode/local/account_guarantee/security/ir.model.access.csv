@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_guarantee_notification_settings,access_guarantee_notification_settings,model_guarantee_notification_settings,,1,1,1,1

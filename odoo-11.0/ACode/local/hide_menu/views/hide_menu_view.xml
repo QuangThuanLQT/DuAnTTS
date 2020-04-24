@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <data>
+    
+    	<!-- inherit stock production lot form -->
+    	<record id="ir_ui_menu_hide_inherit" model="ir.ui.view">
+            <field name="name">ir.ui.menu.hide.inherit</field>
+            <field name="model">ir.ui.menu</field>
+            <field name="inherit_id" ref="base.edit_menu_access"></field>
+            <field name="arch" type="xml">
+            	<field name="name" position="after">
+            		<field name="active" />
+            	</field>
+            </field>
+        </record>
+    	
+    </data>
+</odoo>

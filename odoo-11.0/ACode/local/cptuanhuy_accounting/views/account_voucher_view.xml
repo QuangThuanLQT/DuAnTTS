@@ -1,0 +1,95 @@
+<odoo>
+    <data>
+
+        <record id="view_purchase_receipt_form_inherit" model="ir.ui.view">
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_purchase_receipt_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_cancel_draft']" position="before">
+                    <field name="check_bank_id" invisible="1"/>
+                    <button name="print_unc_bank" type="object" string="In UNC" class="oe_highlight" attrs="{'invisible':['|',('check_account_journal_bank','!=',True),('check_bank_id','=',False)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='account_id']" position="after">
+                    <field name="sale_id"/>
+                    <field name="purchase_id"/>
+                </xpath>
+                <field name="payment_journal_id" position="after">
+                    <field name="sale_id" attrs="{'readonly':[('state','!=','draft')]}" widget="many2many_tags" invisible="1"/>
+                    <field name="purchase_id" widget="many2many_tags" invisible="1"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_purchase_receipt_hide_pay_now_form_inherit" model="ir.ui.view">
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_bank_voucher.view_purchase_receipt_hide_pay_now_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name=%(account_bank_voucher.account_voucher_unc_printout)d]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_sale_receipt_form_inherit" model="ir.ui.view">
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_sale_receipt_form"/>
+            <field name="arch" type="xml">
+                <field name="company_id" position="after">
+                    <field name="project_id" attrs="{'invisible':[('check_account_journal_bank','!=',True)]}"/>
+                    <field name="contract_id" attrs="{'invisible':[('check_account_journal_bank','!=',True)]}"/>
+                </field>
+                <field name="payment_journal_id" position="after">
+                    <field name="sale_id" widget="many2many_tags" invisible="1"/>
+                </field>
+                <xpath expr="//field[@name='line_ids']//field[@name='account_id']" position="after">
+                    <field name="sale_id"/>
+                    <field name="purchase_id"/>
+                    <field name="account_analytic_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_voucher_purchase_tree_add_sale_purchase" model="ir.ui.view">
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="tuanhuy_account_voucher.view_voucher_purchase_tree"/>
+            <field name="arch" type="xml">
+                <field name="number_voucher" position="after">
+                    <field name="sale_ids" widget="many2many_tags"/>
+                    <field name="purchase_ids" widget="many2many_tags"/>
+                </field>
+                <field name="partner_id" position="after">
+                    <field name="bank_id"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_voucher_sale_tree_add_sale_ids" model="ir.ui.view">
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="tuanhuy_account_voucher.view_voucher_sale_tree"/>
+            <field name="arch" type="xml">
+                <field name="account_line_id_sub" position="after">
+                    <field name="sale_ids" widget="many2many_tags"/>
+                    <field name="purchase_ids" widget="many2many_tags"/>
+                </field>
+                <field name="partner_id" position="after">
+                    <field name="bank_id"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="account_voucher_search_view_add_filter" model="ir.ui.view">
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_voucher_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group" position="inside">
+                    <filter string="Ngân hàng" domain="[]" context="{'group_by':'bank_id'}"/>
+                    <filter string="Số tài khoản" domain="[]" context="{'group_by':'acc_number'}"/>
+                </xpath>
+                <xpath expr="//search" position="inside">
+                    <field name="bank_id" string="Ngân hàng"/>
+                    <field name="acc_number" string="Số tài khoản"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

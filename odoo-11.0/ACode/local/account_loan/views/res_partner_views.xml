@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account_bank_base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="loan_limit_asset" position="after">
+                    <field name="loan_total_fund"/>
+                    <field name="loan_total_credit"/>
+                    <field name="loan_available"/>
+                    <field name="loan_available_asset"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

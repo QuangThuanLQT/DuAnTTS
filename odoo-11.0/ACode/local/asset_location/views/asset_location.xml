@@ -1,0 +1,35 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="asset_location_form_view">
+            <field name="name">Asset Location</field>
+            <field name="model">asset.location</field>
+            <field name="arch" type="xml">
+                <form string="Asset Location">
+                    <group col="2">
+                        <field name="name"/>
+                    </group>
+                    <notebook>
+                        <page string="Asset">
+                            <field name="account_asset_asset_ids"/>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="asset_location_action">
+            <field name="name">Asset Location</field>
+            <field name="res_model">asset.location</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create the first course
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="asset_location_menu" name="Asset Location" parent="account.account_management_menu"
+                  action="asset_location_action"/>
+    </data>
+</odoo>

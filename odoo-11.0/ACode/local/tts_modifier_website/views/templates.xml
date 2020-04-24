@@ -1,0 +1,38 @@
+<odoo>
+    <data>
+        <template id="sale_confirmation">
+            <t t-call="website.layout">
+                <t t-set="additional_title">Shop - Confirmed</t>
+                <div id="wrap">
+                    <div class="container oe_website_sale">
+                        <div class="row">
+                            <div class="col-lg-8 col-sm-9 col-md-offset-3">
+                                <div class="thanks_msg">
+                                    <h2>
+                                        Order Success!.
+                                    </h2>
+                                    <div class="oe_website_sale_tx_diatus">
+                                        We will contact you as soon as possible to confirm the order.
+                                    </div>
+                                </div>
+                                <br/>
+                                <br/>
+                                <div class="col-lg-4 col-sm-6">
+                                    <a href="/shop" class="btn btn-default mb32">
+                                        <span class="fa fa-long-arrow-left"/>
+                                        <span>Continue Shopping</span>
+                                    </a>
+                                    <a t-attf-href="/my/orders/{{order.id}}?{{keep_query()}}" class="btn btn-primary pull-right">
+                                        <i class="fa fa-shopping-cart fa-fw"></i>
+                                        <span >View Order Detail</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="oe_structure"/>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

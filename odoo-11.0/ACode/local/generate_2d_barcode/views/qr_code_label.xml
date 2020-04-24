@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report id="report_qrcode_label_qweb"
+            string="QR Code"
+            model="stock.production.lot"
+            report_type = "qweb-pdf"
+            file="generate_2d_barcode.qrcode_label"
+            name="generate_2d_barcode.qrcode_label"/>
+
+        <template id="qrcode_label">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <img width="28%" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', o.get_barcode(), 180, 180)"/>
+
+                        <table padding-top="5px" cellpadding="2px" width="100%" class="table-borderless font8px">
+                            <tr height="20px" valign="center">
+								<td style="vertical-align: middle;"><strong>Product</strong></td>
+								<td width="80%"> : <span t-field="o.product_id.name"/></td>
+								<td></td>
+							</tr>
+							<tr t-if="o.product_id and o.product_id.barcode" height="20px"  valign="center">
+								<td style="vertical-align: middle;"><strong>Product SKU</strong></td>
+								<td width="80%"> : <span t-field="o.product_id.barcode"/></td>
+							</tr>
+							<tr height="20px" valign="center">
+								<td style="vertical-align: middle;"><strong>Lot Number</strong></td>
+								<td width="80%"> : <span t-field="o.name"/></td>
+								<td></td>
+							</tr>
+                            <tr t-if="o.use_date" height="20px" valign="center">
+								<td style="vertical-align: middle;"><strong>Expiry Date</strong></td>
+								<td width="80%"> : <span t-field="o.use_date" t-field-options="{&quot;format&quot;: &quot;dd-MM-YYYY&quot;}"/></td>
+							</tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

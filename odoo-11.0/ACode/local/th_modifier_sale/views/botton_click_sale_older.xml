@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+           <record model="ir.ui.view" id="buton_tree_view">
+            <field name="name">sale.order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="tuanhuy_sale.view_order_tree_inherit_color"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='record_checked']" position="after">
+                     <field name="record_checked_xhd"/>
+                </xpath>
+                <xpath expr="//button[@name='change_record_checked']" position="after">
+
+                    <button name="change_record_button_checked" type="object" string="XHD"/>
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="sale_oder_form_v1_view">
+            <field name="name">sale.order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="tuanhuy_sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='note']" position="after">
+                     <field name="record_checked_xhd"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

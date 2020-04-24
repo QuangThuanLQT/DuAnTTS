@@ -1,0 +1,126 @@
+<odoo>
+    <data>
+        <record id="seq_account_asset_code" model="ir.sequence">
+            <field name="name">Account asset</field>
+            <field name="code">account.asset.asset</field>
+            <field name="prefix">A</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="view_account_asset_asset_form_inherit" model="ir.ui.view">
+            <field name="name">account.asset.asset.form</field>
+            <field name="model">account.asset.asset</field>
+            <field name="inherit_id" ref="account_asset.view_account_asset_asset_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@class='oe_title']" position="inside">
+                    <label for="account_asset_code" class="oe_edit_only"/>
+                    <field name="account_asset_code"/>
+                </xpath>
+                <field name="date" position="after">
+                    <field name="use_state"/>
+                    <field name="quality_state"/>
+                    <field name="origin_asset"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_account_asset_asset_purchase_tree_inherit" model="ir.ui.view">
+            <field name="name">account.asset.asset.tree</field>
+            <field name="model">account.asset.asset</field>
+            <field name="inherit_id" ref="account_asset.view_account_asset_asset_purchase_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="replace">
+                    <tree string="Assets" decoration-info="(state == 'draft')" decoration-muted="(state == 'close')">
+                        <field name="account_asset_code"/>
+                        <field name="name"/>
+                        <field name="category_id" string="Loại tài sản"/>
+                        <field name="asset_location_id" string="Đơn vị sử dụng"/>
+                        <field name="date" string="Ngày ghi tăng"/>
+                        <field name="date" string="Ngày bắt đầu tính KH"/>
+                        <field name="depreciation_total_qty" sum="depreciation_total_qty"/>
+                        <field name="remain_depreciation" sum="remain_depreciation"/>
+                        <field name="value" string="Nguyên giá" sum="value"/>
+                        <field name="depreciation_amount" string="Giá trị tính KH" sum="depreciation_amount"/>
+                        <field name="salvage_value" sum="salvage_value"/>
+                        <field name="value_residual" widget="monetary" sum="value_residual"/>
+                        <field name="account_ids" widget="many2many_tags"/>
+                        <field name="depreciation_account_ids" widget="many2many_tags"/>
+                        <field name="state" />
+                        <field name="use_state" />
+                        <field name="quality_state" />
+                        <field name="origin_asset" />
+                    </tree>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="action_wizard_run_account_asset" model="ir.actions.server">
+            <field name="name">Xác nhận khấu hao</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="account_asset.model_account_asset_asset"/>
+            <field name="state">code</field>
+            <field name="code">action = record.action_wizard_run_account_asset();
+            </field>
+        </record>
+
+        <record model="ir.values" id="aas_value_run">
+            <field name="model">account.asset.asset</field>
+            <field name="name">Xác nhận khấu hao</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_wizard_run_account_asset'))"/>
+        </record>
+
+
+        <!--asset wizard-->
+
+
+        <record id="view_wizard_account_asset" model="ir.ui.view">
+            <field name="name">Account Asset at Date</field>
+            <field name="model">account.asset.asset.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Choose your date">
+                    <group>
+                        <field name="start_date" required="True"/>
+                        <field name="end_date" required="True"/>
+                        <field name="depreciation_line_ids"
+                               attrs="{'invisible': [('depreciation_line_ids', '=', False)]}">
+                            <tree create="false" edit="false">
+                                <field name="asset_id"/>
+                                <field name="depreciation_date" />
+                                <field name="depreciated_value" readonly="1"/>
+                                <field name="amount" widget="monetary" string="Depreciation"/>
+                                <field name="remaining_value" readonly="1" widget="monetary" string="Residual"/>
+                                <field name="move_check" invisible="1"/>
+                                <field name="move_posted_check" invisible="1"/>
+                                <field name="parent_state" invisible="1"/>
+                                <button name="create_move" type="object" widget="widgetonbutton"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <footer>
+                        <button name="search_line" string="Search" type="object"
+                                class="btn-primary"/>
+                        <button name="action_confirm" string="Xác nhận" type="object"
+                                class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="action_wizard_account_asset" model="ir.actions.act_window">
+            <field name="name">Account Asset at Date</field>
+            <field name="res_model">account.asset.asset.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_wizard_account_asset"/>
+            <field name="target">new</field>
+        </record>
+
+
+    </data>
+</odoo>

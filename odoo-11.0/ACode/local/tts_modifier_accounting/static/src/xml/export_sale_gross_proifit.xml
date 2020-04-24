@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="sale_gross_proifit_buttons_export">
+        <button type="button" class='btn btn-sm btn-default o_sale_gross_proifit_buttons_print_excel'>Xuất file</button>
+    </t>
+
+    <t t-name="account_invoice_export_overview">
+        <button type="button" class='btn btn-sm btn-default o_invoice_export_overview'>Export Overview</button>
+    </t>
+
+    <t t-name="account_invoice_export_detail">
+        <button type="button" class='btn btn-sm btn-default o_invoice_export_detail'>Export Detail</button>
+    </t>
+
+    <t t-name="account_vendor_bill_export_overview">
+        <button type="button" class='btn btn-sm btn-default o_vendor_bill_export_overview'>Export Overview</button>
+    </t>
+
+    <t t-name="account_vendor_bill_export_detail">
+        <button type="button" class='btn btn-sm btn-default o_vendor_bill_export_detail'>Export Detail</button>
+    </t>
+
+</templates>

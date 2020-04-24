@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <group name="purchase" position="after">
+                    <group string="Bank" name="bank">
+                        <field name="bank"/>
+                    </group>
+                </group>
+                <notebook position="inside">
+                    <page name='bank' string="Bank" attrs="{'invisible': [('bank', '=', False)]}">
+                        <group name="container_bank">
+                            <group string="Loan" name="loan">
+                                <field name="loan_limit"/>
+                                <field name="loan_limit_asset"/>
+                            </group>
+                            <group string="Guarantee" name="guarantee">
+                                <field name="guarantee_limit"/>
+                                <field name="guarantee_limit_asset"/>
+                            </group>
+                            <group>
+                                <field name="bank_type"/>
+                            </group>
+                            <group string="Asset">
+                                <field name="asset_estimate_total"/>
+                            </group>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+        <record id="view_res_partner_filter" model="ir.ui.view">
+            <field name="name">res.partner.select</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <filter name="supplier" position="after">
+                    <filter string="Banks" name="bank" domain="[('bank','=',1), ('parent_id', '=', False)]"/>
+                </filter>
+                <field name="name" position="after">
+                    <field string="Bank Type" name="bank_type"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="action_partner_bank_form" model="ir.actions.act_window">
+            <field name="name">Banks</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="domain">[]</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="context">{'search_default_bank': 1, 'search_default_bank_type': 'internal', 'default_customer': 0, 'default_supplier': 0, 'default_bank': 1, 'default_bank_type': 'internal'}</field>
+            <field name="filter" eval="True"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a contact in your address book.
+                </p><p>
+                    Odoo helps you easily track all activities related to
+                    a bank: discussions, history of banks,
+                    documents, etc.
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+                id="account.menu_finance_bank_management_bank"
+                action="action_partner_bank_form"
+                name="Bank" parent="account.menu_finance_bank_management"
+                sequence="5" groups="account.group_account_user"/>
+    </data>
+</odoo>

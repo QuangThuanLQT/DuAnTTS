@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!--Scheduler sync Receive Request-->
+        <record id="update_sequence_sales" model="ir.cron">
+            <field name="name" >Update Sequence Sales</field>
+            <field eval="False" name="active"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False" />
+            <field name="model" eval="'sale.order'"></field>
+            <field name="function" eval="'_update_sequence'"/>
+        </record>
+    </data>
+
+    <data>
+        <record id="cron_queue_create_picking_from_sale" model="ir.cron">
+            <field name="name" >Cron Create Picking From Sale</field>
+            <field eval="True" name="active"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False" />
+            <field name="model" eval="'sale.order'"></field>
+            <field name="function" eval="'_cron_queue_create_picking'"/>
+        </record>
+    </data>
+</odoo>

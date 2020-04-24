@@ -1,0 +1,18 @@
+<odoo>
+    <data>
+        <!--<record id="invoice_supplier_form_tuanhuy_invoice" model="ir.ui.view">-->
+            <!--<field name="model">account.invoice</field>-->
+            <!--<field name="inherit_id" ref="tuanhuy_invoice.invoice_supplier_form"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<xpath expr="//field[@name='invoice_date_real']" position="replace">-->
+                <!--</xpath>-->
+                <!--<xpath expr="//field[@name='invoice_number_real']" position="replace">-->
+                <!--</xpath>-->
+                <!--<xpath expr="//form/sheet/group/group[2]" position="inside">-->
+                    <!--<field name="invoice_date_real"/>-->
+                    <!--<field name="invoice_number_real"/>-->
+                <!--</xpath>-->
+            <!--</field>-->
+        <!--</record>-->
+    </data>
+</odoo>

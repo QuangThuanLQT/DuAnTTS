@@ -1,0 +1,28 @@
+<odoo>
+    <data>
+
+        <record id="attribute_tree_view_1" model="ir.ui.view">
+            <field name="name">Attributes</field>
+            <field name="model">product.attribute</field>
+            <field name="inherit_id" ref="product.attribute_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='create_variant']" position="before">
+                    <field name="type"/>
+                </xpath>
+            </field>
+        </record>
+
+         <record id="attribute_value_tree_view_1" model="ir.ui.view">
+            <field name="name">Atttrbutes_value</field>
+            <field name="model">product.attribute.value</field>
+            <field name="inherit_id" ref="product.variants_tree_view"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='name']" position="after">
+                    <field name="html_color" widget="color"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

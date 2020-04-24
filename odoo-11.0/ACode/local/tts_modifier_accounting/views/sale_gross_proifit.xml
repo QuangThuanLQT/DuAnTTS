@@ -1,0 +1,35 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="sale_gross_proifit_tree">
+            <field name="name">sale.gross.proifit.tree</field>
+            <field name="model">account.invoice.line</field>
+            <field name="arch" type="xml">
+                <tree create="false" edit="false">
+                    <field name="date" string="Date"/>
+                    <field name="invoice_code" string="Invoice Code"/>
+                    <field name="total_bill" string="Total Bill"/>
+                    <field name="internal_reference" string="Internal Reference"/>
+                    <field name="product_id" string="Product variant" invisible="1"/>
+                    <field name="product_name_sub" string="Product variant"/>
+                    <field name="quantity" string="Quantity"/>
+                    <field name="price_unit" string="Sale Price/Product"/>
+                    <field name="cost_product_variant" string="Cost/Product"/>
+                    <field name="gross_proifit" string="Gross proifit/Product"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_sale_gross_proifit">
+            <field name="name">Sale gross proifit</field>
+            <field name="res_model">account.invoice.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[('invoice_id.type','in',('out_invoice', 'out_refund'))]</field>
+            <field name="context">{'tree_view_ref' : 'tts_modifier_accounting.sale_gross_proifit_tree', 'sale_gross_proifit' : True}</field>
+        </record>
+
+        <menuitem id="menu_sale_gross_proifit" name="Sale gross proifit"
+                  action="action_sale_gross_proifit"
+                  parent="sales_team.menu_sale_report" sequence="26"/>
+    </data>
+</odoo>

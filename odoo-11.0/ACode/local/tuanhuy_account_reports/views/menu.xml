@@ -1,0 +1,77 @@
+<odoo>
+
+    <record id="ir_cron_send_mail_hdkd_report" model="ir.cron">
+        <field name="name">Hoạt động kinh doanh report</field>
+        <field eval="True" name="active" />
+        <field name="user_id" ref="base.user_root" />
+        <field name="interval_number">1</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field eval="False" name="doall" />
+        <field eval="'tuanhuy.hdkd.report'" name="model" />
+        <field eval="'cron_send_mail_hdkd_report'" name="function" />
+    </record>
+
+    <data>
+        <record id="hdkd_report_view" model="ir.ui.view">
+            <field name="name">Báo Cáo HDKD excel</field>
+            <field name="model">tuanhuy.hdkd.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <label string=""/>
+                    <group>
+                        <!--<group>-->
+                        <!--<field name="location_id" string="Location"/>-->
+                        <!--</group>-->
+                        <group>
+                            <field name="start_date" string="Start Date"/>
+                            <field name="end_date" string="End Date"/>
+                            <field name="email"/>
+                            <field name="send_email" invisible="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <!--<button name="print_report" string="Print" type="object" default_focus="1"-->
+                        <!--class="oe_highlight"/>-->
+                        <!--or-->
+                        <button name="print_report_excel" string="Print Excel" type="object" default_focus="1"
+                                class="oe_highlight"/>
+                        or
+                        <button name="send_mail_report" string="Gửi email" type="object" default_focus="1"
+                                class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="kdkd_report_action" model="ir.actions.act_window">
+            <field name="name">Báo Cáo HDKD excel</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">tuanhuy.hdkd.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="hdkd_report_menu" name="Báo Cáo HDKD Excel" parent="l10n_vn.account_reports_vn_statements_menu"
+                  action="kdkd_report_action"
+        />
+
+        <menuitem id="account_reports.menu_action_account_report_general_ledger" name="General Ledger" action="account_reports.action_account_report_general_ledger"
+                  parent="l10n_vn.account_reports_vn_statements_menu"/>
+
+        <record id="account_reports.account_reports_legal_statements_menu" model="ir.ui.menu">
+            <field name="active" eval="False"/>
+        </record>
+
+
+
+    </data>
+    <template id="account_reports_backend" inherit_id="web.assets_backend" active="True">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href="/tuanhuy_account_reports/static/src/less/account_financial_report.less"/>
+        </xpath>
+    </template>
+</odoo>

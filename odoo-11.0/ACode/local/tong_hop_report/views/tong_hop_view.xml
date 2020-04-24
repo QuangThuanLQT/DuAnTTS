@@ -1,0 +1,39 @@
+<odoo>
+    <data>
+        <record id="tong_hop_report_view" model="ir.ui.view">
+            <field name="name">Báo Cáo Tổng Hợp</field>
+            <field name="model">tong.hop.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <label string=""/>
+                    <group>
+                        <group>
+                            <field name="account_id" required="1"/>
+                        </group>
+                        <group>
+                            <field name="start_date" string="Start Date"/>
+                            <field name="end_date" string="End Date"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="print_excel" string="Print Excel" type="object" default_focus="1"
+                                class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="tong_hop_report_action" model="ir.actions.act_window">
+            <field name="name">Báo Cáo Tổng Hợp</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">tong.hop.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="tong_hop_report_menu" name="Báo Cáo Tổng Hợp" parent="cong_no_report.cong_no_report_menu_parent" action="tong_hop_report_action"/>
+    </data>
+</odoo>

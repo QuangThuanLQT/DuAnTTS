@@ -1,0 +1,79 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="purchase_order_form_return_purchase">
+            <field name="name">purchase.order.inherit.purchase_return</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/header/button[@name='button_cancel']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//form/header/button[@name='button_cancel']" position="after">
+                    <field name="check_show_cancel" invisible="1"/>
+                    <button name="action_sale_cancel" type="object" string="Cancel"
+                            attrs="{'invisible': [('check_show_cancel', '=', True)]}"/>
+                </xpath>
+                <xpath expr="//form/sheet/group/group[1]" position="inside">
+                    <field name="location_return" attrs="{'invisible':[('purchase_order_return','=',False)], 'required' : [('purchase_order_return','!=',False)]}"/>
+                    <field name="location_id" options="{'no_create_edit': True, 'no_quick_create':True}"
+                           attrs="{'invisible':[('location_return','=',False)], 'required' : [('location_return','!=',False)]}"/>
+                    <field name="reason_cancel" options="{'no_create_edit': True, 'no_quick_create':True}"
+                           attrs="{'invisible' : [('reason_cancel', '=', False)]}"/>
+                     <field name="purchase_return_id" attrs="{'invisible' : [('purchase_return_id', '=', False)]}" readonly="1"/>
+                    <field name="delivery_method"/>
+                    <field name="transport_route_id" attrs="{'invisible': [('delivery_method', '!=', 'transport')], 'required': [('delivery_method', '=', 'transport')]}" options="{'no_create_edit': True, 'no_quick_create':True}"/>
+                    <field name="delivery_scope_id" attrs="{'invisible' : ['|',('delivery_method', '=', 'warehouse'), ('delivery_scope_id', '=', False)], 'required' : [('delivery_method', '!=', 'warehouse'), ('delivery_scope_id', '!=', False)]}"/>
+                    <field name="payment_address" attrs="{'invisible' : ['|',('delivery_method', '=', 'warehouse'), ('delivery_method', '=', False)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="attributes">
+                    <attribute name="context">{'partner_id':parent.partner_id, 'quantity':product_qty,'uom':product_uom, 'company_id': parent.company_id,'product_show_onhand': True}</attribute>
+                </xpath>
+                <xpath expr="//form/header/button[@name='button_draft']" position="attributes">
+                    <attribute name="states"></attribute>
+                    <attribute name="attrs">{'invisible' : ['|', ('state', '!=', 'cancel'), ('purchase_return_id', '!=', False)]}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+
+        <!--Purchase Order Return-->
+
+        <record model="ir.ui.view" id="purchase_order_form_inherit_return">
+            <field name="name">purchase.order.inherit.purchase_return</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="sale_purchase_returns.purchase_order_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='purchase_order_return_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='state']" position="attributes">
+                    <attribute name="invisible">context.get('purchase_order_return', False)</attribute>
+                </xpath>
+                <xpath expr="//field[@name='state']" position="after">
+                    <field name="state_return" widget="statusbar" statusbar_visible="draft,purchase,cancel" readonly="1"
+                           invisible="not context.get('purchase_order_return', False)"/>
+                </xpath>
+                <xpath expr="//button[@name='button_action_return']" position="attributes">
+                    <attribute name="attrs">{'invisible':['|',('purchase_order_return','=', False), ('state', '!=', 'draft')]}
+                    </attribute>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="purchase_order_tree_return_inherit">
+            <field name="name">purchase.order.tree.purchase_return</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="tts_modifier_purchase.purchase_order_tree_return"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='state']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='state']" position="after">
+                    <field name="state_return"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

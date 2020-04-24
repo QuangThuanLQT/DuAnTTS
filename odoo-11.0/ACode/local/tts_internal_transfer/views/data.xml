@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+        <record id="ir_cron_confirm_date_picking" model="ir.cron">
+            <field name="name">Update Confirm Date Picking</field>
+            <field eval="False" name="active"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">11111</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'stock.picking'" name="model"/>
+            <field eval="'update_confirm_date'" name="function"/>
+        </record>
+    </data>
+</odoo>

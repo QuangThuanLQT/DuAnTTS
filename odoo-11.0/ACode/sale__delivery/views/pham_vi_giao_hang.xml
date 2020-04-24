@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="PhamViGiaoHang_inherit_form_viewpv">
+            <field name="name">phamvigiaohang</field>
+            <field name="model">pham.vi.giao.hang</field>
+            <field name="arch" type="xml">
+                <form string="PVGiaoHang Form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="feosco_city_id"/>
+                                <field name="feosco_district_id"/>
+                                <field name="phuong_xa"/>
+                                <field name="state"/>
+                                <field name="khu_vuc"/>
+                            </group>
+                            <group>
+                                <field name="phi_giao_hang"/>
+                                <field name="thuong_giao_hang"/>
+                                <field name="thuong_giao_hang_tang_ca"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="PhamViGiaoHang_list_action">
+            <field name="name">Phạm vi giao hàng</field>
+            <field name="res_model">pham.vi.giao.hang</field>
+            <field name="view_type">form</field>
+        </record>
+
+        <menuitem id="PhamViGiaoHang_menu" name="Phạm vi giao hàng"
+                  parent="sale__delivery.Delivery_menu"
+                  action="PhamViGiaoHang_list_action"/>
+
+        <record model="ir.ui.view" id="PhamViGiaoHang_1_inherit_form_view">
+            <field name="name">phamvigiaohang</field>
+            <field name="model">pham.vi.giao.hang</field>
+            <field name="arch" type="xml">
+                <tree string="PVGiaoHang">
+                    <field name="feosco_city_id"/>
+                    <field name="feosco_district_id"/>
+                    <field name="phuong_xa"/>
+                    <field name="state"/>
+                    <field name="khu_vuc"/>
+                    <field name="phi_giao_hang"/>
+                    <field name="thuong_giao_hang"/>
+                    <field name="thuong_giao_hang_tang_ca"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>
+

@@ -1,0 +1,30 @@
+
+<odoo>
+    <data>
+        <record id="sale_block_popup_form_view" model="ir.ui.view">
+            <field name="name">sale.block.popup.form</field>
+            <field name="model">sale.block.popup</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="name" required="1"/>
+                        <field name="order_id" invisible="1"/>
+                    </group>
+                    <footer>
+                        <button name="action_block" type="object" string="Xác nhận" class="btn-primary"/>
+                        <button string="Huỷ" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="sale_block_popup_action" model="ir.actions.act_window">
+            <field name="name">Cancel</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.block.popup</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

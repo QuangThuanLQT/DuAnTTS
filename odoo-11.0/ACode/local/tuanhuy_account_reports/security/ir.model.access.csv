@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_tuanhuy_account_reports_sale_report_excel,access_tuanhuy_account_reports_sale_report_excel,model_sale_report_excel,,1,0,0,0
+access_tuanhuy_account_reports_account_excel_report,access_tuanhuy_account_reports_account_excel_report,model_account_excel_report,,1,0,0,0
+access_model_cong_no_phaithu,access_model_cong_no_phaithu,model_cong_no_phaithu,,1,1,1,1
+access_model_cong_no_phaitra,access_model_cong_no_phaitra,model_cong_no_phaitra,,1,1,1,1

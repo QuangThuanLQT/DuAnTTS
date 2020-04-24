@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ir_cron_update_vn_location" model="ir.cron">
+            <field name="name">Nhập địa chỉ Việt Nam</field>
+            <field name="model" eval="'feosco.master.data'"/>
+            <field name="function" eval="'update_vn_location'"/>
+            <field name="active" eval="True" />
+        </record>
+
+        <record id="view_feosco_master_data_form" model="ir.ui.view">
+            <field name="name">feosco.master.data.form</field>
+            <field name="model">feosco.master.data</field>
+            <field name="arch" type="xml">
+                <form string="Feosco Master Data">
+                    <field name="name" required="1"/>
+                    <field name="code" required="1"/>
+                    <field name="type" required="1"/>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_feosco_master_data_tree" model="ir.ui.view">
+            <field name="name">feosco.master.data.tree</field>
+            <field name="model">feosco.master.data</field>
+            <field name="arch" type="xml">
+                <tree string="Feosco Master Data">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="type"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_feosco_master_data_filter" model="ir.ui.view">
+            <field name="name">feosco.master.data.filter</field>
+            <field name="model">feosco.master.data</field>
+            <field name="arch" type="xml">
+                <search string="Feosco Master Data">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="type"/>
+                </search>
+             </field>
+         </record>
+      
+
+        <record id="action_feosco_master_data" model="ir.actions.act_window">
+            <field name="name">Master Data</field>
+            <field name="res_model">feosco.master.data</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <field name="view_id" ref="view_feosco_master_data_tree"/>
+            <field name="search_view_id" ref="view_feosco_master_data_filter"/>
+        </record>
+
+        <menuitem name="Master Data" id="menu_feosco_master_data" 
+        		parent="menu_feosco_master_data_root" 
+        		action="action_feosco_master_data"/>
+    </data>
+</odoo>

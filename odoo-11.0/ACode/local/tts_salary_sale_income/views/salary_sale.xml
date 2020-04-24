@@ -1,0 +1,108 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="tts_salary_sale_income_tree">
+            <field name="name">salary_sale_income_tree</field>
+            <field name="model">salary.sale.income</field>
+            <field name="arch" type="xml">
+                <tree create="false" default_order="month desc">
+                    <field name="default_code" string="Mã sao kê lương" invisible="0"/>
+                    <field name="month" string="Tháng chi lương" invisible="0"/>
+                    <field name="user" string="Họ và tên nhân viên"/>
+                    <field name="doanh_so_ban_hang" string="Doanh số bán hàng"/>
+                    <field name="tong_tra_hang" string="Tổng trả hàng"/>
+                    <field name="thuong_ban_hang" string="Thưởng bán hàng"/>
+                    <field name="tru_tra_hang" string="Trừ trả hàng"/>
+                    <field name="luong_ngay_cong" string="Lương ngày công"/>
+                    <field name="thuong_khac" string="Thưởng khác"/>
+                    <field name="tru_ung_luong" string="Trừ ứng lương"/>
+                    <field name="thu_nhap" string="Thu nhập bán hàng"/>
+                    <field name="ghi_chu" string="Ghi chú"/>
+                    <field name="thang" string="Tháng" invisible="1"/>
+                    <field name="nam" string="Năm" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="tts_salary_sale_income_form">
+            <field name="name">salary_sale_income_form</field>
+            <field name="model">salary.sale.income</field>
+            <field name="arch" type="xml">
+                <form create="false">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="user"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="doanh_so_ban_hang" string="Doanh số bán hàng"/>
+                                <field name="tong_tra_hang" string="Tổng trả hàng"/>
+                                <field name="thuong_ban_hang" string="Thưởng bán hàng"/>
+                                <field name="tru_tra_hang" string="Trừ trả hàng"/>
+                            </group>
+                            <group>
+                                <field name="luong_ngay_cong" string="Lương ngày công"/>
+                                <field name="thuong_khac" string="Thưởng khác"/>
+                                <field name="tru_ung_luong" string="Trừ ứng lương"/>
+                                <field name="thu_nhap" string="Thu nhập bán hàng"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="ghi_chu" string="Ghi chú"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="tts_salary_sale_income_action">
+            <field name="name">Salary Sales</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">salary.sale.income</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record model="ir.ui.view" id="salary_sale_person_tree">
+            <field name="name">salary_sale_person_tree</field>
+            <field name="model">salary.sale.income</field>
+            <field name="arch" type="xml">
+                <tree create="false" default_order="thang desc">
+                    <field name="user" string="Họ và tên nhân viên"/>
+                    <field name="doanh_so_ban_hang" string="Doanh số bán hàng"/>
+                    <field name="tong_tra_hang" string="Tổng trả hàng"/>
+                    <field name="thuong_ban_hang" string="Thưởng bán hàng"/>
+                    <field name="tru_tra_hang" string="Trừ trả hàng"/>
+                    <field name="luong_ngay_cong" string="Lương ngày công"/>
+                    <field name="thuong_khac" string="Thưởng khác"/>
+                    <field name="tru_ung_luong" string="Trừ ứng lương"/>
+                    <field name="thu_nhap" string="Thu nhập bán hàng"/>
+                    <field name="ghi_chu" string="Ghi chú"/>
+                    <field name="thang" string="Tháng" invisible="1"/>
+                    <field name="nam" string="Năm" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="salary_sale_person_action">
+            <field name="name">Thông tin lương SalesPerson</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">salary.sale.income</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="salary_sale_person_tree"/>
+        </record>
+        <!--<record id="rule_id" model="ir.rule">-->
+            <!--<field name="name">for Employee</field>-->
+            <!--<field name="model_id" ref="model_salary_sale_income"/>-->
+            <!--<field name="domain_force">[('user.id', '=', user.id)]</field>-->
+            <!--<field name="groups" eval="[(4,ref('tts_modifier_access_right.group_nvkd'))]"/>-->
+        <!--</record>-->
+
+        <menuitem id="sale_income" name="Bảng lương" parent="sales_team.menu_sale_report" action="salary_sale_person_action" sequence="28"/>
+                  <!--groups="tts_modifier_access_right.group_truong_kd,tts_modifier_access_right.group_nvkd"/>-->
+
+        <menuitem id="ban_hang_menu" name="Bán hàng" parent="tts_salary_delivery_income.xem_luong_menu" action="tts_salary_sale_income_action"/>
+    </data>
+</odoo>

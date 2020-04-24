@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_order_form_add_history" model="ir.ui.view">
+            <field name="name">sale_order_returnt</field>
+            <field name="model">sale.order.return</field>
+            <field name="inherit_id" ref="sale_order_return.order_return_list"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/notebook/page[3]" position="after">
+                    <page string="Nhật ký lịch sử">
+                        <field name="state_log_ids">
+                            <tree default_order="sequence">
+                                <field name="sequence" invisible="1"/>
+                                <field name="state"/>
+                                <field name="date"/>
+                            </tree>
+
+                            <form>
+                                <group>
+                                    <group>
+                                        <field name="state"/>
+                                    </group>
+                                    <group>
+                                        <field name="date"/>
+                                    </group>
+                                </group>
+                            </form>
+
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

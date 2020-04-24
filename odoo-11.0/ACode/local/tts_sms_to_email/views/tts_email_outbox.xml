@@ -1,0 +1,29 @@
+<odoo>
+    <data>
+
+
+        <record model="ir.ui.view" id="tts_email_outbox_tree">
+            <field name="name">tts.sms.outbox.tree</field>
+            <field name="model">tts.sms.outbox</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                    <field name="phone"/>
+                    <field name="body"/>
+                    <field name="date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="tts_email_outbox_action">
+            <field name="name">SMS Outbox</field>
+            <field name="res_model">tts.sms.outbox</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!--<menuitem name="SMS Outbox" id="sms_outbox_menu" parent="tts_sms_menu_root"-->
+                  <!--action="tts_email_outbox_action"/>-->
+
+    </data>
+</odoo>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="th_cong_no_phai_tra_report_popup_form_view">
+            <field name="name">tong.hop.cong.no.popup</field>
+            <field name="model">tong.hop.cong.no.popup</field>
+            <field name="arch" type="xml">
+                <form>
+                        <group>
+                            <group>
+                                <field name="date_start"/>
+                            </group>
+                            <group>
+                                <field name="date_to"/>
+                            </group>
+                        </group>
+                        <group><field name="account_type"/></group>
+                        <group><field name="type"/></group>
+                    <footer>
+                        <button name="open_cong_no_phai_tra" type="object" string="Chấp nhận" class="oe_highlight"/>
+                        <button string="Huỷ" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_th_cong_no_phai_tra_report_popup">
+            <field name="name">Tổng hợp công nợ</field>
+            <field name="res_model">tong.hop.cong.no.popup</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_th_cong_no_phai_tra_report" parent="tuanhuy_account_reports.account_detail_report_menu" name="Tổng hợp công nợ" action="action_th_cong_no_phai_tra_report_popup" sequence="50"/>
+
+        <record model="ir.ui.view" id="th_cong_no_phai_tra_report_form_view">
+            <field name="name">tong.hop.cong.no</field>
+            <field name="model">tong.hop.cong.no.report</field>
+            <field name="field_parent">move_ids</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="ref"/>
+                    <field name="name"/>
+                    <field name="partner_id" invisible="1"/>
+                    <field name="account_ids" invisible="1"/>
+                    <field name="account_name"/>
+                    <field name="before_debit" sum="before_debit"/>
+                    <field name="before_credit" sum="before_credit"/>
+                    <field name="current_debit" sum="current_debit"/>
+                    <field name="current_credit" sum="current_credit"/>
+                    <field name="after_debit" sum="after_debit"/>
+                    <field name="after_credit" sum="after_credit"/>
+                    <field name="move_ids" invisible="1"/>
+                    <field name="customer" invisible="1"/>
+                    <field name="bank" invisible="1"/>
+                    <field name="supplier" invisible="1"/>
+                    <field name="employee" invisible="1"/>
+                    <button name="open_phat_sinh" type="object" string="Open" class="oe_highlight"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="th_cong_no_phai_tra_report_search_view">
+            <field name="name">tong.hop.cong.no</field>
+            <field name="model">tong.hop.cong.no.report</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="ref"/>
+                    <filter name="customer" string="Khách hàng" domain="[('customer', '=', True)]"/>
+                    <filter name="supplier" string="Nhà cung cấp" domain="[('supplier', '=', True)]"/>
+                    <filter name="bank" string="Ngân hàng" domain="[('bank', '=', True)]"/>
+                    <filter name="employee" string="Người lao động" domain="[('employee', '=', True)]"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_th_cong_no_phai_tra_report">
+            <field name="name">Tổng hợp công nợ</field>
+            <field name="res_model">tong.hop.cong.no.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="tong_hop_cong_no_report.th_cong_no_phai_tra_report_form_view"/>
+            <field name="target">current</field>
+        </record>
+
+    </data>
+</odoo>

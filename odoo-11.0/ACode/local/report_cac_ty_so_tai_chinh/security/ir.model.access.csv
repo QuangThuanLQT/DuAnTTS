@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_report_cac_ty_so_tai_chinh_report_cac_ty_so_tai_chinh,report_cac_ty_so_tai_chinh.report_cac_ty_so_tai_chinh,model_report_cac_ty_so_tai_chinh_report_cac_ty_so_tai_chinh,,1,0,0,0

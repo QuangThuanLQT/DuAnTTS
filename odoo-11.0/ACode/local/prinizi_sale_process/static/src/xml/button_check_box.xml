@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="prinizi_internal_sale_export_overview">
+        <button type="button" class='btn btn-sm btn-default o_prinizi_internal_sale_overview'>Export Overview</button>
+    </t>
+    <t t-name="prinizi_internal_sale_export_detail">
+        <button type="button" class='btn btn-sm btn-default o_prinizi_internal_sale_detail'>Export Detail</button>
+    </t>
+</templates>

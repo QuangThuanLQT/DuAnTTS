@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id='account_move_154_report_action' model='ir.actions.act_window'>
+            <field name="name">Báo Cáo Tài Khoản 154</field>
+            <field name="res_model">account.move.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('account_id.code', '=like','154%')]</field>
+            <field name="view_id" ref="tuanhuy_account_reports.tree_view_account_632"/>
+        </record>
+
+        <menuitem id="account_move_154_report" name="Báo Cáo Tài Khoản 154" parent="tuanhuy_account_reports.account_detail_report_menu" action="account_move_154_report_action" sequence="11"/>
+
+        <record id='account_move_621_report_action' model='ir.actions.act_window'>
+            <field name="name">Báo Cáo Tài Khoản 154</field>
+            <field name="res_model">account.move.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('account_id.code', '=like','621%')]</field>
+            <field name="view_id" ref="tuanhuy_account_reports.tree_view_account_632"/>
+        </record>
+
+        <menuitem id="account_move_621_report" name="Báo Cáo Tài Khoản 621" parent="tuanhuy_account_reports.account_detail_report_menu" action="account_move_621_report_action" sequence="14"/>
+
+        <record id='account_move_622_report_action' model='ir.actions.act_window'>
+            <field name="name">Báo Cáo Tài Khoản 154</field>
+            <field name="res_model">account.move.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('account_id.code', '=like','622%')]</field>
+            <field name="view_id" ref="tuanhuy_account_reports.tree_view_account_632"/>
+        </record>
+
+        <menuitem id="account_move_622_report" name="Báo Cáo Tài Khoản 622" parent="tuanhuy_account_reports.account_detail_report_menu" action="account_move_622_report_action" sequence="14"/>
+
+        <record id='account_move_627_report_action' model='ir.actions.act_window'>
+            <field name="name">Báo Cáo Tài Khoản 627</field>
+            <field name="res_model">account.move.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('account_id.code', '=like','627%')]</field>
+            <field name="view_id" ref="tuanhuy_account_reports.tree_view_account_632"/>
+        </record>
+
+        <menuitem id="account_move_627_report" name="Báo Cáo Tài Khoản 627" parent="tuanhuy_account_reports.account_detail_report_menu" action="account_move_627_report_action" sequence="14"/>
+    </data>
+</odoo>

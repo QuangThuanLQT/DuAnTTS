@@ -1,0 +1,28 @@
+<odoo>
+  <data>
+      <record id="discount_sale_view_form_inherit" model="ir.ui.view">
+          <field name="name">sale.order.form</field>
+          <field name="model">sale.order</field>
+          <field name="inherit_id" ref="sale_discount_total.discount_sale_view_form"/>
+          <field name="arch" type="xml">
+              <xpath expr="//button[@name='action_cancel']" position="replace">
+                  <button name="action_cancel_reason" groups="tuanhuy_cancel_function.cancel_function_group" states="draft,sent,sale,waiting" type="object" string="Cancel"/>
+              </xpath>
+          </field>
+      </record>
+
+      <record id="view_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='technical']" position="attributes">
+                    <attribute name="groups"></attribute>
+                </xpath>
+                <xpath expr="//group[@name='technical']" position="inside">
+                    <field name="cancel_reason" attrs="{'invisible':[('cancel_reason','=',False)]}"/>
+                </xpath>
+            </field>
+        </record>
+  </data>
+</odoo>

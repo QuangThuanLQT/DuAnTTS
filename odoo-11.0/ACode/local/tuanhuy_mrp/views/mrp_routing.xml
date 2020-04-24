@@ -1,0 +1,16 @@
+<odoo>
+    <data>
+        <record id="mrp_routing_form_view_inherit" model="ir.ui.view">
+            <field name="name">mrp.routing.form</field>
+            <field name="model">mrp.routing</field>
+            <field name="inherit_id" ref="mrp.mrp_routing_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='operation_ids']" position="before">
+                    <field name="routing_wokcenter_data"/>
+                    <button name="import_routing_wokcenter_data" type="object" string="Cập nhật công đoạn" class="btn-primary"/>
+                    <button name="clear_routing_wokcenter_data" type="object" string="Xoá nhập lại" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

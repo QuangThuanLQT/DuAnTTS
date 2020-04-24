@@ -1,0 +1,26 @@
+<odoo>
+    <data>
+        <template id="website_display_menu" name="Conditional display menu"
+                  inherit_id="website.layout"
+                  active="True" customize_show="True">
+            <xpath expr="//ul[@id='top_menu']/t/t" position="replace">
+                 <t t-if="(submenu.user_logged and (request.uid != %(base.public_user)d and request.uid != 1)) or (submenu.user_not_logged)">
+                    <t t-call="website.submenu" groups="base.group_public"/>
+                </t>
+            </xpath>
+
+        </template>
+
+        <record id="website_menu_display" model="ir.ui.view">
+            <field name="name">Website.menu: Display to user booleans</field>
+            <field name="model">website.menu</field>
+            <field name="inherit_id" ref="website.menu_tree"/>
+            <field name="arch" type="xml">
+                <field name="new_window" position="after">
+                    <field name="user_logged"/>
+                    <field name="user_not_logged"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

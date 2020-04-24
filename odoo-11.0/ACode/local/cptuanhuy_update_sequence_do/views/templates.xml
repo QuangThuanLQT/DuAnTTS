@@ -1,0 +1,3 @@
+<odoo>
+    <function model="ir.sequence" name="update_sequence_do"/>
+</odoo>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.actions.act_window" id="DanhMuc_list_action">
+            <field name="name">PK theo Danh Muc</field>
+            <field name="res_model">partner.group.hk1</field>
+            <field name="view_type">form</field>
+        </record>
+
+        <record model="ir.ui.view" id="DanhMuc_sale_inherit_form_view">
+            <field name="name">partner_group_kh1</field>
+            <field name="model">partner.group.hk1</field>
+            <field name="arch" type="xml">
+                <tree string="Danh Muc">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+         <record model="ir.ui.view" id="MoHinh_sale_inherit_form_view">
+            <field name="name">partner_group_kh2</field>
+            <field name="model">partner.group.hk2</field>
+            <field name="arch" type="xml">
+                <form string="MoHinh Form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="MoHinh_list_action">
+            <field name="name">PK theo Mo Hinh</field>
+            <field name="res_model">partner.group.hk2</field>
+            <field name="view_type">form</field>
+        </record>
+
+        <record model="ir.ui.view" id="Mo_hinh_sale_inherit_form_view">
+            <field name="name">partner_group_kh2</field>
+            <field name="model">partner.group.hk2</field>
+            <field name="arch" type="xml">
+                <tree string="Mo Hinh">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+         <menuitem id="danhmuckd_menu" name="PK theo Danh Mục KD"
+                  parent="sale.prod_config_main"
+                  action="DanhMuc_list_action"/>
+
+        <menuitem id="mohinhkd_menu" name="PK theo Mô Hình KD"
+                  parent="sale.prod_config_main"
+                  action="MoHinh_list_action"/>
+
+    </data>
+</odoo>

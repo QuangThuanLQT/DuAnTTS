@@ -1,0 +1,59 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="modifier_merge_product.list">
+      <field name="name">modifier_merge_product list</field>
+      <field name="model">modifier_merge_product.modifier_merge_product</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="modifier_merge_product.action_window">
+      <field name="name">modifier_merge_product window</field>
+      <field name="res_model">modifier_merge_product.modifier_merge_product</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="modifier_merge_product.action_server">
+      <field name="name">modifier_merge_product server</field>
+      <field name="model_id" ref="model_modifier_merge_product_modifier_merge_product"/>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="modifier_merge_product" id="modifier_merge_product.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="modifier_merge_product.menu_1" parent="modifier_merge_product.menu_root"/>
+    <menuitem name="Menu 2" id="modifier_merge_product.menu_2" parent="modifier_merge_product.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="modifier_merge_product.menu_1_list" parent="modifier_merge_product.menu_1"
+              action="modifier_merge_product.action_window"/>
+    <menuitem name="Server to list" id="modifier_merge_product" parent="modifier_merge_product.menu_2"
+              action="modifier_merge_product.action_server"/>
+    -->
+  </data>
+</odoo>

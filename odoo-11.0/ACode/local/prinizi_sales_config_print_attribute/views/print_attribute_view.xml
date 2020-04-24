@@ -1,0 +1,43 @@
+<odoo>
+    <data noupdate="1">
+        <record id="chat_lieu_in_ten_so" model="prinizi.product.attribute">
+            <field name="name">Chất liệu in tên số</field>
+        </record>
+        <record id="mau_in_ten_so" model="prinizi.product.attribute">
+            <field name="name">Màu in tên số</field>
+        </record>
+        <record id="chat_lieu_in_hinh" model="prinizi.product.attribute">
+            <field name="name">Chất liệu in hình</field>
+        </record>
+        <record id="font_chu_so" model="prinizi.product.attribute">
+            <field name="name">Font chữ/số</field>
+        </record>
+        <record id="dien_tich_in" model="prinizi.product.attribute">
+            <field name="name">Diện tích in</field>
+        </record>
+    </data>
+    <data>
+        <record model="ir.ui.view" id="print_attribute_tree">
+            <field name="name">print.attribute.tree</field>
+            <field name="model">prinizi.product.attribute</field>
+            <field name="arch" type="xml">
+                <tree string="Print Attribute" editable="top">
+                    <field name="name"/>
+                    <field name="type"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="print_attribute_action" model="ir.actions.act_window">
+            <field name="name">Print Attributes</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">prinizi.product.attribute</field>
+            <field name="view_mode">tree</field>
+            <field name="view_type">form</field>
+        </record>
+
+        <menuitem name="Print Attribute" id="print_attribute_menu"
+                  parent="sale.prod_config_main"
+                  action="print_attribute_action" sequence="11"/>
+    </data>
+</odoo>

@@ -1,0 +1,50 @@
+<odoo>
+    <data>
+        <record id="invoice_form_inherit" model="ir.ui.view">
+            <field name="name">account.invoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <field name="payment_term_id" position="after">
+                    <field name="check_create_picking" attrs="{'invisible': ['|',('type','not in',['out_refund','in_refund']),('state','!=','draft')]}"/>
+                    <field name="sale_order_id" attrs="{'invisible': ['|',('type','not in',['out_refund']),('check_create_picking','=',False)]}"/>
+                    <field name="purchase_order_id" attrs="{'invisible': ['|',('type','not in',['in_refund']),('check_create_picking','=',False)]}"/>
+                </field>
+                <xpath expr="//form/header" position="inside">
+                    <button name="create_picking_return" type="object" string="Create Picking Return" class="oe_highlight"
+                            attrs="{'invisible': ['|','|','|',('check_picking_ids', '!=', 0),('state', 'in', ['draft']),('check_create_picking', '=', False),('type','not in',['out_refund','in_refund'])]}"/>
+                </xpath>
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="open_picking" type="object" class="oe_stat_button" icon="fa-building-o"
+                            attrs="{'invisible': ['|',('check_create_picking', '=', False),('type','not in',['out_refund','in_refund'])]}">
+                        <field name="check_picking_ids" widget="statinfo" string="Returns" modifiers="{'readonly': true}"/>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="invoice_supplier_form_inherit" model="ir.ui.view">
+            <field name="name">account.invoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <field name="date_due" position="after">
+                    <field name="check_create_picking" attrs="{'invisible': [('type','not in',['out_refund','in_refund'])]}"/>
+                </field>
+                <xpath expr="//form/header" position="inside">
+                    <button name="create_picking_return" type="object" string="Create Picking Return" class="oe_highlight"
+                            attrs="{'invisible': ['|','|','|',('check_picking_ids', '!=', 0),('state', 'in', ['draft']),('check_create_picking', '=', False),('type','not in',['out_refund','in_refund'])]}"/>
+                </xpath>
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <!--<div class="oe_button_box" name="button_box">-->
+                        <button name="open_picking" type="object" class="oe_stat_button" icon="fa-building-o"
+                                attrs="{'invisible': ['|',('check_create_picking', '=', False),('type','not in',['out_refund','in_refund'])]}">
+                            <field name="check_picking_ids" widget="statinfo" string="Returns" modifiers="{'readonly': true}"/>
+                        </button>
+                    <!--</div>-->
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

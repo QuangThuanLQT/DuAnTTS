@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="stock_check_report_tree" model="ir.ui.view">
+            <field name="name">Báo cáo nhập xuất tồn</field>
+            <field name="model">stock.check.report</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="product_id"/>
+                    <field name="name" invisible="1"/>
+                    <field name="uom_id"/>
+                    <field name="inventory_before" sum="Tồn đầu kì"/>
+                    <field name="before_value" sum="Giá trị đầu kì"/>
+                    <field name="incoming_before_date" invisible="1"/>
+                    <field name="incoming_after_date" invisible="1"/>
+                    <field name="outgoing_before_date" invisible="1"/>
+                    <field name="outgoing_after_date" invisible="1"/>
+                    <field name="incoming_current" sum="Nhập"/>
+                    <field name="incoming_current_value" sum="Giá trị nhập"/>
+                    <field name="outgoing_current" sum="Xuất"/>
+                    <field name="outgoing_current_value" sum="Giá trị xuất"/>
+                    <field name="inventory_after" sum="Tồn kho"/>
+                    <field name="inventory_value" sum="Giá trị tồn kho"/>
+                    <field name="inventory_forecast" sum="Tồn dự báo"/>
+                    <button name="open_stock_move" type="object" string="Open" class="oe_highlight"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="stock_check_report_search_view" model="ir.ui.view">
+            <field name="name">stock.check.report.search_view</field>
+            <field name="model">stock.check.report</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" filter_domain="['|', ('name', 'ilike', self), ('default_code', 'ilike', self)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Nhóm nội bộ" name="categ_id" context="{'group_by':'categ_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_stock_check_report" model="ir.actions.act_window">
+            <field name="name">Báo cáo nhập xuất tồn</field>
+            <field name="res_model">stock.check.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="stock_check_report_tree"/>
+        </record>
+
+        <record model="ir.ui.view" id="stock_inventory_report_form_view">
+            <field name="name">stock.check.report.popup.form</field>
+            <field name="model">stock.check.report.popup</field>
+            <field name="arch" type="xml">
+                <form>
+                        <group>
+                            <group>
+                                <field name="date_start"/>
+                            </group>
+                            <group>
+                                <field name="date_to"/>
+                            </group>
+                        </group>
+                        <group><field name="type"/></group>
+                        <group><field name="show_all"/></group>
+                    <footer>
+                        <button name="open_stock_report" type="object" string="Chấp nhận" class="oe_highlight"/>
+                        <button string="Huỷ" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_stock_inventory_report">
+            <field name="name">Báo cáo nhập xuất tồn</field>
+            <field name="res_model">stock.check.report.popup</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_stock_inventory_report" parent="stock.menu_warehouse_report" name="Báo cáo nhập xuất tồn" action="action_stock_inventory_report" sequence="30"/>
+
+        <record id="view_move_tree_inherit_default_order" model="ir.ui.view">
+            <field name="name">stock.move.tree</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="default_order">date asc</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product_template_tree_view_new" model="ir.ui.view">
+            <field name="name">product.template.product.tree</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+                <tree string="Sản phẩm" decoration-danger="False" decoration-info="False">
+                    <field name="sequence" widget="handle"/>
+                    <field name="default_code"/>
+                    <field name="name"/>
+                    <field name="group_id" string="Nhóm SP"/>
+                    <field name="brand_name"/>
+                    <field name="group_sale_id" string="Nhóm bán hàng"/>
+                    <field name="uom_id" string="ĐVT"/>
+                    <!--
+                    <field name="barcode"/>
+                    -->
+                    <field name="is_manual_barcode"/>
+                    <button type="object" name="fill_multi_barcode" string="Tạo barcode" icon="fa-cogs"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="stock.product_template_action_product" model="ir.actions.act_window">
+            <field name="name">Products</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="tuanhuy_stock_report.product_template_tree_view_new"/>
+            <field name="context">{"search_default_consumable": 1, 'default_type': 'product'}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to define a new product.
+                </p>
+            </field>
+        </record>
+        <!--<record model="ir.actions.act_window" id="stock.product_template_action_product	">-->
+            <!--<field name="view_id" ref="tuanhuy_stock_report.product_template_tree_view_new"/>-->
+        <!--</record>-->
+        <template id="report_delivery_note_inherit" inherit_id="stock_report.report_delivery_note">
+            <xpath expr="//div[@class='page']/div/span[last()]" position="replace">
+                <span t-if="o.min_date">
+                    <strong><i>Ngày <span t-field="o.min_date" t-field-options='{"format": "dd"}' /> tháng <span t-field="o.min_date" t-field-options='{"format": "MM"}'/> năm <span t-field="o.min_date" t-field-options='{"format": "yyyy"}'/></i></strong>
+                </span>
+            </xpath>
+        </template>
+
+        <template id="report_delivery_note_a4_inherit" inherit_id="stock_report.report_delivery_note_a4">
+            <xpath expr="//div[@class='page']/div/span[last()]" position="replace">
+                <span t-if="o.min_date">
+                    <strong><i>Ngày <span t-field="o.min_date" t-field-options='{"format": "dd"}' /> tháng <span t-field="o.min_date" t-field-options='{"format": "MM"}'/> năm <span t-field="o.min_date" t-field-options='{"format": "yyyy"}'/></i></strong>
+                </span>
+            </xpath>
+        </template>
+
+        <template id="report_import_note_inherit" inherit_id="stock_report.report_import_note">
+            <xpath expr="//div[@class='page']/div/div[2]/span" position="replace">
+                <span t-if="o.min_date">
+                    <strong>
+                        <i>
+                            Ngày <span t-field="o.min_date" t-field-options='{"format": "dd"}' /> tháng <span t-field="o.min_date" t-field-options='{"format": "MM"}'/> năm <span t-field="o.min_date" t-field-options='{"format": "yyyy"}'/>
+                        </i>
+                    </strong>
+                </span>
+            </xpath>
+        </template>
+    </data>
+</odoo>

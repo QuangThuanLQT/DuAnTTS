@@ -1,0 +1,10 @@
+<odoo>
+    <data>
+        <template id="assets_backend" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/vieterp_product/static/src/js/filter.js"></script>
+                <link rel='stylesheet' href='/vieterp_product/static/src/css/auto_complete_css.css'/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

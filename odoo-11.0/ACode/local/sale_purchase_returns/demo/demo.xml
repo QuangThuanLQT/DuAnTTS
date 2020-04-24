@@ -1,0 +1,7 @@
+<odoo>
+    <data>
+        <data>
+            <function model="sale.order" name="_fill_objects"/>
+        </data>
+    </data>
+</odoo>

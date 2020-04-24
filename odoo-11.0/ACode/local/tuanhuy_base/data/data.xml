@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="ir_cron_update_product_cost" model="ir.cron">
+            <field name="name">Tính Giá Vốn</field>
+            <field eval="False" name="active" />
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall" />
+            <field eval="'tuanhuy.base'" name="model" />
+            <field eval="'main_action'" name="function" />
+        </record>
+    </data>
+</odoo>

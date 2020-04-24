@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="seq_account_guarantee" model="ir.sequence">
+        <field name="name">Account guarantee sequence</field>
+        <field name="code">account.guarantee</field>
+        <field name="prefix">ACG</field>
+        <field name="padding">6</field>
+    </record>
+</odoo>

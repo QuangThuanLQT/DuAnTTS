@@ -1,0 +1,11 @@
+<odoo>
+    <data>
+        <record id="calendar.mail_menu_calendar" model="ir.ui.menu">
+            <field name="active" eval="False"/>
+        </record>
+
+        <record id="note.menu_note_notes" model="ir.ui.menu">
+            <field name="active" eval="False"/>
+        </record>
+    </data>
+</odoo>

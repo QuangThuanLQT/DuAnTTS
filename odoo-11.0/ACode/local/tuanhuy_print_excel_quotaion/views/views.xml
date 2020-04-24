@@ -1,0 +1,15 @@
+<odoo>
+  <data>
+    <record id="view_order_form_ihr" model="ir.ui.view">
+            <field name="name">sale.order.form.ihr</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_done']" position="after">
+                    <button name="print_excel_quotation" string="In" type="object" states="draft,sent"/>
+                </xpath>
+
+            </field>
+        </record>
+  </data>
+</odoo>

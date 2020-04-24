@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <record id="hr_contract_form_inherit_modifier" model="ir.ui.view">
+            <field name="name">hr.contract.form</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_payroll.hr_contract_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='struct_id']" position="before">
+                    <field name="wage_insurance"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_order_form" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="vieterp_mrp_base.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/div[1]" position='inside'>
+                    <button attrs="{'invisible': [('sale_order_type', '!=', 'customize')]}" name="action_view_tasks" type="object" class="oe_stat_button"
+                            icon="fa-pencil-square-o">
+                        <field name="task_count" widget="statinfo" string="Task"/>
+                    </button>
+                </xpath>
+                <group name="order_menu" position="inside">
+                    <button name="action_create_task" string="Design" type="object" attrs="{'invisible': ['|',('state','!=','draft'),('sale_order_type', '!=', 'customize')]}" class="oe_highlight"/>
+                </group>
+            </field>
+        </record>
+    </data>
+</odoo>

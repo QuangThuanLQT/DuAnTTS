@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="assets_backend" name="modifier hr_attendance assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/tts_attandance_checkin_out/static/src/js/my_attendances.js"></script>
+            </xpath>
+        </template>
+
+        <record id="cron_checkout_user_after_10pm" model="ir.cron">
+            <field name="name">Check Out user after 10pm</field>
+            <field eval="True" name="active"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'hr.employee'"></field>
+            <field name="function" eval="'cron_checkout_user'"/>
+            <field name="nextcall" eval="DateTime.now().strftime('%Y-%m-%d 15:00:00')" />
+        </record>
+
+        <record id="hr_attendance.hr_attendance_view_form" model="ir.ui.view">
+            <field name="name">hr.attendance.form</field>
+            <field name="model">hr.attendance</field>
+            <field name="arch" type="xml">
+                <form string="Employee attendances">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="employee_id"/>
+                            </group>
+                            <group/>
+                            <group string="CHECK IN DETAILS">
+                                <field name="check_in" readonly="1"/>
+                                <field name="location_in"/>
+                                <field name="mac_address_in"/>
+                                <field name="device_info_in"/>
+                            </group>
+                            <group string="CHECK OUT DETAILS">
+                                <field name="check_out" readonly="1"/>
+                                <field name="location_out"/>
+                                <field name="mac_address_out"/>
+                                <field name="device_info_out"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

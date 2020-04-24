@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="account_voucher_unc_form">
+            <field name="name">account.voucher.unc.form</field>
+            <field name="model">account.voucher.unc</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Session Form">
+                    <header>
+                        <field name="state" widget="statusbar" nolabel="1"/>
+
+                        <!--Gửi xác nhận-->
+                        <button name="change_status_unc" string="Xác nhận" type="object" class="oe_highlight"
+                                states="draft"/>
+
+                        <!--Quay về bản nháp-->
+                        <button name="set_status_unc_to_draft" string="Quay về bản nháp" type="object" class="oe_highlight"
+                                groups="account_unc.group_tong_giam_doc" states="GD_doing,cancel"/>
+
+                         <!--Huỷ-->
+                        <button name="set_status_unc_to_cancel" string="Huỷ" type="object" class="oe_highlight"
+                                groups="account_unc.group_tong_giam_doc" states="GD_doing,done"/>
+
+                        <button name="print_unc" string="In" type="object" class="oe_highlight" states="done" attrs="{'invisible':['|',('check_bank_id','=',False)]}"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="check_bank_id" invisible="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="sender_id" options="{'no_quick_create':True, 'no_create_edit':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="partner_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="bank_id" context="{'default_bank_id': True}" options="{'no_quick_create':True, 'no_create_edit':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="acc_number" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="ref" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="sale_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="purchase_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="date_create" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="amount" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="fees" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="date_unc"  invisible="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="note" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="acc_pay_id" readonly="1" string="Thanh toán" attrs="{'invisible': [('acc_pay_id', '=', False)],'invisible': [('acc_inv_id', '=', False)]}" />
+                            <field name="acc_inv_id" readonly="1" string="Hóa đơn Nhà cung cấp" attrs="{'invisible': [('acc_inv_id', '=', False)]}" />
+                            <field name="journal_id" attrs="{'invisible': [('acc_pay_id', '!=', False)]}" />
+                            <field name="account_id" attrs="{'invisible': [('acc_pay_id', '!=', False)]}"/>
+                            <field name="move_id" attrs="{'invisible': [('move_id', '=', False)]}"/>
+                            <field name="account_voucher_id" states="done"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="account_voucher_unc_tree">
+            <field name="name">account.voucher.unc.tree</field>
+            <field name="model">account.voucher.unc</field>
+            <field name="arch" type="xml">
+                <tree default_order="date_create desc">
+                    <field name="date_create"/>
+                    <field name="ref"/>
+                    <field name="partner_id"/>
+                    <field name="amount" sum="Tổng"/>
+                    <field name="fees" sum="Phí"/>
+                    <field name="bank_id"/>
+                    <field name="note"/>
+                    <field name="state"/>
+                    <!--<field name="date_unc"/>-->
+                    <field name="account_id"/>
+                    <field name="journal_id"/>
+                    <field name="record_checked"/>
+                    <button name="change_record_checked" type="object" string="D"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="account_voucher_unc_search">
+            <field name="name">account_voucher_unc.search</field>
+            <field name="model">account.voucher.unc</field>
+            <field name="arch" type="xml">
+                <search string="Search UNC">
+                    <field name="partner_id" string="Người nhận"/>
+                    <field name="ref" string="Tham chiếu"/>
+                    <field name="account_id" string="Tài khoản"/>
+                    <field name="note"/>
+                    <field name="date_create"/>
+                    <filter string="Bản phác thảo" domain="[('state','=','draft')]" help="Bản phác thảo UNC"/>
+                    <filter string="Hoàn thành" domain="[('state','=','done')]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Tài khoản" domain="[]" context="{'group_by':'account_id'}"/>
+                        <filter string="Người nhận" domain="[]" context="{'group_by':'partner_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="account_voucher_unc_action">
+            <field name="name">Giấy báo nợ</field>
+            <field name="res_model">account.voucher.unc</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="usage">menu</field>
+        </record>
+
+        <menuitem id="unt_menu_separator" name="Uỷ nhiệm Thu" parent="account.menu_finance_bank" sequence="1"/>
+        <record id="account_bank_voucher.unt_menu_sale_receipt" model="ir.ui.menu">
+            <field name="parent_id" eval="ref('account_bank_voucher_modifier.unt_menu_separator')"/>
+            <field name="name">Giấy báo có</field>
+        </record>
+
+        <menuitem id="unc_menu_separator" name="Uỷ nhiệm Chi" parent="account.menu_finance_bank" sequence="3"/>
+        <menuitem id="account_bank_voucher.unc_menu_purchase_receipt" name="Giấy báo nợ"
+            action="account_voucher_unc_action" parent="account_bank_voucher_modifier.unc_menu_separator" sequence="1"/>
+
+        <record id="action_update_check_account_voucher_unc" model="ir.actions.server">
+            <field name="name">Huỷ kiểm tra</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_account_voucher_unc"/>
+            <field name="state">code</field>
+            <field name="code">action = record.update_check_account_payment_unc();
+            </field>
+        </record>
+
+        <record model="ir.values" id="action_update_check_account_voucher_unc">
+            <field name="model">account.voucher.unc</field>
+            <field name="name">Huỷ kiểm tra</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_update_check_account_voucher_unc'))" />
+        </record>
+    </data>
+</odoo>

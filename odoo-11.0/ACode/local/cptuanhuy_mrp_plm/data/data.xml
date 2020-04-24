@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Eco type by default -->
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'mrp_plm'), ('name', '=', 'ecotype0')]"/>
+            </function>
+            <value eval="{'noupdate': False}"/>
+        </function>
+
+        <record id="mrp_plm.ecotype0" model="mrp.eco.type">
+            <field name="name">Giới thiệu sản phẩm mới</field>
+        </record>
+
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'mrp_plm'), ('name', '=', 'ecotype0')]"/>
+            </function>
+            <value eval="{'noupdate': True}"/>
+        </function>
+
+        <!-- ECO Stage records -->
+        <delete id="mrp_plm.ecostage_new" model="mrp.eco.stage"/>
+        <record id="mrp_plm.ecostage_new" model="mrp.eco.stage">
+            <field name="name">Mới</field>
+        </record>
+
+        <delete id="mrp_plm.ecostage_progress" model="mrp.eco.stage"/>
+        <record id="mrp_plm.ecostage_progress" model="mrp.eco.stage">
+            <field name="name">Đang xử lý</field>
+        </record>
+
+        <delete id="mrp_plm.ecostage_validated" model="mrp.eco.stage"/>
+        <record id="mrp_plm.ecostage_validated" model="mrp.eco.stage">
+            <field name="name">Xác nhận</field>
+        </record>
+
+        <delete id="mrp_plm.ecostage_effective" model="mrp.eco.stage"/>
+        <record id="mrp_plm.ecostage_effective" model="mrp.eco.stage">
+            <field name="name">Hiệu lực</field>
+        </record>
+
+        <delete id="mrp_plm.ecostage_refused" model="mrp.eco.stage"/>
+        <record id="mrp_plm.ecostage_refused" model="mrp.eco.stage">
+            <field name="name">Từ chối</field>
+        </record>
+    </data>
+</odoo>

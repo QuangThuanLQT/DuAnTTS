@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_mrp_design,name_mrp_design,model_mrp_design,,1,1,1,1
+access_mrp_design_line,name_mrp_design_line,model_mrp_design_line,,1,1,1,1

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="action_delete_tab_material_production" model="ir.actions.server">
+            <field name="name">Xoá nguyên vật liệu</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_mrp_production"/>
+            <field name="state">code</field>
+            <field name="code">action = record.delete_raw_material_tab();
+            </field>
+        </record>
+
+        <record model="ir.values" id="multi_action_delete_tab_production">
+            <field name="model">mrp.production</field>
+            <field name="name">Xoá nguyên vật liệu</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_delete_tab_material_production'))" />
+        </record>
+
+        <record id="action_confirm_production" model="ir.actions.server">
+            <field name="name">Hoàn thành lệnh sản xuất</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_mrp_production"/>
+            <field name="state">code</field>
+            <field name="code">action = record.action_confirm_production();
+            </field>
+        </record>
+
+        <record model="ir.values" id="multi_action_confirm_production">
+            <field name="model">mrp.production</field>
+            <field name="name">Hoàn thành lệnh sản xuất</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_confirm_production'))" />
+        </record>
+
+        <!--Button Delete Production-->
+        <record id="mrp_production_form_view_inherit" model="ir.ui.view">
+            <field name="name">mrp.production.form.delete</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                    <field name="priority_id" widget="selection"/>
+                </field>
+                <xpath expr="//form/header" position="inside">
+                    <button name="action_delete_production" type="object" string="Xoá" groups="base.group_no_one"/>
+                    <button name="create_raw_material_picking" type="object" string="Tạo nguyên vật liệu chính" class="oe_highlight"/>
+                    <button name="delete_raw_material_tab" type="object" string="Xoá nguyên vật liệu" class="oe_highlight" groups="base.group_no_one"/>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="user_email"/>
+                    <field name="user_phone"/>
+                </xpath>
+                <xpath expr="//form/header" position="inside">
+                    <button name="update_picking_workorder" type="object" string="Cập nhật kho cho công đoạn" states="planned,progress"/>
+                </xpath>
+                <xpath expr="//form/sheet/notebook/page[2]" position="after">
+                    <page string="Kho">
+                        <field name="picking_ids" context="{'default_origin': name, 'default_mrp_production': active_id, 'production_id': active_id}">
+                            <tree>
+                                <field name="name"/>
+                                <field name="don_hang"/>
+                                <field name="note" string="Diễn giải"/>
+                                <field name="location_dest_id"/>
+                                <field name="partner_id"/>
+                                <field name="min_date"/>
+                                <field name="origin"/>
+                                <field name="backorder_id"/>
+                                <field name="picking_cancel" string="Đơn Hàng Đã Huỷ"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+                <xpath expr="//field[@name='move_raw_ids']/tree/field[@name='product_id']" position="before">
+                    <field name="stt"/>
+                </xpath>
+                <xpath expr="//field[@name='move_raw_ids']/tree" position="attributes">
+                    <attribute name="default_order">stt</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="mrp_production_tree_view" model="ir.ui.view">
+            <field name="name">mrp.production.tree</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="create_date" position="after">
+                    <field name="priority_id"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

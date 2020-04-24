@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="import_warning_form" model="ir.ui.view">
+            <field name="name">import.warning.form</field>
+            <field name="model">import.warning</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field name="check_show_warning" invisible="1"/>
+                    <separator string="Sản phẩm không tìm thấy" attrs="{'invisible':[('check_show_warning','=',True)]}"/>
+                    <field name="import_warning_ids" readonly="1" attrs="{'invisible':[('check_show_warning','=',True)]}">
+                        <tree>
+                            <field name="default_code"/>
+                            <field name="qty"/>
+                            <field name="price"/>
+                        </tree>
+                    </field>
+                    <separator string="Sản phẩm đã tồn tại" attrs="{'invisible':[('check_show_warning','=',False)]}"/>
+                    <field name="import_product_warning_ids" readonly="1" attrs="{'invisible':[('check_show_warning','=',False)]}">
+                        <tree>
+                            <field name="default_code"/>
+                            <field name="name"/>
+                        </tree>
+                    </field>
+                    <footer>
+                        <button name="keep_import" string="Tiếp tục" type="object" class="btn-primary" attrs="{'invisible':[('check_show_warning','=',True)]}"/>
+                        <button name="export_file" string="Export" type="object" class="btn-primary" attrs="{'invisible':[('check_show_warning','=',True)]}"/>
+                        <button name="export_product_file" string="Export" type="object" class="btn-primary" attrs="{'invisible':[('check_show_warning','=',False)]}"/>
+                        <button name="create_product_import" string="Tạo mã nhanh" type="object" class="btn-primary" attrs="{'invisible':[('check_show_warning','=',True)]}"/>
+                        <button special="cancel" string="Cancel" type="object" class="btn-default"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

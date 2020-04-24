@@ -1,0 +1,17 @@
+<odoo>
+    <data>
+        <record id="product_general_cost" model="product.template">
+            <field name="name">Chi phí chung</field>
+            <field name="can_be_expensed" eval="True"/>
+            <field name="type">service</field>
+            <field name="categ_id" ref="hr_expense.cat_expense"/>
+        </record>
+
+        <record id="product_project_cost" model="product.template">
+            <field name="name">Chi phí dự án</field>
+            <field name="can_be_expensed" eval="True"/>
+            <field name="type">service</field>
+            <field name="categ_id" ref="hr_expense.cat_expense"/>
+        </record>
+    </data>
+</odoo>

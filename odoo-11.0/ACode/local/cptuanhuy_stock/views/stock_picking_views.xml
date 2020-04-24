@@ -1,0 +1,271 @@
+<odoo>
+    <data>
+
+        <record id="view_move_picking_tree" model="ir.ui.view">
+            <field name="name">stock.move.tree</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_picking_tree"/>
+            <field name="arch" type="xml">
+                <field name="product_uom" position="after">
+                    <field name="price_unit_sub" string="Đơn giá vốn"/>
+                    <field name="price_unit_sale" string="Đơn giá bán"/>
+                </field>
+                <field name="state" position="after">
+                    <field name="procure_method" string="Phương thức"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_picking_form_inherit_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="tuanhuy_stock.view_picking_form_inherit"/>
+            <field name="arch" type="xml">
+                <field name="purchase_id" position="after">
+                    <field name="purchase_id_base_origin"
+                           attrs="{'invisible':[('purchase_id_base_origin','=',False)]}"/>
+                </field>
+                <field name="purchase_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <xpath expr="//button[@name='do_new_transfer']" position="attributes">
+                    <attribute name="states"></attribute>
+                    <attribute name="attrs">{'invisible' : [('state','not in',('assigned','partially_available')), ('is_picking_type_out','=',False)]}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_picking_form_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="priority">20</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/header" position="inside">
+                    <button name="create_line_procurement_order" states="partially_available,confirmed"
+                            string="Tạo mua sắm" type="object"/>
+                    <button name="action_open_mo" states="waiting,confirmed,partially_available,confirmed"
+                            string="Xem MO" type="object"/>
+                    <button name="load_product_to_move_line" string="Tải danh sách linh kiện" type="object"
+                            attrs="{'invisible' : ['|',('mrp_production','=',False),('state','!=','draft')]}"/>
+                </xpath>
+                <field name="origin" position="before">
+                    <field name="sale_select_id" attrs="{'readonly':[('state','=','done')]}"/> <!-- attrs="{'required':[('is_picking_type_out','=',True)]}" -->
+                    <field name="is_picking_type_out" invisible="1"/>
+                    <field name="mrp_production" attrs="{'readonly':[('state','=','done')]}"/>
+                    <field name="job_quotaion_id" attrs="{'readonly':[('state','=','done')]}"/>
+                    <field name="type_id" widget="selection"
+                           attrs="{'invisible':[('picking_type_code','!=','internal')]}"/>
+                </field>
+                <field name="note" position="replace">
+                </field>
+                <xpath expr="//field[@name='backorder_id']" position="after">
+                    <field name="note" placeholder="Diễn giải" string="Diễn giải" class="oe_inline"/>
+                </xpath>
+                <field name="move_lines" position="before">
+                    <field name="import_stock_data"/>
+                    <button name="import_stock_data_excel" type="object" string="Import"/>
+                    <button name="export_stock_data_excel" type="object" string="Xuất Excel" class="oe_highlight"/>
+                </field>
+                <xpath expr="//form/header" position="inside">
+                    <button name="do_reset_stock_picking" string="Đưa về Xác nhận" states="done" type="object" class="oe_highlight"/>
+                    <button name="print_excel" string="In Excel" type="object" class="oe_highlight"/>
+                    <button name="create_stock_out" string="Tạo đơn xuất" type="object" class="oe_highlight"
+                            attrs="{'invisible':[('picking_type_code','!=','incoming')]}"/>
+                    <button name="create_multi_stock_out" string="Tách đơn xuất" type="object" class="oe_highlight"
+                            attrs="{'invisible':[('picking_type_code','!=','incoming')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='pack_operation_product_ids']/tree/field[@name='qty_done']" position="after">
+                    <field name="color" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='pack_operation_product_ids']/tree" position="attributes">
+                    <attribute name="default_order">id asc</attribute>
+                    <attribute name="colors">red:color == 'red';</attribute>
+                </xpath>
+                <xpath expr="//field[@name='move_lines']" position="attributes">
+                    <attribute name="context">{'address_in_id': partner_id,
+                        'form_view_ref':'stock.view_move_picking_form', 'tree_view_ref':'stock.view_move_picking_tree',
+                        'default_picking_type_id': picking_type_id, 'default_location_id': location_id,
+                        'default_location_dest_id': location_dest_id, 'min_date': min_date}
+                    </attribute>
+                </xpath>
+                <!--<field name="origin" position="after">-->
+                <!--<field name="stock_out_ids" attrs="{'invisible':[('picking_type_code','!=','incoming')]}" readonly="1" widget="many2many_tags"/>-->
+                <!--</field>-->
+                <field name="partner_id" position="attributes">
+                    <attribute name="attrs">{}</attribute>
+                </field>
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button type="object" name="action_view_stock_out" class="oe_stat_button" icon="fa-pencil-square-o"
+                            attrs="{'invisible':[('stock_out_count','=',0)]}">
+                        <field name="stock_out_count" widget="statinfo" string="Đơn xuất"/>
+                        <field name="stock_out_ids" invisible="1"/>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_move_picking_tree_inherit" model="ir.ui.view">
+            <field name="name">stock.move.form</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_picking_tree"/>
+            <field name="arch" type="xml">
+                <field name="product_id" position="attributes">
+                    <attribute name="context">{'product_show_onhand':True}</attribute>
+                </field>
+                <field name="product_id" position="before">
+                    <field name="stt"/>
+                </field>
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="default_order">stt asc,id asc</attribute>
+                </xpath>
+                <field name="product_id" position="after">
+                    <field name="sale_stock_out_id"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="vpicktree_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.tree</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="check_return_picking" invisible="1"/>
+                    <field name="don_hang"/>
+                    <field name="note" string="Diễn giải"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_picking_internal_search_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.search</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="note" string="Diễn giải"/>
+                </field>
+                <xpath expr="//filter[@name='done']" position="after">
+                    <separator/>
+                    <filter string="WH/Stock" name="wh_stock"
+                            domain="['|',('location_id.name','=','Stock'), ('location_dest_id.name','=','Stock'), '|',('location_id.location_id.name', '=', 'WH'), ('location_dest_id.location_id.name', '=', 'WH')]"/>
+                    <filter string="KSX/Stock" name="ksx_stock"
+                            domain="['|',('location_id.name','=','Stock'), ('location_dest_id.name','=','Stock'), '|',('location_id.location_id.name', '=', 'KSX'), ('location_dest_id.location_id.name', '=', 'KSX')]"/>
+                    <separator/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="stock_picking_line_tree_view_inherited_add_field" model="ir.ui.view">
+            <field name="name">Stock picking line tree inherit</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="tuanhuy_stock.stock_picking_line_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="partner_sub_id" position="after">
+                    <field name="sale_select_id"/>
+                    <field name="location_id"/>
+                    <field name="location_dest_id"/>
+                    <field name="picking_type_id"/>
+                </field>
+                <field name="origin" position="after">
+                    <field name="picking_origin"/>
+                    <field name="picking_id" string="Tên phiếu"/>
+                </field>
+                <field name="origin" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+
+        <!--Search View-->
+        <record id="view_move_search_inherit" model="ir.ui.view">
+            <field name="name">stock.move.search.wh.stock</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='done']" position="after">
+                    <separator/>
+                    <filter string="WH/Stock" name="wh_stock"
+                            domain="['|',('location_id.name','=','Stock'), ('location_dest_id.name','=','Stock'), '|',('location_id.location_id.name', '=', 'WH'), ('location_dest_id.location_id.name', '=', 'WH')]"/>
+                    <filter string="KSX/Stock" name="ksx_stock"
+                            domain="['|',('location_id.name','=','Stock'), ('location_dest_id.name','=','Stock'), '|',('location_id.location_id.name', '=', 'KSX'), ('location_dest_id.location_id.name', '=', 'KSX')]"/>
+                    <separator/>
+                </xpath>
+            </field>
+        </record>
+
+        <!--Action-->
+        <record id="tuanhuy_stock.stock_picking_line_action" model="ir.actions.act_window">
+            <field name="context">{'summaries': True, 'search_default_wh_stock': 1}</field>
+        </record>
+
+        <record id="action_create_purchase_request" model="ir.actions.server">
+            <field name="name">Create Purchase Request</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_stock_picking"/>
+            <field name="state">code</field>
+            <field name="code">action = record.create_purchase_request();
+            </field>
+        </record>
+
+        <record model="ir.values" id="action_picking_purchase_request">
+            <field name="model">stock.picking</field>
+            <field name="name">Huỷ kiểm tra</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_create_purchase_request'))" />
+        </record>
+
+        <record id="action_huy_du_tru_stock_move" model="ir.actions.server">
+            <field name="name">Huỷ dự trữ</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_stock_move"/>
+            <field name="state">code</field>
+            <field name="code">action = record.multi_do_unreserve();
+            </field>
+        </record>
+
+        <record model="ir.values" id="action_huy_du_tru_stock_move_value">
+            <field name="model">stock.move</field>
+            <field name="name">Huỷ dự trữ</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_huy_du_tru_stock_move'))" />
+        </record>
+
+        <record id="action_kiem_lai_kho_stock_move" model="ir.actions.server">
+            <field name="name">Kiểm lại kho</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_stock_move"/>
+            <field name="state">code</field>
+            <field name="code">action = record.multi_action_assign();
+            </field>
+        </record>
+
+        <record model="ir.values" id="action_kiem_lai_kho_stock_move_value">
+            <field name="model">stock.move</field>
+            <field name="name">Kiểm lại kho</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_kiem_lai_kho_stock_move'))" />
+        </record>
+
+        <record id="action_xac_nhan_kho_stock_move" model="ir.actions.server">
+            <field name="name">Xác Nhận Kho</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_stock_move"/>
+            <field name="state">code</field>
+            <field name="code">action = record.multi_do_new_transfer();
+            </field>
+        </record>
+
+        <record model="ir.values" id="action_xac_nhan_kho_stock_move_value">
+            <field name="model">stock.move</field>
+            <field name="name">Xác Nhận Kho</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_xac_nhan_kho_stock_move'))" />
+        </record>
+    </data>
+</odoo>

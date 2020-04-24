@@ -1,0 +1,10 @@
+<odoo>
+    <data noupdate="1">
+        <record id="zalo_api_config" model="zalo.api.config">
+            <field name="id_app">3863786932863325198</field>
+            <field name="secrect_key_app">W1NLDC8vwo5gq05Sy2L2</field>
+            <field name="oa_key">0SR6qYUzVR49sUJIEHvM</field>
+            <field name="access_token">OcLdJXtpl45YRsD44_oyG6XiOKuPvyn89ZKOAGVvkKS_2MGzDPpuM4rTHJPXbf19Iq867JQIeN0pH7v-Cz3HUG01THaeqlnu42DIAsYtXcneTpKe592QM6rR8ofKp8HfLY8uCNsnhKTLH1Gv9TNDHJeyJ3ih_vPj8GaxCZdQdJOe5oWtFiU-MGOq8YS6e9fvFcmxAXk3k48hGZyx9hRcPZvNK1isfevEA6uu32EvvcifB44j1Cl0SpyvT2b6oDj1I0u2FJdVrs43C0XdHqcbx3SOxhX1</field>
+        </record>
+    </data>
+</odoo>

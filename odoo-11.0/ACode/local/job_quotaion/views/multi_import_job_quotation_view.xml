@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Outstanding Fee Report wizard -->
+    <record id="import_job_quotation_wizard" model="ir.ui.view">
+        <field name="name">import.job.quotation.form</field>
+        <field name="model">import.job.quotation</field>
+        <field name="arch" type="xml">
+            <form string="Product Template Import">
+                <group>
+                    <field name="import_data"/>
+                </group>
+                <footer>
+                    <button name="import_xls" type="object"
+                        string="Import XLS" class="oe_highlight" icon="fa-download" />
+                    or
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Outstanding Fee report action-->
+    <record id="import_job_quotation_action" model="ir.actions.act_window">
+        <field name="name">Nhập định mức</field>
+        <field name="res_model">import.job.quotation</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem name="Nhập định mức" id="menu_import_job_quotation_parent" parent="odoo_job_costing_management.menu_job_cost_configuration" sequence="11"/>
+    <menuitem name="Nhập định mức" action="import_job_quotation_action" id="import_product_template_menu" parent="menu_import_job_quotation_parent"/>
+
+</odoo>

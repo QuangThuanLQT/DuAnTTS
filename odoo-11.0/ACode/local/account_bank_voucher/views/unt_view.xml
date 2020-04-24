@@ -1,0 +1,49 @@
+<odoo>
+    <data>
+        <record id="view_sale_receipt_hide_pay_now_form" model="ir.ui.view">
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_sale_receipt_form"/>
+            <field name="arch" type="xml">
+                <field name="pay_now" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="partner_id" position="before">
+                    <field name="check_account_journal_bank" invisible="1"/>
+                    <field name="bank_id" options="{'no_quick_create':True, 'no_create_edit':True}" attrs="{'invisible':[('check_account_journal_bank','!=',True)]}"/>
+                </field>
+                <!--<field name="partner_id" position="after">-->
+                    <!--<field name="acc_number" attrs="{'invisible':[('check_account_journal_bank','!=',True)]}"/>-->
+                <!--</field>-->
+            </field>
+        </record>
+
+        <record id="unt_action_sale_receipt" model="ir.actions.act_window">
+            <field name="name">Giấy báo có</field>
+            <field name="res_model">account.voucher</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban</field>
+            <field name="domain">[('journal_id.type','=','sale'), ('voucher_type','=','sale'), ('payment_journal_id.code','=','BNK1')]</field>
+            <field name="context">{'default_voucher_type': 'sale', 'voucher_type': 'sale','unt_unc':True}</field>
+            <field name="view_ids"
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('tuanhuy_account_voucher.view_voucher_sale_tree')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('account_voucher.view_sale_receipt_form')}),
+                          ]"/>
+            <field name="target">current</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a sale receipt.
+                </p>
+                <p>
+                    When the sale receipt is confirmed, you can record the customer
+                    payment related to this sales receipt.
+                </p>
+            </field>
+        </record>
+
+
+
+        <menuitem id="unt_menu_separator" name="Uỷ nhiệm Thu" parent="account.menu_finance_bank" sequence="1"/>
+        <menuitem id="unt_menu_sale_receipt" name="Giấy báo có" action="unt_action_sale_receipt" parent="account_bank_voucher.unt_menu_separator"/>
+    </data>
+</odoo>

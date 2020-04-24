@@ -1,0 +1,52 @@
+<odoo>
+    <data>
+
+        <record id="view_purchase_receipt_hide_pay_now_form" model="ir.ui.view">
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_purchase_receipt_form"/>
+            <field name="arch" type="xml">
+                <field name="pay_now" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="partner_id" position="before">
+                    <field name="check_account_journal_bank" invisible="1"/>
+                    <field name="bank_id" options="{'no_quick_create':True, 'no_create_edit':True}" attrs="{'invisible':[('check_account_journal_bank','!=',True)]}"/>
+                </field>
+                <field name="partner_id" position="after">
+                    <field name="bank_received_id" options="{'no_quick_create':True, 'no_create_edit':True}" attrs="{'invisible':[('check_account_journal_bank','!=',True)]}"/>
+                    <field name="acc_number" attrs="{'invisible':[('check_account_journal_bank','!=',True)]}"/>
+                </field>
+                <xpath expr="//form/header" position="inside">
+                    <button name="%(account_bank_voucher.account_voucher_unc_printout)d" string="In" type="action" class="oe_highlight"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="unc_action_purchase_receipt" model="ir.actions.act_window">
+            <field name="name">Giấy báo nợ</field>
+            <field name="res_model">account.voucher</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban</field>
+            <field name="domain">[('journal_id.type','=','purchase'), ('voucher_type','=','purchase'),('payment_journal_id.code','=','BNK1')]</field>
+            <field name="context">{'default_voucher_type': 'purchase', 'voucher_type': 'purchase','unt_unc':True}</field>
+            <!--<field name="search_view_id" eval="account_voucher.view_voucher_filter_vendor"/>-->
+            <field name="view_ids"
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('tuanhuy_account_voucher.view_voucher_purchase_tree')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('account_voucher.view_purchase_receipt_form')}),
+                          ]"/>
+            <field name="target">current</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to register a purchase receipt.
+              </p><p>
+                When the purchase receipt is confirmed, you can record the
+                vendor payment related to this purchase receipt.
+              </p>
+            </field>
+        </record>
+
+        <menuitem id="unc_menu_separator" name="Uỷ nhiệm Chi" parent="account.menu_finance_bank" sequence="3"/>
+        <menuitem id="unc_menu_purchase_receipt" name="Giấy báo nợ" action="unc_action_purchase_receipt" parent="account_bank_voucher.unc_menu_separator" sequence="1"/>
+    </data>
+</odoo>

@@ -1,0 +1,49 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="zalo_api_config_form">
+            <field name="name">zalo.api.config.form</field>
+            <field name="model">zalo.api.config</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="id_app"/>
+                            <field name="secrect_key_app"/>
+                            <field name="oa_key"/>
+                            <field name="access_token"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="zalo_api_config_tree">
+            <field name="name">zalo.api.config.tree</field>
+            <field name="model">zalo.api.config</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="id_app"/>
+                    <field name="secrect_key_app"/>
+                    <field name="oa_key"/>
+                    <field name="access_token"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="zalo_api_config_action">
+            <field name="name">Zalo API Config</field>
+            <field name="res_model">zalo.api.config</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem name="Zalo API" id="zalo_api_root" parent="sales_team.menu_sale_config"/>
+
+        <menuitem name="Zalo Config" id="tts_zalo_api" parent="zalo_api_root"
+                  action="zalo_api_config_action" sequence="1"/>
+
+    </data>
+</odoo>

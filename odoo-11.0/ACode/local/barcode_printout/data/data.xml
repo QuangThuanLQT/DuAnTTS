@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="seq_product_template" model="ir.sequence">
+            <field name="name">Product Template Barcode</field>
+            <field name="code">product.template.barcode</field>
+            <field name="prefix"></field>
+            <field name="padding">5</field>
+            <field name="number_next_actual">10000</field>
+        </record>
+
+        <function id="fill_barcode" model="product.template" name="fill_barcode"/>
+    </data>
+</odoo>

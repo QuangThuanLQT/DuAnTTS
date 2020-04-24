@@ -1,0 +1,49 @@
+<odoo>
+    <data>
+        <record id="view_product_template_tree2" model="ir.ui.view">
+            <field name="name">product.template.gantt</field>
+            <field name="model">product.template</field>
+            <field name="type">tree2</field>
+            <field eval="2" name="priority"/>
+            <field name="arch" type="xml">
+                <tree2 date_start="date_start" date_stop="date_end" progress="progress" string="Tasks"
+                       group_by="categ_id" group_by_model="product.category" parent_group_by="parent_id">
+                    <field name="sequence" widget="handle"/>
+                    <field name="default_code"/>
+                    <field name="name"/>
+                    <field name="list_price"/>
+                    <field name="standard_price"/>
+                    <field name="categ_id"/>
+                    <field name="type"/>
+                    <field name="uom_id" options="{'no_open': True, 'no_create': True}" groups="product.group_uom"/>
+                    <field name="active" invisible="1"/>
+                </tree2>
+            </field>
+        </record>
+
+        <record id="product.product_template_action" model="ir.actions.act_window">
+            <field name="view_mode">tree2,tree,kanban,form</field>
+        </record>
+
+        <record id="product_category_form_view_inherit" model="ir.ui.view">
+            <field name="name">product.category.form</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//sheet" position="inside">
+                    <field name="product_ids" class="custom-group-by" group_by="categ_id" group_by_model="product.category" parent_group_by="parent_id">
+                        <tree date_start="date_start" date_stop="date_end" progress="progress" string="Tasks"
+                               group_by="categ_id" group_by_model="product.category" parent_group_by="parent_id">
+                            <field name="name"/>
+                            <field name="list_price"/>
+                            <field name="standard_price"/>
+                            <field name="categ_id"/>
+                            <field name="uom_id" options="{'no_open': True, 'no_create': True}" groups="product.group_uom"/>
+                            <field name="active" invisible="1"/>
+                        </tree>
+                    </field>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

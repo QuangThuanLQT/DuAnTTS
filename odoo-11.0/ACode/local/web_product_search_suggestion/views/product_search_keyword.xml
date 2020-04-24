@@ -1,0 +1,63 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="product_search_keyword_form_view">
+            <field name="name">product.search.keyword.form</field>
+            <field name="model">product.search.keyword</field>
+            <field name="arch" type="xml">
+                <form >
+                    <sheet>
+                        <group>
+                            <field name="key" attrs="{'required':[('type', '=', 'key')]}"/>
+                            <field name="product_ids" widget="many2many_tags" attrs="{'required':[('type', '=', 'key')]}"/>
+                            <field name="sequence" attrs="{'required':[('type', '=', 'key')]}"/>
+                            <field name="count"/>
+                            <field name="type" invisible="True"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="product_search_keyword_form_view2">
+            <field name="name">product.search.keyword.form</field>
+            <field name="model">product.search.keyword</field>
+            <field name="arch" type="xml">
+                <form >
+                    <sheet>
+                        <group>
+                            <field name="key" attrs="{'required':[('type', '=', 'key')]}"/>
+                            <field name="type" invisible="True"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="product_search_keyword_tree_view">
+            <field name="name">product.search.keyword.tree</field>
+            <field name="model">product.search.keyword</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="sequence" widget="handle"/>
+                    <!--<field name="sequence"/>-->
+                    <field name="key"/>
+                    <field name="count"/>
+                    <field name="product_ids" widget="many2many_tags"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="product_search_keyword_action">
+            <field name="name">Key Word</field>
+            <field name="res_model">product.search.keyword</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type', '=', 'key')]</field>
+            <field name="context">{'default_type': 'key'}</field>
+        </record>
+
+        <menuitem id="product_search_keyword_menu" name="Search by Keyword"
+                  parent="website_sale.menu_ecommerce_settings"
+                  action="product_search_keyword_action"/>
+    </data>
+</odoo>

@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+        <record id="view_picking_form" model="ir.ui.view">
+            <field name="name">stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form" />
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="create_uid"/>
+            		<field name="shipper"/>
+                    <field name="receiver"/>
+                    <field name="approval"/>
+            	</field>
+                <field name="min_date" position="after">
+                    <field name="done_date"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

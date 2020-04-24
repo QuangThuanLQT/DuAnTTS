@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="nhat_ky_chung_view">
+            <field name="name">tts_journal_entry.nhatkychung.tree</field>
+            <field name="model">tts_journal_entry.nhatkychung</field>
+            <field name="arch" type="xml">
+                <tree string="" editable='bottom'>
+                    <field name="date" string="Ngày ghi sổ"/>
+                    <field name="dien_giai" string="Diễn giải"/>
+                    <field name="tai_khoan_no" string="Tài khoản nợ"/>
+                    <field name="tai_khoan_co" string="Tài khoản có"/>
+                    <!--<field name="group_level_1"/>-->
+                    <!--<field name="group_level_2"/>-->
+                    <!--<field name="group_level_3"/>-->
+                    <field name="ma_doi_tuong_no" string="Mã đối tượng nợ"/>
+                    <field name="ma_doi_tuong_co" string="Mã đối tượng có"/>
+                    <field name="so_tien" string="Số tiền"/>
+                    <field name="trang_thai" string="Trạng thái"/>
+                    <button name="action_confirm" type="object" string="Apply" attrs="{'invisible': [('trang_thai', '=','da_vao_so')]}"></button>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="nhatkychung_action">
+            <field name="name">Nhật ký chung</field>
+            <field name="res_model">tts_journal_entry.nhatkychung</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+        <menuitem id="nhatkychung_menu" name="Nhật ký chung"
+                  parent="account.menu_finance_entries"
+                  action="nhatkychung_action" sequence="1"/>
+    </data>
+</odoo>

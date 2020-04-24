@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+        <!--<record model="ir.ui.view" id="product_tree_ihr">-->
+            <!--<field name="name">product.product.tree.ihr</field>-->
+            <!--<field name="model">product.product</field>-->
+            <!--<field name="inherit_id" ref="tts_modifier_product.view_stock_product_tree_inheirt"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<xpath expr="//tree/field[@name='standard_price']" position="replace">-->
+                    <!--<field name="standard_price" string="Giá vốn" groups="tts_modifier_access_right.group_giam_doc_kd, tts_modifier_access_right.group_nv_mua_hang,-->
+                         <!--tts_modifier_access_right.group_nv_nganh_hang, tts_modifier_access_right.group_ketoan_kho, tts_modifier_access_right.group_ketoan_tonghop"/>-->
+                <!--</xpath>-->
+            <!--</field>-->
+        <!--</record>-->
+    </data>
+</odoo>

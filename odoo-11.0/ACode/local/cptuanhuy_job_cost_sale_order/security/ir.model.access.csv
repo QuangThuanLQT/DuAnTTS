@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cptuanhuy_job_cost_sale_order_cptuanhuy_job_cost_sale_order,cptuanhuy_job_cost_sale_order.cptuanhuy_job_cost_sale_order,model_cptuanhuy_job_cost_sale_order_cptuanhuy_job_cost_sale_order,,1,0,0,0

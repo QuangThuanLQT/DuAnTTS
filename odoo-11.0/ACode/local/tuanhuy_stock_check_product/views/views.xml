@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--# SHOW POP UP-->
+        <record id="update_date_stock_view" model="ir.ui.view">
+            <field name="name">Kiểm tra dịch chuyển Sản phẩm</field>
+            <field name="model">tuanhuy.stock.check_product</field>
+            <field name="arch" type="xml">
+                <form>
+                    <label string=""/>  <!-- binding for inherited views -->
+                    <group>
+                        <group>
+                            <field name="start_date" string="Ngày bắt đầu"/>
+                        </group>
+                        <group>
+                            <field name="end_date" string="Ngày kết thúc"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="print_excel_check_product" string="In" type="object" default_focus="1"
+                                class="oe_highlight"/>
+                        or
+                        <button string="Huỷ" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="update_date_stock_action" model="ir.actions.act_window">
+            <field name="name">Kiểm tra dịch chuyển Sản phẩm</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">tuanhuy.stock.check_product</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="update_date_stock_menu" name="Kiểm tra dịch chuyển Sản phẩm" parent="stock.menu_warehouse_config" action="update_date_stock_action"/>
+    </data>
+</odoo>

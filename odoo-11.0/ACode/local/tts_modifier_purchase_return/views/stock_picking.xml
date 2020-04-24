@@ -1,0 +1,17 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_picking_form_purchase_readon">
+            <field name="name">stock.picking.inherit.purchase_reasone</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/group/group[1]" position="inside">
+                    <field name="purchase_reason_cancel"
+                           attrs="{'invisible' : ['|', ('purchase_reason_cancel', '=', False), ('state', '!=', 'cancel')]}"/>
+                    <field name="user_return_id"
+                           attrs="{'invisible' : [('user_return_id', '=', False)]}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

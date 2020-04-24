@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="confirm_picking_popup_form">
+            <field name="name">confirm.picking.popup.form</field>
+            <field name="model">confirm.picking.popup</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="date_start"/>
+                        </group>
+                        <group>
+                            <field name="date_end"/>
+                        </group>
+                        <!--<field name="state"/>-->
+                        <field name="picking_sub_ids" widget="one2many_tags"/>
+                        <field name="picking_ids" widget="many2many_tags" invisible="1"/>
+                    </group>
+                    <footer>
+                        <button name="confirm_picking" type="object" string="Xác nhận" class="oe_highlight"/>
+                        <button string="Huỷ" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="confirm_picking_popup_action">
+            <field name="name">Xác nhận kho</field>
+            <field name="res_model">confirm.picking.popup</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="confirm_picking_popup_menu" name="Xác nhận phiếu kho" parent="stock.menu_stock_warehouse_mgmt" action="confirm_picking_popup_action" sequence="30"/>
+    </data>
+</odoo>

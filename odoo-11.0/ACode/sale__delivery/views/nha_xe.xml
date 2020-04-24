@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="NhaXe_inherit_form_view">
+            <field name="name">nhaxemoi</field>
+            <field name="model">nha.xe.moi</field>
+            <field name="arch" type="xml">
+                <form string="NhaXe Form">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" default_focus="1" placeholder="Nhà xe" required="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="transporter_code"/>
+                                <field name="feosco_city_id"/>
+                                <field name="feosco_district_id"/>
+                                <field name="phuong_xa"/>
+                                <field name="address"/>
+                                <field name="phone_number"/>
+                            </group>
+                            <group>
+                                <field name="time_receive"/>
+                                <field name="ship_type"/>
+                                <field name="note"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="NhaXe_list_action">
+            <field name="name">Nhà xe</field>
+            <field name="res_model">nha.xe.moi</field>
+            <field name="view_type">form</field>
+
+        </record>
+
+        <menuitem id="NhaXe_menu" name="Nhà xe"
+                  parent="sale__delivery.Delivery_menu"
+                  action="NhaXe_list_action"/>
+
+        <record model="ir.ui.view" id="NhaXe_1_inherit_form_view">
+            <field name="name">nhaxemoi</field>
+            <field name="model">nha.xe.moi</field>
+            <field name="arch" type="xml">
+                <tree string="Nha xe">
+                    <field name="name"/>
+                    <field name="transporter_code"/>
+                    <field name="address"/>
+                    <field name="phone_number"/>
+                    <field name="phuong_xa"/>
+                    <field name="feosco_district_id"/>
+                    <field name="feosco_city_id"/>
+                    <field name="time_receive"/>
+                    <field name="ship_type"/>
+                    <field name="note"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>
+

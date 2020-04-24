@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_prinizi_picking_print_history_list_prinizi_picking_print_history_list,prinizi_picking_print_history_list.prinizi_picking_print_history_list,model_prinizi_picking_print_history_list_prinizi_picking_print_history_list,,1,0,0,0

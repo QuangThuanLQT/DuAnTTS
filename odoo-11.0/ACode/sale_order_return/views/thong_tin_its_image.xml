@@ -1,0 +1,113 @@
+<odoo>
+    <data>
+        <record id="view_order_form_its_ihr" model="ir.ui.view">
+            <field name="name">sale_order_return</field>
+            <field name="model">sale.order.return</field>
+            <field name="inherit_id" ref="sale_order_return.order_return_list"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/notebook/page[1]" position="after">
+                    <page string="Thông tin in tên số và hình ảnh">
+                        <div class="col-xs-2 pull-right">
+                            <label for="check_all_tt_its"/>
+                            <field name="check_all_tt_its"/>
+                        </div>
+                        <field name="thong_tin_its">
+                            <tree editable="bottom">
+                                <field name="product_from_id"/>
+                                <field name="lung_tren"/>
+                                <field name="lung_giua"/>
+                                <field name="lung_duoi"/>
+                                <field name="in_hinh"/>
+                            </tree>
+                        </field>
+                           <div class="col-xs-12">
+                                <div class="col-xs-3 pull-right">
+                                    <group>
+                                        <field name="phi_its"/>
+                                    </group>
+                                </div>
+                            </div>
+
+
+                        <separator string="Thông tin in thêm tên số"/>
+                        <field name="thong_tin_them_its_ids">
+                            <tree editable="bottom">
+                                <field name="product_id"/>
+                                <field name="vi_tri_in"/>
+                                <field name="kich_thuot_in"/>
+                                <field name="dien_tich_in"/>
+                                <field name="noi_dung_in"/>
+                            </tree>
+                            <div class="col-xs-12">
+                                <div class="col-xs-3 pull-right">
+                                    <group>
+                                        <field name="phi_them_its"/>
+                                    </group>
+                                </div>
+                            </div>
+                        </field>
+                         <div class="col-xs-12">
+                                <div class="col-xs-3 pull-right">
+                                    <group>
+                                        <field name="phi_them_its"/>
+                                    </group>
+                                </div>
+                            </div>
+
+
+                        <separator string="Thông tin in hình"/>
+                        <field name="thong_tin_in_hinh_ids">
+                            <tree editable="bottom">
+                                <field name="product_id"/>
+                                <field name="vi_tri_in"/>
+                                <field name="chat_lieu_in_hinh"/>
+                                <field name="kich_thuot_in"/>
+                                <field name="dien_tich_in"/>
+                                <field name="ten_hinh"/>
+                            </tree>
+                        </field>
+                         <div class="col-xs-12">
+                                <div class="col-xs-3 pull-right">
+                                    <group>
+                                        <field name="phi_in_hinh"/>
+                                    </group>
+                                </div>
+                            </div>
+
+
+                        <separator string="Cấu hình thông số in tên số"/>
+                        <field name="config_thong_tin_its_ids">
+                            <tree editable="bottom">
+                                <field name="product_tmpl_id"/>
+                                <field name="font_chu_so"/>
+                                <field name="lung_ao"/>
+                                <field name="mat_truoc_ao"/>
+                                <field name="tay_ao"/>
+                                <field name="ong_quan"/>
+                            </tree>
+                        </field>
+                          <div class="col-xs-12">
+                                <div class="col-xs-3 pull-right">
+                                    <group>
+                                        <field name="tong_phi_in"/>
+                                    </group>
+                                </div>
+                            </div>
+
+
+                        <separator string="Hình ảnh"/>
+                        <div class="col-xs-4">
+                            <group>
+                                <field name="note_image" string="Ghi chú"/>
+                            </group>
+                        </div>
+                        <div class="col-xs-8">
+                        </div>
+                        <field class="col-xs-12" name="image_print" widget="many2many_binary">
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

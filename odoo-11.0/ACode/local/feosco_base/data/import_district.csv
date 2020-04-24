@@ -1,0 +1,709 @@
+Name,Code,City
+An Phú,9,An Giang
+Châu Đốc,104,An Giang
+Châu Phú,106,An Giang
+Châu Thành,107,An Giang
+Chợ Mới,125,An Giang
+Long Xuyên,344,An Giang
+Phú Tân,447,An Giang
+Tân Châu,537,An Giang
+Thoại Sơn,590,An Giang
+Tịnh Biên,615,An Giang
+Tri Tôn,628,An Giang
+Tân Thành,549,Bà Rịa-Vũng Tàu
+Vũng Tàu,687,Bà Rịa-Vũng Tàu
+Xuyên Mộc,691,Bà Rịa-Vũng Tàu
+Bà Rịa,20,Bà Rịa-Vũng Tàu
+Châu Đức,105,Bà Rịa-Vũng Tàu
+Côn Đảo,134,Bà Rịa-Vũng Tàu
+Đất Đỏ,173,Bà Rịa-Vũng Tàu
+Long Điền,338,Bà Rịa-Vũng Tàu
+Bàu Bàng,33,Bình Dương
+Bắc Tân Uyên,42,Bình Dương
+Bến Cát,46,Bình Dương
+Dầu Tiếng,143,Bình Dương
+Dĩ An,145,Bình Dương
+Phú Giáo,439,Bình Dương
+Tân Uyên,552,Bình Dương
+Thủ Dầu Một,596,Bình Dương
+Thuận An,599,Bình Dương
+Bình Long,57,Bình Phước
+Bù Đăng,67,Bình Phước
+Bù Đốp,68,Bình Phước
+Bù Gia Mập,69,Bình Phước
+Chơn Thành,126,Bình Phước
+Đồng Phú,194,Bình Phước
+Đồng Xoài,196,Bình Phước
+Hớn Quản,268,Bình Phước
+Lộc Ninh,347,Bình Phước
+Phước Long,463,Bình Phước
+Bắc Bình,34,Bình Thuận
+Đức Linh,203,Bình Thuận
+Hàm Tân,243,Bình Thuận
+Hàm Thuận Bắc,244,Bình Thuận
+Hàm Thuận Nam,245,Bình Thuận
+La Gi,318,Bình Thuận
+Phan Thiết,433,Bình Thuận
+Phú Quý,445,Bình Thuận
+Tánh Linh,533,Bình Thuận
+Tuy Phong,640,Bình Thuận
+An Lão,6,Bình Định
+An Nhơn,8,Bình Định
+Hoài Ân,256,Bình Định
+Hoài Nhơn,258,Bình Định
+Phù Cát,453,Bình Định
+Phù Mỹ,455,Bình Định
+Qui Nhơn,494,Bình Định
+Tây Sơn,559,Bình Định
+Tuy Phước,641,Bình Định
+Vân Canh,660,Bình Định
+Vĩnh Thạnh,677,Bình Định
+Bạc Liêu,23,Bạc Liêu
+Đông Hải,187,Bạc Liêu
+Giá Rai,215,Bạc Liêu
+Hoà Bình,252,Bạc Liêu
+Hồng Dân,271,Bạc Liêu
+Phước Long,464,Bạc Liêu
+Vĩnh Lợi,676,Bạc Liêu
+Bắc Giang,35,Bắc Giang
+Hiệp Hòa,249,Bắc Giang
+Lạng Giang,325,Bắc Giang
+Lục Nam,348,Bắc Giang
+Lục Ngạn,349,Bắc Giang
+Sơn Động,516,Bắc Giang
+Tân Yên,554,Bắc Giang
+Việt Yên,667,Bắc Giang
+Yên Dũng,696,Bắc Giang
+Yên Thế,707,Bắc Giang
+Ba Bể,13,Bắc Kạn
+Bạch Thông,25,Bắc Kạn
+Bắc Kạn,37,Bắc Kạn
+Chợ Đồn,121,Bắc Kạn
+Chợ Mới,124,Bắc Kạn
+Na Rì,386,Bắc Kạn
+Ngân Sơn,401,Bắc Kạn
+Pác Nặm,431,Bắc Kạn
+Bắc Ninh,39,Bắc Ninh
+Gia Bình,210,Bắc Ninh
+Lương Tài,352,Bắc Ninh
+Quế Võ,493,Bắc Ninh
+Thuận Thành,603,Bắc Ninh
+Tiên Du,607,Bắc Ninh
+Từ Sơn,646,Bắc Ninh
+Yên Phong,704,Bắc Ninh
+Ba Tri,18,Bến Tre
+Bến Tre,49,Bến Tre
+Bình Đại,53,Bến Tre
+Châu Thành,108,Bến Tre
+Chợ Lách,123,Bến Tre
+Giồng Trôm,220,Bến Tre
+Mỏ Cày Bắc,364,Bến Tre
+Mỏ Cày Nam,365,Bến Tre
+Thạnh Phú,584,Bến Tre
+Bảo Lạc,26,Cao Bằng
+Bảo Lâm,27,Cao Bằng
+Cao Bằng,84,Cao Bằng
+Hà Quảng,229,Cao Bằng
+Hạ Lang,234,Cao Bằng
+Hòa An,251,Cao Bằng
+Nguyên Bình,413,Cao Bằng
+Phục Hòa,461,Cao Bằng
+Quảng Uyên,477,Cao Bằng
+Thạch An,561,Cao Bằng
+Thông Nông,591,Cao Bằng
+Trà Lĩnh,618,Cao Bằng
+Trùng Khánh,631,Cao Bằng
+Cà Mau,73,Cà Mau
+Cái Nước,77,Cà Mau
+Đầm Dơi,170,Cà Mau
+Năm Căn,395,Cà Mau
+Ngọc Hiển,408,Cà Mau
+Phú Tân,448,Cà Mau
+Thới Bình,594,Cà Mau
+Trần Văn Thời,627,Cà Mau
+U Minh,648,Cà Mau
+Bình Thủy,64,Cần Thơ
+Cái Răng,78,Cần Thơ
+Cờ Đỏ,136,Cần Thơ
+Ninh Kiều,424,Cần Thơ
+Ô Môn,430,Cần Thơ
+Phong Điền,435,Cần Thơ
+Thốt Nốt,593,Cần Thơ
+Thới Lai,595,Cần Thơ
+Vĩnh Thạnh,678,Cần Thơ
+An Khê,4,Gia Lai
+Ayun Pa,11,Gia Lai
+Chư Păh,127,Gia Lai
+Chư Prông,128,Gia Lai
+Chư Pưh,129,Gia Lai
+Chư Sê,130,Gia Lai
+Đăk Đoa,160,Gia Lai
+Đắk Pơ,161,Gia Lai
+Đức Cơ,200,Gia Lai
+Ia Grai,285,Gia Lai
+Ia Pa,286,Gia Lai
+KBang,287,Gia Lai
+Kông Chro,307,Gia Lai
+Krông Pa,313,Gia Lai
+Mang Yang,358,Gia Lai
+Phú Thiện,449,Gia Lai
+Pleiku,466,Gia Lai
+Cao Phong,88,Hòa Bình
+Đà Bắc,154,Hòa Bình
+Hoà Bình,253,Hòa Bình
+Kim Bôi,299,Hòa Bình
+Kỳ Sơn,316,Hòa Bình
+Lạc Sơn,320,Hòa Bình
+Lạc Thủy,321,Hòa Bình
+Lương Sơn,351,Hòa Bình
+Mai Châu,355,Hòa Bình
+Tân Lạc,543,Hòa Bình
+Yên Thủy,708,Hòa Bình
+Bắc Mê,38,Hà Giang
+Bắc Quang,40,Hà Giang
+Đồng Văn,195,Hà Giang
+Hà Giang,228,Hà Giang
+Hoàng Su Phì,263,Hà Giang
+Mèo Vạc,360,Hà Giang
+Quản Bạ,469,Hà Giang
+Quang Bình,470,Hà Giang
+Vị Xuyên,665,Hà Giang
+Xín Mần,688,Hà Giang
+Yên Minh,701,Hà Giang
+Bình Lục,58,Hà Nam
+Duy Tiên,148,Hà Nam
+Kim Bảng,298,Hà Nam
+Lý Nhân,353,Hà Nam
+Phủ Lý,458,Hà Nam
+Thanh Liêm,576,Hà Nam
+Ba Đình,15,Hà Nội
+Ba Vì,19,Hà Nội
+Bắc Từ Liêm,44,Hà Nội
+Cầu Giấy,101,Hà Nội
+Chương Mỹ,131,Hà Nội
+Đan Phượng,162,Hà Nội
+Đông Anh,184,Hà Nội
+Đống Đa,198,Hà Nội
+Gia Lâm,211,Hà Nội
+Hà Đông,227,Hà Nội
+Hai Bà Trưng,236,Hà Nội
+Hoài Đức,257,Hà Nội
+Hoàn Kiếm,259,Hà Nội
+Hoàng Mai,260,Hà Nội
+Long Biên,337,Hà Nội
+Mê Linh,361,Hà Nội
+Mỹ Đức,379,Hà Nội
+Nam Từ Liêm,394,Hà Nội
+Phú Xuyên,452,Hà Nội
+Phúc Thọ,459,Hà Nội
+Quốc Oai,495,Hà Nội
+Sóc Sơn,508,Hà Nội
+Sơn Tây,521,Hà Nội
+Tây Hồ,557,Hà Nội
+Thạch Thất,564,Hà Nội
+Thanh Oai,578,Hà Nội
+Thanh Trì,581,Hà Nội
+Thanh Xuân,582,Hà Nội
+Thường Tín,605,Hà Nội
+Ứng Hòa,651,Hà Nội
+Can Lộc,82,Hà Tĩnh
+Cẩm Xuyên,97,Hà Tĩnh
+Đức Thọ,205,Hà Tĩnh
+Hà Tĩnh,231,Hà Tĩnh
+Hồng Lĩnh,272,Hà Tĩnh
+Hương Khê,279,Hà Tĩnh
+Hương Sơn,280,Hà Tĩnh
+Kỳ Anh,315,Hà Tĩnh
+Lộc Hà,346,Hà Tĩnh
+Nghi Xuân,403,Hà Tĩnh
+Thạch Hà,562,Hà Tĩnh
+Vũ Quang,683,Hà Tĩnh
+Ân Thi,12,Hưng Yên
+Hưng Yên,278,Hưng Yên
+Khoái Châu,291,Hưng Yên
+Kim Động,300,Hưng Yên
+Mỹ Hào,380,Hưng Yên
+Phù Cừ,454,Hưng Yên
+Tiên Lữ,610,Hưng Yên
+Văn Giang,655,Hưng Yên
+Văn Lâm,657,Hưng Yên
+Yên Mỹ,703,Hưng Yên
+Bình Giang,55,Hải Dương
+Cẩm Giàng,91,Hải Dương
+Chí Linh,119,Hải Dương
+Gia Lộc,212,Hải Dương
+Hải Dương,239,Hải Dương
+Kim Thành,302,Hải Dương
+Kinh Môn,303,Hải Dương
+Nam Sách,391,Hải Dương
+Ninh Giang,421,Hải Dương
+Thanh Hà,573,Hải Dương
+Thanh Miện,577,Hải Dương
+Tứ Kỳ,645,Hải Dương
+An Dương,3,Hải Phòng
+An Lão,5,Hải Phòng
+Bạch Long Vĩ,24,Hải Phòng
+Cát Hải,89,Hải Phòng
+Dương Kinh,151,Hải Phòng
+Đồ Sơn,183,Hải Phòng
+Hải An,237,Hải Phòng
+Hồng Bàng,270,Hải Phòng
+Kiến An,294,Hải Phòng
+Kiến Thụy,295,Hải Phòng
+Lê Chân,334,Hải Phòng
+Ngô Quyền,411,Hải Phòng
+Thuỷ Nguyên,604,Hải Phòng
+Tiên Lãng,609,Hải Phòng
+Vĩnh Bảo,669,Hải Phòng
+Châu Thành,110,Hậu Giang
+Châu Thành A,117,Hậu Giang
+Long Mỹ,341,Hậu Giang
+Ngã Bảy,399,Hậu Giang
+Phụng Hiệp,462,Hậu Giang
+Vị Thanh,663,Hậu Giang
+Vị Thủy,664,Hậu Giang
+Cam Lâm,79,Khánh Hoà
+Cam Ranh,81,Khánh Hoà
+Diên Khánh,146,Khánh Hoà
+Khánh Sơn,289,Khánh Hoà
+Khánh Vĩnh,290,Khánh Hoà
+Nha Trang,414,Khánh Hoà
+Ninh Hòa,423,Khánh Hoà
+Trường Sa,633,Khánh Hoà
+Vạn Ninh,652,Khánh Hoà
+An Biên,2,Kiên Giang
+An Minh,7,Kiên Giang
+Châu Thành,111,Kiên Giang
+Giang Thành,216,Kiên Giang
+Giồng Riềng,219,Kiên Giang
+Gò Quao,225,Kiên Giang
+Hà Tiên,230,Kiên Giang
+Hòn Đất,267,Kiên Giang
+Kiên Hải,292,Kiên Giang
+Kiên Lương,293,Kiên Giang
+Phú Quốc,446,Kiên Giang
+Rạch Giá,501,Kiên Giang
+Tân Hiệp,539,Kiên Giang
+U Minh Thượng,649,Kiên Giang
+Vĩnh Thuận,679,Kiên Giang
+Đắk Glei,163,Kon Tum
+Đắk Hà,165,Kon Tum
+Đăk Tô,169,Kon Tum
+Kon Plông,304,Kon Tum
+Kon Rẫy,305,Kon Tum
+Kon Tum,306,Kon Tum
+Ngọc Hồi,409,Kon Tum
+Sa Thầy,504,Kon Tum
+Tu Mơ Rông,636,Kon Tum
+Lai Châu,322,Lai Châu
+Mường Tè,378,Lai Châu
+Nậm Nhùn,397,Lai Châu
+Phong Thổ,436,Lai Châu
+Sìn Hồ,507,Lai Châu
+Tam Đường,529,Lai Châu
+Tân Uyên,553,Lai Châu
+Than Uyên,569,Lai Châu
+Bến Lức,48,Long An
+Cần Đước,98,Long An
+Cần Giuộc,100,Long An
+Châu Thành,112,Long An
+Đức Hòa,201,Long An
+Đức Huệ,202,Long An
+Kiến Tường,297,Long An
+Mộc Hóa,369,Long An
+Tân An,534,Long An
+Tân Hưng,541,Long An
+Tân Thạnh,550,Long An
+Tân Trụ,551,Long An
+Thạnh Hóa,583,Long An
+Thủ Thừa,598,Long An
+Vĩnh Hưng,672,Long An
+Bảo Thắng,30,Lào Cai
+Bảo Yên,31,Lào Cai
+Bát Xát,32,Lào Cai
+Bắc Hà,36,Lào Cai
+Lào Cai,327,Lào Cai
+Mường Khương,373,Lào Cai
+Sa Pa,503,Lào Cai
+Si Ma Cai,506,Lào Cai
+Văn Bàn,653,Lào Cai
+Bảo Lâm,28,Lâm Đồng
+Bảo Lộc,29,Lâm Đồng
+Cát Tiên,90,Lâm Đồng
+Di Linh,144,Lâm Đồng
+Đà Lạt,155,Lâm Đồng
+Đạ Huoai,156,Lâm Đồng
+Đạ Tẻh,157,Lâm Đồng
+Đam Rông,172,Lâm Đồng
+Đơn Dương,199,Lâm Đồng
+Đức Trọng,206,Lâm Đồng
+Lạc Dương,319,Lâm Đồng
+Lâm Hà,330,Lâm Đồng
+Bắc Sơn,41,Lạng Sơn
+Bình Gia,54,Lạng Sơn
+Cao Lộc,87,Lạng Sơn
+Chi Lăng,118,Lạng Sơn
+Đình Lập,178,Lạng Sơn
+Hữu Lũng,284,Lạng Sơn
+Lạng Sơn,326,Lạng Sơn
+Lộc Bình,345,Lạng Sơn
+Tràng Định,622,Lạng Sơn
+Vãn Lãng,656,Lạng Sơn
+Văn Quan,658,Lạng Sơn
+Giao Thủy,217,Nam Định
+Hải Hậu,241,Nam Định
+Mỹ Lộc,381,Nam Định
+Nam Định,388,Nam Định
+Nam Trực,393,Nam Định
+Nghĩa Hưng,406,Nam Định
+Trực Ninh,632,Nam Định
+Vụ Bản,685,Nam Định
+Xuân Trường,690,Nam Định
+Ý Yên,692,Nam Định
+Anh Sơn,10,Nghệ An
+Con Cuông,132,Nghệ An
+Cửa Lò,142,Nghệ An
+Diễn Châu,147,Nghệ An
+Đô Lương,182,Nghệ An
+Hoàng Mai,261,Nghệ An
+Hưng Nguyên,277,Nghệ An
+Kỳ Sơn,317,Nghệ An
+Nam Đàn,387,Nghệ An
+Nghi Lộc,402,Nghệ An
+Nghĩa Đàn,404,Nghệ An
+Quế Phong,491,Nghệ An
+Quỳ Châu,496,Nghệ An
+Quỳ Hợp,497,Nghệ An
+Quỳnh Lưu,498,Nghệ An
+Tân Kỳ,542,Nghệ An
+Thái Hòa,566,Nghệ An
+Thanh Chương,572,Nghệ An
+Tương Dương,647,Nghệ An
+Vinh,668,Nghệ An
+Yên Thành,706,Nghệ An
+Gia Viễn,214,Ninh Bình
+Hoa Lư,250,Ninh Bình
+Kim Sơn,301,Ninh Bình
+Nho Quan,416,Ninh Bình
+Ninh Bình,420,Ninh Bình
+Tam Điệp,528,Ninh Bình
+Yên Khánh,698,Ninh Bình
+Yên Mô,702,Ninh Bình
+Bác Ái,22,Ninh Thuận
+Ninh Hải,422,Ninh Thuận
+Ninh Phước,425,Ninh Thuận
+Ninh Sơn,426,Ninh Thuận
+Phan Rang-Tháp Chàm,432,Ninh Thuận
+Thuận Bắc,600,Ninh Thuận
+Thuận Nam,602,Ninh Thuận
+Cẩm Khê,92,Phú Thọ
+Đoan Hùng,181,Phú Thọ
+Hạ Hòa,233,Phú Thọ
+Lâm Thao,331,Phú Thọ
+Phú Thọ,450,Phú Thọ
+Phù Ninh,456,Phú Thọ
+Tam Nông,532,Phú Thọ
+Tân Sơn,548,Phú Thọ
+Thanh Ba,570,Phú Thọ
+Thanh Sơn,579,Phú Thọ
+Thanh Thủy,580,Phú Thọ
+Việt Trì,666,Phú Thọ
+Yên Lập,700,Phú Thọ
+Đông Hòa,188,Phú Yên
+Đồng Xuân,197,Phú Yên
+Phú Hòa,440,Phú Yên
+Sông Cầu,510,Phú Yên
+Sông Hinh,512,Phú Yên
+Sơn Hòa,519,Phú Yên
+Tây Hòa,556,Phú Yên
+Tuy An,637,Phú Yên
+Tuy Hòa,639,Phú Yên
+Ba Đồn,16,Quảng Bình
+Bố Trạch,66,Quảng Bình
+Đồng Hới,192,Quảng Bình
+Lệ Thủy,335,Quảng Bình
+Minh Hóa,362,Quảng Bình
+Quảng Ninh,473,Quảng Bình
+Quảng Trạch,474,Quảng Bình
+Tuyên Hóa,642,Quảng Bình
+Bắc Trà My,43,Quảng Nam
+Duy Xuyên,149,Quảng Nam
+Đại Lộc,158,Quảng Nam
+Điện Bàn,174,Quảng Nam
+Đông Giang,185,Quảng Nam
+Hiệp Đức,248,Quảng Nam
+Hội An,269,Quảng Nam
+Nam Giang,390,Quảng Nam
+Nam Trà My,392,Quảng Nam
+Nông Sơn,428,Quảng Nam
+Núi Thành,429,Quảng Nam
+Phú Ninh,444,Quảng Nam
+Phước Sơn,465,Quảng Nam
+Quế Sơn,492,Quảng Nam
+Tam Kỳ,530,Quảng Nam
+Tây Giang,555,Quảng Nam
+Thăng Bình,587,Quảng Nam
+Tiên Phước,611,Quảng Nam
+Ba Tơ,17,Quảng Ngãi
+Bình Sơn,60,Quảng Ngãi
+Đức Phổ,204,Quảng Ngãi
+Lý Sơn,354,Quảng Ngãi
+Minh Long,363,Quảng Ngãi
+Mộ Đức,367,Quảng Ngãi
+Nghĩa Hành,405,Quảng Ngãi
+Quảng Ngãi,472,Quảng Ngãi
+Sơn Hà,518,Quảng Ngãi
+Sơn Tây,522,Quảng Ngãi
+Sơn Tịnh,523,Quảng Ngãi
+Tây Trà,560,Quảng Ngãi
+Trà Bồng,616,Quảng Ngãi
+Tư Nghĩa,644,Quảng Ngãi
+Ba Chẽ,14,Quảng Ninh
+Bình Liêu,56,Quảng Ninh
+Cẩm Phả,95,Quảng Ninh
+Cô Tô,133,Quảng Ninh
+Đầm Hà,171,Quảng Ninh
+Đông Triều,191,Quảng Ninh
+Hạ Long,235,Quảng Ninh
+Hải Hà,240,Quảng Ninh
+Hoành Bồ,264,Quảng Ninh
+Móng Cái,366,Quảng Ninh
+Quảng Yên,476,Quảng Ninh
+Tiên Yên,612,Quảng Ninh
+Uông Bí,650,Quảng Ninh
+Vân Đồn,661,Quảng Ninh
+Cam Lộ,80,Quảng Trị
+Cồn Cỏ,135,Quảng Trị
+Đa Krông,153,Quảng Trị
+Đông Hà,186,Quảng Trị
+Gio Linh,218,Quảng Trị
+Hải Lăng,242,Quảng Trị
+Hướng Hóa,283,Quảng Trị
+Quảng Trị,475,Quảng Trị
+Triệu Phong,629,Quảng Trị
+Vĩnh Linh,673,Quảng Trị
+Châu Thành,113,Sóc Trăng
+Cù Lao Dung,137,Sóc Trăng
+Kế Sách,288,Sóc Trăng
+Long Phú,342,Sóc Trăng
+Mỹ Tú,383,Sóc Trăng
+Mỹ Xuyên,384,Sóc Trăng
+Ngã Năm,400,Sóc Trăng
+Sóc Trăng,509,Sóc Trăng
+Thạnh Trị,585,Sóc Trăng
+Trần Đề,626,Sóc Trăng
+Vĩnh Châu,670,Sóc Trăng
+Bắc Yên,45,Sơn La
+Mai Sơn,356,Sơn La
+Mộc Châu,368,Sơn La
+Mường La,374,Sơn La
+Phù Yên,457,Sơn La
+Quỳnh Nhai,499,Sơn La
+Sông Mã,514,Sơn La
+Sốp Cộp,515,Sơn La
+Sơn La,520,Sơn La
+Thuận Châu,601,Sơn La
+Vân Hồ,662,Sơn La
+Yên Châu,695,Sơn La
+Bá Thước,21,Thanh Hoá
+Bỉm Sơn,51,Thanh Hoá
+Cẩm Thủy,96,Thanh Hoá
+Đông Sơn,190,Thanh Hoá
+Hà Trung,232,Thanh Hoá
+Hậu Lộc,247,Thanh Hoá
+Hoằng Hóa,265,Thanh Hoá
+Lang Chánh,324,Thanh Hoá
+Mường Lát,375,Thanh Hoá
+Nga Sơn,398,Thanh Hoá
+Ngọc Lặc,410,Thanh Hoá
+Như Thanh,418,Thanh Hoá
+Như Xuân,419,Thanh Hoá
+Nông Cống,427,Thanh Hoá
+Quan Hóa,467,Thanh Hoá
+Quan Sơn,468,Thanh Hoá
+Quảng Xương,478,Thanh Hoá
+Sầm Sơn,505,Thanh Hoá
+Thạch Thành,563,Thanh Hoá
+Thanh Hóa,574,Thanh Hoá
+Thiệu Hóa,588,Thanh Hoá
+Thọ Xuân,589,Thanh Hoá
+Thường Xuân,606,Thanh Hoá
+Tĩnh Gia,614,Thanh Hoá
+Triệu Sơn,630,Thanh Hoá
+Vĩnh Lộc,675,Thanh Hoá
+Yên Định,697,Thanh Hoá
+Đông Hưng,189,Thái Bình
+Hưng Hà,276,Thái Bình
+Kiến Xương,296,Thái Bình
+Quỳnh Phụ,500,Thái Bình
+Thái Bình,565,Thái Bình
+Thái Thụy,568,Thái Bình
+Tiền Hải,608,Thái Bình
+Vũ Thư,684,Thái Bình
+Đại Từ,159,Thái Nguyên
+Định Hóa,179,Thái Nguyên
+Đồng Hỷ,193,Thái Nguyên
+Phổ Yên,437,Thái Nguyên
+Phú Bình,438,Thái Nguyên
+Phú Lương,442,Thái Nguyên
+Sông Công,511,Thái Nguyên
+Thái Nguyên,567,Thái Nguyên
+Võ Nhai,682,Thái Nguyên
+Huế,275,Thừa Thiên-Huế
+Hương Thủy,281,Thừa Thiên-Huế
+Hương Trà,282,Thừa Thiên-Huế
+Nam Đông,389,Thừa Thiên-Huế
+A Lưới,1,Thừa Thiên-Huế
+Phong Điền,434,Thừa Thiên-Huế
+Phú Lộc,441,Thừa Thiên-Huế
+Phú Vang,451,Thừa Thiên-Huế
+Quảng Điền,471,Thừa Thiên-Huế
+H. Cai Lậy,74,Tiền Giang
+TX. Cai Lậy,75,Tiền Giang
+Cái Bè,76,Tiền Giang
+Châu Thành,115,Tiền Giang
+Chợ Gạo,122,Tiền Giang
+Gò Công,221,Tiền Giang
+Gò Công Đông,222,Tiền Giang
+Gò Công Tây,223,Tiền Giang
+Mỹ Tho,382,Tiền Giang
+Tân Phú Đông,546,Tiền Giang
+Tân Phước,547,Tiền Giang
+Bình Chánh,52,Hồ Chí Minh
+Bình Tân,61,Hồ Chí Minh
+Bình Thạnh,63,Hồ Chí Minh
+Cần Giờ,99,Hồ Chí Minh
+Củ Chi,138,Hồ Chí Minh
+Gò Vấp,226,Hồ Chí Minh
+Hóc Môn,266,Hồ Chí Minh
+Nhà Bè,415,Hồ Chí Minh
+Phú Nhuận,443,Hồ Chí Minh
+Quận 1,479,Hồ Chí Minh
+Quận 2,480,Hồ Chí Minh
+Quận 3,481,Hồ Chí Minh
+Quận 4,482,Hồ Chí Minh
+Quận 5,483,Hồ Chí Minh
+Quận 6,484,Hồ Chí Minh
+Quận 7,485,Hồ Chí Minh
+Quận 8,486,Hồ Chí Minh
+Quận 9,487,Hồ Chí Minh
+Quận 10,488,Hồ Chí Minh
+Quận 11,489,Hồ Chí Minh
+Quận 12,490,Hồ Chí Minh
+Tân Bình,536,Hồ Chí Minh
+Tân Phú,545,Hồ Chí Minh
+Thủ Đức,597,Hồ Chí Minh
+Càng Long,83,Trà Vinh
+Cầu Kè,102,Trà Vinh
+Cầu Ngang,103,Trà Vinh
+Châu Thành,116,Trà Vinh
+Duyên Hải,150,Trà Vinh
+Tiểu Cần,613,Trà Vinh
+Trà Cú,617,Trà Vinh
+Trà Vinh,620,Trà Vinh
+Chiêm Hóa,120,Tuyên Quang
+Hàm Yên,246,Tuyên Quang
+Lâm Bình,329,Tuyên Quang
+Na Hang,385,Tuyên Quang
+Sơn Dương,517,Tuyên Quang
+Tuyên Quang,643,Tuyên Quang
+Yên Sơn,705,Tuyên Quang
+Bến Cầu,47,Tây Ninh
+Châu Thành,114,Tây Ninh
+Dương Minh Châu,152,Tây Ninh
+Gò Dầu,224,Tây Ninh
+Hòa Thành,254,Tây Ninh
+Tân Biên,535,Tây Ninh
+Tân Châu,538,Tây Ninh
+Tây Ninh,558,Tây Ninh
+Trảng Bàng,623,Tây Ninh
+Bình Minh,59,Vĩnh Long
+Bình Tân,62,Vĩnh Long
+Long Hồ,339,Vĩnh Long
+Mang Thít,357,Vĩnh Long
+Tam Bình,525,Vĩnh Long
+Trà Ôn,619,Vĩnh Long
+Vĩnh Long,674,Vĩnh Long
+Vũng Liêm,686,Vĩnh Long
+Bình Xuyên,65,Vĩnh Phúc
+Lập Thạch,333,Vĩnh Phúc
+Phúc Yên,460,Vĩnh Phúc
+Sông Lô,513,Vĩnh Phúc
+Tam Dương,526,Vĩnh Phúc
+Tam Đảo,527,Vĩnh Phúc
+Vĩnh Tường,680,Vĩnh Phúc
+Vĩnh Yên,681,Vĩnh Phúc
+Yên Lạc,699,Vĩnh Phúc
+Lục Yên,350,Yên Bái
+Mù Căng Chải,370,Yên Bái
+Nghĩa Lộ,407,Yên Bái
+Trạm Tấu,621,Yên Bái
+Trấn Yên,625,Yên Bái
+Văn Chấn,654,Yên Bái
+Văn Yên,659,Yên Bái
+Yên Bái,693,Yên Bái
+Yên Bình,694,Yên Bái
+Điện Biên,175,Điện Biên
+Điện Biên Đông,176,Điện Biên
+Điện Biên Phủ,177,Điện Biên
+Mường Ảng,371,Điện Biên
+Mường Chà,372,Điện Biên
+Mường Lay,376,Điện Biên
+Mường Nhé,377,Điện Biên
+Nậm Pồ,396,Điện Biên
+Tủa Chùa,634,Điện Biên
+Tuần Giáo,635,Điện Biên
+Cẩm Lệ,93,Đà Nẵng
+Hải Châu,238,Đà Nẵng
+Hoà Vang,255,Đà Nẵng
+Hoàng Sa,262,Đà Nẵng
+Liên Chiểu,336,Đà Nẵng
+Ngũ Hành Sơn,412,Đà Nẵng
+Sơn Trà,524,Đà Nẵng
+Thanh Khê,575,Đà Nẵng
+Buôn Đôn,70,Đắk Lắk
+Buôn Hồ,71,Đắk Lắk
+Buôn Ma Thuột,72,Đắk Lắk
+Cư Kuin,139,Đắk Lắk
+Cư M'gar,141,Đắk Lắk
+Ea H'leo,207,Đắk Lắk
+Ea Kar,208,Đắk Lắk
+Ea Súp,209,Đắk Lắk
+Krông Ana,308,Đắk Lắk
+Krông Bông,309,Đắk Lắk
+Krông Búk,310,Đắk Lắk
+Krông Năng,311,Đắk Lắk
+Krông Pắk,314,Đắk Lắk
+Lắk,328,Đắk Lắk
+M'Đrăk,359,Đắk Lắk
+Cư Jút,140,Đắk Nông
+Đăk Glong,164,Đắk Nông
+Đăk Mil,166,Đắk Nông
+Đăk R'Lấp,167,Đắk Nông
+Đăk Song,168,Đắk Nông
+Gia Nghĩa,213,Đắk Nông
+Krông Nô,312,Đắk Nông
+Tuy Đức,638,Đắk Nông
+Biên Hòa,50,Đồng Nai
+Cẩm Mỹ,94,Đồng Nai
+Định Quán,180,Đồng Nai
+Long Khánh,340,Đồng Nai
+Long Thành,343,Đồng Nai
+Nhơn Trạch,417,Đồng Nai
+Tân Phú,544,Đồng Nai
+Thống Nhất,592,Đồng Nai
+Trảng Bom,624,Đồng Nai
+Vĩnh Cửu,671,Đồng Nai
+Xuân Lộc,689,Đồng Nai
+Cao Lãnh,85,Đồng Tháp
+Cao Lãnh,86,Đồng Tháp
+Châu Thành,109,Đồng Tháp
+Hồng Ngự,273,Đồng Tháp
+Hồng Ngự,274,Đồng Tháp
+Lai Vung,323,Đồng Tháp
+Lấp Vò,332,Đồng Tháp
+Sa Đéc,502,Đồng Tháp
+Tam Nông,531,Đồng Tháp
+Tân Hồng,540,Đồng Tháp
+Thanh Bình,571,Đồng Tháp
+Tháp Mười,586,Đồng Tháp

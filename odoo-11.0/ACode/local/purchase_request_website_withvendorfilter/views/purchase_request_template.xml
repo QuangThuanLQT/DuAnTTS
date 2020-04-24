@@ -1,0 +1,181 @@
+<odoo>
+	<data>
+	<template id="form" page="True">
+    <t t-call="website.layout">
+        <div id="wrap" class="container">
+            <h1 class="text-center">
+                Purchase Request Form
+            </h1>
+            <div class="row">
+                <section id="forms">
+                    <form action="/request/detail" method="post" class="s_website_form form-horizontal container-fluid mt32" enctype="multipart/form-data">
+                        <div class="form-group form-field o_website_form_required_custom">
+                            <div class="col-md-3 col-sm-4 text-right">
+                                <strong>Vendor</strong>
+                            </div>
+                            <div class="col-md-7 col-sm-8">
+                            <select name="vendor" class="form-control o_website_form_input">
+ 								<t t-foreach="vendor_list" t-as="a">
+ 									<option t-att-value="'%s' % (a.id)" t-esc="a.name"/>
+ 								</t>
+ 							</select>
+                            </div>
+                        </div>
+                        <div class="form-group form-field o_website_form_required_custom">
+                            <div class="col-md-3 col-sm-4 text-right">
+                                <strong>Category</strong>
+                            </div>
+                            <div class="col-md-7 col-sm-8">
+                                <select name="category" class="form-control o_website_form_input">
+	 								<t t-foreach="category_list" t-as="b">
+	 									<option t-att-value="'%s' % (b.id)" t-esc="b.name"/>
+	 								</t>
+ 								</select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group form-field o_website_form_required_custom">
+                            <div class="col-md-3 col-sm-4 text-right">
+                                <strong>Product</strong>
+                            </div>
+                            <div class="col-md-7 col-sm-8">
+                                <select name="product" class="form-control o_website_form_input">
+	 								<t t-foreach="product" t-as="c">
+	 									<option t-att-value="'%s' % (c.id)" t-esc="c.name" style="width:300px;"/>
+	 								</t>
+ 								</select>
+                            </div>
+                        </div>
+                        <div class="form-group form-field">
+                            <div class="col-md-3 col-sm-4 text-right">
+                                <strong>Operation Types</strong>
+                            </div>
+                            <div class="col-md-7 col-sm-8">
+                                <select name="operation" class="form-control o_website_form_input">
+	 								<t t-foreach="operation_list" t-as="d">
+	 									<option t-att-value="'%s' % (d.id)" t-esc="d.name"/>
+	 								</t>
+ 								</select>
+                            </div>
+                        </div>
+                        <div class="form-group" align="center">
+                            <div class="col-md-offset-3 col-sm-offset-4 col-sm-8 col-md-7">
+                            	<button type="submit" name="submit" style="width:200px;">Fetch Products</button>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </t>
+</template>
+<template id="product_form" page="True">
+    <t t-call="website.layout">
+        <div id="wrap"  class="container">
+            <h1 class="text-center">
+                Purchase Request Form
+            </h1>
+            <div class="row">
+                <section id="forms">
+                    <form action="/request/success" method="post" class="s_website_form form-horizontal container-fluid mt32" enctype="multipart/form-data">
+                        <div class="form-group form-field o_website_form_required_custom">
+                            <div class="col-md-3 col-sm-4 text-right">
+                                <strong>Vendor</strong>
+                            </div>
+                            <div class="col-md-7 col-sm-8">
+                            <t t-foreach="partner" t-as="i">
+                            	<input class="form-control o_website_form_input" type="text" name="supplier" readonly="true" t-att-value="'%s'%(i.name)"/>
+                            </t>
+                            </div>
+                        </div>
+                        <div class="form-group form-field o_website_form_required_custom">
+                            <div class="col-md-3 col-sm-4 text-right">
+                                <strong>Category</strong>
+                            </div>
+                            <div class="col-md-7 col-sm-8">
+                            <t t-foreach="product_category" t-as="o">
+                            	<input class="form-control o_website_form_input" type="text" name="service" readonly="true" t-att-value="'%s'%(o.name)"/>
+                            </t>
+                            </div>
+                        </div>
+                        <div class="form-group form-field o_website_form_required_custom">
+                            <div class="col-md-3 col-sm-4 text-right">
+                                <strong>Product</strong>
+                            </div>
+                            <div class="col-md-7 col-sm-8">
+                                <select name="product" class="form-control o_website_form_input">
+	 								<t t-foreach="values" t-as="c">
+	 									<option t-att-value="'%s' % (c.id)" t-esc="c.name"/>
+	 								</t>
+ 								</select>
+                            </div>
+                        </div>
+                        <div class="form-group form-field">
+                            <div class="col-md-3 col-sm-4 text-right">
+                                <strong>Operation Types</strong>
+                            </div>
+                            <div class="col-md-7 col-sm-8">
+                            <t t-foreach="operation_types" t-as="j">
+                                <input class="form-control o_website_form_input" type="text" name="types" readonly="true" t-att-value="'%s'%(j.name)"/>
+                            </t>
+                            </div>
+                        </div>
+                        <div class="form-group" align="center">
+                            <div class="col-md-offset-3 col-sm-offset-4 col-sm-8 col-md-7">
+                            <button type="submit" name="submit" style="width:200px;">Submit</button><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><a t-attf-href="/request">Return To Home Page</a>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </t>
+</template>
+<template id="success" page="True">
+	<t t-call="website.layout">
+		<div class="container">
+ 			<table>
+ 				<tr>
+ 					<center><h2>Successfully Submitted......</h2></center>
+ 				</tr>
+ 			</table>
+ 			<script>
+    var doc = new jsPDF();
+    var specialElementHandlers = {
+        '#editor': function (element, renderer) {
+            return true;
+        }
+    };
+
+    $('#cmd').click(function () {
+        doc.fromHTML($('#content').html(), 15, 15, {
+            'width': 170,
+                'elementHandlers': specialElementHandlers
+        });
+        doc.save('sample-file.pdf');
+    });
+
+    // This code is collected but useful, click below to jsfiddle link.
+		</script>
+		<button name="submit" type="submit" id="btn">Download</button>
+		</div>
+	</t>
+</template>
+<template id="fail" page="True">
+	<t t-call="website.layout">
+				<div class="container">
+	 					<table>
+	 						<tr>
+	 							<center><h2>Order Time Elapsed</h2></center>
+	 						</tr>
+	 					</table>
+	 					<table>
+	 						<tr>
+	 							<center><a t-attf-href="/request">Return To Home Page</a></center>
+	 						</tr>
+	 					</table>
+				</div>
+	</t>
+</template>
+	</data>
+</odoo>

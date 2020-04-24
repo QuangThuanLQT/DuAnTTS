@@ -1,0 +1,82 @@
+<odoo>
+    <data>
+        <record id="mrp_routing_workcenter_tree_view_inherit" model="ir.ui.view">
+            <field name="name">mrp.routing.workcenter.tree</field>
+            <field name="model">mrp.routing.workcenter</field>
+            <field name="inherit_id" ref="mrp.mrp_routing_workcenter_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                        <attribute name="editable">bottom</attribute>
+                </xpath>
+                <field name="workcenter_id" position="before">
+                    <field name="batch" invisible="1"/>
+                    <field name="routing_id" invisible="1"/>
+                    <field name="code"/>
+                    <field name="code_before" widget="many2many_tags" option="{'no_quick_create':True, 'no_create_edit':True, 'no_open': True}"/>
+                </field>
+                <field name="workcenter_id" position="after">
+                    <field name="user_id"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="mmrp_routing_workcenter_form_view_inherit" model="ir.ui.view">
+            <field name="name">mrp.routing.workcenter.form</field>
+            <field name="model">mrp.routing.workcenter</field>
+            <field name="inherit_id" ref="mrp.mrp_routing_workcenter_form_view"/>
+            <field name="arch" type="xml">
+                <field name="sequence" position="after">
+                    <field name="code"/>
+                    <field name="code_before" widget="many2many_tags"/>
+                    <field name="user_id"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="mrp_routing_form_view_inherit" model="ir.ui.view">
+            <field name="name">mrp.routing.form</field>
+            <field name="model">mrp.routing</field>
+            <field name="inherit_id" ref="mrp.mrp_routing_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='operation_ids']" position="before">
+                    <field name="routing_wokcenter_data"/>
+                    <button name="import_routing_wokcenter_data" type="object" string="Cập nhật công đoạn" class="btn-primary"/>
+                    <button name="clear_routing_wokcenter_data" type="object" string="Xoá nhập lại" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="mrp_bom_form_view_inherit" model="ir.ui.view">
+            <field name="name">mrp.bom.form</field>
+            <field name="model">mrp.bom</field>
+            <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='type']" position="after">
+                    <field name="so_id" invisible="1"/>
+                    <field name="so_line_id" invisible="1"/>
+                </xpath>
+                <field name="routing_id" position="attributes">
+                    <attribute name="required" eval="True"/>
+                </field>
+                <xpath expr="//field[@name='bom_line_ids']/tree/field[@name='sequence']" position="attributes">
+                    <attribute name="widget"></attribute>
+                </xpath>
+                <xpath expr="//field[@name='bom_line_ids']/tree" position="attributes">
+                    <attribute name="default_order">sequence asc</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="mrp_production_form_view_inherit" model="ir.ui.view">
+            <field name="name">mrp.production.form</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='origin']" position="after">
+                    <field name="so_id" invisible="0"/>
+                    <field name="so_line_id" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_account_analytic_account_history,name_account_analytic_account_history,model_account_analytic_account_history,,1,1,1,0
+access_account_guarantee,name_account_guarantee,account_guarantee.model_account_guarantee,,1,1,1,1
+access_account_guarantee_type,name_account_guarantee_type,account_guarantee.model_account_guarantee_type,,1,1,1,1
+access_hr_timesheet_invoice_factor,name_hr_timesheet_invoice_factor,stable_hr_timesheet_invoice.model_hr_timesheet_invoice_factor,,1,1,1,1
+access_sale_order_type,name_sale_order_type,model_sale_order_type,,1,1,1,1

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="SkyERP.PSDebitCredit">
+        <div class="sky-search btn-group btn-group-sm" >
+            <!-- <div style="margin-left: 10px; margin-top: 2px;"> -->
+            <div style="margin-left: 0px; margin-top: 2px; padding-right: 10px;">
+
+                <span style="float: left;padding-top:6px">PS Nợ
+                </span>
+                <span style="float: left; margin-left: 2px;">
+                    <input style="height: 30px;width: 100px;font-weight: bold;" class="sky_debit_number_ps form-control" size="10" placeholder="" type="text" readonly="1"/>
+                </span>
+
+                <span style="float: left;padding-top:6px">PS Có
+                </span>
+                <strong style="float: left; margin-left: 2px;">
+                    <input style="height: 30px;width: 100px;font-weight: bold;" class="sky_credit_number_ps form-control" size="10" placeholder="" type="text" readonly="1"/>
+                </strong>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="SkyERP.Checkamkho">
+        <div class="sky-search btn-group btn-group-sm" >
+            <div style="margin-left: 0px; margin-top: 2px; padding-right: 10px;">
+                <span style="float: left; margin-left: 5px;">
+                    <input class="button_check_am_kho" style="height: 30px;border-radius: 4px" type="button" size="10" value="Kiểm tra âm kho"/>
+                </span>
+                <span style="float: left; margin-left: 5px;">
+                    <input style="height: 30px;width: 100px;font-weight: bold;" class="list_check_am_kho form-control hidden" size="10" placeholder="" type="text" readonly="1"/>
+                </span>
+            </div>
+        </div>
+    </t>
+    <t t-name="SkyERP.ClearAll">
+        <div class="sky-search btn-group btn-group-sm" >
+            <div style="margin-left: 0px; margin-top: 2px; padding-right: 10px;">
+                <span style="float: left; margin-left: 5px;">
+                    <input class="button_clear_all" style="height: 30px;border-radius: 4px" type="button" size="10" value="ALL" onclick="$('.list_check_am_kho').val('');$('.sky_number_vourcher').val('');$('.sky_origin_text').val('');$('.sky_customer_name').val('');$('.sky_start_range').val('');$('.sky_end_range').val('');$('.sky_end_date').val('');$('.sky_start_date').val('');" />
+                </span>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="SkyERP.BeforeDebitNumber">
+        <div class="sky-search btn-group btn-group-sm" >
+            <!-- <div style="margin-left: 10px; margin-top: 2px;"> -->
+            <div style="margin-left: 0px; margin-top: 2px; padding-right: 10px;">
+
+                <span style="float: left;padding-top:6px">Nợ ĐK
+                </span>
+                <span style="float: left; margin-left: 2px;">
+                    <input style="height: 30px;width: 100px;font-weight: bold;" class="sky_debit_number form-control" size="10" placeholder="0" type="text" readonly="1"/>
+                </span>
+
+                <span style="float: left;padding-top:6px">Có ĐK
+                </span>
+                <span style="float: left; margin-left: 2px;">
+                    <input style="height: 30px;width: 100px;font-weight: bold;" class="sky_credit_number form-control" size="10" placeholder="0" type="text" readonly="1"/>
+                </span>
+            </div>
+        </div>
+    </t>
+
+
+    <t t-name="SkyERP.LastDebitCredit">
+        <div class="sky-search btn-group btn-group-sm" >
+            <!-- <div style="margin-left: 10px; margin-top: 2px;"> -->
+            <div style="margin-left: 0px; margin-top: 2px; padding-right: 10px;">
+
+                <span style="float: left;padding-top:6px">Nợ CK
+                </span>
+                <span style="float: left; margin-left: 2px;">
+                    <input style="height: 30px;width: 100px;font-weight: bold;" class="sky_debit_number_last form-control" size="10" placeholder="" type="text" readonly="1"/>
+                </span>
+
+                <span style="float: left;padding-top:6px">Có ĐK
+                </span>
+                <span style="float: left; margin-left: 2px;">
+                    <input style="height: 30px;width: 100px;font-weight: bold;" class="sky_credit_number_last form-control" size="10" placeholder="" type="text" readonly="1"/>
+                </span>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="SkyERP.ProfitLossPercent">
+        <div class="sky-search btn-group btn-group-sm" >
+            <div style="margin-left: 0px; margin-top: 2px; padding-right: 10px;">
+
+                <span style="float: left;padding-top:6px">Lợi nhuận
+                </span>
+                <span style="float: left; margin-left: 2px;">
+                    <input style="height: 30px;width: 70px;font-weight: bold;" class="sky_profit_loss form-control" size="10" placeholder="" type="text" readonly="1"/>
+                </span>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="SkyERP.buttons_print">
+        <button type="button" class='btn btn-primary btn-sm o_account-print-xlsx'>Xuất Excel</button>
+    </t>
+
+
+    <t t-name="SkyERP.Account_131">
+        <button type="button" class='btn btn-primary btn-sm o_account-print-xlsx'>Xuất Excel</button>
+    </t>
+
+    <t t-name="SkyERP.Account_331">
+        <button type="button" class='btn btn-primary btn-sm o_account-print-xlsx'>Xuất Excel</button>
+    </t>
+
+
+</templates>

@@ -1,0 +1,35 @@
+<odoo>
+    <data>
+        <record id="khoan_thu_khac_view_tree" model="ir.ui.view">
+            <field name="name">khoan thu khac tree view</field>
+            <field name="model">sale.order</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="partner_id"/>
+                    <field name="date_order" string="Confirmation Date"/>
+                    <field name="name" string="Source Document"/>
+                    <field name="user_id"/>
+                    <field name="delivery_amount" sum="Delivery Amount" widget="monetary"/>
+                    <field name="transport_amount" sum="Transport Amount" widget="monetary"/>
+                    <field name="state" string="Trạng thái đơn hàng"/>
+                    <field name="trang_thai_dh" string="Trạng thái hoạt động"/>
+
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="khoan_thu_khac_action">
+            <field name="name">Khoản thu khác</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('sale_order_return', '=', False)]</field>
+            <field name="view_id" ref="khoan_thu_khac_view_tree"/>
+        </record>
+
+        <menuitem id="khoan_thu_khac_menu" name="Khoản thu khác"
+                  parent="tuanhuy_account_voucher.thu_chi_menu" action="khoan_thu_khac_action" sequence="11"/>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="job_quotaion_type_tree_view" model="ir.ui.view">
+            <field name="name">job.quotaion.type.tree</field>
+            <field name="model">job.quotaion.type</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="job_quotaion_type_form_view" model="ir.ui.view">
+            <field name="name">job.quotaion.type.form</field>
+            <field name="model">job.quotaion.type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="account_analytic_tag_ids" widget="many2many_tags"/>
+                            <field name="cost_account_analytic_tag_ids" widget="many2many_tags"/>
+                        </group>
+                        <group></group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_job_quotaion_type" model="ir.actions.act_window">
+            <field name="name">Loại định mức</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">job.quotaion.type</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+        </record>
+
+
+        <menuitem name="Loại định mức" action="action_job_quotaion_type" id="menu_job_quotaion_type" parent="odoo_job_costing_management.menu_job_cost_configuration" sequence="10"/>
+
+    </data>
+</odoo>

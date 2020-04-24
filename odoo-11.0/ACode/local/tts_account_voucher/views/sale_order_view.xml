@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+        <record id="view_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="priority">15</field>
+            <field name="inherit_id" ref="sale.view_order_form"></field>
+            <field name="arch" type="xml">
+                <field name="payment_term_id" position="after">
+                    <field name="so_tien_da_thu"
+                           attrs="{'invisible' : [('state', 'in', ('draft', 'sent', 'cancel'))]}" readonly="1"/>
+                    <field name="con_phai_thu"
+                           attrs="{'invisible' : [('state', 'in', ('draft', 'sent', 'cancel'))]}"/>
+                    <field name="trang_thai_tt"
+                           attrs="{'invisible' : [('state', 'in', ('draft', 'sent', 'cancel'))], 'required' : [('state', 'not in', ('draft', 'sent', 'cancel'))]}"
+                           readonly="True"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

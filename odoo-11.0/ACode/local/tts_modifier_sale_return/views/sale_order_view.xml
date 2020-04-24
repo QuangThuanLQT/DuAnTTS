@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_order_form_inherit">
+            <field name="name">sale.order.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/header/field[@name='state']" position="before">
+                    <field name="check_show_cancel" invisible="1"/>
+                    <button name="action_sale_cancel" type="object" string="Cancel"
+                            attrs="{'invisible': [('check_show_cancel', '=', True)]}"/>
+                    <button name="update_sale_order" type="object" states="draft,sent" string="Refresh"/>
+                </xpath>
+                <field name="state" position="attributes">
+                    <attribute name="attrs">{'invisible' : [('sale_order_return','!=',False)]}</attribute>
+                </field>
+                <field name="state" position="after">
+                    <field name="sale_return_state" widget="statusbar" statusbar_visible="draft,sale_order" attrs="{'invisible' : [('sale_order_return','=',False)]}"/>
+                    <field name="sale_set_draft_id" invisible="1"/>
+                </field>
+                <xpath expr="//button[@name='action_draft']" position="attributes">
+                    <attribute name="attrs">{'invisible' : ['|',('sale_set_draft_id','!=',False)]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='amount_untaxed']" position="before">
+                    <field name="total_quantity" widget="integer"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_order_form_inherit_delivery_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="tts_modifier_sale.view_order_form_inherit_delivery"/>
+            <field name="arch" type="xml">
+                <!--<field name="delivery_scope_id" position="attributes">-->
+                    <!--<attribute name="attrs">{'invisible' : ['|',('delivery_method', '=', 'warehouse'),('sale_order_return','!=',False)],'required' : [('delivery_method', '!=', 'warehouse'),('sale_order_return','=',False)]}</attribute>-->
+                <!--</field>-->
+                <field name="delivery_scope_id" position="attributes">
+                    <attribute name="attrs">{'invisible' : True,'required' : False}</attribute>
+                </field>
+                <field name="delivery_scope_id" position="after">
+                    <field name="delivery_scope_id_sub" readonly="1" attrs="{'invisible' : ['|',('delivery_method', '=', 'warehouse'),('sale_order_return','!=',False)],'required' : [('delivery_method', '!=', 'warehouse'),('sale_order_return','=',False)]}"/>
+                </field>
+                <field name="delivery_method" position="attributes">
+                    <attribute name="attrs">{'invisible' : [('sale_order_return','!=',False)],'required' : [('sale_order_return','=',False)]}</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="sale_order_view_amount_inherit_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="tts_modifier_sale.sale_order_view_amount_inherit"/>
+            <field name="arch" type="xml">
+                <field name="delivery_amount" position="attributes">
+                    <attribute name="attrs">{'invisible' : [('sale_order_return','!=',False)]}</attribute>
+                </field>
+            </field>
+        </record>
+
+        <!--<record id="view_order_form_inherit_reason_cancel" model="ir.ui.view">-->
+            <!--<field name="name">sale.order.form</field>-->
+            <!--<field name="model">sale.order</field>-->
+            <!--<field name="inherit_id" ref="tuanhuy_sale.view_order_form"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<field name="note" position="after">-->
+                    <!--<field name="reason_cancel" attrs="{'invisible' : [('state', '!=', 'cancel')]}"/>-->
+                <!--</field>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <record id="view_order_form_inherit_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="tts_account_voucher.view_order_form_inherit"/>
+            <field name="arch" type="xml">
+                <field name="so_tien_da_thu" position="attributes">
+                    <attribute name="attrs">{'invisible' : ['|',('state', 'in', ('draft', 'sent', 'cancel')),('sale_order_return','!=',False)]}</attribute>
+                </field>
+                <field name="con_phai_thu" position="attributes">
+                    <attribute name="attrs">{'invisible' : ['|',('state', 'in', ('draft', 'sent', 'cancel')),('sale_order_return','!=',False)]}</attribute>
+                </field>
+                <field name="con_phai_thu" position="after">
+                    <field name="so_tien_da_tra" attrs="{'invisible' : ['|',('state', 'in', ('draft', 'sent', 'cancel')),('sale_order_return','=',False)]}"/>
+                    <field name="con_phai_tra" attrs="{'invisible' : ['|',('state', 'in', ('draft', 'sent', 'cancel')),('sale_order_return','=',False)]}"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_order_form_return_inherit">
+            <field name="name">sale.order.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_purchase_returns.view_order_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='sale_order_return_ids']" position="after">
+                    <!--<field name="return_type" attrs="{'invisible':[('sale_order_return','=',False)]}"/>-->
+                    <field name="reason_cancel" options="{'no_create_edit': True, 'no_quick_create':True}"
+                           attrs="{'invisible':[('sale_order_return','=',False),('state', '!=', 'cancel')], 'required' : [('sale_order_return','!=',False)]}"/>
+                    <field name="receive_method" attrs="{'invisible':[('sale_order_return','=',False)], 'required' : [('sale_order_return','!=',False)]}"/>
+                    <field name="location_return" attrs="{'invisible':[('sale_order_return','=',False)], 'required' : [('sale_order_return','!=',False)]}"/>
+                </xpath>
+                <field name="sale_order_return_ids" position="attributes">
+                    <attribute name="options">{'no_create_edit': True, 'no_quick_create':True}</attribute>
+                    <attribute name="domain">[('partner_id', '=', partner_id)]</attribute>
+                    <attribute name="attrs">{'invisible':[('sale_order_return','=',False)], 'required': [('sale_order_return','=', True)]}</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_picking_form_inherit_inherit_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="tts_modifier_inventory.view_picking_form_inherit_inherit"/>
+            <field name="arch" type="xml">
+                <field name="user_sale_id" position="after">
+                    <field name="reason_cancel" attrs="{'invisible' : [('reason_cancel', '=', False)]}"/>
+                    <field name="picking_from_sale_return" invisible="1"/>
+                    <field name="user_create_return" attrs="{'invisible' : [('picking_from_sale_return','=',False)]}" readonly="1"/>
+                    <field name="picking_note" string="Ghi chú"/>
+                </field>
+                <xpath expr="//field[@name='reason_cancel']" position="attributes">
+                        <attribute name="string">Nguyên nhân trả hàng</attribute>
+                    </xpath>
+                <!--<field name="user_sale_id" position="attributes">-->
+                    <!--<attribute name="attrs">{'invisible' : ['|',('sale_id', '=', False),('picking_from_sale_return','=',False)]}</attribute>-->
+                <!--</field>-->
+            </field>
+        </record>
+
+        <record id="view_picking_form_inherit_user_purchase" model="ir.ui.view">
+            <field name="name">stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="tts_internal_transfer.view_picking_form_inherit_inherit"/>
+            <field name="arch" type="xml">
+                <field name="user_purchase_id" position="attributes">
+                    <attribute name="attrs">{'invisible' : [('purchase_id', '=', False)]}</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_picking_form_inherit_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="tts_modifier_inventory.view_picking_form_inherit"/>
+            <field name="arch" type="xml">
+                <field name="user_perform_id" position="before">
+                    <field name="is_picking_return" invisible="1"/>
+                    <field name="have_picking_return" invisible="1"/>
+                </field>
+                <field name="user_perform_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                    <!--<attribute name="attrs">{'invisible' : ['|',('check_is_pick','=',False),('is_picking_return', '=',-->
+                        <!--False)], 'required' : [('check_is_pick','!=',False),('is_picking_return', '!=', False)]}-->
+                    <!--</attribute>-->
+                </field>
+            </field>
+        </record>
+
+        <record id="view_picking_form_inherit_return" model="ir.ui.view">
+            <field name="name">stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="tts_internal_transfer.view_picking_form_inherit_button_inherit"/>
+            <field name="arch" type="xml">
+                <field name="kiem_hang_tang_cuong" position="attributes">
+                    <attribute name="attrs">{'invisible' : ['|',('check_is_pick','=',False),('is_picking_return', '=',True)], 'required' :
+                        [('is_internal_transfer', '=', True)]}
+                    </attribute>
+                </field>
+                <field name="dong_goi_tang_cuong" position="attributes">
+                    <attribute name="attrs">{'invisible' : ['|',('check_is_pack','=',False),('is_picking_return',
+                        '=',True)], 'required' : [('check_is_pack', '=', True)]}
+                    </attribute>
+                </field>
+                <field name="giao_hang_tang_cuong" position="attributes">
+                    <attribute name="attrs">{'invisible' : ['|',('check_is_delivery','=',False),('is_picking_return',
+                        '=',True)], 'required' : [('check_is_delivery', '=', True)]}
+                    </attribute>
+                </field>
+                <field name="kiem_hang_tang_cuong" position="before">
+                    <field name="tra_hang_tang_cuong"
+                           attrs="{'invisible' : ['|','|',('is_picking_return','=',False),('is_internal_transfer','=', True),('picking_type_code', '=', 'incoming')], 'required' : [('is_picking_return', '=', True),('is_internal_transfer','!=', True),('picking_type_code', '!=', 'incoming')]}"/>
+                    <field name="kiem_hang_nhap_tang_cuong"
+                           attrs="{'invisible' : [('is_internal_transfer','=', False)], 'required' : [('is_internal_transfer','=', True)]}"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

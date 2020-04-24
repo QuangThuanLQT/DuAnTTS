@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ir_attachment_gce_ir_attachment_gce,ir_attachment_gce.ir_attachment_gce,model_ir_attachment_gce_ir_attachment_gce,,1,0,0,0

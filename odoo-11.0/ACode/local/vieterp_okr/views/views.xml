@@ -1,0 +1,173 @@
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="tree_view_okr">
+      <field name="name">tree.view.okr</field>
+      <field name="model">okr</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="start_date"/>
+          <field name="end_date"/>
+          <field name="objectives"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="form_view_okr">
+        <field name="name">form.view.okr</field>
+        <field name="model">okr</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                    </group>
+                    <group>
+                      <field name="objectives" string="Objectives">
+                          <tree>
+                              <field name="name"/>
+                              <field name="owner"/>
+                              <field name="due_date"/>
+                              <field name="key_results_sub"/>
+                              <field name="key_results" widget="one2many_tags" invisible="1">
+                              </field>
+                          </tree>
+                          <form>
+                            <group>
+                            <field name="name"/>
+                              <field name="owner"/>
+                              <field name="due_date"/>
+                            </group>
+                              <field name="key_results">
+                                <tree editable="bottom">
+                                  <field name="name"/>
+                                </tree>
+                              </field>
+                          </form>
+                      </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+      <record model="ir.actions.act_window" id="okr_action">
+          <field name="name">okr.action</field>
+          <field name="res_model">okr</field>
+          <field name="view_mode">tree,form</field>
+      </record>
+
+
+      <!--<record model="ir.ui.view" id="tree_view_task">-->
+          <!--<field name="name">tree.view.task</field>-->
+          <!--<field name="model">task</field>-->
+          <!--<field name="arch" type="xml">-->
+              <!--<tree>-->
+                  <!--<field name="name"/>-->
+                  <!--<field name="description_task"/>-->
+                  <!--<field name="team_task"/>-->
+                  <!--<field name="start_date_task"/>-->
+                  <!--<field name="end_date_task"/>-->
+                  <!--<field name="priority_task"/>-->
+                  <!--<field name="user_id" string="Assignee"/>-->
+              <!--</tree>-->
+          <!--</field>-->
+      <!--</record>-->
+
+      <!--<record model="ir.ui.view" id="form_view_task">-->
+          <!--<field name="name">form.view.task</field>-->
+          <!--<field name="model">task</field>-->
+          <!--<field name="arch" type="xml">-->
+              <!--<form>-->
+                  <!--<sheet>-->
+                      <!--<group>-->
+                          <!--<group>-->
+                              <!--<field name="name"/>-->
+                              <!--<field name="description_task"/>-->
+                              <!--<field name="team_task"/>-->
+                          <!--</group>-->
+                          <!--<group>-->
+                              <!--<field name="start_date_task"/>-->
+                              <!--<field name="end_date_task"/>-->
+                              <!--<field name="priority_task"/>-->
+                              <!--<field name="user_id" string="Assignee"/>-->
+                          <!--</group>-->
+                      <!--</group>-->
+                  <!--</sheet>-->
+              <!--</form>-->
+          <!--</field>-->
+      <!--</record>-->
+
+      <record model="ir.ui.view" id="view_task_tree2_ihr">
+          <field name="name">view.task.tree2.ihr</field>
+          <field name="model">project.task</field>
+          <field name="inherit_id" ref="project.view_task_tree2" />
+          <field name="arch" type="xml">
+              <xpath expr="//field[@name='project_id']" position="after">
+                  <field name="team_task"/>
+                  <field name="description_task"/>
+                  <field name="start_date_task"/>
+                  <field name="end_date_task"/>
+                  <field name="priority_task"/>
+              </xpath>
+              <xpath expr="//field[@name='user_id']" position="attributes">
+                  <attribute name="string">Assignee</attribute>
+              </xpath>
+              <xpath expr="//field[@name='stage_id']" position="replace">
+                  <field name="stage_id" invisible="context.get('set_visible',True)"/>
+              </xpath>
+              <xpath expr="//field[@name='project_id']" position="replace">
+                  <field name="project_id" invisible="context.get('set_visible',True)"/>
+              </xpath>
+          </field>
+      </record>
+
+      <record model="ir.ui.view" id="view_task_form2_ihr">
+          <field name="name">view.task.form2.ihr</field>
+          <field name="model">project.task</field>
+          <field name="inherit_id" ref="project.view_task_form2" />
+          <field name="arch" type="xml">
+              <xpath expr="//field[@name='project_id']" position="after">
+                  <field name="team_task"/>
+                  <field name="description_task"/>
+              </xpath>
+              <xpath expr="//field[@name='tag_ids']" position="after">
+                  <field name="start_date_task"/>
+                  <field name="end_date_task"/>
+                  <field name="priority_task"/>
+              </xpath>
+              <xpath expr="//field[@name='user_id']" position="attributes">
+                  <attribute name="string">Assignee</attribute>
+              </xpath>
+              <xpath expr="//field[@name='tag_ids']" position="replace">
+                  <field name="tag_ids" invisible="context.get('set_visible',True)"/>
+              </xpath>
+              <xpath expr="//field[@name='date_deadline']" position="replace">
+                  <field name="date_deadline" invisible="context.get('set_visible',True)"/>
+              </xpath>
+              <xpath expr="//field[@name='project_id']" position="replace">
+                  <field name="project_id" invisible="context.get('set_visible',True)"/>
+              </xpath>
+          </field>
+      </record>
+
+      <record model="ir.actions.act_window" id="project_task_action">
+          <field name="name">Task</field>
+          <field name="res_model">project.task</field>
+          <field name="view_mode">tree,form</field>
+      </record>
+
+        <menuitem id="main_okr_menu" name="OKR"/>
+
+        <menuitem id="okr_menu" name="OKR"
+                  parent="main_okr_menu"/>
+
+        <menuitem id="okr_menu_list" name="OKR" parent="okr_menu"
+                  action="okr_action"/>
+        <menuitem id="task_menu_list" name="Task" parent="okr_menu"
+                  action="project_task_action"/>
+  </data>
+</odoo>

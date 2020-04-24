@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="hr_employee_form_inherit" model="ir.ui.view">
+            <field name="name">hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/notebook/page[@name='personal_information']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//sheet/notebook/page[@name='public']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//sheet/notebook/page[@name='public']" position="before">
+                    <page string="General information">
+                        <group>
+                            <group>
+                                <field name="partner_id" context="{'form_view_ref':'tts_employee_modifier_ttc.tts_employee_thong_tin_chung_form'}"/>
+                            </group>
+                            <group/>
+                            <group>
+                                <field name="ma_nv"/>
+                                <label for="feosco_city_id"/>
+                                <div class="o_address_format">
+                                    <field name="feosco_city_id" placeholder="Tỉnh thành" options="{'no_create': True}"
+                                           class="o_address_street"/>
+                                    <field name="feosco_district_id" placeholder="Quận (huyện)" string="Quận (huyện)"
+                                           class="o_address_street" options="{'no_create': True}"/>
+                                    <field name="feosco_ward_id" placeholder="Phường/Xã" string="Phường/Xã"
+                                           options="{'no_create': True}" class="o_address_street"/>
+                                    <field name="feosco_street" placeholder="Tên đường" string="Tên đường"
+                                           class="o_address_street"/>
+                                </div>
+                            </group>
+                            <group>
+                                <field name="sdt_cty"/>
+                                <field name="sdt_canhan"/>
+                                <field name="email"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Personal Information">
+                        <group>
+                            <group string="Thông tin cá nhân">
+                                <field name="quoc_tich_id"/>
+                                <field name="cmnd"/>
+                                <field name="ngay_cap"/>
+                                <field name="noi_cap"/>
+                                <field name="dan_toc"/>
+                                <field name="ton_giao"/>
+                                <field name="que_quan"/>
+                                <field name="ma_so_thue_TNCN"/>
+                            </group>
+
+                            <group string="Thông tin liên lạc">
+                                <field name="gioi_tinh"/>
+                                <label for="dctt_city_id"/>
+                                <div>
+                                    <field name="dctt_city_id" placeholder="Tỉnh thành" options="{'no_create': True}"
+                                           class="oe_inline"/>
+                                    <field name="dctt_district_id" placeholder="Quận (huyện)" string="Quận (huyện)"
+                                           class="oe_inline" options="{'no_create': True}"/>
+                                    <field name="dctt_ward_id" placeholder="Phường/Xã" string="Phường/Xã"
+                                           options="{'no_create': True}" class="oe_inline"/>
+                                </div>
+                                <field name="dctt_street" placeholder="Tên đường" string=" "/>
+
+                                <label for="dctr_city_id"/>
+                                <div>
+                                    <field name="dctr_city_id" placeholder="Tỉnh thành" options="{'no_create': True}"
+                                           class="oe_inline"/>
+                                    <field name="dctr_district_id" placeholder="Quận (huyện)" string="Quận (huyện)"
+                                           class="oe_inline" options="{'no_create': True}"/>
+                                    <field name="dctr_ward_id" placeholder="Phường/Xã" string="Phường/Xã"
+                                           options="{'no_create': True}" class="oe_inline"/>
+                                </div>
+                                <field name="dctr_street" placeholder="Tên đường" string=" "/>
+                            </group>
+                            <group>
+                                
+                            </group>
+                            <group string="Sinh nhật">
+                                <field name="ngay_sinh"/>
+                                <field name="noi_sinh"/>
+                            </group>
+
+                            <group string="Tài khoản Ngân hàng">
+                                <field name="ngan_hang_id"/>
+                                <field name="chi_nhanh"/>
+                                <field name="so_tai_khoan"/>
+                            </group>
+
+                            <group string="Thông tin gia đình">
+                                <field name="tt_hn"/>
+                                <field name="so_con"/>
+                                <field name="nguoi_phu_thuoc"/>
+                                <field name="contact_person"/>
+                            </group>
+                        </group>
+                    </page>
+
+
+                    <page string="Employee Information">
+                        <group>
+                            <group string="Học vấn">
+                                <field name="trinh_do_hoc_van"/>
+                                <field name="ten_truong_cap_cao_nhat"/>
+                                <field name="chuyen_nganh"/>
+                                <field name="loai_tot_nghiep"/>
+                                <field name="nien_khoa"/>
+                                <field name="trinh_do_ngoai_ngu"/>
+                                <field name="trinh_do_tin_hoc"/>
+                            </group>
+
+                            <group string="Thông tin HĐLĐ">
+                                <field name="bo_phan_id"/>
+                                <field name="chuc_danh_id"/>
+                                <field name="quan_ly_truc_tiep_id"/>
+                                <field name="tinh_trang"/>
+                                <field name="thoi_gian_lam_viec_id"/>
+                                <label for="hd_thu_viec_start"/>
+                                <div>
+                                    <field name="hd_thu_viec_start" class="oe_inline"/><span>-</span>
+                                    <field name="hd_thu_viec_end" class="oe_inline"/>
+                                </div>
+                                <label for="hdld_lan_1_start"/>
+                                <div>
+                                    <field name="hdld_lan_1_start" class="oe_inline"/><span>-</span>
+                                    <field name="hdld_lan_1_end" class="oe_inline"/>
+                                </div>
+                                <label for="hdld_lan_2_start"/>
+                                <div>
+                                    <field name="hdld_lan_2_start" class="oe_inline"/><span>-</span>
+                                    <field name="hdld_lan_2_end" class="oe_inline"/>
+                                </div>
+                                <field name="hdld_vth"/>
+                                <field name="ngay_nghi_viec"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr.menu_open_view_employee_list_my" model="ir.ui.menu">
+            <field name="name">Thông tin Nhân Viên</field>
+        </record>
+    </data>
+</odoo>

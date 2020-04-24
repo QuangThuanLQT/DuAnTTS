@@ -1,0 +1,32 @@
+<odoo>
+    <data>
+        <record id="account_guarantee_form_inherit_add_account_analytic" model="ir.ui.view">
+            <field name="name">account.guarantee.form</field>
+            <field name="model">account.guarantee</field>
+            <field name="inherit_id" ref="cptuanhuy_project.account_guarantee_form_inherit_add_project"/>
+            <field name="arch" type="xml">
+                <field name="project_id" position="after">
+                    <field name="account_analytic_account_id" domain="[('project_id','=',project_id),('type','=','contract'),('is_project','=',True)]"/>
+                </field>
+                <field name="sale_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="account_guarantee_form_inherit" model="ir.ui.view">
+            <field name="name">account.guarantee.form</field>
+            <field name="model">account.guarantee</field>
+            <field name="inherit_id" ref="account_guarantee.account_guarantee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/h1" position="before">
+                    <div class="oe_button_box" name="button_box">
+                        <button name="open_unc" type="object" class="oe_stat_button" icon="fa-bars">
+                            <field name="unc_count" widget="statinfo" string="Giấy báo nợ (Chi)" modifiers="{'readonly': true}"/>
+                        </button>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="inventory_export_over">
+        <button type="button" class="btn btn-sm btn-default o_button_overview">Export Overview</button>
+    </t>
+
+    <t t-name="inventory_export_detail">
+        <button type="button" class='btn btn-sm btn-default o_button_detail'>Export Detail</button>
+    </t>
+
+    <t t-name="SkyERP.InventoryState">
+        <div class="sky-search btn-group btn-group-sm">
+            <div style="margin-left: 0px; margin-top: 2px; padding-right: 10px;">
+                <span style="float: left;">
+                    <select class="sky_select_state form-control" style="height: 30px;" >
+                        <option t-foreach="sky_fields" t-as="field" t-att-value="field[0]">
+                            <t t-esc="field[1]"/>
+                        </option>
+                    </select>
+                </span>
+                <span style="float: left; margin-left: 2px;">
+                    <select class="sky_state form-control" style="height: 30px;" >
+                        <option value="">All</option>
+                        <option value="draft">Draft</option>
+                        <option value="confirm">In Progress</option>
+                        <option value="done">Validated</option>
+                        <option value="cancel">Cancelled</option>
+                    </select>
+                </span>
+            </div>
+        </div>
+    </t>
+
+</templates>

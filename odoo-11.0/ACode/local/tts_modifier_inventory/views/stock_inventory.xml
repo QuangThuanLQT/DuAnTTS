@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_inventory_form_inherit" model="ir.ui.view">
+            <field name="name">stock.inventory.form.inherit</field>
+            <field name="model">stock.inventory</field>
+            <field name="inherit_id" ref="stock.view_inventory_form"/>
+            <field name="arch" type="xml">
+                <field name="category_id" position="after">
+                    <field name="category_ids" widget="many2many_tags"
+                           attrs="{'invisible': [('filter', 'not in','multi_category')], 'required': [('filter', 'in', 'multi_category')]}"
+                           options="{'no_create': True}"/>
+                </field>
+                <field name="date" position="after">
+                    <field name="create_uid" readonly="True"/>
+                    <field name="progress_date" attrs="{'invisible': [('progress_date', '=', False)]}"/>
+                    <field name="progress_user" attrs="{'invisible': [('progress_user', '=', False)]}"/>
+                    <field name="validate_date" attrs="{'invisible': [('validate_date', '=', False)]}"/>
+                    <field name="validate_user" attrs="{'invisible': [('validate_user', '=', False)]}"/>
+                </field>
+                <field name="line_ids" position="after">
+                    <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                        <field name="total_product"/>
+                        <field name="theoretical_total"/>
+                        <field name="real_total"/>
+                        <field name="diff_total"/>
+                    </group>
+                </field>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='product_qty']" position="after">
+                    <field name="diff_qty"/>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='prod_lot_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='product_id']" position="attributes">
+                    <attribute name="options">{'no_quick_create':True, 'no_create_edit':True}</attribute>
+                </xpath>
+                <xpath expr="//sheet/group/group/field[@name='product_id']" position="attributes">
+                    <attribute name="options">{'no_quick_create':True, 'no_create_edit':True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='move_ids']/tree/field[@name='product_id']" position="attributes">
+                    <attribute name="options">{'no_quick_create':True, 'no_create_edit':True}</attribute>
+                </xpath>
+                <xpath expr="//form/header" position="inside">
+                    <button name="export_excel" type="object" string="Xuất Excel" class="oe_hightlight"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_inventory_tree_inherit" model="ir.ui.view">
+            <field name="name">stock.inventory.tree.inherit</field>
+            <field name="model">stock.inventory</field>
+            <field name="inherit_id" ref="stock.view_inventory_tree"/>
+            <field name="arch" type="xml">
+                <field name="date" position="after">
+                    <field name="validate_date"/>
+                    <field name="total_product"/>
+                    <field name="theoretical_total"/>
+                    <field name="real_total"/>
+                    <field name="diff_total"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

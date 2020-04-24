@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_tts_modifier_website_tts_modifier_website,tts_modifier_website.tts_modifier_website,model_tts_modifier_website_tts_modifier_website,,1,0,0,0

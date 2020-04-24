@@ -1,0 +1,106 @@
+<odoo>
+    <data>
+        <!--<record id="view_order_form_inheirt" model="ir.ui.view">-->
+            <!--<field name="name">sale.order.view.form</field>-->
+            <!--<field name="model">sale.order</field>-->đơn
+            <!--<field name="inherit_id" ref="tuanhuy_sale.view_order_form"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<xpath expr="//field[@name='note']" position="after">-->
+                    <!--<field name="sale_order_merge" attrs="{'invisible' : [('sale_order_return','!=',False)],'readonly' : [('sale_order_parent_id', '!=', False)]}"/>-->
+                    <!--<field name="sale_order_merge_ids"-->
+                           <!--attrs="{'invisible' : ['|',('sale_order_return','!=',False),('sale_order_merge', '!=', True)],'readonly' : [('sale_order_parent_id', '!=', False)]}"-->
+                           <!--widget="many2many_tags" options="{'no_quick_create':True, 'no_create_edit':True}" context="{'domain_partner_so_merge' : partner_id,'domain_name_so_merge' : name}"/>-->
+                    <!--<field name="sale_order_parent_id" invisible="1"/>-->
+                <!--</xpath>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <record id="view_order_form_merge_inheirt" model="ir.ui.view">
+            <field name="name">sale.order.view.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/header" position="inside">
+                    <button name="action_merge_sale_order" type="object" string="Gộp đơn" attrs="{'invisible' : ['|','|',('sale_order_parent_id', '!=', False),('state', '!=', 'sale'),('trang_thai_dh', 'in', ['done', 'delivery', 'cancel'])]}"/>
+                    <button name="action_split_sale_order" type="object" string="Tách đơn" attrs="{'invisible' : ['|',('sale_order_parent_id', '!=', False),('sale_order_merge', '=', False)]}"/>
+                </xpath>
+                <xpath expr="//notebook/page[2]" position="after">
+                    <page string="Related SO">
+                        <field name="sale_order_merge" invisible="1"/>
+                        <field name="sale_order_parent_id" invisible="1"/>
+                        <field name="sale_order_merge_ids" readonly="1">
+                            <tree>
+                                <field name="name" string="Sale Order"/>
+                                <field name="partner_id" string="Khách "/>
+                                <field name="trang_thai_dh" string="Trạng thái hoạt động"/>
+                                <field name="state" invisible="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+         <record id="merge_sale_order_tree_view" model="ir.ui.view">
+            <field name="name">merge.sale.order.view.form</field>
+            <field name="model">merge.sale.order</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="sale_id" invisible="1"/>
+                            <field name="sale_merge_ids"  widget="many2many_tags" options="{'no_quick_create':True, 'no_create_edit':True}"
+                                   context="{'domain_so_merge' : sale_id}"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="action_merge" string="Gộp" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+         </record>
+
+        <record id="merge_sale_order_action" model="ir.actions.act_window">
+            <field name="name">Gộp đơn hàng</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">merge.sale.order</field>
+            <field name="target">new</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+        </record>
+
+        <record id="split_sale_order_tree_view" model="ir.ui.view">
+            <field name="name">split.sale.order.view.form</field>
+            <field name="model">split.sale.order</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="option" widget="radio"/>
+                        </group>
+                        <group>
+                            <field name="sale_id" invisible="1"/>
+                            <field name="sale_split_ids"  widget="many2many_tags" options="{'no_quick_create':True, 'no_create_edit':True}"
+                                   context="{'domain_so_split' : sale_id}" attrs="{'invisible' : [('option', '!=', 'each')], 'required' : [('option', '=', 'each')]}"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="action_split" string="Tách" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+         </record>
+
+        <record id="split_sale_order_action" model="ir.actions.act_window">
+            <field name="name">Tách đơn hàng</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">split.sale.order</field>
+            <field name="target">new</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+        </record>
+
+    </data>
+</odoo>

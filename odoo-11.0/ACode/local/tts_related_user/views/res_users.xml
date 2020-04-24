@@ -1,0 +1,36 @@
+<odoo>
+    <data>
+
+        <record id="view_users_form_related_user_inherit" model="ir.ui.view">
+            <field name="name">res.users.form</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <field name="action_id" position="after">
+                    <field name="is_children"/>
+                    <field name="parent_user_id"/>
+                </field>
+                <xpath expr="//notebook" position="inside">
+                    <page name="related_user" string="Related Users"
+                          attrs="{'invisible': [('is_children', '=', True)]}">
+                        <field name="child_users_ids"
+                               context="{'default_parent_user_id': active_id, 'default_is_children': True, 'form_view_ref': 'base.view_users_form',
+                               'default_access_rights_id': %(tts_modifier_access_right.access_group_khach_hang)d}">
+                            <tree>
+                                <field name="name"/>
+                                <field name="login"/>
+                                <field name="lang"/>
+                                <field name="is_children"/>
+                                <field name="parent_user_id"/>
+                                <field name="login_date"/>
+                                <button string="Change Password" type="action" name="base.change_password_wizard_action"
+                                        groups="base.group_system"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

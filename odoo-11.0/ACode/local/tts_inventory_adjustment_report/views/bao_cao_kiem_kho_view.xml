@@ -1,0 +1,138 @@
+<odoo>
+    <data>
+        <record id="bao_cao_kiem_kho_popup" model="ir.ui.view">
+            <field name="name">Báo cáo kiểm kho</field>
+            <field name="model">bao.cao.kiem.kho</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="print_excel_inventory_adjustment" type="object" string="Print Excel" class="btn-primary"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <!--<field name="type_report" widget="radio"/>-->
+                                <field name="type_time" widget="radio"/>
+                                <field name="duration"/>
+                            </group>
+                            <group>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Báo cáo số mã lệch">
+                                <separator string="Báo cáo kiểm số mã Sản phẩm - Ngày"/>
+                                <field name="bao_cao_sml_table1_ids" readonly="1" class="button_hidden_table1">
+                                    <tree>
+                                        <field name="date"/>
+                                        <field name="count_sp_lech" sum="count_sp_lech"/>
+                                        <field name="count_sp_kiem" sum="count_sp_kiem"/>
+                                        <field name="ty_le"/>
+                                    </tree>
+                                </field>
+                                <separator string="Báo cáo kiểm số mã Sản phẩm - Tuần"/>
+                                <field name="bao_cao_sml_table2_ids" readonly="1" class="button_hidden_table2">
+                                    <tree>
+                                        <field name="week"/>
+                                        <field name="count_sp_lech" sum="count_sp_lech"/>
+                                        <field name="count_sp_kiem" sum="count_sp_kiem"/>
+                                        <field name="ty_le"/>
+                                        <field name="count_sp_duy_nhat"/>
+                                        <field name="count_sp_active"/>
+                                        <field name="ty_le_sp"/>
+                                    </tree>
+                                </field>
+                                <separator string="Báo cáo kiểm số mã Sp theo Danh mục sản phẩm - Tuần"/>
+                                <field name="bao_cao_sml_table3_ids" readonly="1" class="button_hidden_table3">
+                                    <tree>
+                                        <field name="week"/>
+                                        <field name="product_category_id" invisible="1"/>
+                                        <field name="product_category_sub"/>
+                                        <field name="count_sp_lech"/>
+                                        <field name="count_sp_kiem"/>
+                                        <field name="ty_le"/>
+                                    </tree>
+                                </field>
+                                <separator string="Báo cáo kiểm số mã Sản phẩm - Tháng"/>
+                                <field name="bao_cao_sml_table4_ids" readonly="1" class="button_hidden_table4">
+                                    <tree>
+                                        <field name="month"/>
+                                        <field name="count_sp_lech" sum="count_sp_lech"/>
+                                        <field name="count_sp_kiem" sum="count_sp_kiem"/>
+                                        <field name="ty_le"/>
+                                        <field name="count_sp_duy_nhat"/>
+                                        <field name="count_sp_active"/>
+                                        <field name="ty_le_sp"/>
+                                    </tree>
+                                </field>
+                                <separator string="Báo cáo kiểm số mã Sp theo Danh mục sản phẩm - Tháng"/>
+                                <field name="bao_cao_sml_table5_ids" readonly="1" class="button_hidden_table5">
+                                    <tree>
+                                        <field name="month"/>
+                                        <field name="product_category_id" invisible="1"/>
+                                        <field name="product_category_sub"/>
+                                        <field name="count_sp_lech"/>
+                                        <field name="count_sp_kiem"/>
+                                        <field name="ty_le"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Báo cáo số lượng lệch">
+                                <separator string="Báo cáo kiểm số lượng Sản phẩm - Tuần"/>
+                                <field name="bao_cao_sml_table6_ids" readonly="1" class="button_hidden_table6">
+                                    <tree>
+                                        <field name="week"/>
+                                        <field name="count_sp_lech" sum="count_sp_lech"/>
+                                        <field name="count_sp_kiem" sum="count_sp_kiem"/>
+                                        <field name="ty_le"/>
+                                    </tree>
+                                </field>
+                                <separator string="Báo cáo kiểm số lượng Sản phẩm theo Danh mục sản phẩm - Tuần"/>
+                                <field name="bao_cao_sml_table7_ids" readonly="1" class="button_hidden_table7">
+                                    <tree>
+                                        <field name="week"/>
+                                        <field name="product_category_id" invisible="1"/>
+                                        <field name="product_category_sub"/>
+                                        <field name="count_sp_lech"/>
+                                        <field name="count_sp_kiem"/>
+                                        <field name="ty_le"/>
+                                    </tree>
+                                </field>
+                                <separator string="Báo cáo kiểm số lượng Sản phẩm - Tháng"/>
+                                <field name="bao_cao_sml_table8_ids" readonly="1" class="button_hidden_table8">
+                                    <tree>
+                                        <field name="month"/>
+                                        <field name="count_sp_lech" sum="count_sp_lech"/>
+                                        <field name="count_sp_kiem" sum="count_sp_kiem"/>
+                                        <field name="ty_le"/>
+                                    </tree>
+                                </field>
+                                <separator string="Báo cáo kiểm số lượng Sản phẩm theo Danh mục sản phẩm - Tháng" />
+                                <field name="bao_cao_sml_table9_ids" readonly="1" class="button_hidden_table9">
+                                    <tree>
+                                        <field name="month"/>
+                                        <field name="product_category_id" invisible="1"/>
+                                        <field name="product_category_sub"/>
+                                        <field name="count_sp_lech"/>
+                                        <field name="count_sp_kiem"/>
+                                        <field name="ty_le"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="bao_cao_kiem_kho_action" model="ir.actions.act_window">
+            <field name="name">Báo cáo kiểm kho</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">bao.cao.kiem.kho</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+        <menuitem action="bao_cao_kiem_kho_action" id="bao_cao_kiem_kho_menu" parent="stock.menu_warehouse_report" sequence="200"/>
+    </data>
+</odoo>

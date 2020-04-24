@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_salary_delivery_income_all_user,access_salary_delivery_income_all_user,model_salary_delivery_income,,1,1,1,0

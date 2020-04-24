@@ -1,0 +1,65 @@
+<odoo>
+    <data>
+        <record id="purchase_cancel_popup_form_view" model="ir.ui.view">
+            <field name="name">purchase.cancel.popup.form</field>
+            <field name="model">purchase.cancel.popup</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="name" required="1"/>
+                        <field name="order_id" invisible="1"/>
+                    </group>
+                    <footer>
+                        <button name="action_cancel" type="object" string="Xác nhận" class="btn-primary"/>
+                        <button string="Huỷ" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="purchase_cancel_popup_action" model="ir.actions.act_window">
+            <field name="name">Cancel</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.cancel.popup</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="reason_cancel_purchase_form_view" model="ir.ui.view">
+            <field name="name">reason.cancel.purchase.form</field>
+            <field name="model">reason.cancel.purchase</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="name" required="1"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="reason_cancel_purchase_tree_view" model="ir.ui.view">
+            <field name="name">reason.cancel.purchase.tree</field>
+            <field name="model">reason.cancel.purchase</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" required="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="reason_cancel_purchase_action" model="ir.actions.act_window">
+            <field name="name">Lý do trả hàng</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">reason.cancel.purchase</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="reason_cancel_purchase_menu"
+            action="reason_cancel_purchase_action"
+            parent="purchase.menu_purchase_config"
+            sequence="1"/>
+
+    </data>
+</odoo>

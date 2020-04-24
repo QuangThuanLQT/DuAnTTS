@@ -1,0 +1,29 @@
+<odoo>
+    <data>
+        <record id="view_picking_form_inherit_purchase_requistion" model="ir.ui.view">
+            <field name="name">stock.picking.form.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="odoo_job_costing_management.view_picking_form_inherit_purchase_requistion"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='task_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='task_user_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='project_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='analytic_account_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='origin']" position="after">
+                    <field name="task_id"/>
+                    <field name="task_user_id"/>
+                    <field name="project_id"/>
+                    <field name="analytic_account_id"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

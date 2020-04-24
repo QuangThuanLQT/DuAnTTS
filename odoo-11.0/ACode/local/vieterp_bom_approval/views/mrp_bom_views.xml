@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="mrp_bom_form_view" model="ir.ui.view">
+            <field name="model">mrp.bom</field>
+            <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+            <field name="arch" type="xml">
+                <sheet position="before">
+                    <header>
+                        <button string="Confirm" type="object" name="action_confirm"
+                                states="draft" class="oe_highlight" />
+                        <button string="Mark as done" type="object" name="action_done"
+                                states="confirmed" class="oe_highlight"/>
+                        <button string="Reset to draft" type="object" name="action_draft"
+                                states="confirmed,done" />
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                </sheet>
+                <sheet position="after">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </sheet>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="stock_internal_type_tree_view" model="ir.ui.view">
+            <field name="name">stock.internal.type.tree</field>
+            <field name="model">stock.internal.type</field>
+            <field name="arch" type="xml">
+                <tree string="Loại vật tư">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="stock_internal_type_form_view" model="ir.ui.view">
+            <field name="name">stock.internal.type.form</field>
+            <field name="model">stock.internal.type</field>
+            <field name="arch" type="xml">
+                <form string="Loại vật tư">
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group></group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="stock_internal_type_action" model="ir.actions.act_window">
+            <field name="name">Loại vật tư</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.internal.type</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+        </record>
+
+         <menuitem id="stock_internal_type_menu" name="Loại vật tư" action="stock_internal_type_action" parent="stock.menu_warehouse_config" sequence="20"/>
+    </data>
+</odoo>

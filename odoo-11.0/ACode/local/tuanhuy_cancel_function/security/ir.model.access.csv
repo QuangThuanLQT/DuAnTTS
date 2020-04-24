@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_tuanhuy_cancel_function_tuanhuy_cancel_function,tuanhuy_cancel_function.tuanhuy_cancel_function,model_tuanhuy_cancel_function_tuanhuy_cancel_function,,1,0,0,0

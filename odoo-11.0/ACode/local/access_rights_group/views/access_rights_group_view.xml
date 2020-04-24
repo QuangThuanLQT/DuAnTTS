@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="access_rights_group_form" model="ir.ui.view">
+        <field name="name">Access Rights Group Form</field>
+        <field name="model">access.rights.group</field>
+        <field name="arch" type="xml">
+            <form string="Access Rights Group">
+                <sheet>
+                    <group>
+                        <field name="name" required="1" style="width: 50%"/>
+                        <field name="group_ids" options='{"no_create": True}'/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="access_rights_group_tree" model="ir.ui.view">
+        <field name="name">Access Rights Group Tree</field>
+        <field name="model">access.rights.group</field>
+        <field name="arch" type="xml">
+            <tree string="Access Rights Group">
+                <field name="name"/>
+                <field name="group_ids"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="access_rights_group_search" model="ir.ui.view">
+        <field name="name">Access Rights Group Search</field>
+        <field name="model">access.rights.group</field>
+        <field name="arch" type="xml">
+            <search string="Access Rights Group">
+                <field name="name"/>
+                <field name="group_ids"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_access_rights_group" model="ir.actions.act_window">
+        <field name="name">Access Rights Group</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">access.rights.group</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click here to create a Access Rights Group.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="submenu_access_rights_group" name="Access Rights Group" parent="base.menu_users" sequence="1" action="action_access_rights_group" groups="base.user_root"/>
+
+</odoo>

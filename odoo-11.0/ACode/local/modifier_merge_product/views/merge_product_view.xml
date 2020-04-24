@@ -1,0 +1,35 @@
+<odoo>
+    <data>
+        <record id="merge_to_product_from" model="ir.ui.view">
+            <field name="name">merge.to.product.form</field>
+            <field name="model">merge.to.product</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="product_to" string="Sản phẩm đích"/>
+                        </group>
+                        <group>
+                            <field name="product_from" string="Sản phẩm gộp"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="apply_merge" type="object" string="Xác Nhận Gộp" class="oe_highlight"/>
+                        <button string="Cancel" class="btn-default" special="Huy" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+         <record id="merge_to_product_action" model="ir.actions.act_window">
+	        <field name="name">Merge To Product</field>
+	        <field name="res_model">merge.to.product</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">form</field>
+	        <field name="target">new</field>
+    	</record>
+
+        <menuitem name="Gộp Sản Phẩm" action="merge_to_product_action" id="merge_to_product_menu" parent="stock.menu_product_in_config_stock"/>
+
+    </data>
+</odoo>

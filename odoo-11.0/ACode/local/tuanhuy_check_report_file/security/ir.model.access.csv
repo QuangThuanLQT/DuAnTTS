@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_tuanhuy_check_report_file_tuanhuy_check_report_file,tuanhuy_check_report_file.tuanhuy_check_report_file,model_tuanhuy_check_report_file_tuanhuy_check_report_file,,1,0,0,0

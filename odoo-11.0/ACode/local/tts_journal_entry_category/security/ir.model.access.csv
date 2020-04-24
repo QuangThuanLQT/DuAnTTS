@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_tts_journal_entry_category_tts_journal_entry_category,tts_journal_entry_category.tts_journal_entry_category,model_tts_journal_entry_category_tts_journal_entry_category,,1,0,0,0

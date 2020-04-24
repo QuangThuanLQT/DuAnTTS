@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_picking_form_inherit_add_reason" model="ir.ui.view">
+        <field name="name">stock.picking.form.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <field name="origin" position="after">
+                <field name="cancel_reason" attrs="{'invisible':[('cancel_reason','=',False)]}"/>
+                <field name="picking_cancel" invisible="1"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="vpicktree_inherit_add_picking_cancel" model="ir.ui.view">
+            <field name="name">stock.picking.form.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="arch" type="xml">
+                <field name="state" position="before">
+                    <field name="picking_cancel" string="Đơn Hàng Đã Huỷ"/>
+                </field>
+            </field>
+        </record>
+</odoo>

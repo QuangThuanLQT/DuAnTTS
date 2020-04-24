@@ -1,0 +1,41 @@
+<odoo>
+    <data>
+        <record id="sale_order_type_tree_view" model="ir.ui.view">
+            <field name="name">sale.order.type.tree</field>
+            <field name="model">sale.order.type</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="type"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sale_order_type_form_view" model="ir.ui.view">
+            <field name="name">sale.order.type.form</field>
+            <field name="model">sale.order.type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="type"/>
+                            <field name="account_analytic_tag_ids" widget="many2many_tags"/>
+                            <field name="cost_account_analytic_tag_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="sale_order_type_action" model="ir.actions.act_window">
+            <field name="name">Loại đơn hàng</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order.type</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+        </record>
+
+         <menuitem id="sale_order_type_menu" name="Loại đơn hàng" action="sale_order_type_action" parent="sales_team.menu_sale_config" sequence="1"/>
+    </data>
+</odoo>

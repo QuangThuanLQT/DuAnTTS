@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <record id="view_sale_receipt_form_sms_payment" model="ir.ui.view">
+            <field name="name">account.voucher.sms.payment</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_sale_receipt_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='move_id']" position="after">
+                    <field name="sms_payment_id" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

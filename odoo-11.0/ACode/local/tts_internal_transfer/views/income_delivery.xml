@@ -1,0 +1,91 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="income_inventory_tree">
+            <field name="name">stock.picking.income.inventory</field>
+            <field name="model">income.inventory</field>
+            <field name="arch" type="xml">
+                <tree edit="false">
+                    <field name="user_delivery_id"/>
+                    <field name="income_name"/>
+                    <field name="partner_id"/>
+                    <field name="delivery_done_date"/>
+                    <field name="kich_thuoc_don_hang" context="{'show_numbersign': True}"/>
+                    <field name="giao_hang_tang_cuong"/>
+                    <field name="delivery_method"/>
+                    <field name="city_id"/>
+                    <field name="district_id"/>
+                    <field name="ward_id"/>
+                    <field name="check_cancel" invisible="1"/>
+                    <field name="thu_nhap" string="Thu nhập"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="income_inventory_search">
+            <field name="name">stock.picking.income.inventory.search</field>
+            <field name="model">income.inventory</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="income_name"/>
+                    <field name="partner_id"/>
+                </search>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="income_inventory_view">
+            <field name="name">income.inventory.form</field>
+            <field name="model">income.inventory</field>
+            <field name="arch" type="xml">
+                <form edit="false">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="partner_id" context="{'search_default_customer':1}" required="True"/>
+                                <label string="Địa chỉ"/>
+                                <div class="o_address_format">
+                                    <field name="city_id" class="o_address_street" placeholder="Tỉnh thành" required="True"/>
+                                    <field name="district_id" class="o_address_street" placeholder="Quận (huyện)" required="True"/>
+                                    <field name="ward_id" class="o_address_street" placeholder="Phường/Xã" required="True"/>
+                                </div>
+                                <field name="is_customer" invisible="1"/>
+                                <field name="is_supplier" invisible="1"/>
+                                <field name="source_sale_id"
+                                       domain="[('partner_id', '=', partner_id), ('sale_order_return', '=', True)]"
+                                       attrs="{'invisible' : ['|', ('is_customer', '=', False), ('partner_id', '=', False)]}"/>
+                                <field name="source_purchase_id"
+                                       domain="[('partner_id', '=', partner_id), ('purchase_order_return', '=', False)]"
+                                       attrs="{'invisible' : ['|', ('is_supplier', '=', False), ('partner_id', '=', False)]}"/>
+                                <field name="kich_thuoc_don_hang" required="True"/>
+                            </group>
+                            <group>
+                                <field name="user_delivery_id" required="True"/>
+                                <field name="delivery_done_date" required="True"/>
+                                <field name="giao_hang_tang_cuong"/>
+                                <field name="delivery_method"/>
+                            </group>
+                            <group invisible="True">
+                                <field name="create_manual"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="income_inventory_action" model="ir.actions.act_window">
+            <field name="name">Income Inventory</field>
+            <field name="res_model">income.inventory</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('check_cancel','=', 0)]</field>
+            <field name="context">{'default_create_manual': True}</field>
+            <field name="view_id" ref="tts_internal_transfer.income_inventory_tree"/>
+        </record>
+
+        <menuitem name="Income Inventory" id="income_inventory_menu" parent="stock.menu_warehouse_report"
+                  action="income_inventory_action"/>
+    </data>
+</odoo>

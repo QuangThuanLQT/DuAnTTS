@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+        <template id="assets_backend" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/tts_modifier_accounting/static/src/js/export_sale_gross_proifit.js"></script>
+            </xpath>
+        </template>
+
+        <record id="ir_cron_create_invoice_from_order" model="ir.cron">
+            <field name="name">Cron create invoice from order</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False" />
+            <field name="model" eval="'sale.order'"></field>
+            <field name="function" eval="'_cron_queue_create_invoice'"/>
+            <field name="active" eval="True"/>
+        </record>
+    </data>
+</odoo>

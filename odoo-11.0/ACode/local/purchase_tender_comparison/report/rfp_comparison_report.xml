@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="report_rfq_comparison">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="report.external_layout">
+                        <div class="page">
+                            <div class="oe_structure"/>
+
+                            <h2>RFQ Comparison <span t-field="o.name"/></h2>
+
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th colspan="2" t-foreach="o.purchase_ids" t-as="purchase">
+                                            <table class="table">
+                                                <tr>
+                                                    <td colspan="2"><span>RFQ</span> #<span t-field="purchase.name"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2"><span>Supplier</span> <span t-field="purchase.partner_id"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2"><span t-field="purchase.date_order"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span>Price</span></td>
+                                                    <td><span>Qty</span></td>
+                                                </tr>
+                                            </table>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-if="o.line_ids">
+                                        <tr t-foreach="o.line_ids" t-as="line">
+                                            <td>
+                                                [ <span t-field="line.product_id.code"/> ]
+                                                <span t-field="line.product_id.name"/>
+                                            </td>
+                                            <t t-foreach="o.purchase_ids" t-as="purchase">
+                                                <t t-foreach="purchase.order_line" t-as="pline">
+                                                    <t t-if="pline.product_id.id == line.product_id.id">
+                                                        <td>
+                                                            <span t-field="pline.price_unit"/>
+                                                        </td>
+                                                        <td>
+                                                            <span t-field="pline.product_qty"/>
+                                                        </td>
+                                                    </t>
+                                                </t>
+                                            </t>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span>Total Discount</span>
+                                            </td>
+                                            <t t-foreach="o.purchase_ids" t-as="purchase">
+                                                <td colspan="2">
+                                                    0
+                                                </td>
+                                            </t>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span>Total</span>
+                                            </td>
+                                            <t t-foreach="o.purchase_ids" t-as="purchase">
+                                                <td colspan="2">
+                                                    <span t-field="purchase.amount_total"/>
+                                                </td>
+                                            </t>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span>Payment Terms</span>
+                                            </td>
+                                            <t t-foreach="o.purchase_ids" t-as="purchase">
+                                                <td colspan="2">
+                                                    <span t-field="purchase.payment_term_id"/>
+                                                </td>
+                                            </t>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,112 @@
+<odoo>
+    <data>
+        <record id="view_task_form2_inherit" model="ir.ui.view">
+            <field name="name">project.task.form</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/group/group" position="inside">
+                    <field name="next_task" domain="[('project_id','=',project_id),('id','!=',id)]" options="{'no_quick_create':True, 'no_create_edit':True}"/>
+                </xpath>
+                <xpath expr="//div[@class='oe_button_box']" position="inside">
+                    <button class="oe_stat_button" name="attachment_tree_view" type="object" icon="fa-files-o">
+                        <field string="Documents" name="doc_count" widget="statinfo"/>
+                    </button>
+                    <button name="action_open_contract" type="object" class="oe_stat_button" icon="fa-book">
+                        <field string="Hợp đồng" name="contract_count" widget="statinfo"/>
+                    </button>
+                    <!--<button name="project_to_job_quotaion_action" type="object" class="oe_stat_button" icon="fa-book" context="{'project_id':project_id}">-->
+                        <!--<field string="Định mức" name="job_quotaion_count" widget="statinfo"/>-->
+                    <!--</button>-->
+                </xpath>
+                <xpath expr="//form/sheet/group/group[2]" position="inside">
+                    <field name="priority_id" string="Độ ưu tiên"/>
+                </xpath>
+                <field name="next_task" position="before">
+                    <field name="actual_date_start"/>
+                    <field name="actual_date_end"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_task_tree2_inherit" model="ir.ui.view">
+            <field name="name">view_task_tree2.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_tree2"/>
+            <field name="arch" type="xml">
+                <field name="date_deadline" position="before">
+                    <field name="priority_id" string="Độ ưu tiên"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_task_form2_inherit_picking_inherit" model="ir.ui.view">
+            <field name="name">project.task.form.picking</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="odoo_job_costing_management.view_task_form2_inherit_picking"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[2]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//notebook/page[3]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//notebook/page[4]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//notebook/page[5]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_task_form2_inherited_inherit" model="ir.ui.view">
+            <field name="name">project.task.form.timesheet</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="hr_timesheet.view_task_form2_inherited"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[2]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <field name="progress" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+
+        <!--<record id="odoo_job_costing_management.action_view_job_orders" model="ir.actions.act_window">-->
+            <!--<field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>-->
+        <!--</record>-->
+
+        <record id="view_task_tree2_inherited_hide_field" model="ir.ui.view">
+            <field name="name">project.task.tree.inherit.hide</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="hr_timesheet.view_task_tree2_inherited"/>
+            <field name="arch" type="xml">
+                <field name="remaining_hours" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="progress" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="planned_hours" position="attributes">
+                    <attribute name="widget">float_time</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_task_tree2_inherit_add_field" model="ir.ui.view">
+            <field name="name">project.task.tree.inherit.hide</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="cptuanhuy_project.view_task_tree2_inherit"/>
+            <field name="arch" type="xml">
+                <field name="priority_id" position="before">
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="actual_date_start"/>
+                    <field name="actual_date_end"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

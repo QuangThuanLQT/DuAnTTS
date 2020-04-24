@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_zalo_api_config,access_zalo_api_config,model_zalo_api_config,,1,1,0,0
+access_zalo_api_test,access_zalo_api_test,model_zalo_api_test,,1,1,1,1

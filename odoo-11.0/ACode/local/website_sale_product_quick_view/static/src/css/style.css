@@ -1,0 +1,111 @@
+.product_view .modal-dialog{max-width: 900px; width: 100%;}
+.pre-cost{text-decoration: line-through; color: #a5a5a5;}
+.space-ten{padding: 10px 0;}
+.rating.hidden-sm.rating_ext > .price-text-color.fa-star {
+    color: #fcc500;
+}
+.rating.hidden-sm.rating_ext > .fa-star{
+    color: #dddddb;
+}
+
+.popup_add_to_cart #o-carousel-product .carousel-inner div.item {
+    height: 300px;
+}
+
+.popup_add_to_cart .input-group-addon {
+  padding: 0px 10px;
+  font-size: 10px;
+  font-weight: normal;
+  line-height: 1;
+  color: #555;
+  text-align: center;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#button_heart{
+	width: 50px;
+	height: 50px;
+    top:50%;
+    position: absolute;
+	left: 50%;
+	margin-top: -10px;
+	margin-left: 70px;
+	border-radius: 5px;
+	background: none;
+	cursor: pointer;
+	transition: background 0.5s ease;
+}
+#button:hover{
+
+}
+.active#button_heart:before,.active#button_heart:after{
+	background: red !important;
+}
+#button_heart {
+    width: 26px;
+    height: 22px;
+}
+#button_heart:before,
+#button_heart:after {
+	transition: background 0.5s ease;
+    position: absolute;
+    content: "";
+    left: 12px;
+    top: 0;
+    width: 12px;
+    height: 20px;
+    background: dimgrey;
+    border-radius: 50px 50px 0 0;
+    transform: rotate(-45deg);
+    transform-origin: 0 100%;
+}
+#button_heart:after {
+    left: 0;
+    transform: rotate(45deg);
+    transform-origin :100% 100%;
+}
+
+#button_heart_big{
+	width: 50px;
+	height: 50px;
+    top:46%;
+    position: relative;
+	left: 23%;
+	margin-top: -36px;
+	margin-left: 150px;
+	border-radius: 5px;
+	background: none;
+	cursor: pointer;
+	transition: background 0.5s ease;
+}
+#button:hover{
+
+}
+.active#button_heart_big:before,.active#button_heart_big:after{
+	background: red !important;
+}
+#button_heart_big {
+    width: 26px;
+    height: 22px;
+}
+#button_heart_big:before,
+#button_heart_big:after {
+	transition: background 0.5s ease;
+    position: absolute;
+    content: "";
+    left: 20px;
+    top: -5px;
+    width: 21px;
+    height: 35px;
+    background: dimgrey;
+    border-radius: 50px 50px 0 0;
+    transform: rotate(-45deg);
+    transform-origin: 0 100%;
+}
+#button_heart_big:after {
+    left: 0;
+    transform: rotate(45deg);
+    transform-origin :100% 100%;
+}

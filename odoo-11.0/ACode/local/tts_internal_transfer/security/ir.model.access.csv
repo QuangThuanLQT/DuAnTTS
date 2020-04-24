@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_stock_picking_log_all_user,name_stock_picking_log_all_user,model_stock_picking_log,,1,1,1,1
+access_income_inventory_all_user,access_income_inventory_all_user,model_income_inventory,,1,1,1,1

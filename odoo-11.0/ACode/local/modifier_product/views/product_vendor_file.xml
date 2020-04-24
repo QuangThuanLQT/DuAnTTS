@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="product_vendor_form_file_view">
+            <field name="name">product_vendor_form_file.view</field>
+            <field name="model">product.vendor.price.file</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="import_data" widget="binary" required="1"/>
+                        </group>
+                        <footer>
+                            <button name="import_csv" type="object" nolabel="1"
+                                    string="Tải Sản Phẩm" class="oe_highlight"/>
+                            <button string="Huỷ bỏ" special="cancel"
+                                class="oe_link"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

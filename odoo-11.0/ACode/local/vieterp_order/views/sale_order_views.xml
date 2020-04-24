@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_order_form" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/header/button[@name='action_quotation_send']" position="after">
+                    <button type="object" name="action_waiting_manager" states="draft,sent" string="Sent to Manager"/>
+                    <button type="object" name="action_waiting_director" states="waiting_manager"
+                            string="Sent to Director"/>
+                    <button type="object" name="action_confirm" states="approved"
+                            string="Confirm Sale"/>
+                    <!-- groups="hpusa_order.group_view_bom_hpusa,hpusa_order.group_view_bom_cost" -->
+                    <button type="object" name="action_approve" states="waiting_director" string="Approve"/>
+                    <!-- groups="hpusa_order.group_view_discount"-->
+                    <button type="object" name="action_refuse_director" states="approved,waiting_director"
+                            string="Director Refuse"/>
+                    <!-- groups="hpusa_order.group_view_discount" -->
+                    <button type="object" name="action_refuse_manager" states="waiting_manager" string="Manager Refuse"/>
+                    <!-- groups="hpusa_order.group_view_bom_hpusa,hpusa_order.group_view_bom_cost" -->
+                    <button type="object" name="action_refuse_customer" states="sent" string="Customer Refuse"/>
+                    <!--
+                    <button type="action" name="action_vieterp_wizard_report_view_cost" class="oe_highlight"
+                            string="View BOM Structure" groups="hpusa_order.group_view_bom_hpusa"/>
+                    <button type="action" name="action_gs_wizard_report_view_cost" class="oe_highlight"
+                            string="View BOM Structure" groups="hpusa_order.group_view_bom_cost"/>
+                            -->
+                </xpath>
+                <xpath expr="/form/header/button[@name='action_quotation_send']" position="replace">
+                    <button name="action_quotation_send" string="Send by Email" type="object" states="draft,approved"
+                            context="{'template':'1'}" class="oe_highlight" groups="base.group_user"/>
+                </xpath>
+                <xpath expr="/form/header/button[@name='print_quotation']" position="replace">
+                    <button name="print_quotation" string="Print" type="object" states="draft,approved"
+                            class="oe_highlight" groups="base.group_user"/>
+                </xpath>
+                <xpath expr="/form/header/button[@name='action_cancel']" position="replace">
+                    <button name="action_cancel" type="object"
+                            states="draft,sent,waiting_manager,waiting_director,approved" string="Cancel"
+                            groups="base.group_user"/>
+                </xpath>
+                <xpath expr="/form/header/field[@name='state']" position="replace">
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,waiting_manager,waiting_director,sale,approved,sent,done"
+                           statusbar_colors='{"invoice_except":"red","waiting_date":"blue"}'/>
+                </xpath>
+                <button name="button_dummy" position="replace">
+                    <button name="button_dummy" states="draft,sent,waiting_manager,waiting_director" string="(update)"
+                            type="object" class="oe_link" style="display:block !important;"
+                            groups="gs_hpusa_order.group_view_bom_hpusa,gs_hpusa_order.group_view_bom_cost"/>
+                </button>
+                <header position="inside">
+                    <button type="action" name="%(action_vieterp_wizard_report_view_cost)d"
+                            class="oe_highlight"
+                            string="View BOM Structure"
+                            invisible="['|',('sale_order_type', '!=', 'customize'),('bom_count', '=', 0)]"
+                    />
+                </header>
+            </field>
+        </record>
+
+        <record id="sale.action_orders" model="ir.actions.act_window">
+            <field name="name">Sales Orders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
+            <field name="search_view_id" ref="sale.sale_order_view_search_inherit_sale"/>
+            <field name="context">{}</field>
+            <field name="domain">[('state','not in',('draft','sent','cancel','waiting_manager','waiting_director','approved'))]
+            </field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create a Quotation, the first step of a new sale.
+                </p>
+                <p>
+                    Once the quotation is confirmed, it becomes a sales order.
+                    You'll be able to invoice it and collect payments.
+                    From the <i>Sales Orders</i> menu, you can track delivery
+                    orders or services.
+                </p>
+            </field>
+        </record>
+
+        <record id="sale.action_quotations" model="ir.actions.act_window">
+            <field name="name">Quotations</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="sale.view_quotation_tree"/>
+            <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
+            <field name="domain">
+                [('state','in',('draft','sent','cancel','waiting_manager','waiting_director','approved'))]
+            </field>
+            <field name="search_view_id" ref="sale.sale_order_view_search_inherit_quotation"/>
+            <field name="context">{'hide_sale': True}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create a Quotation, the first step of a new sale.
+                </p>
+                <p>
+                    Your next actions should flow efficiently: confirm the Quotation
+                    to a Sale Order, then create the Invoice and collect the Payment.
+                </p>
+                <p>
+                    Note that once a Quotation becomes a Sale Order, it will be moved
+                    from the Quotations list to the Sales Order list.
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

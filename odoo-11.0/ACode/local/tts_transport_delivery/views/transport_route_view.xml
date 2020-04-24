@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="tts_transporter_route_tree">
+            <field name="name">tts.transporter.route.tree</field>
+            <field name="model">tts.transporter.route</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="transporter_id"/>
+                    <field name="name"/>
+                    <field name="transporter_name"/>
+                    <field name="feosco_city_id"/>
+                    <field name="feosco_district_id"/>
+                    <field name="phuong_xa"/>
+                    <field name="address"/>
+                    <field name="thoi_gian_xe_toi"/>
+                    <field name="uoc_tinh_phi_ship"/>
+                    <field name="note"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="tts_transporter_route_form">
+            <field name="name">tts.transporter.route.form</field>
+            <field name="model">tts.transporter.route</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="transporter_id"/>
+                                <field name="name"/>
+                                <field name="transporter_name"/>
+                                <field name="address"/>
+                                <field name="feosco_city_id"/>
+                                <field name="feosco_district_id"/>
+                                <field name="phuong_xa"/>
+                            </group>
+                            <group>
+                                <field name="transporter_address"/>
+                                <field name="transporter_phone"/>
+                                <field name="thoi_gian_xe_toi"/>
+                                <field name="uoc_tinh_phi_ship"/>
+                                <field name="note"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="tts_transporter_route_action" model="ir.actions.act_window">
+            <field name="name">Tuyến xe</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">tts.transporter.route</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="tts_transporter_route_menu" parent="delivery.sale_menu_delivery"
+                  action="tts_transporter_route_action" sequence="50"/>
+
+    </data>
+</odoo>

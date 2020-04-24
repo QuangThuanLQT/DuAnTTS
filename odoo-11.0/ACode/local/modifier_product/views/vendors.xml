@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="base.action_partner_supplier_form" model="ir.actions.act_window">
+            <field name="view_mode">tree,kanban,form</field>
+        </record>
+
+        <record id="base.action_partner_customer_form" model="ir.actions.act_window">
+            <field name="view_mode">tree,kanban,form</field>
+        </record>
+
+        <record id="base.action_partner_form" model="ir.actions.act_window">
+            <field name="view_mode">tree,kanban,form</field>
+        </record>
+
+        <record id="view_partner_form_inherit" model="ir.ui.view">
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='image']" position='replace'>
+                    <!--<attribute name="invisible">1</attribute>-->
+                </xpath>
+                <xpath expr="//field[@name='child_ids']/kanban/templates/t/div/div[@class='o_kanban_image']" position='attributes'>
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='toggle_active']" position="attributes">
+                    <attribute name="groups">base.group_system_config</attribute>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="product_price" model="ir.ui.view">
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="purchase.res_partner_view_purchase_buttons"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='%(purchase.act_res_partner_2_purchase_order)d']" position='after'>
+                    <button name="product_vendor_action_mandate" type="object" class="oe_stat_button"
+                            icon="fa-pencil-square-o">
+                            <field name="count_list" widget="statinfo" string="Bảng giá"/>
+                    </button>
+                    <button name="product_vendor_action_purchase" type="object" class="oe_stat_button"
+                            icon="fa-pencil-square-o">
+                        <field name="count_product" widget="statinfo" string="Cung ứng"/>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product_inventory" model="ir.ui.view">
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[2]" position="attributes">
+                  <attribute name="string">Mua hàng</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

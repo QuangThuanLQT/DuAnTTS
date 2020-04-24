@@ -1,0 +1,39 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="picking_print_history_tree">
+            <field name="name">stock.picking.picking.print</field>
+            <field name="model">stock.picking</field>
+            <field name="priority" eval="112"/>
+            <field name="arch" type="xml">
+                <tree create="false" delete="false">
+                    <field name="origin" string="Đơn hàng"/>
+                    <field name="export_confirm_order_sub"/>
+                    <field name="print_user_history"/>
+                    <field name="in_tang_cuong_history"/>
+                    <field name="image_user_history"/>
+                    <field name="in_hinh_tang_cuong_history"/>
+                    <field name="kcs1_user_history"/>
+                    <field name="kcs1_tang_cuong_history"/>
+                    <field name="ep_user"/>
+                    <field name="ep_tang_cuong"/>
+                    <field name="kcs2_user_history"/>
+                    <field name="kcs2_tang_cuong_history"/>
+                    <field name="state" invisible="1"/>
+                    <field name="picking_type" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="picking_print_history_action" model="ir.actions.act_window">
+            <field name="name">Lịch sử in</field>
+            <field name="res_model">stock.picking</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[('picking_type', '=', 'print')]</field>
+            <field name="view_id" ref="picking_print_history_tree"/>
+        </record>
+
+        <menuitem name="Lịch sử in" id="picking_print_history_menu" parent="stock.menu_warehouse_report"
+                  action="picking_print_history_action"/>
+    </data>
+</odoo>

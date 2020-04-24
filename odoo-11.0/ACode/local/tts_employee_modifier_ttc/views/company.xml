@@ -1,0 +1,25 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="employee_company_tree">
+            <field name="name">employee.company.tree</field>
+            <field name="model">employee.company</field>
+            <field name="arch" type="xml">
+                <tree string="Company" editable="top">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="employee_company_action" model="ir.actions.act_window">
+            <field name="name">Company</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">employee.company</field>
+            <field name="view_mode">tree</field>
+            <field name="view_type">form</field>
+        </record>
+
+        <menuitem name="Company" id="employee_company_menu"
+                  parent="hr.menu_human_resources_configuration"
+                  action="employee_company_action" sequence="5"/>
+    </data>
+</odoo>

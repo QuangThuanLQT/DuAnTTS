@@ -1,0 +1,48 @@
+<odoo>
+	<data noupdate="1">
+			<record id="ordering_time_monday" model="ordering.time">
+				<field name="day">Monday</field>
+				<field name="start_time">00.00</field>
+				<field name="end_time">23.99</field>
+				<field name="sequence">0</field>
+			</record>
+			<record id="ordering_time_tuesday" model="ordering.time">
+				<field name="day">Tuesday</field>
+				<field name="start_time">00.00</field>
+				<field name="end_time">23.99</field>
+				<field name="sequence">1</field>
+			</record>
+			<record id="ordering_time_wednesday" model="ordering.time">
+				<field name="day">Wednesday</field>
+				<field name="start_time">00.00</field>
+				<field name="end_time">23.99</field>
+				<field name="sequence">2</field>
+			</record>
+			<record id="ordering_time_thursday" model="ordering.time">
+				<field name="day">Thursday</field>
+				<field name="start_time">00.00</field>
+				<field name="end_time">23.99</field>
+				<field name="sequence">3</field>
+			</record>
+			<record id="ordering_time_friday" model="ordering.time">
+				<field name="day">Friday</field>
+				<field name="start_time">00.00</field>
+				<field name="end_time">23.99</field>
+				<field name="sequence">4</field>
+			</record>
+			<record id="ordering_time_saturday" model="ordering.time">
+				<field name="day">Saturday</field>
+				<field name="start_time">00.00</field>
+				<field name="end_time">23.99</field>
+				<field name="sequence">5</field>
+			</record>
+			<record id="ordering_time_sunday" model="ordering.time">
+				<field name="day">Sunday</field>
+				<field name="start_time">00.00</field>
+				<field name="end_time">23.99</field>
+				<field name="sequence">6</field>
+			</record>
+			
+			
+	</data>
+</odoo>

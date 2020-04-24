@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="tinh_gia_von_wizard_tree" model="ir.ui.view">
+            <field name="name">gia.von.popup.form</field>
+            <field name="model">gia.von.popup</field>
+            <field name="arch" type="xml">
+                <tree string="Tính giá vốn">
+                   <field name="start_date"/>
+                   <field name="end_date" />
+                   <field name="doing_date"/>
+                   <field name="complete_date" />
+                   <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="tinh_gia_von_wizard_form" model="ir.ui.view">
+            <field name="name">gia.von.popup.form</field>
+            <field name="model">gia.von.popup</field>
+            <field name="arch" type="xml">
+                <form string="Tính giá vốn">
+                    <header>
+                        <button name="compute_gia_von" type="object" string="Tính giá vốn" class="oe_highlight" attrs="{'invisible': [('state','in',['done','in_progress'])]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,schedule,in_progress,done" readonly="1"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="start_date"/>
+                                <field name="doing_date"/>
+                            </group>
+                            <group>
+                                <field name="end_date"/>
+                                <field name="complete_date" readonly="1"/>
+                            </group>
+                        </group>
+                        <field name="note"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="tinh_gia_von_action" model="ir.actions.act_window">
+	        <field name="name">Tính giá vốn</field>
+	        <field name="res_model">gia.von.popup</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">tree,form</field>
+    	</record>
+
+        <menuitem name="Tính giá vốn" action="tinh_gia_von_action" id="tinh_gia_von_menu" parent="stock.menu_warehouse_config"/>
+
+        <record id="cron_tinh_gia_von" model="ir.cron">
+            <field name="name">Tính giá vốn</field>
+            <field eval="False" name="active"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'gia.von.popup'"></field>
+            <field name="function" eval="'schedule_tinh_gia_von'"/>
+            <field name="args" eval="'(False,)'"/>
+        </record>
+
+        <record id="cron_update_state_tinh_gia_von" model="ir.cron">
+            <field name="name">Update State cron tính giá vốn</field>
+            <field eval="False" name="active"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'gia.von.popup'"></field>
+            <field name="function" eval="'update_state_cron_gia_von'"/>
+        </record>
+    </data>
+</odoo>

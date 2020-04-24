@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.actions.act_window" id="sale_open_mo">
+            <field name="context">{'default_so_id': active_id, 'search_default_so_id': active_id}</field>
+            <field name="name">Manufacturing Orders</field>
+            <field name="search_view_id" ref="mrp.view_mrp_production_filter"/>
+            <field name="res_model">mrp.production</field>
+            <field name="src_model">sale.order</field>
+        </record>
+
+        <record id="view_order_form" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="vieterp_mrp_base.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/div[1]" position='inside'>
+                    <button attrs="{'invisible': [('sale_order_type', '!=', 'customize')]}" name="%(vieterp_mrp_base.sale_open_mo_bom)d" type="action" class="oe_stat_button"
+                            icon="fa-pencil-square-o">
+                        <field name="bom_count" widget="statinfo" string="BOM"/>
+                    </button>
+                    <button attrs="{'invisible': [('sale_order_type', '!=', 'customize')]}" name="action_view_mo" type="object" class="oe_stat_button"
+                            icon="fa-pencil-square-o">
+                        <field name="mo_count" widget="statinfo" string="MO"/>
+                    </button>
+                </xpath>
+                <header position="inside">
+                    <button name="action_create_mo" string="Create MO" type="object" attrs="{'invisible': ['|',('state','!=','sale'),('sale_order_type', '!=', 'customize')]}" class="oe_highlight"/>
+                </header>
+            </field>
+        </record>
+    </data>
+</odoo>

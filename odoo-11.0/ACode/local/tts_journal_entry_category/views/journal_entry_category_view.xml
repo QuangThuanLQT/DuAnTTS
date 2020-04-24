@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+         <record model="ir.ui.view" id="journal_entry_category_tree_view">
+            <field name="name">journal.entry.category.tree</field>
+            <field name="model">journal.entry.category</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name"/>
+                    <field name="level" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="journal_entry_category_form_view">
+            <field name="name">Tài khoản</field>
+            <field name="model">journal.entry.category</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+                        <group>
+                            <field name="name"/>
+                            <field name="level" invisible="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_account_group_level_1" model="ir.actions.act_window">
+            <field name="name">Nhóm tài khoản 1</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">journal.entry.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('level','=','level_1')]</field>
+            <field name="context">{'default_level':'level_1'}</field>
+        </record>
+        <menuitem id="account_group_level_1" name="Nhóm tài khoản 1"
+                  parent="account.account_account_menu"
+                  action="action_account_group_level_1" sequence="1"/>
+        <record id="action_account_group_level_2" model="ir.actions.act_window">
+            <field name="name">Nhóm tài khoản 2</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">journal.entry.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('level','=','level_2')]</field>
+            <field name="context">{'default_level':'level_2'}</field>
+        </record>
+        <menuitem id="account_group_level_2" name="Nhóm tài khoản 2"
+                  parent="account.account_account_menu"
+                  action="action_account_group_level_2" sequence="1"/>
+        <record id="action_account_group_level_3" model="ir.actions.act_window">
+            <field name="name">Nhóm tài khoản 3</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">journal.entry.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('level','=','level_3')]</field>
+            <field name="context">{'default_level':'level_3'}</field>
+        </record>
+          <menuitem id="account_group_level_3" name="Nhóm tài khoản 3"
+                  parent="account.account_account_menu"
+                  action="action_account_group_level_3" sequence="1"/>
+
+    </data>
+</odoo>

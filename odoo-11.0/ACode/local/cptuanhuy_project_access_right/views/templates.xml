@@ -1,0 +1,7 @@
+<odoo>
+    <data>
+        <record id="group_only_see_task_assign" model="res.groups">
+            <field name="name">Only see task assign</field>
+        </record>
+    </data>
+</odoo>

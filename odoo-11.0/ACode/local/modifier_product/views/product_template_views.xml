@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--<function model="brand.name" name="update_brand_name"/>-->
+    <record id="ir_cron_update_source_name" model="ir.cron">
+        <field name="name">Update product source name</field>
+        <field eval="False" name="active" />
+        <field name="user_id" ref="base.user_root" />
+        <field name="interval_number">11111</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field eval="False" name="doall" />
+        <field eval="'source.name'" name="model" />
+        <field eval="'update_source_name'" name="function" />
+    </record>
+
+    <data>
+        <record id="view_stock_product_template_tree" model="ir.ui.view">
+            <field name="name">product.template.stock.tree.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="stock.view_stock_product_template_tree"/>
+            <field name="arch" type="xml">
+                <tree position="inside">
+                    <field name="barcode"/>
+                    <field name="is_manual_barcode"/>
+                    <field name="purchase_code" invisible="1"/>
+                    <button type="object" name="fill_multi_barcode" string="Tạo barcode" icon="fa-cogs"/>
+                </tree>
+                <tree position="attributes">
+                    <attribute name="decoration-danger">virtual_available&lt;0 or barcode == False or is_manual_barcode == False</attribute>
+                    <attribute name="decoration-info">virtual_available&gt;=0 and barcode != False and is_manual_barcode == True</attribute>
+                </tree>
+            </field>
+        </record>
+
+        <record id="product_template_only_form_view" model="ir.ui.view">
+            <field name="name">product.template.stock.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='image_medium']" position='attributes'>
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <field name="categ_id" position="before">
+                    <field name="brand_name_select"/>
+                    <field name="brand_name" invisible="1"/> <!--  attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}" -->
+                    <field name="source_select"/>
+                    <field name="source" invisible="1"/> <!--  attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}" -->
+                    <field name="purchase_code"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="product_template_barcode_tree_view" model="ir.ui.view">
+            <field name="name">product.template.product.tree</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+                <tree string="Product"
+                      editable="bottom"
+                      >
+                    <!--
+                      decoration-danger="barcode == False or is_manual_barcode == False"
+                      decoration-info="barcode != False and is_manual_barcode == True" -->
+                    <field name="sequence" widget="handle"/>
+                    <field name="default_code"/>
+                    <field name="name"/>
+                    <field name="list_price"/>
+                    <field name="standard_price"/>
+                    <field name="categ_id"/>
+                    <field name="type"/>
+                    <field name="uom_id" options="{'no_open': True, 'no_create': True}" groups="product.group_uom"/>
+                    <!--
+                    <field name="barcode"/>
+                    -->
+                    <field name="is_manual_barcode"/>
+                    <field name="purchase_code"/>
+                    <button type="object" name="fill_multi_barcode" string="Tạo barcode" icon="fa-cogs"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="product_template_action_product_barcode" model="ir.actions.act_window">
+            <field name="name">Barcode sản phẩm</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+            <field name="view_id" eval="product_template_barcode_tree_view"/>
+            <field name="context">{"search_default_consumable": 1, 'default_type': 'product'}</field>
+        </record>
+
+        <menuitem id="menu_product_variant_config_stock_barcode" name="Barcode sản phẩm" action="product_template_action_product_barcode"
+            parent="stock.menu_stock_inventory_control" sequence="2"/>
+
+        <record id="product_template_search_view" model="ir.ui.view">
+            <field name="name">product.template.search</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view" />
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="default_code" string="Mã nội bộ" filter_domain="[('default_code','ilike',self)]"/>
+                    <field name="barcode" string="Mã vạch" filter_domain="[('barcode','ilike',self)]"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="brand_name_tree_view" model="ir.ui.view">
+            <field name="name">brand.name.tree</field>
+            <field name="model">brand.name</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="brand_name_action" model="ir.actions.act_window">
+            <field name="name">Thương hiệu</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">brand.name</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+        </record>
+
+        <menuitem id="brand_name_menu" name="Thương hiệu" action="brand_name_action" parent="sale.prod_config_main"/>
+        <menuitem id="stock_brand_name_menu" name="Thương hiệu" action="brand_name_action" parent="stock.menu_product_in_config_stock"/>
+
+        <record id="merge_brand_name_form_view" model="ir.ui.view">
+            <field name="name">merge.brand.name.form</field>
+            <field name="model">merge.brand.name</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="brand_name_id"/>
+                            </group>
+                            <group></group>
+                        </group>
+                        <separator string="Các thương hiệu gộp"/>
+                        <field name="brand_name_ids"/>
+                    </sheet>
+                    <footer>
+                        <button string='Xác nhận gộp' name="action_merge_brand_name" type="object" class="btn-primary"/>
+                        or
+                        <button string="Huỷ" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="merge_brand_name_action" model="ir.actions.act_window">
+            <field name="name">Gộp thương hiệu</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">merge.brand.name</field>
+            <field name="view_mode">form</field>
+            <field name="view_type">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="action_merge_brand_name" model="ir.actions.server">
+            <field name="name">Gộp thương hiệu</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_brand_name"/>
+            <field name="state">code</field>
+            <field name="code">action = record.action_merge_brand_name();
+            </field>
+        </record>
+
+        <record model="ir.values" id="value_action_merge_brand_name">
+            <field name="model">brand.name</field>
+            <field name="name">Gộp thương hiệu</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_merge_brand_name'))" />
+        </record>
+
+        <record id="source_name_tree_view" model="ir.ui.view">
+            <field name="name">source.name.tree</field>
+            <field name="model">source.name</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="source_name_action" model="ir.actions.act_window">
+            <field name="name">Xuất xứ</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">source.name</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+        </record>
+
+        <record id="barcode_report_paper_format_a4" model="report.paperformat">
+            <field name="name">Barcode A4</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">297</field>
+            <field name="page_width">210</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">13</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">3</field>
+            <field name="margin_right">3</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">9</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="product.report_product_template_label" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="barcode_report_paper_format_a4"/>
+        </record>
+
+        <template id="product.report_simple_label">
+            <div class="col-xs-4" style="padding:0;">
+                <table style="border-spacing:0;margin-bottom:0;height:122px;" class="table">
+                    <thead>
+                        <tr style="width: 3in;">
+                            <td style="border: 2px solid black;width: 2.63in;" colspan="2" class="col-xs-8 danger">
+                                <!--<t t-if="product.default_code">-->
+                                    <!--[<strong t-field="product.default_code"/>]-->
+                                <!--</t>-->
+                                <strong t-field="product.name"/>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="width: 1in;">
+                            <td style="border: 2px solid black;text-align: center; vertical-align: middle;" class="col-xs-12">
+                                <img t-if="product.barcode and len(product.barcode) == 13" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', product.barcode, 600, 150)" style="width:100%;height:20%;"/>
+                                <img t-elif="product.barcode and len(product.barcode) == 8" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN8', product.barcode, 600, 150)" style="width:100%;height:20%;"/>
+                                <img t-else="" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', product.barcode, 600, 150)" style="width:100%;height:20%;"/>
+                                <span t-field="product.barcode"/>
+                            </td>
+                            <!--
+                            <td style="border: 2px solid black; text-align: center;" class="col-xs-7">
+                                <h4>
+                                    <strong t-field="product.company_id.currency_id.symbol"/>
+                                    <strong t-field="product.list_price"/>
+                                </h4>
+                            </td>
+                            -->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </template>
+
+        <menuitem id="source_name_menu" name="Xuất xứ" action="source_name_action" parent="sale.prod_config_main"/>
+    </data>
+</odoo>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="sale_return_print">
+        <button type="button" class='btn btn-sm btn-default o_sale_return_excel' style="margin-right:3px">Export Overview</button>
+    </t>
+    <t t-name="sale_return_detail_print">
+        <button type="button" class='btn btn-sm btn-default o_sale_return_excel' >Export Detail</button>
+    </t>
+
+</templates>

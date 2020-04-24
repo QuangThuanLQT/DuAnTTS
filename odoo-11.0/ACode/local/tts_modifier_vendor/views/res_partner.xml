@@ -1,0 +1,404 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="tts_modifier_vendor_tree">
+            <field name="name">modifier_vendor_tree</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="display_name" string="Name" modifiers="{'readonly': true}"/>
+                    <field name="phone" modifiers="{}"/>
+                    <field name="email" invisible="1" on_change="1" modifiers="{'tree_invisible': true}"/>
+                    <field name="user_id" can_create="true" can_write="true" modifiers="{}"/>
+                    <field name="create_date" modifiers="{}"/>
+                    <field name="last_invoice_date" invisible="1"
+                           modifiers="{'readonly': true, 'tree_invisible': true}"/>
+                    <field name="last_invoice_date_sub" invisible="0" modifiers="{'tree_invisible': false}"/>
+                    <field name="sale_amount" string="Tổng mua" modifiers="{'readonly': true}"/>
+                    <field name="return_amount" modifiers="{'readonly': true}"/>
+                    <field name="sale_total_amount" string="Tổng mua trừ tổng trả hàng" modifiers="{'readonly': true}"/>
+                    <field name="sale_type" on_change="1" modifiers="{}"/>
+                    <field name="active" invisible="1" modifiers="{'tree_invisible': true}"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="tts_modifier_vendor_form">
+            <field name="name">modifier_vendor_form</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button" options="{'terminology': 'archive'}"
+                                       on_change="1" modifiers="{}"/>
+                            </button>
+                            <contactsync/>
+                            <button class="oe_stat_button" name="349" type="action"
+                                    attrs="{'invisible': [('supplier', '=', False)]}" icon="fa-pencil-square-o"
+                                    help="Vendor Bills" modifiers="{'invisible': [['supplier', '=', false]]}">
+                                <field string="Vendor Bills." name="supplier_invoice_count" widget="statinfo"
+                                       modifiers="{'readonly': true}"/>
+                            </button>
+                            <button class="oe_stat_button" name="348" type="action"
+                                    attrs="{'invisible': [('supplier', '=', False)]}" icon="fa-shopping-cart"
+                                    modifiers="{'invisible': [['supplier', '=', false]]}">
+                                <field string="Purchases" name="purchase_order_count" widget="statinfo"
+                                       modifiers="{'readonly': true}"/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <field name="is_company" invisible="1" on_change="1" modifiers="{'invisible': true}"/>
+                            <field name="commercial_partner_id" invisible="1" on_change="1" can_create="true"
+                                   can_write="true" modifiers="{'invisible': true, 'readonly': true}"/>
+                            <field name="company_type" widget="radio" class="oe_edit_only"
+                                   options="{'horizontal': true}" on_change="1" modifiers="{}" invisible="1"/>
+                            <h1>
+                                <field name="name" default_focus="1" placeholder="Name"
+                                       attrs="{'required' : [('type', '=', 'contact')]}"
+                                       modifiers="{'required': [['type', '=', 'contact']]}"/>
+                            </h1>
+                            <div class="o_row">
+                                <field name="parent_id" placeholder="Company" domain="[('is_company', '=', True)]"
+                                       context="{'default_is_company': True, 'default_supplier': supplier, 'default_customer': customer}"
+                                       attrs="{'invisible': ['|', '&amp;', ('is_company','=', True),('parent_id', '=', False),('company_name', '!=', False),('company_name', '!=', '')]}"
+                                       on_change="1" can_create="true" can_write="true"
+                                       modifiers="{'invisible': ['|', '&amp;', ['is_company', '=', true], ['parent_id', '=', false], ['company_name', '!=', false], ['company_name', '!=', '']]}"/>
+                                <field name="company_name"
+                                       attrs="{'invisible': ['|', '|', ('company_name', '=', False), ('company_name', '=', ''), ('is_company', '=', True)]}"
+                                       modifiers="{'invisible': ['|', '|', ['company_name', '=', false], ['company_name', '=', ''], ['is_company', '=', true]]}"/>
+                                <button name="create_company" type="object" string="Create company"
+                                        class="btn btn-sm oe_edit_only fa fa-external-link btn btn-link "
+                                        attrs="{'invisible': ['|', '|', ('is_company','=', True), ('company_name', '=', ''), ('company_name', '=', False)]}"
+                                        modifiers="{'invisible': ['|', '|', ['is_company', '=', true], ['company_name', '=', ''], ['company_name', '=', false]]}"/>
+                            </div>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="type" invisible="1" modifiers="{'invisible': true}"/>
+                                <field name="ten_nha_cung_cap"/>
+                                <field name="ref" string="Mã NCC(nội bộ)" readonly="1"/>
+                                <label for="street" string="Địa Chỉ"/>
+                                <div class="o_address_format">
+                                    <div class="oe_edit_only">
+                                        <button name="open_parent" type="object" string="(edit)" class="oe_link"
+                                                attrs="{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'contact')]}"
+                                                modifiers="{'invisible': ['|', ['parent_id', '=', false], ['type', '!=', 'contact']]}"/>
+                                    </div>
+                                    <field name="type" attrs="{'invisible': [('parent_id', '=', False)]}"
+                                           modifiers="{'invisible': [['parent_id', '=', false]]}"/>
+                                    <field name="feosco_city_id" placeholder="Tỉnh thành" string="Tỉnh thành"
+                                           options="{'no_create': True, 'no_edit': True, 'no_open': True}"
+                                           class="o_address_street" on_change="1" can_create="true" can_write="true"
+                                           modifiers="{}"/>
+                                    <field name="feosco_district_id" placeholder="Quận (huyện)" string="Quận (huyện)"
+                                           class="o_address_street"
+                                           options="{'no_create': True, 'no_edit': True, 'no_open': True}" invisible="0"
+                                           on_change="1" can_create="true" can_write="true" modifiers="{}"/>
+                                    <field name="feosco_ward_id" placeholder="Phường/Xã" string="Phường/Xã"
+                                           options="{'no_create': True, 'no_edit': True, 'no_open': True}"
+                                           class="o_address_street" on_change="1" can_create="true" can_write="true"
+                                           modifiers="{}"/>
+                                    <field name="street" placeholder="Số nhà, đường (thôn/xóm)" class="o_address_street"
+                                           attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"
+                                           modifiers="{'readonly': [['type', '=', 'contact'], ['parent_id', '!=', false]]}"/>
+                                    <field name="street2" placeholder="Tên đường" string="Tên đường"
+                                           class="o_address_street"
+                                           attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"
+                                           invisible="1"
+                                           modifiers="{'invisible': true, 'readonly': [['type', '=', 'contact'], ['parent_id', '!=', false]]}"/>
+                                    <field name="city" invisible="1" on_change="1" modifiers="{'invisible': true}"/>
+                                    <field name="state_id" invisible="1" can_create="true" can_write="true"
+                                           modifiers="{'invisible': true}"/>
+                                    <field name="zip" invisible="1" modifiers="{'invisible': true}"/>
+                                    <field name="country_id" invisible="1" on_change="1" can_create="true"
+                                           can_write="true" modifiers="{'invisible': true}"/>
+                                </div>
+                                <field name="loai_hinh_kd_id" options="{'no_quick_create':True, 'no_create_edit':True}"
+                                       can_create="true" can_write="true" modifiers="{}" required="True"/>
+                                <field name="feosco_business_license" placeholder="0101125580-005" string="Mã số thuế"
+                                       attrs="{'invisible': [('loai_hinh_kd_id','!=', %(tts_partner.lhkd_doanh_nghiep_kd)d)]}"
+                                       modifiers="{'invisible': [('loai_hinh_kd_id','!=', %(tts_partner.lhkd_doanh_nghiep_kd)d)]}" required="True"/>
+                                <field name="feosco_business_type" placeholder="Doanh nghiệp tư nhân"
+                                       attrs="{'invisible': [('is_company','=', False)]}" invisible="1"
+                                       modifiers="{'invisible': true}"/>
+                            </group>
+                            <group>
+                                <field name="function" placeholder="e.g. Sales Director" invisible="1"/>
+                                <field name="trang_thai"/>
+                                <field name="phone" widget="phone" placeholder="e.g. +84 83 818181" modifiers="{}"
+                                       required="True"/>
+                                <field name="user_ids" invisible="1" modifiers="{'invisible': true}"/>
+                                <field name="email" placeholder="abc@gmail.com" widget="email"
+                                       attrs="{'required': [('user_ids','!=', [])]}" on_change="1"
+                                       modifiers="{'required': [['user_ids', '!=', []]]}"/>
+                                <field name="web_site" placeholder="e.g. www.odoo.com"/>
+                                <field name="nhom_san_pham_cung_cap" widget="many2many_tags"/>
+                                <field name="phuong_thuc_giao_hang"/>
+                                <field name="dia_chi_giao_nhan"
+                                       attrs="{'invisible': [('phuong_thuc_giao_hang','=', 'delivery')], 'required': [('phuong_thuc_giao_hang','!=', 'delivery')]}"/>
+                            </group>
+                        </group>
+                        <notebook colspan="4">
+                            <page string="Thanh toán &amp; Công nợ">
+                                <group>
+                                    <group string="Thông tin thanh toán">
+                                        <field name="vendor_payment_method"/>
+                                        <field name="account_name"
+                                               attrs="{'invisible': [('vendor_payment_method','!=', 'bank')], 'required': [('vendor_payment_method','=', 'bank')]}"/>
+                                        <field name="account_bank"
+                                               attrs="{'invisible': [('vendor_payment_method','!=', 'bank')], 'required': [('vendor_payment_method','=', 'bank')]}"/>
+                                        <field name="account_numbers"
+                                               attrs="{'invisible': [('vendor_payment_method','!=', 'bank')], 'required': [('vendor_payment_method','=', 'bank')]}"/>
+                                        <field name="payment_date"/>
+                                    </group>
+                                    <group string="Thông tin công nợ">
+                                        <field name="liabilities_time"/>
+                                        <field name="liabilities_limit"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="internal_notes" string="Chính sách đổi trả hàng">
+                                <field name="comment" placeholder="Internal note..." modifiers="{}" widget="html"/>
+                                <group colspan="2" col="2" invisible="1" modifiers="{'invisible': true}">
+                                    <separator string="Warning on the Picking" colspan="4"/>
+                                    <field name="picking_warn" nolabel="1" modifiers="{'required': true}"/>
+                                    <field name="picking_warn_msg" colspan="3" nolabel="1"
+                                           attrs="{'required':[('picking_warn','!=','no-message')],'readonly':[('picking_warn','=','no-message')]}"
+                                           modifiers="{'readonly': [['picking_warn', '=', 'no-message']], 'required': [['picking_warn', '!=', 'no-message']]}"/>
+                                </group>
+                                <group colspan="2" col="2" invisible="1" modifiers="{'invisible': true}">
+                                    <separator string="Warning on the Invoice" colspan="4"/>
+                                    <field name="invoice_warn" nolabel="1" modifiers="{'required': true}"/>
+                                    <field name="invoice_warn_msg" colspan="3" nolabel="1"
+                                           attrs="{'required':[('invoice_warn','!=','no-message')],'readonly':[('invoice_warn','=','no-message')]}"
+                                           modifiers="{'readonly': [['invoice_warn', '=', 'no-message']], 'required': [['invoice_warn', '!=', 'no-message']]}"/>
+                                </group>
+                                <group colspan="2" col="2" invisible="1" modifiers="{'invisible': true}">
+                                    <separator string="Warning on the Sales Order" colspan="4"/>
+                                    <field name="sale_warn" nolabel="1" modifiers="{'required': true}"/>
+                                    <field name="sale_warn_msg" colspan="3" nolabel="1"
+                                           attrs="{'required':[('sale_warn','!=','no-message')],'readonly':[('sale_warn','=','no-message')]}"
+                                           modifiers="{'readonly': [['sale_warn', '=', 'no-message']], 'required': [['sale_warn', '!=', 'no-message']]}"/>
+                                </group>
+                                <group colspan="2" col="2" invisible="1" modifiers="{'invisible': true}">
+                                    <separator string="Warning on the Purchase Order" colspan="4"/>
+                                    <field name="purchase_warn" nolabel="1" modifiers="{'required': true}"/>
+                                    <field name="purchase_warn_msg" colspan="3" nolabel="1"
+                                           attrs="{'required':[('purchase_warn','!=','no-message')],'readonly':[('purchase_warn','=','no-message')]}"
+                                           modifiers="{'readonly': [['purchase_warn', '=', 'no-message']], 'required': [['purchase_warn', '!=', 'no-message']]}"/>
+                                </group>
+                            </page>
+                            <page string="Đầu mối liên hệ">
+                                <group>
+                                    <group string="Đầu mối liên hệ đặt hàng">
+                                        <field name="name_clue_order"/>
+                                        <field name="phone_clue_order" placeholder="e.g. +84 83 818181"/>
+                                        <field name="email_clue_order" placeholder="abc@gmail.com"/>
+                                        <field name="position_title_order"/>
+                                    </group>
+                                    <group string="Đầu mối liên hệ thanh toán">
+                                        <field name="name_clue_payment"/>
+                                        <field name="phone_clue_payment" placeholder="e.g. +84 83 818181"/>
+                                        <field name="email_clue_payment" placeholder="abc@gmail.com"/>
+                                        <field name="position_title_payment"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="sales_purchases" string="Sales &amp; Purchases">
+                                <group name="container_row_2">
+                                    <group string="Sale" name="sale">
+                                        <field name="customer" modifiers="{}"/>
+                                        <field name="user_id" can_create="true" can_write="true" modifiers="{}"/>
+                                        <field name="notify_email" widget="radio" modifiers="{'required': true}"/>
+                                        <field name="opt_out" string="Mailing Opt-Out" modifiers="{}"/>
+                                        <field name="property_delivery_carrier_id" can_create="true" can_write="true"
+                                               modifiers="{}"/>
+                                        <field name="message_bounce" modifiers="{}"/>
+                                        <field name="assigned_partner_id" can_create="true" can_write="true"
+                                               modifiers="{}"/>
+                                    </group>
+                                    <group string="Purchase" name="purchase">
+                                        <field name="supplier" modifiers="{}"/>
+                                    </group>
+                                    <group string="Bank" name="bank">
+                                        <field name="bank" modifiers="{}"/>
+                                    </group>
+                                    <group string="Payments" name="banks">
+                                        <field name="currency_id" invisible="1" can_create="true" can_write="true"
+                                               modifiers="{'invisible': true, 'readonly': true}"/>
+                                        <div>
+                                            <button type="action" class="btn-link" name="62"
+                                                    context="{'search_default_partner_id': active_id, 'default_partner_id': active_id}">
+                                                <field string="Bank account(s)" name="bank_account_count"
+                                                       widget="statinfo" modifiers="{'readonly': true}"/>
+                                            </button>
+                                        </div>
+                                        <button type="action" class="btn-link" name="257"
+                                                context="{'search_default_partner_id': active_id}">
+                                            <field name="payment_token_count" widget="statinfo" string="Credit card(s)"
+                                                   modifiers="{'readonly': true}"/>
+                                        </button>
+                                    </group>
+                                </group>
+                                <group name="container_row_stock">
+                                    <group string="Warehouse" name="warehouse">
+                                        <field name="property_stock_customer" domain="[('usage','=','customer')]"
+                                               can_create="true" can_write="true" modifiers="{}"/>
+                                        <field name="property_stock_supplier" domain="[('usage','=','supplier')]"
+                                               can_create="true" can_write="true" modifiers="{}"/>
+                                    </group>
+                                </group>
+                                <group name="delivery" string="Phương thức giao hàng">
+                                    <group>
+                                        <field name="delivery_method" on_change="1" modifiers="{}"/>
+                                        <field name="transport_route_id"
+                                               domain="[('feosco_district_id', '=', feosco_district_id),('feosco_city_id', '=', feosco_city_id)]"
+                                               attrs="{'invisible':[('delivery_method','!=','transport')], 'required': [('delivery_method','=','transport'), ('customer', '=', True)]}"
+                                               options="{'no_create_edit': True}" on_change="1" can_create="true"
+                                               can_write="true"
+                                               modifiers="{'invisible': [['delivery_method', '!=', 'transport']], 'required': [['delivery_method', '=', 'transport'], ['customer', '=', true]]}"/>
+                                        <field name="delivery_scope_id"
+                                               attrs="{'invisible':[('delivery_method','=','warehouse')]}"
+                                               can_create="true" can_write="true"
+                                               modifiers="{'invisible': [['delivery_method', '=', 'warehouse']], 'readonly': true}"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Accounting" name="accounting"
+                                  attrs="{'invisible': [('is_company','=',False),('parent_id','!=',False)]}"
+                                  modifiers="{'invisible': [['is_company', '=', false], ['parent_id', '!=', false]]}">
+                                <group>
+                                    <group string="Sale" name="acc_sale">
+                                        <field name="property_payment_term_id" widget="selection" can_create="true"
+                                               can_write="true" modifiers="{}"/>
+                                        <field name="credit" modifiers="{'readonly': true}"/>
+                                        <field name="trust" modifiers="{}"/>
+                                    </group>
+                                    <group string="Purchase" name="acc_purchase">
+                                        <field name="property_supplier_payment_term_id" widget="selection"
+                                               can_create="true" can_write="true" modifiers="{}"/>
+                                        <field name="debit" modifiers="{'readonly': true}"/>
+                                        <field name="currency_id" invisible="1" can_create="true" can_write="true"
+                                               modifiers="{'invisible': true, 'readonly': true}"/>
+                                    </group>
+                                    <group string="Fiscal Information" name="fiscal_information">
+                                        <field name="property_account_position_id"
+                                               options="{'no_create': True, 'no_open': True}" can_create="true"
+                                               can_write="true" modifiers="{}"/>
+                                        <label for="vat"/>
+                                        <div name="vat_info" class="o_row">
+                                            <field name="vat" placeholder="e.g. BE0477472701" modifiers="{}"/>
+                                        </div>
+                                    </group>
+                                    <group string="Accounting Entries" name="accounting_entries">
+                                        <field name="property_account_receivable_id" can_create="true" can_write="true"
+                                               modifiers="{'required': true}"/>
+                                        <field name="property_account_payable_id" can_create="true" can_write="true"
+                                               modifiers="{'required': true}"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Accounting" name="accounting_disabled"
+                                  attrs="{'invisible': ['|',('is_company','=',True),('parent_id','=',False)]}"
+                                  modifiers="{'invisible': ['|', ['is_company', '=', true], ['parent_id', '=', false]]}">
+                                <div>
+                                    <p>
+                                        Accounting-related settings are managed on
+                                        <button name="open_commercial_entity" type="object" string="the parent company"
+                                                class="oe_link"/>
+                                    </p>
+                                </div>
+                            </page>
+                            <page name="bank" string="Bank" attrs="{'invisible': [('bank', '=', False)]}"
+                                  modifiers="{'invisible': [['bank', '=', false]]}">
+                                <group name="container_bank">
+                                    <group string="Loan" name="loan">
+                                        <field name="loan_limit" modifiers="{}"/>
+                                        <field name="loan_limit_asset" modifiers="{}"/>
+                                        <field name="loan_total_fund" modifiers="{'readonly': true}"/>
+                                        <field name="loan_total_credit" modifiers="{'readonly': true}"/>
+                                        <field name="loan_available" modifiers="{'readonly': true}"/>
+                                        <field name="loan_available_asset" modifiers="{'readonly': true}"/>
+                                    </group>
+                                    <group string="Guarantee" name="guarantee">
+                                        <field name="guarantee_limit" modifiers="{}"/>
+                                        <field name="guarantee_limit_asset" modifiers="{}"/>
+                                    </group>
+                                    <group>
+                                        <field name="bank_type" modifiers="{}"/>
+                                    </group>
+                                    <group string="Asset">
+                                        <field name="asset_estimate_total" modifiers="{'readonly': true}"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Partner Assignation" name="geo_location">
+                                <group colspan="2" col="2">
+                                    <separator string="Geolocation" colspan="2"/>
+                                    <button string="Geolocate" name="geo_localize" colspan="2" icon="fa-check"
+                                            type="object"/>
+                                    <div>
+                                        <span class="oe_inline">
+                                            ( On
+                                        </span>
+                                        <field name="date_localization" nolabel="1" class="oe_inline" modifiers="{}"/>
+                                        <span>
+                                            : Lat :
+                                        </span>
+                                        <field name="partner_latitude" nolabel="1" class="oe_inline" modifiers="{}"/>
+                                        <span>
+                                            ; Long:
+                                        </span>
+                                        <field name="partner_longitude" nolabel="1" class="oe_inline" modifiers="{}"/>
+                                        <span>
+                                            )
+                                        </span>
+                                    </div>
+                                </group>
+                                <group>
+                                    <group>
+                                        <separator string="Partner Activation" colspan="2"/>
+                                        <field name="grade_id" widget="selection" on_change="1" can_create="true"
+                                               can_write="true" modifiers="{}"/>
+                                        <field name="activation" widget="selection" can_create="true" can_write="true"
+                                               modifiers="{}"/>
+                                        <field name="partner_weight" modifiers="{}"/>
+                                    </group>
+                                    <group>
+                                        <separator string="Partner Review" colspan="2"/>
+                                        <field name="date_review" modifiers="{}"/>
+                                        <field name="date_review_next" modifiers="{}"/>
+                                        <field name="date_partnership" modifiers="{}"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" modifiers="{}"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="tts_modifier_vendor_action">
+            <field name="name">Vendors</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('tts_modifier_vendor.tts_modifier_vendor_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('tts_modifier_vendor.tts_modifier_vendor_form')})]"/>
+            <!--<field name="domain">[('supplier', '=', True)]</field>-->
+            <field name="context">{'default_supplier': 1, 'default_customer': 0, 'default_company_type': 'company',
+                'default_is_company': True, 'search_default_supplier': 1}
+            </field>
+        </record>
+
+        <menuitem id="purchase.menu_procurement_management_supplier_name" name="Vendors"
+                  parent="purchase.menu_procurement_management" action="tts_modifier_vendor.tts_modifier_vendor_action"
+                  sequence="15"/>
+    </data>
+</odoo>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="purchase_order_line_search_inherit" model="ir.ui.view">
+            <field name="model">purchase.order.line</field>
+            <field name="inherit_id" ref="purchase.purchase_order_line_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="replace">
+                    <search string="Search Purchase Order">
+                        <field name="product_id"/>
+                        <field name="order_id"/>
+                        <field name="partner_id" string="Nhà cung cấp" filter_domain="[('partner_id', 'child_of', self)]"/>
+                        <field name="brand_name" />
+                        <field name="group_sale_id" />
+                        <filter name="hide_cancelled" string="Hide cancelled lines" domain="[('state', '!=', 'cancel')]"/>
+                        <group expand="0" string="Group By">
+                            <filter name="groupby_supplier" string="Vendor" domain="[]" context="{'group_by' : 'partner_id'}"/>
+                            <filter name="groupby_product" string="Product" domain="[]" context="{'group_by' : 'product_id'}"/>
+                            <filter string="Order Reference" domain="[]" context="{'group_by' :'order_id'}"/>
+                            <filter string="Status" domain="[]" context="{'group_by' : 'state'}"/>
+                        </group>
+                    </search>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="purchase_order_line_tree_inherit" model="ir.ui.view">
+            <field name="model">purchase.order.line</field>
+            <field name="inherit_id" ref="purchase.purchase_order_line_tree"/>
+            <field name="arch" type="xml">
+                <field name="price_subtotal" position="attributes">
+                    <attribute name="sum">Total amount</attribute>
+                </field>
+                <field name="order_id" position="after">
+                    <field name="date_order" widget="date"/>
+                </field>
+                <field name="product_id" position="after">
+                    <field name="brand_name" invisible="1"/>
+                    <field name="group_sale_id" invisible="1"/>
+                </field>
+                <field name="product_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                 <field name="date_planned" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="name" position="replace">
+                </field>
+                <field name="partner_id" position="after">
+                    <field name="product_default_code"/>
+                    <field name="name"/>
+                </field>
+                <field name="price_unit" position="after">
+                    <field name="discount"/>
+                    <field name="price_discount" string="Giá trực tiếp"/>
+                    <field name="cost_root"/>
+                    <field name="taxes_id" invisible="1"/>
+                    <field name="tax_sub" invisible="0"/>
+                    <field name="last_price_unit" invisible="0"/>
+                </field>
+                <field name="product_qty" position="after">
+                    <field name="qty_received" invisible="1"/>
+                    <field name="qty_invoiced" invisible="1"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_purchase_order_line_graph">
+            <field name="name">purchase.order.line.graph</field>
+            <field name="model">purchase.order.line</field>
+            <field name="arch" type="xml">
+                <graph string="Purchase Orders Line">
+                    <field name="partner_id"/>
+                    <field name="price_subtotal" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="purchase_order_line_form" model="ir.ui.view">
+            <field name="name">purchase.order.line.form</field>
+            <field name="model">purchase.order.line</field>
+            <field name="arch" type="xml">
+                <form create="false" delete="false" edit="false">
+                    <group>
+                        <group>
+                            <field name="product_id" />
+                            <field name="order_id"/>
+                            <field name="partner_id"/>
+                            <label for="product_qty" string="Số Lượng"/>
+                            <div>
+                                <field  name="product_qty" class="oe_inline"/>
+                                <field name="product_uom" groups="product.group_uom" class="oe_inline oe_no_button" attrs="{'readonly': [('state', 'in', ('sale','done', 'cancel'))]}"/>
+                            </div>
+                            <label for="qty_received" string="Delivered Quantity" invisible="1"/>
+                            <div invisible="1">
+                                <field name="qty_received" />
+                            </div>
+                            <label for="qty_invoiced" string="Invoiced Quantity" invisible="1"/>
+                            <div invisible="context.get('hide_sale')">
+                                <field name="qty_invoiced" invisible="1"/>
+                            </div>
+                            <field name="price_unit"/>
+                            <label for="discount" groups="sale.group_discount_per_so_line"/>
+                            <div name="discount" groups="sale.group_discount_per_so_line">
+                                <field name="discount" class="oe_inline"/> %
+                            </div>
+                        </group>
+                        <group>
+                            <field name="taxes_id" widget="many2many_tags" domain="[('type_tax_use','=','purchase'),('company_id','=',parent.company_id)]" attrs="{'readonly': [('qty_invoiced', '&gt;', 0)]}"/>
+                            <!--<label for="customer_lead"/>-->
+                            <!--<div>-->
+                                <!--<field name="customer_lead" class="oe_inline"/> days-->
+                            <!--</div>-->
+                            <label for="analytic_tag_ids" groups="analytic.group_analytic_accounting"/>
+                            <div>
+                                <field name="analytic_tag_ids" widget="many2many_tags" groups="analytic.group_analytic_accounting"/>
+                            </div>
+                        </group>
+                    </group>
+                    <label for="name"/>
+                    <field name="name"/>
+                    <div groups="base.group_no_one">
+                        <label for="invoice_lines"/>
+                        <field name="invoice_lines"/>
+                    </div>
+                    <field name="state" invisible="1"/>
+                </form>
+            </field>
+        </record>
+
+        <record id="purchase_order_line_action" model="ir.actions.act_window">
+            <field name="name">Product Buy</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="domain">[('state', 'not in', ('draft', 'sent', 'cancel')), ('purchase_order_return', '=', False)]</field>
+        </record>
+
+        <menuitem name="Product buy" action="purchase_order_line_action" id="purchase_order_line_menu" parent="purchase.menu_procurement_management" sequence="7"/>
+
+
+        <record id="purchase_order_line_return_action" model="ir.actions.act_window">
+            <field name="name">Product Buy Return</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="domain">[('state', 'not in', ('draft', 'sent', 'cancel')), ('purchase_order_return', '=', True)]</field>
+        </record>
+
+        <menuitem name="Product buy return" action="purchase_order_line_return_action" id="purchase_order_line_return_menu" parent="sale_purchase_returns.purchase_order_return_menu_parent" sequence="10"/>
+
+        <!-- Outstanding Fee report action-->
+        <record id="purchase_order_summaries_action" model="ir.actions.act_window">
+	        <field name="name">Purchase Order</field>
+	        <field name="res_model">purchase.order</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">tree,form</field>
+            <field name="domain">['|', ('state','not in',('draft','sent','bid','cancel', 'confirmed')), ('purchase_order_return', '=', True)]</field>
+            <field name="context">{'purchase_order_return':True, 'summaries':True,}</field>
+            <field name="target">current</field>
+    	</record>
+
+        <record id="purchase_order_line_summaries_action" model="ir.actions.act_window">
+            <field name="name">Purchase Order Line</field>
+            <field name="res_model">purchase.order.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="context">{'summaries':True,}</field>
+        </record>
+
+        <menuitem name="Purchase Summaries" id="purchase_order_summaries_menu_parent" parent="purchase.menu_purchase_root" sequence="4"/>
+        <menuitem name="Purchase Order" id="purchase_order_summaries_menu" parent="purchase_order_summaries_menu_parent" action="purchase_order_summaries_action"/>
+        <menuitem name="Purchase Order Line" id="purchase_order_lines_summaries_menu" parent="purchase_order_summaries_menu_parent" action="purchase_order_line_summaries_action"/>
+
+        <template id="assets_backend" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/tuanhuy_purchase/static/src/js/print_excel_button.js"></script>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

@@ -1,0 +1,34 @@
+<odoo>
+  <data>
+
+  	<record id="inherit_res_partner_add_subcontractor" model="ir.ui.view">
+  		<field name="name">Sub Contractor</field>
+  		<field name="model">res.partner</field>
+  		<field name="inherit_id" ref="base.view_partner_form"/>
+  		<field name="arch" type="xml">
+  			<xpath expr="//page[@name='sales_purchases']" position="inside">
+	  			<group string="Sub Contractor" name="sub_contractor">
+		            <field name="is_subcontractor"/>
+		        </group>
+		    </xpath>
+  		</field>
+  	</record>
+
+  	<record id="action_view_sub_contractor" model="ir.actions.act_window">
+        <field name="name">Sub Contractor</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="context">{'search_default_is_subcontractor': 1, 'default_is_subcontractor': 1}</field>
+        <field name="domain">[('is_subcontractor', '=', True)]</field>
+        <field name="help" type="html">
+            <p>
+                Create Subcontractor.
+            </p>
+        </field>
+    </record>
+
+  	<!-- <menuitem id="menu_sub_contractor" parent="odoo_job_costing_management.menu_job_managmt" name="Sub Contractor" sequence="1" groups="project.group_project_manager"/>
+ -->
+  	<menuitem id="sub_menu_sub_contractor" parent="odoo_job_costing_management.job_cost_sub_contractors" name="Sub Contractor" sequence="10" groups="project.group_project_manager" action="action_view_sub_contractor"/>
+  </data>
+</odoo>

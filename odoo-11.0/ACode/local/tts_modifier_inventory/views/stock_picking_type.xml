@@ -1,0 +1,29 @@
+<odoo>
+    <data>
+        <record id="stock_picking_type_kanban_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.type.kanban</field>
+            <field name="model">stock.picking.type</field>
+            <field name="inherit_id" ref="stock.stock_picking_type_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='stock_picking']" position="attributes">
+                    <attribute name="t-if">['incoming', 'outgoing','internal'].indexOf(record.code.raw_value) &gt; -1</attribute>
+                </xpath>
+                <xpath expr="//div[@name='stock_picking']/div/div[2]/div/div[2]" position="inside">
+                    <div t-if="record.count_picking_reverse_transfer.raw_value &gt; 0" class="row">
+                        <div class="col-xs-9">
+                            <a class="oe_kanban_stock_picking_type_list" name="get_action_picking_tree_reserve_transfer" type="object">
+                                Reverse Transfers
+                            </a>
+                        </div>
+                        <div class="col-xs-3">
+                            <field name="count_picking_reverse_transfer"/>
+                        </div>
+                    </div>
+                </xpath>
+                <xpath expr="//div[@name='stock_picking']/div/div[2]/div/div[2]/div[3]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

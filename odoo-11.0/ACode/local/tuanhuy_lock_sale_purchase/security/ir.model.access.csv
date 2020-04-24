@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_model_lock_sale_puchase_popup_user,model_lock_sale_puchase_popup_user,model_lock_sale_puchase_popup,,1,1,1,1

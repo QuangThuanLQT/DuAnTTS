@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="product_price" inherit_id="website_sale.product_price">
+        <xpath expr="//div[@itemprop='offers']" position="attributes">
+            <attribute name="t-if">
+                website.website_is_child_user
+            </attribute>
+        </xpath>
+    </template>
+
+    <template id="products_item" inherit_id="website_sale.products_item">
+        <xpath expr="//section/div/b" position="attributes">
+            <attribute name="t-if">
+                website.website_is_child_user
+            </attribute>
+        </xpath>
+    </template>
+
+    <template id="website_sale_options_modal" inherit_id="website_sale_options.modal">
+        <xpath expr="//table/thead/tr/th[3]" position="attributes">
+            <attribute name="t-if">
+                website.website_is_child_user
+            </attribute>
+        </xpath>
+        <xpath expr="//table/tbody/t/tr/td[3]" position="attributes">
+            <attribute name="t-if">
+                website.website_is_child_user
+            </attribute>
+        </xpath>
+    </template>
+
+    <template id="website_sale_cart_lines_inherit" inherit_id="tts_modifier_website.website_sale_cart_lines">
+        <xpath expr="//div[@id='cart_product_group']/t/t/div[@class='row']/div[@id='total_product_amount']/strong" position="attributes">
+            <attribute name="t-if">
+                website.website_is_child_user
+            </attribute>
+        </xpath>
+        <xpath expr="//table[@id='cart_products']/thead/tr/td[4]" position="attributes">
+            <attribute name="t-if">
+                website.website_is_child_user
+            </attribute>
+        </xpath>
+        <xpath expr="//table[@id='cart_products']/tbody/tr/td[@name='price']" position="attributes">
+            <attribute name="t-if">
+                website.website_is_child_user
+            </attribute>
+        </xpath>
+    </template>
+
+    <template id="website_sale_total_inherit" inherit_id="website_sale.total">
+        <xpath expr="//div[@id='cart_total']" position="attributes">
+            <attribute name="t-if">
+                website.website_is_child_user
+            </attribute>
+        </xpath>
+    </template>
+
+    <template id="website_sale_payment_inherit" inherit_id="website_sale.payment">
+        <xpath expr="//table[@id='cart_products']/thead/tr/th[4]" position="attributes">
+            <attribute name="t-if">
+                website.website_is_child_user
+            </attribute>
+        </xpath>
+        <xpath expr="//table[@id='cart_products']/tbody/tr/td[5]" position="attributes">
+            <attribute name="t-if">
+                website.website_is_child_user
+            </attribute>
+        </xpath>
+        <xpath expr="//div[@id='payment_method'][2]" position="attributes">
+            <attribute name="t-if">
+                website.website_is_child_user
+            </attribute>
+        </xpath>
+    </template>
+
+    <template id="website_sale_cart_inherit" inherit_id="website_sale.cart" name="Shopping Cart">
+
+        <xpath expr="//a[@href='/shop/checkout']" position="attributes">
+            <attribute name="t-if">
+                website.website_is_child_user
+            </attribute>
+        </xpath>
+
+    </template>
+
+</odoo>

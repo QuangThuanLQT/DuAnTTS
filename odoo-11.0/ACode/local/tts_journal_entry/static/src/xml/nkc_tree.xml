@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="nkc.buttons_print_excel">
+        <button type="button" class='btn btn-sm btn-default o_nkc_print_excel'>Xuất data báo cáo quản trị</button>
+    </t>
+</templates>

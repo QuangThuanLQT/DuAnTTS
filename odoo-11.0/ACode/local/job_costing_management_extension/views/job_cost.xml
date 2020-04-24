@@ -1,0 +1,22 @@
+<odoo>
+    <record id="job_cost" model="ir.ui.view">
+        <field name="name">Job Cost</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="odoo_job_costing_management.account_analytic_line_job_costing_tree"/>
+        <field name="arch" type="xml">
+            <field name="project_id" position="replace">
+            </field>         
+            <field name="end_time" position="after">
+                <field name="project_id" required="1"/>
+            </field>
+            <field name="job_cost_id" position="attributes">
+                <attribute name="string">Job Cost Sheets</attribute>
+                <attribute name="domain">[('project_id', '=', project_id)]</attribute>
+            </field>
+             <field name="job_cost_line_id" position="attributes">   
+                <attribute name="domain">[('direct_id', '=', job_cost_id)]</attribute>
+             </field>
+        </field>
+    </record>
+</odoo>
+

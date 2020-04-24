@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template_product_purchase" xml:space="preserve">
+    <t t-name="product_purchase_export_button">
+        <button type="button" class='btn btn-sm btn-default o_buttons_print_product_purchase'>Export Overview</button>
+    </t>
+
+    <t t-name="SearchTrangThaihd">
+        <div class="sky-search btn-group btn-group-sm">
+            <div style="margin-left: 0px; margin-top: 2px; padding-right: 10px;">
+                <span style="float: left;">
+                    <select class="sky_select_tthd form-control" style="height: 30px;" >
+                        <option t-foreach="sky_fields" t-as="field" t-att-value="field[0]">
+                            <t t-esc="field[1]"/>
+                        </option>
+                    </select>
+                </span>
+                <span style="float: left; margin-left: 2px;">
+                    <select class="product_trang_thai_dh form-control" style="height: 30px;" >
+                        <option value="active">Đang kinh doanh</option>
+                        <option value="unactive">Ngừng kinh doanh</option>
+                    </select>
+                </span>
+            </div>
+        </div>
+    </t>
+
+</templates>

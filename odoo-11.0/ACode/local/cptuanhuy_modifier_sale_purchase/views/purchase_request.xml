@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="purchase_request_line_tree_sort_field" model="ir.ui.view">
+            <field name="name">purchase.request.form.inherit.sort.fields</field>
+            <field name="model">purchase.request.line</field>
+            <field name="inherit_id" ref="purchase_request.purchase_request_line_tree"/>
+            <field name="priority">32</field>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="replace">
+                    <tree colors="#ff3300:color == 'red'; #00b36b:color == 'green';#ff9900:color == 'orange';#ff66ff:color == 'pink';">
+                        <field name="request_id"/>
+                        <field name="request_state"/>
+                        <field name="requested_by"/>
+                        <field name="approved_by"/>
+                        <field name="assigned_to"/>
+                        <field name="date_required"/>
+                        <field name="deadline"/>
+                        <field name="product_id"/>
+                        <field name="name"/>
+                        <field name="product_uom_id" groups="product.group_uom"/>
+                        <field name="product_qty"/>
+                        <field name="purchased_qty"/>
+                        <field name="quantity_delivered"/>
+                        <field name="receive_date"/>
+                        <field name="sale_id"/>
+                        <field name="request_amount"/>
+                        <field name="state"/>
+                        <field name="requisition_qty"/>
+                        <field name="requisition_state"/>
+                        <field name="purchase_state"/>
+                        <field name="analytic_account_id"/>
+                        <field name="supplier_id"/>
+                        <field name="color" invisible="1"/>
+                        <button name="button_approved" type="object" string="Approve" attrs="{'invisible': [('request_state', '!=', 'to_approve')]}"/>
+                    </tree>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="purchase_request_line_form_sort_field" model="ir.ui.view">
+            <field name="name">purchase.request.form.inherit.sort.fields</field>
+            <field name="model">purchase.request.line</field>
+            <field name="inherit_id" ref="purchase_request.purchase_request_line_form"/>
+            <field name="arch" type="xml">
+                <field name="is_editable" position="after">
+                    <field name="deadline"/>
+                    <field name="receive_date"/>
+                    <field name="approved_by"/>
+                </field>
+                <field name="procurement_id" position="after">
+                    <field name="sale_id"/>
+                    <field name="request_amount"/>
+                </field>
+                <xpath expr="//h1" position="before">
+                    <div class="oe_button_box" name="button_box">
+                        <button type="object" name="action_request_state" class="oe_stat_button" icon="fa-check">
+                            <field name="state" style="font-size:18px;font-weight:bold;"/>
+                        </button>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="purchase_request_line_search_add_state_filter" model="ir.ui.view">
+            <field name="name">purchase.request.form.inherit.sort.fields</field>
+            <field name="model">purchase.request.line</field>
+            <field name="inherit_id" ref="purchase_request.purchase_request_line_search"/>
+            <field name="arch" type="xml">
+                <filter name="request_state_draft" position="before">
+                    <filter name="request_state_open" string="Trạng thái Mở" domain="[('state','=','open')]"/>
+                    <filter name="request_state_close" string="Trạng thái Đóng" domain="[('state','=','close')]"/>
+                </filter>
+            </field>
+        </record>
+
+
+        <record id="action_multi_request_close" model="ir.actions.server">
+            <field name="name">Đóng yêu cầu</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_purchase_request_line"/>
+            <field name="state">code</field>
+            <field name="code">action = record.multi_request_close();
+            </field>
+        </record>
+
+        <record model="ir.values" id="value_action_close_request">
+            <field name="model">purchase.request.line</field>
+            <field name="name">Đóng yêu cầu</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_multi_request_close'))" />
+        </record>
+
+        <record id="action_multi_request_open" model="ir.actions.server">
+            <field name="name">Mở yêu cầu</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_purchase_request_line"/>
+            <field name="state">code</field>
+            <field name="code">action = record.multi_request_open();
+            </field>
+        </record>
+
+        <record model="ir.values" id="value_action_open_request">
+            <field name="model">purchase.request.line</field>
+            <field name="name">Mở yêu cầu</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_multi_request_open'))" />
+        </record>
+
+        <record id="view_purchase_request_form_add_field_in_line" model="ir.ui.view">
+            <field name="name">purchase.request.form.inherit.add.fields</field>
+            <field name="model">purchase.request</field>
+            <field name="inherit_id" ref="purchase_request.view_purchase_request_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='date_required']" position="before">
+                    <field name="sale_id"/>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='date_required']" position="after">
+                    <field name="deadline"/>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/form//field[@name='date_required']" position="before">
+                    <field name="sale_id"/>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/form//field[@name='date_required']" position="after">
+                    <field name="deadline"/>
+                </xpath>
+                <field name="description" position="after">
+                    <field name="deadline"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

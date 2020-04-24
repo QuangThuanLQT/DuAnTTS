@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_delivery_modifier_delivery_modifier,delivery_modifier.delivery_modifier,model_delivery_modifier_delivery_modifier,,1,0,0,0

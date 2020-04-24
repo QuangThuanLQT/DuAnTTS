@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+       <record id="view_partner_form_inherit" model="ir.ui.view">
+           <field name="name">res.partner.view.inherit</field>
+           <field name="model">res.partner</field>
+           <field name="inherit_id" ref="base.view_partner_form"/>
+           <field name="arch" type="xml">
+                <field name="website" position="after">
+                    <field name="group_kh1_id"/>
+                    <field name="group_kh2_id"/>
+                </field>
+           </field>
+       </record>
+    </data>
+</odoo>

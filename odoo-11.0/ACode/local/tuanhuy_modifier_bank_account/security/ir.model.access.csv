@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_tuanhuy_modifier_bank_account_tuanhuy_modifier_bank_account,tuanhuy_modifier_bank_account.tuanhuy_modifier_bank_account,model_tuanhuy_modifier_bank_account_tuanhuy_modifier_bank_account,,1,0,0,0

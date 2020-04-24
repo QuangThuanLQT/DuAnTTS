@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_task_form2_inherit" model="ir.ui.view">
+        <field name="model">project.task.template</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <field name="project_id" position="after">
+                <field name="default_stage_id"/>
+            </field>
+            <field name="project_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <button name="toggle_active" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+            <button name="toggle_active" position="after">
+                <button name="toggle_template"
+                        type="object"
+                        groups="base.group_user"
+                        class="oe_stat_button"
+                        icon="fa-check">
+                    <field name="use_as_template"
+                           widget="boolean_button"
+                           options='{"terminology": "active"}'/>
+                </button>
+            </button>
+        </field>
+    </record>
+
+    <record id="view_task_tree2_inherit" model="ir.ui.view">
+        <field name="model">project.task.template</field>
+        <field name="inherit_id" ref="project.view_task_tree2"/>
+        <field name="arch" type="xml">
+            <field name="project_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="stage_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="user_id" position="after">
+                <field name="default_stage_id"/>
+                <field name="use_as_template"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="project_task_template_action" model="ir.actions.act_window">
+        <field name="name">Task Template</field>
+        <field name="res_model">project.task.template</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_task_form2_inherit"/>
+    </record>
+
+    <record id="project_task_template_action_list_view" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_task_tree2_inherit"/>
+        <field name="act_window_id" ref="project_task_template_action"/>
+    </record>
+
+    <menuitem id="menu_project_config_task_templates"
+              name="Task Templates"
+              parent="project.menu_project_config"
+              action="project_task_template_action" />
+
+</odoo>

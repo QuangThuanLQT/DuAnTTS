@@ -1,0 +1,11 @@
+.check_box_prinizi input{
+    zoom: 1.8;
+}
+input[name="check_box_prinizi_confirm"] {
+    zoom: 1.6;
+    margin: 0px;
+}
+td[data-field="check_box_prinizi_confirm"] input{
+    zoom: 1.6;
+    margin: 0px;
+}

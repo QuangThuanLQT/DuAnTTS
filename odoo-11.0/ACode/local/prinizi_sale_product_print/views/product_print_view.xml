@@ -1,0 +1,331 @@
+<odoo>
+    <data noupdate="0">
+        <record id="lung_ao_tren" model="vi.tri.in">
+            <field name="name">Lưng trên</field>
+            <field name="code">lung_ao_tren</field>
+        </record>
+        <record id="lung_ao_giua" model="vi.tri.in">
+            <field name="name">Lưng giữa</field>
+            <field name="code">lung_ao_giua</field>
+        </record>
+        <record id="lung_ao_duoi" model="vi.tri.in">
+            <field name="name">Lưng dưới</field>
+            <field name="code">lung_ao_duoi</field>
+        </record>
+        <record id="mat_truoc_ao_nguc_phai" model="vi.tri.in">
+            <field name="name">Ngực phải</field>
+            <field name="code">mat_truoc_ao_nguc_phai</field>
+        </record>
+        <record id="mat_truoc_ao_nguc_trai" model="vi.tri.in">
+            <field name="name">Ngực trái</field>
+            <field name="code">mat_truoc_ao_nguc_trai</field>
+        </record>
+        <record id="mat_truoc_ao_bung" model="vi.tri.in">
+            <field name="name">Bụng</field>
+            <field name="code">mat_truoc_ao_bung</field>
+        </record>
+        <record id="ong_quan_trai" model="vi.tri.in">
+            <field name="name">Ống quần trái</field>
+            <field name="code">ong_quan_trai</field>
+        </record>
+        <record id="ong_quan_phai" model="vi.tri.in">
+            <field name="name">Ống quần phải</field>
+            <field name="code">ong_quan_phai</field>
+        </record>
+        <record id="tay_ao_trai" model="vi.tri.in">
+            <field name="name">Tay áo trái</field>
+            <field name="code">tay_ao_trai</field>
+        </record>
+        <record id="tay_ao_phai" model="vi.tri.in">
+            <field name="name">Tay áo phải</field>
+            <field name="code">tay_ao_phai</field>
+        </record>
+    </data>
+    <data>
+        <record model="ir.ui.view" id="product_print_form_view">
+            <field name="name">product.print.form.view</field>
+            <field name="model">product.print</field>
+            <field name="arch" type="xml">
+                <form create="false" delete="false">
+                    <sheet>
+                        <div class="oe_title">
+                            <field name="product_id" invisible="1"/>
+                            <field name="attribute_value_id" invisible="1"/>
+                            <h2>
+                                <field name="name" readonly="1"/>
+                            </h2>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="font_chu_so"/>
+                            <field name="font_chu_so" options="{'no_quick_create':True, 'no_create_edit':True, 'no_open': True}"/>
+                        </div>
+                        <table class="table table-bordered" style="margin-top:10px">
+                            <thead>
+                              <tr>
+                                  <th><h5>Vị trí có thể in</h5></th>
+                                  <th colspan="2"><h5>Nội dung có thể in</h5></th>
+                                  <th><h5>Chất liệu in tên số</h5></th>
+                                  <th><h5>Màu in tên số</h5></th>
+                                  <th><h5>Chất liệu in hình</h5></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                <!--TODO Lung ao-->
+                                <tr>
+                                    <td colspan="3">
+                                        <h5>Lưng áo</h5>
+                                    </td>
+                                    <td>
+                                        <field name="lung_ao_chat_lieu_its" options="{'no_quick_create':True, 'no_create_edit':True, 'no_open': True}"
+                                        attrs="{'invisible' : [('lung_ao_tren_ten_so', '=', False),('lung_ao_giua_ten_so', '=', False),('lung_ao_duoi_ten_so', '=', False)]}"
+                                        context="{'product_id' : product_id, 'attribute_value_id' : attribute_value_id, 'field_related_one2many' : 'lung_ao_its_ids','field_value': 'chat_lieu_in_ten_so'}"/>
+                                    </td>
+                                    <td>
+                                        <field name="lung_ao_mau_its" options="{'no_quick_create':True, 'no_create_edit':True, 'no_open': True}"
+                                        attrs="{'invisible' : [('lung_ao_tren_ten_so', '=', False),('lung_ao_giua_ten_so', '=', False),('lung_ao_duoi_ten_so', '=', False)]}"
+                                        context="{'mode_chat_lieu' : 'lung.ao.its','chat_lieu' : lung_ao_chat_lieu_its, 'product_id' : product_id, 'attribute_value_id' : attribute_value_id, 'field_related_one2many' : 'lung_ao_its_ids','field_value': 'mau_in_ten_so'}"/>
+                                    </td>
+                                    <td>
+                                        <field name="lung_ao_chat_lieu_in_hinh" options="{'no_quick_create':True, 'no_create_edit':True, 'no_open': True}"
+                                        attrs="{'invisible' : [('lung_ao_tren_hinh', '=', False),('lung_ao_giua_hinh', '=', False),('lung_ao_duoi_hinh', '=', False)]}"
+                                        context="{'product_id' : product_id, 'attribute_value_id' : attribute_value_id, 'field_related_many2many' : 'lung_ao_in_hinh'}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <field name="lung_ao_tren"/>
+                                        <label for="lung_ao_tren"/>
+                                    </td>
+                                    <td>
+                                        <field name="lung_ao_tren_ten_so" attrs="{'readonly' : [('lung_ao_tren', '=', False)]}"/>
+                                        <label for="lung_ao_tren_ten_so"/>
+                                    </td>
+                                    <td>
+                                        <field name="lung_ao_tren_hinh" attrs="{'readonly' : [('lung_ao_tren', '=', False)]}"/>
+                                        <label for="lung_ao_tren_hinh"/>
+                                    </td>
+                                    <td colspan="3" rowspan="3"></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <field name="lung_ao_giua"/>
+                                        <label for="lung_ao_giua"/>
+                                    </td>
+                                    <td>
+                                        <field name="lung_ao_giua_ten_so" attrs="{'readonly' : [('lung_ao_giua', '=', False)]}"/>
+                                        <label for="lung_ao_giua_ten_so"/>
+                                    </td>
+                                    <td>
+                                        <field name="lung_ao_giua_hinh" attrs="{'readonly' : [('lung_ao_giua', '=', False)]}"/>
+                                        <label for="lung_ao_giua_hinh"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <field name="lung_ao_duoi"/>
+                                        <label for="lung_ao_duoi"/>
+                                    </td>
+                                    <td>
+                                        <field name="lung_ao_duoi_ten_so" attrs="{'readonly' : [('lung_ao_duoi', '=', False)]}"/>
+                                        <label for="lung_ao_duoi_ten_so"/>
+                                    </td>
+                                    <td>
+                                        <field name="lung_ao_duoi_hinh" attrs="{'readonly' : [('lung_ao_duoi', '=', False)]}"/>
+                                        <label for="lung_ao_duoi_hinh"/>
+                                    </td>
+                                </tr>
+
+                                <!--TODO mat truoc ao-->
+                                <tr>
+                                    <td colspan="3">
+                                        <h5>Mặt trước áo</h5>
+                                    </td>
+                                    <td>
+                                        <field name="mat_truoc_ao_chat_lieu_its" options="{'no_quick_create':True, 'no_create_edit':True, 'no_open': True}"
+                                        attrs="{'invisible' : [('mat_truoc_ao_nguc_phai_ten_so', '=', False),('mat_truoc_ao_nguc_trai_ten_so', '=', False),('mat_truoc_ao_bung_ten_so', '=', False)]}"
+                                        context="{'product_id' : product_id, 'attribute_value_id' : attribute_value_id, 'field_related_one2many' : 'mat_truoc_ao_its_ids','field_value': 'chat_lieu_in_ten_so'}"/>
+                                    </td>
+                                    <td>
+                                        <field name="mat_truoc_ao_mau_its" options="{'no_quick_create':True, 'no_create_edit':True, 'no_open': True}"
+                                        attrs="{'invisible' : [('mat_truoc_ao_nguc_phai_ten_so', '=', False),('mat_truoc_ao_nguc_trai_ten_so', '=', False),('mat_truoc_ao_bung_ten_so', '=', False)]}"
+                                        context="{'mode_chat_lieu' : 'mat.truoc.ao.its', 'chat_lieu' : mat_truoc_ao_chat_lieu_its, 'product_id' : product_id, 'attribute_value_id' : attribute_value_id, 'field_related_one2many' : 'mat_truoc_ao_its_ids','field_value': 'mau_in_ten_so'}"/>
+                                    </td>
+                                    <td>
+                                        <field name="mat_truoc_ao_chat_lieu_in_hinh" options="{'no_quick_create':True, 'no_create_edit':True, 'no_open': True}"
+                                        attrs="{'invisible' : [('mat_truoc_ao_nguc_phai_hinh', '=', False),('mat_truoc_ao_nguc_trai_hinh', '=', False),('mat_truoc_ao_bung_hinh', '=', False)]}"
+                                        context="{'product_id' : product_id, 'attribute_value_id' : attribute_value_id, 'field_related_many2many' : 'mat_truoc_ao_in_hinh'}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <field name="mat_truoc_ao_nguc_phai"/>
+                                        <label for="mat_truoc_ao_nguc_phai"/>
+                                    </td>
+                                    <td>
+                                        <field name="mat_truoc_ao_nguc_phai_ten_so" attrs="{'readonly' : [('mat_truoc_ao_nguc_phai', '=', False)]}"/>
+                                        <label for="mat_truoc_ao_nguc_phai_ten_so"/>
+                                    </td>
+                                    <td>
+                                        <field name="mat_truoc_ao_nguc_phai_hinh" attrs="{'readonly' : [('mat_truoc_ao_nguc_phai', '=', False)]}"/>
+                                        <label for="mat_truoc_ao_nguc_phai_hinh"/>
+                                    </td>
+                                    <td colspan="3" rowspan="3"></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <field name="mat_truoc_ao_nguc_trai"/>
+                                        <label for="mat_truoc_ao_nguc_trai"/>
+                                    </td>
+                                    <td>
+                                        <field name="mat_truoc_ao_nguc_trai_ten_so" attrs="{'readonly' : [('mat_truoc_ao_nguc_trai', '=', False)]}"/>
+                                        <label for="mat_truoc_ao_nguc_trai_ten_so"/>
+                                    </td>
+                                    <td>
+                                        <field name="mat_truoc_ao_nguc_trai_hinh" attrs="{'readonly' : [('mat_truoc_ao_nguc_trai', '=', False)]}"/>
+                                        <label for="mat_truoc_ao_nguc_trai_hinh"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <field name="mat_truoc_ao_bung"/>
+                                        <label for="mat_truoc_ao_bung"/>
+                                    </td>
+                                    <td>
+                                        <field name="mat_truoc_ao_bung_ten_so" attrs="{'readonly' : [('mat_truoc_ao_bung', '=', False)]}"/>
+                                        <label for="mat_truoc_ao_bung_ten_so"/>
+                                    </td>
+                                    <td>
+                                        <field name="mat_truoc_ao_bung_hinh" attrs="{'readonly' : [('mat_truoc_ao_bung', '=', False)]}"/>
+                                        <label for="mat_truoc_ao_bung_hinh"/>
+                                    </td>
+                                </tr>
+
+                                <!--TODO ong quan-->
+                                <tr>
+                                    <td colspan="3">
+                                        <h5>Ống quần</h5>
+                                    </td>
+                                    <td>
+                                        <field name="ong_quan_chat_lieu_its" options="{'no_quick_create':True, 'no_create_edit':True, 'no_open': True}"
+                                        attrs="{'invisible' : [('ong_quan_trai_ten_so', '=', False),('ong_quan_phai_ten_so', '=', False)]}"
+                                        context="{'product_id' : product_id, 'attribute_value_id' : attribute_value_id, 'field_related_one2many' : 'ong_quan_its_ids','field_value': 'chat_lieu_in_ten_so'}"/>
+                                    </td>
+                                    <td>
+                                        <field name="ong_quan_mau_its" options="{'no_quick_create':True, 'no_create_edit':True, 'no_open': True}"
+                                        attrs="{'invisible' : [('ong_quan_trai_ten_so', '=', False),('ong_quan_phai_ten_so', '=', False)]}"
+                                        context="{'mode_chat_lieu' : 'ong.quan.its', 'chat_lieu' : ong_quan_chat_lieu_its, 'product_id' : product_id, 'attribute_value_id' : attribute_value_id, 'field_related_one2many' : 'ong_quan_its_ids','field_value': 'mau_in_ten_so'}"/>
+                                    </td>
+                                    <td>
+                                        <field name="ong_quan_chat_lieu_in_hinh" options="{'no_quick_create':True, 'no_create_edit':True, 'no_open': True}"
+                                        attrs="{'invisible' : [('ong_quan_trai_hinh', '=', False),('ong_quan_phai_hinh', '=', False)]}"
+                                        context="{'product_id' : product_id, 'attribute_value_id' : attribute_value_id, 'field_related_many2many' : 'ong_quan_in_hinh'}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <field name="ong_quan_trai"/>
+                                        <label for="ong_quan_trai"/>
+                                    </td>
+                                    <td>
+                                        <field name="ong_quan_trai_ten_so" attrs="{'readonly' : [('ong_quan_trai', '=', False)]}"/>
+                                        <label for="ong_quan_trai_ten_so"/>
+                                    </td>
+                                    <td>
+                                        <field name="ong_quan_trai_hinh" attrs="{'readonly' : [('ong_quan_trai', '=', False)]}"/>
+                                        <label for="ong_quan_trai_hinh"/>
+                                    </td>
+                                    <td colspan="3" rowspan="2"></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <field name="ong_quan_phai"/>
+                                        <label for="ong_quan_phai"/>
+                                    </td>
+                                    <td>
+                                        <field name="ong_quan_phai_ten_so" attrs="{'readonly' : [('ong_quan_phai', '=', False)]}"/>
+                                        <label for="ong_quan_phai_ten_so"/>
+                                    </td>
+                                    <td>
+                                        <field name="ong_quan_phai_hinh" attrs="{'readonly' : [('ong_quan_phai', '=', False)]}"/>
+                                        <label for="ong_quan_phai_hinh"/>
+                                    </td>
+                                </tr>
+
+                                <!--TODO tay ao-->
+                                <tr>
+                                    <td colspan="3">
+                                        <h5>Tay áo</h5>
+                                    </td>
+                                    <td>
+                                        <field name="tay_ao_chat_lieu_its" options="{'no_quick_create':True, 'no_create_edit':True, 'no_open': True}"
+                                        attrs="{'invisible' : [('tay_ao_trai_ten_so', '=', False),('tay_ao_phai_ten_so', '=', False)]}"
+                                        context="{'product_id' : product_id, 'attribute_value_id' : attribute_value_id, 'field_related_one2many' : 'ong_tay_ao_its_ids','field_value': 'chat_lieu_in_ten_so'}"/>
+                                    </td>
+                                    <td>
+                                        <field name="tay_ao_mau_its" options="{'no_quick_create':True, 'no_create_edit':True, 'no_open': True}"
+                                        attrs="{'invisible' : [('tay_ao_trai_ten_so', '=', False),('tay_ao_phai_ten_so', '=', False)]}"
+                                        context="{'mode_chat_lieu' : 'ong.tay.ao.its', 'chat_lieu' : tay_ao_chat_lieu_its, 'product_id' : product_id, 'attribute_value_id' : attribute_value_id, 'field_related_one2many' : 'ong_tay_ao_its_ids','field_value': 'mau_in_ten_so'}"/>
+                                    </td>
+                                    <td>
+                                        <field name="tay_ao_chat_lieu_in_hinh" options="{'no_quick_create':True, 'no_create_edit':True, 'no_open': True}"
+                                        attrs="{'invisible' : [('tay_ao_trai_hinh', '=', False),('tay_ao_phai_hinh', '=', False)]}"
+                                        context="{'product_id' : product_id, 'attribute_value_id' : attribute_value_id, 'field_related_many2many' : 'ong_tay_ao_in_hinh'}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <field name="tay_ao_trai"/>
+                                        <label for="tay_ao_trai"/>
+                                    </td>
+                                    <td>
+                                        <field name="tay_ao_trai_ten_so" attrs="{'readonly' : [('tay_ao_trai', '=', False)]}"/>
+                                        <label for="tay_ao_trai_ten_so"/>
+                                    </td>
+                                    <td>
+                                        <field name="tay_ao_trai_hinh" attrs="{'readonly' : [('tay_ao_trai', '=', False)]}"/>
+                                        <label for="tay_ao_trai_hinh"/>
+                                    </td>
+                                    <td colspan="3" rowspan="2"></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <field name="tay_ao_phai"/>
+                                        <label for="tay_ao_phai"/>
+                                    </td>
+                                    <td>
+                                        <field name="tay_ao_phai_ten_so" attrs="{'readonly' : [('tay_ao_phai', '=', False)]}"/>
+                                        <label for="tay_ao_phai_ten_so"/>
+                                    </td>
+                                    <td>
+                                        <field name="tay_ao_phai_hinh" attrs="{'readonly' : [('tay_ao_phai', '=', False)]}"/>
+                                        <label for="tay_ao_phai_hinh"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="product_print_tree_view">
+            <field name="name">product.print.tree.view</field>
+            <field name="model">product.print</field>
+            <field name="arch" type="xml">
+                <tree create="false" delete="false">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="product_print_action_view" model="ir.actions.act_window">
+            <field name="name">Product Print</field>
+            <field name="res_model">product.print</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Product Print" action="product_print_action_view" id="product_print_menu"
+                  parent="sales_team.menu_sales" sequence="10"/>
+    </data>
+</odoo>

@@ -1,0 +1,13 @@
+<odoo>
+    <data>
+        <record id="account_voucher.action_sale_receipt" model="ir.actions.act_window">
+            <field name="domain">[('journal_id.type','=','sale'), ('voucher_type','=','sale'), ('payment_journal_id.code','=','CSH1')]</field>
+        </record>
+
+
+        <record id="account_voucher.action_purchase_receipt" model="ir.actions.act_window">
+            <field name="domain">[('journal_id.type','=','purchase'), ('voucher_type','=','purchase'), ('payment_journal_id.code','=','CSH1')]</field>
+        </record>
+
+    </data>
+</odoo>

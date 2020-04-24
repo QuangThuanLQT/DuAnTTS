@@ -1,0 +1,45 @@
+<odoo>
+    <data>
+        <record id="sale_order_report_excel_view" model="ir.ui.view">
+            <field name="name">Báo Cáo Bán Hàng</field>
+            <field name="model">sale.report.excel</field>
+            <field name="arch" type="xml">
+                <form>
+                    <label string=""/>
+                    <group>
+                        <!--<group>-->
+                        <!--<field name="location_id" string="Location"/>-->
+                        <!--</group>-->
+                        <group>
+                            <field name="start_date" string="Start Date"/>
+                            <field name="end_date" string="End Date"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <!--<button name="print_report" string="Print" type="object" default_focus="1"-->
+                        <!--class="oe_highlight"/>-->
+                        <!--or-->
+                        <button name="print_report_excel" string="In Excel" type="object" default_focus="1"
+                                class="oe_highlight"/>
+                        hoặc
+                        <button string="Huỷ" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="sale_order_report_excel_action" model="ir.actions.act_window">
+            <field name="name">Báo Cáo Bán Hàng</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.report.excel</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="sale_order_report_excel" name="Báo Cáo Bán Hàng Excel" parent="l10n_vn.account_reports_vn_statements_menu"
+                  action="sale_order_report_excel_action"
+        />
+
+    </data>
+</odoo>

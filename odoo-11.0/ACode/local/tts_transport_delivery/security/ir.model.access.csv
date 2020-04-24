@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_tts_delivery_scope_all_user,name_tts_delivery_scope_all_user,model_tts_delivery_scope,,1,0,0,0
+access_tts_transporter_route_all_user,name_tts_transporter_route_all_user,model_tts_transporter_route,,1,0,0,0
+access_tts_transporter_all_user,name_tts_transporter,model_tts_transporter,,1,0,0,0
+

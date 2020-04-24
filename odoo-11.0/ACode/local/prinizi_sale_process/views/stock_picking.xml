@@ -1,0 +1,229 @@
+<odoo>
+    <data>
+      <template id="assets_backend_ihr" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/prinizi_sale_process/static/src/js/search_by_range.js"></script>
+            </xpath>
+        </template>
+
+        <record id="view_picking_form_internal_sale_ihr" model="ir.ui.view">
+            <field name="name">stock.picking.form.internal.sale</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[3]" position="inside">
+                    <group class="oe_subtotal_footer oe_right" colspan="2" name="internal_sale_total">
+                        <field name="sum_qty_internal_sale"/>
+                        <field name="sum_total_internal_sale" widget="integer"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_move_picking_tree_prinizi" model="ir.ui.view">
+            <field name="name">stock.move.tree.prinizi</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_picking_tree"/>
+            <field name="arch" type="xml">
+                <field name="location_id" position="after">
+                    <field name="picking_type" invisible="1"/>
+                </field>
+                <field name="location_id" position="attributes">
+                    <attribute name="attrs">{'required' : [('picking_type', 'not in', ['produce_image', 'produce_name'])]}</attribute>
+                </field>
+                <field name="location_dest_id" position="attributes">
+                    <attribute name="attrs">{'required' : [('picking_type', 'not in', ['produce_image', 'produce_name'])]}</attribute>
+                </field>
+                <field name="location_dest_id" position="after">
+                    <field name="internal_sale_price" invisible="1"/>
+                    <field name="internal_sale_sub_total" invisible="1"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_picking_form_button_inherit_prinizi" model="ir.ui.view">
+            <field name="name">stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="tts_internal_transfer.view_picking_form_inherit_button_inherit"/>
+            <field name="arch" type="xml">
+                <field name="location_id" position="attributes">
+                    <!--<attribute name="required">True</attribute>-->
+                    <attribute name="attrs">{
+                        'invisible' : [('picking_type', 'in', ['produce_image', 'produce_name'])],
+                        'required' : [('picking_type', 'not in', ['produce_image', 'produce_name'])]
+                        }
+                    </attribute>
+                </field>
+                <field name="location_dest_id" position="attributes">
+                    <!--<attribute name="required">True</attribute>-->
+                    <attribute name="attrs">{
+                        'invisible' : [('picking_type', 'in', ['produce_image', 'produce_name'])],
+                        'required' : [('picking_type', 'not in', ['produce_image', 'produce_name'])]
+                        }
+                    </attribute>
+                </field>
+                <field name="group_id" position="after">
+                    <field name="picking_type" invisible="1"/>
+                    <field name="check_produce_name" invisible="1"/>
+                    <field name="check_produce_image" invisible="1"/>
+                    <field name="check_kcs1" invisible="1"/>
+                    <field name="check_print" invisible="1"/>
+                    <field name="check_kcs2" invisible="1"/>
+                    <field name="date_internal_sale" invisible="1"/>
+                </field>
+                <xpath expr="//field[@name='state']" position="before">
+                    <!--TODO button produce name-->
+                    <button name="pname_action_confirm"
+                            attrs="{'invisible' : ['|',('check_produce_name','=',False),('produce_name_state','not in',('draft'))]}"
+                            string="Xác nhận" type="object" class="oe_highlight" groups="base.group_user"/>
+                    <button name="pname_action_assign"
+                            attrs="{'invisible' : ['|',('check_produce_name','=',False),('produce_name_state','not in',('ready_produce'))]}"
+                            string="Bắt đầu chuẩn bị tên số" type="object" class="oe_highlight" groups="base.group_user"/>
+                    <button name="pname_action_do_new_transfer"
+                            attrs="{'invisible' : ['|',('check_produce_name','=',False),('produce_name_state','not in',('produce'))]}"
+                            string="Hoàn tất chuẩn bị tên số" type="object" class="oe_highlight" groups="base.group_user"/>
+                    <!--<button name="action_cancel"-->
+                            <!--attrs="{'invisible' : ['|',('check_produce_name','=',False),('produce_name_state','not in',('draft','waiting_produce','ready_produce','produce'))]}"-->
+                            <!--string="Cancel" type="object" groups="base.group_user"/>-->
+                    <field name="produce_name_state" widget="statusbar"
+                           statusbar_visible="draft,waiting_produce,ready_produce,produce,done"
+                           attrs="{'invisible' : [('check_produce_name','=',False)]}"/>
+
+                    <!--TODO button produce image-->
+                    <button name="pimg_action_confirm"
+                            attrs="{'invisible' : ['|',('check_produce_image','=',False),('produce_image_state','not in',('draft'))]}"
+                            string="Xác nhận" type="object" class="oe_highlight" groups="base.group_user"/>
+                    <button name="pimg_action_assign"
+                            attrs="{'invisible' : ['|',('check_produce_image','=',False),('produce_image_state','not in',('ready_produce'))]}"
+                            string="Bắt đầu chuẩn bị hình" type="object" class="oe_highlight" groups="base.group_user"/>
+                    <button name="pimg_action_do_new_transfer"
+                            attrs="{'invisible' : ['|',('check_produce_image','=',False),('produce_image_state','not in',('produce'))]}"
+                            string="Hoàn tất chuẩn bị hình" type="object" class="oe_highlight" groups="base.group_user"/>
+                    <!--<button name="action_cancel"-->
+                            <!--attrs="{'invisible' : ['|',('check_produce_image','=',False),('produce_image_state','not in',('draft','waiting_produce','ready_produce','produce'))]}"-->
+                            <!--string="Cancel" type="object" groups="base.group_user"/>-->
+                    <field name="produce_image_state" widget="statusbar"
+                           statusbar_visible="draft,waiting_produce,ready_produce,produce,done"
+                           attrs="{'invisible' : [('check_produce_image','=',False)]}"/>
+
+                    <!--TODO button kcs1-->
+                    <button name="kcs1_action_confirm"
+                            attrs="{'invisible' : ['|',('check_kcs1','=',False),('kcs1_state','not in',('draft'))]}"
+                            string="Xác nhận" type="object" class="oe_highlight" groups="base.group_user"/>
+                    <button name="kcs1_action_assign"
+                            string="Bắt đầu KCS1" type="object" class="oe_highlight" groups="base.group_user" invisible="1"/>
+                    <button name="kcs1_action_do_new_transfer"
+                            attrs="{'invisible' : ['|',('check_kcs1','=',False),('kcs1_state','not in',('ready'))]}"
+                            string="Hoàn tất KCS1" type="object" class="oe_highlight" groups="base.group_user"/>
+                    <!--<button name="action_cancel"-->
+                            <!--attrs="{'invisible' : ['|',('check_kcs1','=',False),('kcs1_state','not in',('draft','waiting','ready'))]}"-->
+                            <!--string="Cancel" type="object" groups="base.group_user"/>-->
+                    <field name="kcs1_state" widget="statusbar"
+                           statusbar_visible="draft,waiting,ready,done"
+                           attrs="{'invisible' : [('check_kcs1','=',False)]}"/>
+                    <!--TODO button print-->
+                    <button name="print_action_confirm"
+                            attrs="{'invisible' : ['|',('check_print','=',False),('print_state','not in',('draft'))]}"
+                            string="Xác nhận" type="object" class="oe_highlight" groups="base.group_user"/>
+                    <button name="print_action_assign"
+                            attrs="{'invisible' : ['|',('check_print','=',False),('print_state','not in',('ready_print'))]}"
+                            string="Bắt đầu ép tên số" type="object" class="oe_highlight" groups="base.group_user"/>
+                    <button name="print_action_do_new_transfer"
+                            attrs="{'invisible' : ['|',('check_print','=',False),('print_state','not in',('print'))]}"
+                            string="Hoàn tất ép tên số" type="object" class="oe_highlight" groups="base.group_user"/>
+                    <!--<button name="action_cancel"-->
+                            <!--attrs="{'invisible' : ['|',('check_print','=',False),('print_state','not in',('draft','waiting_print','ready_print','print'))]}"-->
+                            <!--string="Cancel" type="object" groups="base.group_user"/>-->
+                    <field name="print_state" widget="statusbar"
+                           statusbar_visible="draft,waiting_print,ready_print,print,done"
+                           attrs="{'invisible' : [('check_print','=',False)]}"/>
+
+                    <!--TODO button kcs2-->
+                    <button name="kcs2_action_confirm"
+                            attrs="{'invisible' : ['|',('check_kcs2','=',False),('kcs2_state','not in',('draft'))]}"
+                            string="Xác nhận" type="object" class="oe_highlight" groups="base.group_user"/>
+                    <button name="kcs2_action_assign"
+                            string="Bắt đầu KCS2" type="object" class="oe_highlight" groups="base.group_user" invisible="1"/>
+                    <button name="kcs2_action_do_new_transfer"
+                            attrs="{'invisible' : ['|',('check_kcs2','=',False),('kcs2_state','not in',('ready'))]}"
+                            string="Hoàn tất KCS2" type="object" class="oe_highlight" groups="base.group_user"/>
+                    <!--<button name="action_cancel"-->
+                            <!--attrs="{'invisible' : ['|',('check_kcs2','=',False),('kcs2_state','not in',('draft','waiting','ready'))]}"-->
+                            <!--string="Cancel" type="object" groups="base.group_user"/>-->
+                    <field name="kcs2_state" widget="statusbar"
+                           statusbar_visible="draft,waiting,ready,done"
+                           attrs="{'invisible' : [('check_kcs2','=',False)]}"/>
+
+                    <!--TODO button internal sale-->
+                <button name="internal_sale_action_confirm"
+                            attrs="{'invisible' : ['|',('picking_type','!=','internal_sale'),('internal_sale_type','not in',('draft'))]}"
+                            string="Xác nhận bán hàng" type="object" class="oe_highlight" groups="base.group_user"/>
+                <button name="internal_sale_action_do_new_transfer"
+                        attrs="{'invisible' : ['|',('picking_type','!=','internal_sale'),('internal_sale_type','not in',('ready'))]}"
+                        string="Hoàn tất" type="object" class="oe_highlight" groups="base.group_user"/>
+                <button name="action_cancel"
+                        attrs="{'invisible' : ['|',('picking_type','!=','internal_sale'),('internal_sale_type','not in',('draft','ready'))]}"
+                        string="Cancel" type="object" groups="base.group_user"/>
+                <field name="internal_sale_type" widget="statusbar"
+                       statusbar_visible="draft,ready,done"
+                       attrs="{'invisible' : [('picking_type','!=','internal_sale')]}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="picking_internal_sale_tree_view" model="ir.ui.view">
+            <field name="name">stock.picking.view.tree</field>
+            <field name="model">stock.picking</field>
+            <field name="arch" type="xml">
+                <tree decoration-info="False" decoration-muted="state == 'cancel'" decoration-danger="False" string="Picking list" colors="red:check_return_picking == True;blue:state in ['partially_available','confirmed']">
+                    <field name="name"/>
+                    <field name="date_base_order" string="Ngày đặt hàng"/>
+                    <field name="time_accept" string="Thời điểm xác nhận"/>
+                    <field name="user_internal_sale"/>
+                    <field name="location_id" can_create="true" can_write="true"/>
+                    <field name="export_confirm_order_sub" invisible="True"/>
+                    <field name="location_dest_id"/>
+                    <field name="partner_id" invisible="1"/>
+                    <field name="date" invisible="1"/>
+                    <field name="min_date" invisible="1"/>
+                    <field name="origin_sub" invisible="1"/>
+                    <field name="origin" invisible="1"/>
+                    <field name="group_id" invisible="1"/>
+                    <field name="backorder_id" invisible="1"/>
+                    <field name="picking_cancel" string="Đơn Hàng Đã Huỷ" invisible="1"/>
+                    <field name="need_to_confirm" invisible="1"/>
+                    <field name="state" invisible="1"/>
+                    <field name="picking_state_show"/>
+                    <field name="priority" invisible="1"/>
+                    <field name="picking_type_id" invisible="1"/>
+                    <field name="check_color_picking" invisible="1"/>
+                    <field name="check_return_picking" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="stock_picking_internal_sale_action_picking_type" model="ir.actions.act_window">
+            <field name="name">All Transfers</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form,calendar</field>
+            <field name="domain"></field>
+            <field name="view_id" ref="picking_internal_sale_tree_view"/>
+            <field name="context">{
+                    'search_default_picking_type_id': [active_id],
+                    'default_picking_type_id': active_id,
+                    'contact_display': 'partner_address',
+            }
+            </field>
+            <field name="search_view_id" ref="stock.view_picking_internal_search"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click here to create a new transfer.
+              </p><p>
+                You can either do it immediately or mark it as Todo for future processing. Use your scanner to validate the transferred quantity quicker.
+              </p>
+            </field>
+        </record>
+    </data>
+</odoo>

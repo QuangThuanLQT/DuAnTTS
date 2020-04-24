@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+feosco_master_data_base_users_groups,feosco.master.data,feosco_base.model_feosco_master_data,base.group_user,1,1,1,0
+access_feosco_city_base_users_groups,feosco.city,model_feosco_city,base.group_user,1,1,1,0
+access_feosco_district_base_users_groups,feosco.district,model_feosco_district,base.group_user,1,1,1,0
+access_res_users_base_group_system_config,res.users,base.model_res_users,base.group_system_config,1,1,1,1
+access_res_company_base_group_system_config,res.company,base.model_res_company,base.group_system_config,1,1,1,1
+access_ir_config_parameter_base_group_system_config,ir.config_parameter,base.model_ir_config_parameter,base.group_system_config,1,1,1,1
+access_fetchmail_server_base_group_system_config,fetchmail.server,fetchmail.model_fetchmail_server,base.group_system_config,1,1,1,1
+access_ir_mail_server_base_group_system_config,ir.mail_server,base.model_ir_mail_server,base.group_system_config,1,1,1,1
+access_res_lang_base_group_system_config,res.lang,base.model_res_lang,base.group_system_config,1,1,1,0
+access_feosco_district_base_portal_groups,feosco.district,model_feosco_district,base.group_portal,1,0,0,0
+access_feosco_excel_base_users_groups,feosco.excel,model_feosco_excel,base.group_user,1,1,1,0

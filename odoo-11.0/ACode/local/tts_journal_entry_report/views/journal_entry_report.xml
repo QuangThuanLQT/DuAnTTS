@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <data>
+        <record id="hdkd_report_view" model="ir.ui.view">
+            <field name="name">Báo cáo Chi Phí</field>
+            <field name="model">journal.entry.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="month_start" string="Tháng bắt đầu"/>
+                            <field name="month_stop" string="Tháng kết thúc"/>
+                            <field name="year" string="Năm"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="export_data_excel" string="Print" type="object" default_focus="1"
+                                class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="journal_entry_report_action">
+            <field name="name">Báo cáo Chi Phí</field>
+            <field name="res_model">journal.entry.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="journal_entry_report_menu_root" name="Báo cáo Chi Phí"
+                  parent="account.menu_finance_reports" sequence="3"/>
+
+        <menuitem id="journal_entry_report_menu" name="Báo cáo Chi Phí" parent="journal_entry_report_menu_root"
+                  action="journal_entry_report_action" sequence="1"/>
+
+    </data>
+</odoo>

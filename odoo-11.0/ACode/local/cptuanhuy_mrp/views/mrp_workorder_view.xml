@@ -1,0 +1,119 @@
+<odoo>
+    <data>
+        <record id="mrp_production_workcenter_tree_view_inherit_inherit" model="ir.ui.view">
+            <field name="name">mrp.workorder.tree</field>
+            <field name="model">mrp.workorder</field>
+            <field name="inherit_id" ref="mrp.mrp_production_workcenter_tree_view_inherit"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="responsible_id"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="mrp_production_workcenter_form_view_inherit_inherit" model="ir.ui.view">
+            <field name="name">mrp.workorder.form</field>
+            <field name="model">mrp.workorder</field>
+            <field name="inherit_id" ref="mrp.mrp_production_workcenter_form_view_inherit"/>
+            <field name="arch" type="xml">
+                <field name="production_id" position="replace"/>
+                <field name="product_id" position="before">
+                    <field name="production_id" readonly="1"/>
+                    <field name="responsible_id"/>
+                    <field name="priority_id"/>
+                </field>
+                <xpath expr="//form/sheet/notebook/page[3]" position="after">
+                    <page string="Kho" groups="mrp.group_mrp_manager">
+                        <separator string="Thêm vật liệu"/>
+                        <field name="stock_picking_delivery_ids" context="{'stock_picking_delivery' : True,'production_id':production_id}">
+                            <tree>
+                                <field name="name"/>
+                                <field name="location_id"/>
+                                <field name="location_dest_id"/>
+                                <field name="partner_id"/>
+                                <field name="shipper"/>
+                                <field name="receiver"/>
+                                <field name="min_date"/>
+                                <field name="origin"/>
+                                <field name="state"/>
+                                <button name="action_confirm" states="draft" string="Xác nhận" type="object" groups="base.group_user"/>
+                            </tree>
+                        </field>
+                        <separator string="Trả vật liệu"/>
+                        <field name="stock_picking_return_ids" context="{'stock_picking_return' : True,'production_id':production_id}">
+                            <tree>
+                                <field name="name"/>
+                                <field name="location_id"/>
+                                <field name="location_dest_id"/>
+                                <field name="partner_id"/>
+                                <field name="shipper"/>
+                                <field name="receiver"/>
+                                <field name="min_date"/>
+                                <field name="origin"/>
+                                <field name="state"/>
+                                <button name="action_confirm" states="draft" string="Xác nhận" type="object" groups="base.group_user"/>
+                            </tree>
+                        </field>
+                        <separator string="Vật liệu hỏng"/>
+                        <field name="stock_picking_lost_ids" context="{'stock_picking_lost' : True,'production_id':production_id}">
+                            <tree>
+                                <field name="name"/>
+                                <field name="location_id"/>
+                                <field name="location_dest_id"/>
+                                <field name="partner_id"/>
+                                <field name="shipper"/>
+                                <field name="receiver"/>
+                                <field name="min_date"/>
+                                <field name="origin"/>
+                                <field name="state"/>
+                                <button name="action_confirm" states="draft" string="Xác nhận" type="object" groups="base.group_user"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+                <xpath expr="//form/sheet/notebook/page[1]" position="before">
+                    <page string="Vật liệu">
+                        <field name="mrp_bom_line_ids">
+                            <tree>
+                                <field name="product_id" required="1"/>
+                                <field name="product_uom" groups="product.group_uom"/>
+                                <field name="has_tracking" invisible="1"/>
+                                <field name="is_done" invisible="1"/>
+                                <field name="sequence" invisible="1"/>
+                                <field name="location_id" domain="[('id', 'child_of', parent.location_id)]" invisible="1"/>
+                                <field name="location_dest_id" domain="[('id', 'child_of', parent.location_dest_id)]" invisible="1"/>
+                                <field name="state" invisible="1"/>
+                                <field name="quantity_available" attrs="{'invisible': [('is_done', '=', True)]}"/>
+                                <field name="product_uom_qty" readonly="1" attrs="{'required': [('product_id', '!=', False)]}" string="Để tiêu thụ"/>
+                                <field name="quantity_done" attrs="{'readonly': ['|', ('is_done', '=', True), ('has_tracking', 'in', ['lot','serial'])]}" string="Tiêu thụ"/>
+                                <button name="split_move_lot" string="Register lots" type="object" icon="fa-list" attrs="{'invisible': [('has_tracking', 'not in', ['lot','serial'])]}"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="mrp_production_view_form_inherit_planning_inherit" model="ir.ui.view">
+            <field name="name">mrp.production.form</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp_workorder.mrp_production_view_form_inherit_planning"/>
+            <field name="arch" type="xml">
+                <xpath expr="//label[@for='date_planned_start_wo']" position="attributes">
+                    <attribute name="string">Ngày dự kiến</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="mrp_production_workcenter_tree_view_inherit" model="ir.ui.view">
+            <field name="name">mrp.workorder.tree</field>
+            <field name="model">mrp.workorder</field>
+            <field name="inherit_id" ref="mrp.mrp_production_workcenter_tree_view_inherit"/>
+            <field name="arch" type="xml">
+                <field name="workcenter_id" position="after">
+                    <field name="priority_id"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,67 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="tts_salary_delivery_income_tree">
+            <field name="name">salary_delivery_income_tree</field>
+            <field name="model">salary.delivery.income</field>
+            <field name="arch" type="xml">
+                <tree create="false" default_order="month desc">
+                    <field name="default_code" string="Mã sao kê lương" invisible="1"/>
+                    <field name="month" string="Tháng chi lương" invisible="0"/>
+                    <field name="name" string="Họ và tên nhân viên"/>
+                    <field name="sl_hang_giao" string="SL gói hàng giao"/>
+                    <field name="sl_gh_bt" string="SL gói hàng giao bình thường"/>
+                    <field name="sl_gh_tc" string="SL gói hàng giao tăng cường"/>
+                    <field name="thu_nhap" string="Thu nhập giao hàng"/>
+                    <field name="phu_cap" string="Phụ cấp thêm"/>
+                    <field name="amount" string="Tổng thu nhập"/>
+                    <field name="ghi_chu" string="Ghi chú"/>
+                    <field name="thang" string="Tháng" invisible="1"/>
+                    <field name="nam" string="Năm" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="tts_salary_delivery_income_form">
+            <field name="name">salary_delivery_income_form</field>
+            <field name="model">salary.delivery.income</field>
+            <field name="arch" type="xml">
+                <form create="false">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="sl_hang_giao" string="SL gói hàng giao"/>
+                                <field name="sl_gh_bt" string="SL gói hàng giao bình thường"/>
+                                <field name="sl_gh_tc" string="SL gói hàng giao tăng cường"/>
+                            </group>
+                            <group>
+                                <field name="thu_nhap" string="Thu nhập giao hàng"/>
+                                <field name="phu_cap" string="Phụ cấp thêm"/>
+                                <field name="amount" string="Tổng thu nhập"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="ghi_chu" string="Ghi chú"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="tts_salary_delivery_income_action">
+            <field name="name">Salary Delivery</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">salary.delivery.income</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="xem_luong_menu" name="Xem lương" parent="account.menu_finance" sequence="3"/>
+        <menuitem id="giao_hang_menu" name="Giao hàng" parent="xem_luong_menu"
+                  action="tts_salary_delivery_income_action"/>
+    </data>
+</odoo>

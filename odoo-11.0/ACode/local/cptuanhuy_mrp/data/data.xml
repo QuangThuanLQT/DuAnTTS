@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="seq_workorder_code" model="ir.sequence">
+            <field name="name">Workorder Code</field>
+            <field name="code">workorder.code</field>
+            <field name="prefix">CD</field>
+            <field name="padding">3</field>
+        </record>
+
+        <record id="location_ksx" model="stock.location">
+            <field name="name">KSX</field>
+            <field name="usage">view</field>
+        </record>
+
+        <record id="location_ksx_stock" model="stock.location">
+            <field name="name">Stock</field>
+            <field name="usage">internal</field>
+            <field name="location_id" ref="cptuanhuy_mrp.location_ksx"/>
+        </record>
+
+        <record id="location_ksx_main_material" model="stock.location">
+            <field name="name">NVL Sản xuất</field>
+            <field name="usage">production</field>
+            <field name="location_id" ref="stock.stock_location_locations_virtual"/>
+            <field name="valuation_in_account_id" ref="l10n_vn.1_chart621"/>
+            <field name="valuation_out_account_id" ref="l10n_vn.1_chart621"/>
+        </record>
+
+        <record id="location_ksx_general_material" model="stock.location">
+            <field name="name">Sản xuất chung</field>
+            <field name="usage">production</field>
+            <field name="location_id" ref="stock.stock_location_locations_virtual"/>
+            <field name="valuation_in_account_id" ref="l10n_vn.1_chart6272"/>
+            <field name="valuation_out_account_id" ref="l10n_vn.1_chart6272"/>
+        </record>
+
+        <record id="wh_stock_mrp_procurement_rule" model="procurement.rule">
+            <field name="name">WH: Move</field>
+            <field name="action">move</field>
+            <field name="sequence">10</field>
+            <field name="location_id" ref="stock.stock_location_stock"/>
+            <field name="warehouse_id" ref="stock.warehouse0"/>
+            <field name="location_src_id" ref="cptuanhuy_mrp.location_ksx_stock"/>
+            <field name="procure_method">make_to_order</field>
+            <field name="picking_type_id" ref="cptuanhuy_stock.manufacturing_in"/>
+            <field name="propagate" eval="False"/>
+            <field name="route_id" ref="mrp.route_warehouse0_manufacture"/>
+        </record>
+
+        <record id="location_kct_main_material" model="stock.location">
+            <field name="name">NVL công trình</field>
+            <field name="usage">production</field>
+            <field name="location_id" ref="stock.stock_location_locations_virtual"/>
+            <field name="valuation_in_account_id" ref="l10n_vn.1_chart621"/>
+            <field name="valuation_out_account_id" ref="l10n_vn.1_chart621"/>
+        </record>
+
+        <record id="location_san_xuat_ct" model="stock.location">
+            <field name="name">Sản xuất công trình</field>
+            <field name="usage">production</field>
+            <field name="location_id" ref="stock.stock_location_locations_virtual"/>
+            <field name="valuation_in_account_id" ref="l10n_vn.1_chart6272"/>
+            <field name="valuation_out_account_id" ref="l10n_vn.1_chart6272"/>
+        </record>
+
+        <!--<record id="ksx_buy_procurement_rule" model="procurement.rule">-->
+            <!--<field name="name">KSX: Move</field>-->
+            <!--<field name="action">move</field>-->
+            <!--<field name="sequence">10</field>-->
+            <!--<field name="location_id" ref="cptuanhuy_mrp.location_ksx_stock"/>-->
+            <!--<field name="warehouse_id" ref="stock.warehouse0"/>-->
+            <!--<field name="location_src_id" ref="stock.stock_location_stock"/>-->
+            <!--<field name="procure_method">make_to_order</field>-->
+            <!--<field name="picking_type_id" ref="cptuanhuy_stock.manufacturing_transfer"/>-->
+            <!--<field name="propagate" eval="False"/>-->
+            <!--<field name="route_id" ref="purchase.route_warehouse0_buy"/>-->
+        <!--</record>-->
+
+        <record id="ksx_procurement_rule" model="procurement.rule">
+            <field name="name">KSX: Manufacture</field>
+            <field name="action">manufacture</field>
+            <field name="location_id" ref="cptuanhuy_mrp.location_ksx_stock"/>
+            <field name="warehouse_id" ref="stock.warehouse0"/>
+            <field name="picking_type_id" ref="mrp.picking_type_manufacturing"/>
+            <field name="propagate" eval="False"/>
+            <field name="route_id" ref="mrp.route_warehouse0_manufacture"/>
+        </record>
+
+        <!--TODO Create BOM for Product windown action-->
+        <record id="action_create_bom_product" model="ir.actions.server">
+            <field name="name">Tạo BOM</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="product.model_product_template"/>
+            <field name="state">code</field>
+            <field name="code">action = record.action_create_bom();
+            </field>
+        </record>
+
+        <record model="ir.values" id="create_bom_for_product">
+            <field name="model">product.template</field>
+            <field name="name">Tạo BOM</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_create_bom_product'))" />
+        </record>
+
+        <record id="mrp_routing_tuanhuy" model="mrp.routing">
+            <field name="name">Tuan Huy</field>
+            <field name="location_id" ref="cptuanhuy_mrp.location_ksx_stock"/>
+        </record>
+
+        <record id="mrp_workcenter_thiet_ke" model="mrp.workcenter">
+            <field name="name">Thiết kế</field>
+            <field name="resource_type">user</field>
+            <field name="mo_state">thiet_ke</field>
+        </record>
+
+        <record id="mrp_workcenter_bom" model="mrp.workcenter">
+            <field name="name">BOM</field>
+            <field name="resource_type">user</field>
+            <field name="mo_state">bom</field>
+            <field name="active" eval="False"/>
+        </record>
+
+        <record id="mrp_workcenter_qc" model="mrp.workcenter">
+            <field name="name">QC</field>
+            <field name="resource_type">user</field>
+            <field name="mo_state">qc</field>
+        </record>
+
+        <record id="mrp_workcenter_cnc" model="mrp.workcenter">
+            <field name="name">CNC</field>
+            <field name="resource_type">user</field>
+            <field name="mo_state">cnc</field>
+        </record>
+
+        <record id="mrp_workcenter_han" model="mrp.workcenter">
+            <field name="name">Hàn</field>
+            <field name="resource_type">user</field>
+            <field name="mo_state">han</field>
+        </record>
+
+        <record id="mrp_workcenter_son" model="mrp.workcenter">
+            <field name="name">Sơn</field>
+            <field name="resource_type">user</field>
+            <field name="mo_state">son</field>
+        </record>
+
+        <record id="mrp_workcenter_dien" model="mrp.workcenter">
+            <field name="name">Điện</field>
+            <field name="resource_type">user</field>
+            <field name="mo_state">dien</field>
+        </record>
+
+        <record id="mrp_routing_workcenter_thiet_ke" model="mrp.routing.workcenter">
+            <field name="routing_id" ref="mrp_routing_tuanhuy"/>
+            <field name="workcenter_id" ref="mrp_workcenter_thiet_ke"/>
+            <field name="name">Thiết kế</field>
+            <field name="time_cycle">180</field>
+            <field name="sequence">14</field>
+            <field name="worksheet" type="base64" file="mrp/static/img/cutting-worksheet.pdf"/>
+        </record>
+
+        <record id="mrp_routing_workcenter_bom" model="mrp.routing.workcenter">
+            <field name="routing_id" ref="mrp_routing_tuanhuy"/>
+            <field name="workcenter_id" ref="mrp_workcenter_thiet_ke"/>
+            <field name="name">BOM</field>
+            <field name="time_cycle">180</field>
+            <field name="sequence">14</field>
+            <field name="worksheet" type="base64" file="mrp/static/img/cutting-worksheet.pdf"/>
+        </record>
+
+        <record id="mrp_routing_workcenter_cnc" model="mrp.routing.workcenter">
+            <field name="routing_id" ref="mrp_routing_tuanhuy"/>
+            <field name="workcenter_id" ref="mrp_workcenter_cnc"/>
+            <field name="name">CNC</field>
+            <field name="time_cycle">180</field>
+            <field name="sequence">15</field>
+            <field name="worksheet" type="base64" file="mrp/static/img/cutting-worksheet.pdf"/>
+        </record>
+
+        <record id="mrp_routing_workcenter_cnc" model="mrp.routing.workcenter">
+            <field name="routing_id" ref="mrp_routing_tuanhuy"/>
+            <field name="workcenter_id" ref="mrp_workcenter_cnc"/>
+            <field name="name">CNC</field>
+            <field name="time_cycle">180</field>
+            <field name="sequence">15</field>
+            <field name="worksheet" type="base64" file="mrp/static/img/cutting-worksheet.pdf"/>
+        </record>
+
+        <record id="mrp_routing_workcenter_han" model="mrp.routing.workcenter">
+            <field name="routing_id" ref="mrp_routing_tuanhuy"/>
+            <field name="workcenter_id" ref="mrp_workcenter_han"/>
+            <field name="name">Hàn</field>
+            <field name="time_cycle">180</field>
+            <field name="sequence">15</field>
+            <field name="worksheet" type="base64" file="mrp/static/img/cutting-worksheet.pdf"/>
+        </record>
+
+        <record id="mrp_routing_workcenter_son" model="mrp.routing.workcenter">
+            <field name="routing_id" ref="mrp_routing_tuanhuy"/>
+            <field name="workcenter_id" ref="mrp_workcenter_son"/>
+            <field name="name">Sơn</field>
+            <field name="time_cycle">180</field>
+            <field name="sequence">15</field>
+            <field name="worksheet" type="base64" file="mrp/static/img/cutting-worksheet.pdf"/>
+        </record>
+
+        <record id="mrp_routing_workcenter_dien" model="mrp.routing.workcenter">
+            <field name="routing_id" ref="mrp_routing_tuanhuy"/>
+            <field name="workcenter_id" ref="mrp_workcenter_dien"/>
+            <field name="name">Điện</field>
+            <field name="time_cycle">180</field>
+            <field name="sequence">15</field>
+            <field name="worksheet" type="base64" file="mrp/static/img/cutting-worksheet.pdf"/>
+        </record>
+
+        <record id="mrp_routing_workcenter_qc" model="mrp.routing.workcenter">
+            <field name="routing_id" ref="mrp_routing_tuanhuy"/>
+            <field name="workcenter_id" ref="mrp_workcenter_qc"/>
+            <field name="name">QC</field>
+            <field name="time_cycle">180</field>
+            <field name="sequence">15</field>
+            <field name="worksheet" type="base64" file="mrp/static/img/cutting-worksheet.pdf"/>
+        </record>
+
+        <record id="tuanhuy_resource_calendar_tuanhuy" model="resource.calendar">
+            <field name="name">Tuan Huy 50 hours/week</field>
+        </record>
+
+        <record id="tuanhuy_resource_calendar_attendance_1" model="resource.calendar.attendance">
+            <field name="name">Monday Morning</field>
+            <field name="dayofweek">0</field>
+            <field name="hour_from">8.5</field>
+            <field name="hour_to">12</field>
+            <field name="calendar_id" ref="tuanhuy_resource_calendar_tuanhuy"/>
+        </record>
+
+        <record id="tuanhuy_resource_calendar_attendance_2" model="resource.calendar.attendance">
+            <field name="name">Monday Afternoon</field>
+            <field name="dayofweek">0</field>
+            <field name="hour_from">13.5</field>
+            <field name="hour_to">18</field>
+            <field name="calendar_id" ref="tuanhuy_resource_calendar_tuanhuy"/>
+        </record>
+
+        <record id="tuanhuy_resource_calendar_attendance_3" model="resource.calendar.attendance">
+            <field name="name">Tuesday Morning</field>
+            <field name="dayofweek">1</field>
+            <field name="hour_from">8.5</field>
+            <field name="hour_to">12</field>
+            <field name="calendar_id" ref="tuanhuy_resource_calendar_tuanhuy"/>
+        </record>
+
+        <record id="tuanhuy_resource_calendar_attendance_4" model="resource.calendar.attendance">
+            <field name="name">Tuesday Afternoon</field>
+            <field name="dayofweek">1</field>
+            <field name="hour_from">13.5</field>
+            <field name="hour_to">18</field>
+            <field name="calendar_id" ref="tuanhuy_resource_calendar_tuanhuy"/>
+        </record>
+
+        <record id="tuanhuy_resource_calendar_attendance_5" model="resource.calendar.attendance">
+            <field name="name">Wednesday Morning</field>
+            <field name="dayofweek">2</field>
+            <field name="hour_from">8.5</field>
+            <field name="hour_to">12</field>
+            <field name="calendar_id" ref="tuanhuy_resource_calendar_tuanhuy"/>
+        </record>
+
+        <record id="tuanhuy_resource_calendar_attendance_6" model="resource.calendar.attendance">
+            <field name="name">Wednesday Afternoon</field>
+            <field name="dayofweek">2</field>
+            <field name="hour_from">13.5</field>
+            <field name="hour_to">18</field>
+            <field name="calendar_id" ref="tuanhuy_resource_calendar_tuanhuy"/>
+        </record>
+
+        <record id="tuanhuy_resource_calendar_attendance_7" model="resource.calendar.attendance">
+            <field name="name">Thursday Morning</field>
+            <field name="dayofweek">3</field>
+            <field name="hour_from">8.5</field>
+            <field name="hour_to">12</field>
+            <field name="calendar_id" ref="tuanhuy_resource_calendar_tuanhuy"/>
+        </record>
+
+        <record id="tuanhuy_resource_calendar_attendance_8" model="resource.calendar.attendance">
+            <field name="name">Thursday Afternoon</field>
+            <field name="dayofweek">3</field>
+            <field name="hour_from">13.5</field>
+            <field name="hour_to">18</field>
+            <field name="calendar_id" ref="tuanhuy_resource_calendar_tuanhuy"/>
+        </record>
+
+        <record id="tuanhuy_resource_calendar_attendance_9" model="resource.calendar.attendance">
+            <field name="name">Friday Morning</field>
+            <field name="dayofweek">4</field>
+            <field name="hour_from">8.5</field>
+            <field name="hour_to">12</field>
+            <field name="calendar_id" ref="tuanhuy_resource_calendar_tuanhuy"/>
+        </record>
+
+        <record id="tuanhuy_resource_calendar_attendance_10" model="resource.calendar.attendance">
+            <field name="name">Friday Afternoon</field>
+            <field name="dayofweek">4</field>
+            <field name="hour_from">13.5</field>
+            <field name="hour_to">18</field>
+            <field name="calendar_id" ref="tuanhuy_resource_calendar_tuanhuy"/>
+        </record>
+
+        <record id="tuanhuy_resource_calendar_attendance_12" model="resource.calendar.attendance">
+            <field name="name">Saturday Morning</field>
+            <field name="dayofweek">5</field>
+            <field name="hour_from">8.5</field>
+            <field name="hour_to">12</field>
+            <field name="calendar_id" ref="tuanhuy_resource_calendar_tuanhuy"/>
+        </record>
+
+        <record id="tuanhuy_resource_calendar_attendance_13" model="resource.calendar.attendance">
+            <field name="name">Saturday Afternoon</field>
+            <field name="dayofweek">5</field>
+            <field name="hour_from">13.5</field>
+            <field name="hour_to">18</field>
+            <field name="calendar_id" ref="tuanhuy_resource_calendar_tuanhuy"/>
+        </record>
+
+        <record id="mrp_priority_cao" model="mrp.priority">
+            <field name="name">Cao</field>
+        </record>
+
+        <record id="mrp_priority_trung_binh" model="mrp.priority">
+            <field name="name">Trung bình</field>
+        </record>
+
+        <record id="mrp_priority_thap" model="mrp.priority">
+            <field name="name">Thấp</field>
+        </record>
+    </data>
+</odoo>

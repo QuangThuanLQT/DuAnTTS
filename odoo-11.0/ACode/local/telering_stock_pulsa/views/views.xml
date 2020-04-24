@@ -1,0 +1,28 @@
+<odoo>
+    <data>
+        <record id="product_category_modifier_cust" model="ir.ui.view">
+            <field name="name">product.template.form.inherit.pulsa</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/notebook/page[@name='notes']" position="after">
+                    <page string="Loại sản phẩm" name="product_type_page">
+                        <group string="Loại">
+                            <field name="product_type" widget="radio"/>
+                        </group>
+                    </page>
+                    <page string="Bán lẻ" name="pulsa_component" attrs="{'invisible': [('product_type','!=', 'pulsa')]}">
+                        <group string="Nhóm bán lẻ">
+                            <field name="pulsa_component_lines">
+                                <tree editable="bottom">
+                                    <field name='product_template_id' domain="[('sale_ok','=',True),('purchase_ok','=',False)]"/>
+                                    <field name="balance"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

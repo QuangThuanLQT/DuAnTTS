@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="stock_inventory_report_tree" model="ir.ui.view">
+            <field name="name">Báo cáo nhập xuất tồn</field>
+            <field name="model">stock.inventory.detail.report</field>
+            <field name="arch" type="xml">
+                <tree string="" create="false" edit="false">
+                    <field name="default_code"/>
+                    <field name="display_name"/>
+                    <field name="product_id" invisible="1"/>
+                    <field name="uom_id" invisible="1"/>
+                    <field name="categ_id" invisible="1"/>
+                    <field name="archived_date" invisible="1"/>
+                    <field name="unarchived_date" invisible="1"/>
+
+                    <field name="before_qty" sum="before_qty" widget="integer"/>
+                    <field name="before_value" sum="before_value"/>
+
+                    <field name="income_qty" sum="income_qty" widget="integer"/>
+                    <field name="income_value" sum="income_value"/>
+
+                    <field name="add_inventory_qty" sum="add_inventory_qty" widget="integer"/>
+                    <field name="add_inventory_value" sum="add_inventory_value"/>
+
+                    <field name="income_return_qty" sum="income_return_qty" widget="integer"/>
+                    <field name="income_return_value" sum="income_return_value"/>
+
+                    <field name="outgoing_qty" sum="outgoing_qty" widget="integer"/>
+                    <field name="outgoing_value" sum="outgoing_value"/>
+
+                    <field name="scrap_qty" sum="scrap_qty" widget="integer"/>
+                    <field name="scrap_value" sum="scrap_value"/>
+
+                    <field name="outgoing_return_qty" sum="outgoing_return_qty" widget="integer"/>
+                    <field name="outgoing_return_value" sum="outgoing_return_value"/>
+
+                    <field name="sub_inventory_qty" sum="sub_inventory_qty" widget="integer"/>
+                    <field name="sub_inventory_value" sum="sub_inventory_value"/>
+
+                    <field name="after_qty" sum="after_qty" widget="integer"/>
+                    <field name="after_value" sum="after_value"/>
+
+                </tree>
+            </field>
+        </record>
+
+        <record id="stock_inventory_report_search_view" model="ir.ui.view">
+            <field name="name">stock.inventory.report.search_view</field>
+            <field name="model">stock.inventory.detail.report</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" filter_domain="['|', ('name', 'ilike', self), ('default_code', 'ilike', self)]"/>
+                    <field name="product_id"/>
+                    <field name="default_code"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Nhóm nội bộ" name="categ_id" context="{'group_by':'categ_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_stock_inventory_report" model="ir.actions.act_window">
+            <field name="name">Báo cáo nhập xuất tồn</field>
+            <field name="res_model">stock.inventory.detail.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="stock_inventory_report_tree"/>
+        </record>
+    </data>
+</odoo>

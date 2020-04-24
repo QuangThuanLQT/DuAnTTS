@@ -1,0 +1,10 @@
+<odoo>
+    <data noupdate="1">
+        <record id="tts_esms_api_config" model="esms.api.config">
+            <field name="api_key">DBE9F5016CA6815C38511498229C7F</field>
+            <field name="secret_key">04FF948078B8FF0F5E77FF4AE0A692</field>
+            <field name="brand_name">THETHAOSI</field>
+            <field name="sms_type">2</field>
+        </record>
+    </data>
+</odoo>

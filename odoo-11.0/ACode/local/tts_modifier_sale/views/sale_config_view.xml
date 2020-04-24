@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_sales_config_inherit_sale_stock_inherit" model="ir.ui.view">
+            <field name="name">sale.config.settings.form</field>
+            <field name="model">sale.config.settings</field>
+            <field name="inherit_id" ref="sale_stock.view_sales_config_inherit_sale_stock"/>
+            <field name="arch" type="xml">
+                <field name="module_delivery" position="before">
+                    <field name="cs_free_delivery"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

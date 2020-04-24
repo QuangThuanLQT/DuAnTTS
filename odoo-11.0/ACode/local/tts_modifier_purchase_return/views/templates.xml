@@ -1,0 +1,27 @@
+<odoo>
+    <data>
+        <record id="ir_cron_update_price_move_purchase_return" model="ir.cron">
+            <field name="name">Update Price Unit Move RTP</field>
+            <field eval="False" name="active"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">11111</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'purchase.order'" name="model"/>
+            <field eval="'update_price_move_purchase_return'" name="function"/>
+        </record>
+
+        <record id="ir_cron_update_purchase_return_bill" model="ir.cron">
+            <field name="name">Update Vendor Bill RTP</field>
+            <field eval="False" name="active"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">11111</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'purchase.order'" name="model"/>
+            <field eval="'update_purchase_return_bill'" name="function"/>
+        </record>
+    </data>
+</odoo>

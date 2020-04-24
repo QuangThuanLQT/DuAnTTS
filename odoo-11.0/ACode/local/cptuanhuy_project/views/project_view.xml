@@ -1,0 +1,224 @@
+<odoo>
+    <data>
+        <record id="project_invoice_form_inherit" model="ir.ui.view">
+            <field name="name">project.project.form</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="hr_timesheet.project_invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='allow_timesheets']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//label[@for='allow_timesheets']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='%(hr_timesheet.act_hr_timesheet_line_by_project)d']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <field name="subtask_project_id" position="before">
+                    <field name="user_email"/>
+                    <field name="user_phone"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_project_form_inherited_inherit" model="ir.ui.view">
+            <field name="name">project.project.form</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project_issue.view_project_form_inherited"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='options_active']/div[2]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='%(project_issue.act_project_project_2_project_issue_all)d']"
+                       position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="project_project_view_form_simplified_inherit_issue_inherit" model="ir.ui.view">
+            <field name="name">project.project.form</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project_issue.project_project_view_form_simplified_inherit_issue"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='use_issues']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="project_project_view_form_simplified_inherit_timesheet_inherit" model="ir.ui.view">
+            <field name="name">project.project.form</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="hr_timesheet.project_project_view_form_simplified_inherit_timesheet"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='allow_timesheets']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="edit_project_inherit" model="ir.ui.view">
+            <field name="name">project.project.form</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet" position="before">
+                    <header>
+                        <button name="action_quotation" string="Báo giá" type="object" states="draft"/>
+                        <button name="action_contract" string="Hợp Đồng" type="object" states="quotation"/>
+                        <button name="action_manufacturing" string="Sản Xuất" type="object" states="contract"/>
+                        <button name="action_delivery" string="Giao Hàng" type="object" states="manufacturing"/>
+                        <button name="action_payment" string="Thanh Toán" type="object" states="delivery"/>
+                        <button name="button_cancel" string="Huỷ" type="object"
+                                states="draft,quotation,contract,manufacturing,delivery,payment"/>
+                        <button name="project_report_excel" string="In dự án" type="object"/>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,quotation,contract,manufacturing,delivery,payment"/>
+                    </header>
+                </xpath>
+                <xpath expr="//div[@class='oe_button_box']" position="inside">
+                    <button name="action_open_contract" type="object" class="oe_stat_button" icon="fa-book">
+                        <field string="Hợp đồng" name="contract_count" widget="statinfo"/>
+                    </button>
+                    <button name="action_open_guarantee" type="object" class="oe_stat_button" icon="fa-book">
+                        <field string="Bảo lãnh" name="guarantee_count" widget="statinfo"/>
+                    </button>
+                    <!--<button name="project_to_job_quotaion_action" type="object" class="oe_stat_button" icon="fa-book">-->
+                    <!--<field string="Định mức" name="job_quotaion_count" widget="statinfo"/>-->
+                    <!--</button>-->
+                </xpath>
+                <field name="user_id" position="after">
+                    <field name="revision"/>
+                </field>
+                <xpath expr="//div[@name='options_active']" position="before">
+                    <label for="project_code" class="oe_inline" string="Mã dự án"/>
+                    <field name="project_code" class="oe_inline" readonly="1"/>
+                </xpath>
+                <field name="partner_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <xpath expr="//page[@name='settings']" position="before">
+                    <page name="danh_gia" string="Đánh giá">
+                        <group>
+                            <group>
+                                <field name="type_partner"/>
+                                <field name="partner_sub_id"/>
+                                <field name="feature_project" widget="many2many_tags"/>
+                                <field name="time_delivery" widget="radio"/>
+                                <field name="project_value"/>
+                            </group>
+                            <group></group>
+                        </group>
+                    </page>
+                </xpath>
+                <field name="task_count" position="replace">
+                    <field string="Nhiệm vụ" name="task_count" widget="statinfo"/>
+                </field>
+                <xpath expr="//page[@name='settings']" position="after">
+                    <page name="planning" string="Kế hoạch">
+                        <group >
+                            <field name="date_start"/>
+                            <field name="start_date_unit"/>
+                        </group>
+                        <field name="import_data" attrs="{'invisible':[('state','=','done')]}"/>
+                        <button name="import_data_excel" type="object" string="Nhập Excel"
+                                attrs="{'invisible':[('state','=','done')]}"/>
+                        <button name="clear_all" type="object" string="Xoá nhập lại"
+                                attrs="{'invisible':[('state','=','done')]}" class="clearAllButton"/>
+                        <field name="planning_ids" class="tree_gantt_view" start_date="date_start" end_date="date_end" progress="progress">
+                            <tree>
+                                <field name="name"/>
+                                <field name="start_forecast" string="(Dự kiến)Bắt đầu triển khai"/>
+                                <field name="doing_forecast" string="(Dự kiến)Thời gian triển khai"/>
+                                <field name="start_actual"/>
+                                <field name="doing_actual"/>
+                                <field name="date_start"/>
+                                <field name="date_end"/>
+                                <field name="progress"/>
+                                <field name="status" invisible="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+                <xpath expr="//page[@name='planning']" position="after">
+                    <page name="bao_gia" string="Báo giá">
+                        <field name="import_job_data" attrs="{'invisible':[('state','=','done')]}"/>
+                        <button name="import_job_data_excel" type="object" string="Nhập Excel"
+                                attrs="{'invisible':[('state','=','done')]}"/>
+                        <button name="clear_job_all" type="object" string="Xoá nhập lại"
+                                attrs="{'invisible':[('state','=','done')]}"/>
+                        <field name="job_cost_ids">
+                            <tree>
+                                <field name="number"/>
+                                <field name="name"/>
+                                <field name="start_date"/>
+                                <field name="complete_date"/>
+                                <field name="jobcost_total" widget="monetary"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="project_project_tree_view" model="ir.ui.view">
+            <field name="name">project project tree</field>
+            <field name="model">project.project</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="create_date" widget="date"/>
+                    <field name="project_code"/>
+                    <field name="name"/>
+                    <field name="state" string="Trạng thái"/>
+                    <field name="project_value"/>
+                    <field name="record_checked" string="Done"/>
+                    <button name="change_record_checked" type="object" string="D"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_project_project_gantt" model="ir.ui.view">
+            <field name="name">project.project.gantt</field>
+            <field name="model">project.project</field>
+            <field name="type">gantt</field>
+            <field name="arch" type="xml">
+                <gantt date_start="date_start" date_stop="date" progress="progress_rate" string="Projects">
+                </gantt>
+            </field>
+        </record>
+
+        <record id="odoo_job_costing_management.open_view_project_job_all_config" model="ir.actions.act_window">
+            <field name="view_mode">tree,kanban,gantt,form</field>
+        </record>
+
+        <!-- Payment sequences -->
+        <record id="sequence_project_code_number" model="ir.sequence">
+            <field name="name">Project Code</field>
+            <field name="code">project.project.code</field>
+            <field name="prefix">P</field>
+            <field name="suffix">/%(range_year)s</field>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="use_date_range"/>
+            <field name="padding">4</field>
+        </record>
+
+    </data>
+
+    <data noupdate="1">
+
+        <record model="ir.rule" id="project.project_public_members_rule">
+            <field name="active" eval="False"/>
+        </record>
+
+        <record model="ir.rule" id="project.task_visibility_rule">
+            <field name="active" eval="False"/>
+        </record>
+
+        <record model="ir.rule" id="mail.mail_followers_read_write_own">
+            <field name="active" eval="False"/>
+        </record>
+    </data>
+
+</odoo>

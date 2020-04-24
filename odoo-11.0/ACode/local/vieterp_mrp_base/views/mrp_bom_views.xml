@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_mrp_bom_filter" model="ir.ui.view">
+            <field name="name">mrp.bom.order</field>
+            <field name="model">mrp.bom</field>
+            <field name="inherit_id" ref="mrp.view_mrp_bom_filter" />
+            <field name="arch" type="xml">
+                <xpath expr="//group/filter[1]" position="after">
+            		<field name="so_id"/>
+                    <field name="so_line_id"/>
+            	</xpath>
+            </field>
+        </record>
+
+        <record id="mrp_bom_form_view" model="ir.ui.view">
+            <field name="name">mrp.bom.form</field>
+            <field name="model">mrp.bom</field>
+            <field name="inherit_id" ref="mrp.mrp_bom_form_view" />
+            <field name="arch" type="xml">
+                <field name="product_id" position="before">
+            		<field name="so_id"/>
+                    <field name="so_line_id"/>
+            	</field>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="sale_open_mo_bom">
+            <field name="context">{'default_so_id': active_id, 'search_default_so_id': active_id, 'group_by':None}</field>
+            <field name="name">Bill of Materials</field>
+            <field name="search_view_id" ref="mrp.view_mrp_bom_filter"/>
+            <field name="res_model">mrp.bom</field>
+        </record>
+    </data>
+</odoo>

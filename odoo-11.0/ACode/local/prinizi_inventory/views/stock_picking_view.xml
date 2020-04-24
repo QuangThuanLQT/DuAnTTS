@@ -1,0 +1,152 @@
+<odoo>
+    <data>
+        <record id="view_prinizi_picking_form_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.form.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='pack_operation_product_ids']/tree/field[@name='product_qty']"
+                       position="after">
+                    <field name="print_qty"/>
+                </xpath>
+
+                <xpath expr="//field[@name='partner_id']" position="before">
+                    <field name="print_user" options="{'no_create_edit': True}"
+                           attrs="{'required' : [('picking_type','in', 'produce_name')],
+                                   'invisible' : [('picking_type','not in', 'produce_name')]}"/>
+                    <field name="in_tang_cuong" attrs="{'invisible' : [('picking_type','not in', 'produce_name')]}"/>
+
+                    <field name="image_user" options="{'no_create_edit': True}"
+                           attrs="{'required' : [('check_produce_image','=', True)],
+                                   'invisible' : [('check_produce_image','=', False)]}"/>
+                    <field name="in_hinh_tang_cuong" attrs="{'invisible' : [('check_produce_image','=', False)]}"/>
+
+                    <field name="kcs1_user" options="{'no_create_edit': True}"
+                           attrs="{'required' : [('picking_type', 'in', 'kcs1')],
+                                   'invisible' : [('picking_type', 'not in', 'kcs1')]}"/>
+                    <field name="kcs1_tang_cuong" attrs="{'invisible' : [('picking_type', 'not in', 'kcs1')]}"/>
+
+                    <field name="kcs2_user" options="{'no_create_edit': True}"
+                           attrs="{'required' : [('picking_type', 'in', 'kcs2')],
+                                   'invisible' : [('picking_type', 'not in', 'kcs2')]}"/>
+                    <field name="kcs2_tang_cuong" attrs="{'invisible' : [('picking_type', 'not in', 'kcs2')]}"/>
+
+                    <field name="ep_user" options="{'no_create_edit': True}"
+                           attrs="{'required' : [('picking_type', 'in', 'print')],
+                                   'invisible' : [('picking_type', 'not in', 'print')]}"/>
+                    <field name="ep_tang_cuong" attrs="{'invisible' : [('picking_type', 'not in', 'print')]}"/>
+
+                    <field name="user_internal_sale"
+                           attrs="{'required' : [('picking_type', 'in', 'internal_sale')],
+                                   'invisible' : [('picking_type', 'not in', 'internal_sale')]}" options="{'no_quick_create':True, 'no_create_edit':True, 'no_open': True,}"/>
+                </xpath>
+
+                <xpath expr="//notebook/page" position="attributes">
+                    <attribute name="attrs">{'invisible' : ['|',('state', 'in', ('draft', 'confirmed', 'waiting')),('picking_type', 'in', ['produce_name','produce_image','print','kcs1','kcs2'])]}</attribute>
+                </xpath>
+
+                <xpath expr="//notebook/page" position="before">
+                    <page string="Operations" attrs="{'invisible' : [('picking_type', 'not in', ['produce_name','produce_image','print','kcs1','kcs2'])]}">
+                        <!--<field name="pack_operation_product_ids"/>-->
+                        <field name="thong_tin_its">
+                            <tree editable="bottom">
+                                <field name="product_id"/>
+                                <field name="size"/>
+                                <field name="lung_tren"/>
+                                <field name="lung_giua"/>
+                                <field name="lung_duoi"/>
+                                <field name="in_hinh"/>
+                            </tree>
+                        </field>
+                        <separator string="Thông tin in thêm tên số" attrs="{'invisible' : [('picking_type', 'in', ['produce_image'])]}"/>
+                        <field name="thong_tin_them_its_ids" attrs="{'invisible' : [('picking_type', 'in', ['produce_image'])]}">
+                            <tree editable="bottom">
+                                <field name="product_ids"/>
+                                <field name="product_id"/>
+                                <field name="vi_tri_in"/>
+                                <field name="kich_thuot_in"/>
+                                <field name="noi_dung_in"/>
+                            </tree>
+                        </field>
+                        <separator string="Thông tin in hình" attrs="{'invisible' : [('picking_type', 'in', ['produce_name'])]}"/>
+                        <field name="thong_tin_in_hinh_ids" attrs="{'invisible' : [('picking_type', 'in', ['produce_name'])]}">
+                            <tree editable="bottom">
+                                <field name="product_id"/>
+                                <field name="vi_tri_in"/>
+                                <field name="chat_lieu_in_hinh"/>
+                                <field name="kich_thuot_in"/>
+                                <field name="ten_hinh"/>
+                            </tree>
+                        </field>
+                        <separator string="Cấu hình thông số in tên số" attrs="{'invisible' : [('picking_type', 'in', ['produce_image'])]}"/>
+                        <field name="config_thong_tin_its_ids" attrs="{'invisible' : [('picking_type', 'in', ['produce_image'])]}">
+                            <tree editable="bottom">
+                                <field name="product_id"/>
+                                <field name="font_chu_so"/>
+                                <field name="lung_ao"/>
+                                <field name="mat_truoc_ao"/>
+                                <field name="tay_ao"/>
+                                <field name="ong_quan"/>
+                            </tree>
+                        </field>
+                        <separator string="Hình ảnh"/>
+                        <div class="col-md-4">
+                            <group>
+                                <field name="note_image" string="Ghi chú" readonly="True"/>
+                            </group>
+                        </div>
+
+                        <div class="col-xs-8">
+                        </div>
+                        <field class="col-xs-12" name="image_print" widget="many2many_binary"
+                               attrs="{'readonly' : [('picking_type', 'in', ['produce_name','produce_image','print','kcs1','kcs2'])]}">
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="view_picking_form_inherit_prinizi" model="ir.ui.view">
+            <field name="name">stock.picking.form.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="tts_modifier_inventory.view_picking_form_inherit"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//header" position="inside">
+                    <button name="export_print_data" string="Xuất thông tin In hình"
+                            attrs="{'invisible' : [('check_produce_image','=', False)]}" type="object"/>
+                    <button name="export_thongtin_its_h" string="Xuất thông tin in tên số &amp;	 hình" type="object"
+                            attrs="{'invisible' : [('picking_type','not in', ['kcs1', 'kcs2', 'print'])]}"/>
+                    <button name="export_product_name" string="Xuất thông tin In tên số"
+                            attrs="{'invisible' : [('check_produce_name','=', False)]}" type="object"/>
+                </xpath>
+
+                <field name="user_pick_id" position="attributes">
+                    <attribute name="options">{'no_create_edit': True}</attribute>
+                </field>
+                <field name="user_pack_id" position="attributes">
+                    <attribute name="options">{'no_create_edit': True}</attribute>
+                </field>
+                <field name="user_delivery_id" position="attributes">
+                    <attribute name="options">{'no_create_edit': True}</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_picking_form_inherit_picking_note" model="ir.ui.view">
+            <field name="name">stock.picking.form.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="tts_modifier_sale_return.view_picking_form_inherit_inherit_inherit"/>
+            <field name="arch" type="xml">
+                <field name="picking_note" position="attributes">
+                    <attribute name="attrs">{'invisible' : [('picking_type', 'in', 'internal_sale')]}</attribute>
+                </field>
+                <field name="picking_note" position="before">
+                    <field name="internal_sale_note" attrs="{'invisible' : [('picking_type', 'not in', 'internal_sale')]}"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="assets_backend" name="account_gbn_gbn" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <!--Adding new js file-->
+            <script type="text/javascript" src="/account_gbn/static/src/js/account_gbn.js"/>
+        </xpath>
+    </template>
+    <data>
+        <record model="ir.ui.view" id="account_payment_gbn_form">
+            <field name="name">account.payment.gbn.view</field>
+            <field name="model">account.payment.gbn</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Session Form">
+                    <header>
+                        <field name="state" widget="statusbar" nolabel="1"/>
+
+                        <!--Gửi xác nhận-->
+                        <button name="change_status_gbn" string="Gửi xác nhận" type="object" class="oe_highlight"
+                                states="draft" />
+
+                        <!--Xác nhận-->
+                        <button name="change_status_gbn" string="Xác nhận" type="object" class="oe_highlight" states="KT_doing" groups="account_unc.group_tong_giam_doc"/>
+
+                        <!--Quay về bản nháp-->
+                        <button name="set_status_gbn_to_draft" string="Quay về bản nháp" type="object" class="oe_highlight" states="KT_doing,cancel" />
+
+                         <!--Huỷ-->
+                        <button name="set_status_gbn_to_cancel" string="Huỷ" type="object" class="oe_highlight" states="KT_doing,done"/>
+
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="sender_id"/>
+                            <field name="partner_id"/>
+                            <field name="bank_id" context="{'default_bank_id': True}"/>
+                            <field name="ref"/>
+                            <field name="date_create"/>
+                            <field name="acc_number"/>
+                            <field name="amount"/>
+                            <field name="date_unc"  invisible="1"/>
+                            <field name="note"/>
+                            <field name="gbn_acc_pay_id" readonly="1" string="Thanh toán" attrs="{'invisible': [('gbn_acc_pay_id', '=', False)]}" />
+                            <field name="gbn_acc_inv_id" readonly="1" string="Hóa đơn Nhà cung cấp" attrs="{'invisible': [('gbn_acc_inv_id', '=', False)]}"/>
+                            <field name="journal_id" attrs="{'invisible': [('gbn_acc_pay_id', '!=', False)]}"/>
+                            <field name="account_id" attrs="{'invisible': [('gbn_acc_pay_id', '!=', False)]}"/>
+                            <field name="move_id" attrs="{'invisible': [('gbn_acc_pay_id', '!=', False)]}"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="account_payment_gbn_tree">
+            <field name="name">account payment gbn tree</field>
+            <field name="model">account.payment.gbn</field>
+            <field name="arch" type="xml">
+                <tree default_order="date_create desc">
+                    <field name="date_create"/>
+                    <field name="ref"/>
+                    <field name="partner_id"/>
+                    <field name="amount" sum="Tổng"/>
+                    <field name="bank_id"/>
+                    <field name="note"/>
+                    <field name="state"/>
+                    <field name="date_unc"/>
+                    <field name="account_id"/>
+                    <field name="journal_id"/>
+                    <field name="record_checked"/>
+                    <button name="change_record_checked" type="object" string="Checked"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="mandate_gbn_search_view">
+            <field name="name">account gbn search</field>
+            <field name="model">account.payment.gbn</field>
+            <field name="arch" type="xml">
+                <search string="Search UNC">
+                    <field name="partner_id" string="Người nhận"/>
+                    <field name="ref" string="Tham chiếu"/>
+                    <field name="account_id" string="Tài khoản"/>
+                    <field name="note"/>
+                    <field name="date_create"/>
+                    <filter string="Bản phác thảo" domain="[('state','=','draft')]" help="Bản phác thảo UNC"/>
+                    <filter string="Hoàn thành" domain="[('state','=','done')]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Tài khoản" domain="[]" context="{'group_by':'account_id'}"/>
+                        <filter string="Người nhận" domain="[]" context="{'group_by':'partner_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="account_gbn_action">
+            <field name="name">Uỷ Nhiệm Thu</field>
+            <field name="res_model">account.payment.gbn</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="usage">menu</field>
+        </record>
+
+        <menuitem id="account_payment_gbn_menu"
+                  parent="account.menu_finance_bank_management" sequence="2"
+                  name="Uỷ Nhiệm Thu"
+                  action="account_gbn_action"/>
+
+        <record id="action_update_check_account_payment_gbn" model="ir.actions.server">
+            <field name="name">Huỷ kiểm tra</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_account_payment_gbn"/>
+            <field name="state">code</field>
+            <field name="code">action = record.update_check_account_payment_gbn();
+            </field>
+        </record>
+
+        <record model="ir.values" id="action_update_check_account_payment_gbn">
+            <field name="model">account.payment.gbn</field>
+            <field name="name">Huỷ kiểm tra</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_update_check_account_payment_gbn'))" />
+        </record>
+
+        <record id="action_multi_change_status_gbn" model="ir.actions.server">
+            <field name="name">Gửi xác nhận</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_account_payment_gbn"/>
+            <field name="state">code</field>
+            <field name="code">action = record.multi_change_status_gbn();
+            </field>
+        </record>
+
+        <record model="ir.values" id="value_multi_change_status_gbn">
+            <field name="model">account.payment.gbn</field>
+            <field name="name">Gửi xác nhận</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_multi_change_status_gbn'))" />
+        </record>
+    </data>
+</odoo>

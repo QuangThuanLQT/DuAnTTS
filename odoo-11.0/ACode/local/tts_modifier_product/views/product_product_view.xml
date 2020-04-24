@@ -1,0 +1,174 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_stock_product_tree_inheirt">
+            <field name="name">product.product.tree</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="stock.view_stock_product_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="replace">
+                    <tree>
+                        <field name="price" invisible="1"/>
+                        <field name="default_code" string="Reference"/>
+                        <field name="name" string="Tên sản phẩm"/>
+                        <field name="attribute_value_ids" widget="many2many_tags" groups="product.group_product_variant" context="{'product_variant_tree': True}"/>
+                        <field name="standard_price" string="Giá vốn" groups="tts_modifier_access_right.group_giam_doc_kd, tts_modifier_access_right.group_nv_mua_hang,
+                        tts_modifier_access_right.group_nv_nganh_hang, tts_modifier_access_right.group_ketoan_kho, tts_modifier_access_right.group_ketoan_tonghop"/>
+                        <field name="lst_price"/>
+                        <field name="qty_available" string="SL tổng trong kho" sum="qty available" widget="integer"/>
+                        <field name="virtual_available" invisible="1"/>
+                        <field name="sp_ban_chua_giao" string="SL bán chưa giao" sum="sp ban chua giao"/>
+                        <field name="sp_da_bao_gia" string="SL đã báo giá" sum="sp da bao gia"/>
+                        <field name="sp_co_the_ban" string="SL có thể bán" sum="sp co the ban"/>
+                    </tree>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product_template_only_form_view_show_image" model="ir.ui.view">
+            <field name="name">product.template.stock.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="modifier_product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='image_medium']" position='attributes'>
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="product.product_normal_action_sell">
+            <field name="context">{'search_default_filter_to_sell':1, 'product_variant_tree': True}</field>
+            <field name="name">Product Variant</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="purchase.product_product_action">
+            <field name="context">{'search_default_filter_to_purchase': 1, 'product_variant_tree': True}</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="product.product_normal_action">
+            <field name="context">{'product_variant_tree': True}</field>
+        </record>
+
+        <!--<record model="ir.ui.view" id="product_variant_easy_edit_view_inheirt">-->
+        <!--<field name="name">product.product.form</field>-->
+        <!--<field name="model">product.product</field>-->
+        <!--<field name="inherit_id" ref="product.product_variant_easy_edit_view"/>-->
+        <!--<field name="arch" type="xml">-->
+            <!--<field name="lst_price" position="before">-->
+                <!--<field name="product_variant_price"/>-->
+            <!--</field>-->
+        <!--</field>-->
+        <!--</record>-->
+
+        <!--<record model="ir.ui.view" id="product_normal_form_view_inheirt">-->
+            <!--<field name="name">product.product.form</field>-->
+            <!--<field name="model">product.product</field>-->
+            <!--<field name="inherit_id" ref="product.product_normal_form_view"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<field name="lst_price" position="before">-->
+                    <!--<field name="product_variant_price"/>-->
+                <!--</field>-->
+            <!--</field>-->
+         <!--</record>-->
+
+        <record model="ir.ui.view" id="product_template_only_form_view_inheirt">
+            <field name="name">product.template.sale.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='sales']" position="inside">
+                    <group name="pricelist" string="Pricelist"></group>
+                    <field name="product_pricelist_line">
+                        <tree editable="bottom">
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="quantity_min"/>
+                            <field name="giam_gia"/>
+                        </tree>
+                    </field>
+                </xpath>
+            </field>
+         </record>
+
+        <record id="product_template_form_inherit_ihr" model="ir.ui.view">
+            <field name="name">product.template</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="tuanhuy_product.product_template_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/notebook/page[@name='stock_move_page']" position="attributes">
+                    <attribute name="string">Thẻ kho</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_move_tree_receipt_picking_inherit" model="ir.ui.view">
+            <field name="name">stock.move.ihr</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_tree_receipt_picking"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="default_order">date desc</attribute>
+                </xpath>
+                <xpath expr="//field[@name='origin']" position="before">
+                    <field name="invoices_bill"/>
+                    <field name="origin_sub"/>
+                    <field name="partner"/>
+                </xpath>
+                <xpath expr="//field[@name='origin']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='product_uom_qty']" position="before">
+                    <field name="product_uom_qty_sub"/>
+                    <field name="remain_qty"/>
+                </xpath>
+                <xpath expr="//field[@name='product_uom_qty']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_expected']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='product_uom']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='state']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date']" position="attributes">
+                    <attribute name="widget"></attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="action_publish" model="ir.actions.server">
+            <field name="name">Publish</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_product_template"/>
+            <field name="state">code</field>
+            <field name="code">action = record.multi_action_publish()</field>
+        </record>
+
+        <record model="ir.values" id="multi_publish">
+            <field name="model">product.template</field>
+            <field name="name">Publish</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_publish'))"/>
+        </record>
+
+
+        <record id="action_unpublish" model="ir.actions.server">
+            <field name="name">UnPublish</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_product_template"/>
+            <field name="state">code</field>
+            <field name="code">action = record.multi_action_unpublish()</field>
+        </record>
+
+        <record model="ir.values" id="multi_unpublish">
+            <field name="model">product.template</field>
+            <field name="name">UnPublish</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_unpublish'))"/>
+        </record>
+    </data>
+</odoo>

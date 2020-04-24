@@ -1,0 +1,110 @@
+<odoo>
+    <data>
+        <record id="account_guarantee_tree" model="ir.ui.view">
+            <field name="name">account.guarantee.tree</field>
+            <field name="model">account.guarantee</field>
+            <field name="arch" type="xml">
+                <tree string="Guarantee">
+                    <field name="partner_id"/>
+                    <field name="code"/>
+                    <field name="guarantee_amount"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="guarantee_fund" sum="Total Fund"/>
+                    <field name="asset_guaranteed" sum="Total Asset"/>
+                    <field name="guarantee_credit" sum="Total Credit"/>
+                    <field name="guarantee_type_id"/>
+                    <field name="beneficiary_id"/>
+                    <field name="state"/>
+                    <field name="guarantee_fee"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="account_guarantee_form" model="ir.ui.view">
+            <field name="name">account.guarantee.form</field>
+            <field name="model">account.guarantee</field>
+            <field name="arch" type="xml">
+                <form string="Guarantee">
+                    <header>
+                        <button name="action_draft" type="object"
+                                string="Reset to draft"
+                                states="requested,approved,bank_approved,draft_letter,done"/>
+                        <button name="action_requrest" type="object"
+                                string="Request" states="draft"
+                                class="oe_highlight"/>
+                        <button name="action_approve" type="object"
+                                string="Approve" states="requested"
+                                class="oe_highlight"/>
+                        <button name="action_done" type="object"
+                                string="Done" states="approved"
+                                class="oe_highlight"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="code"/>
+                                <field name="partner_id"
+                                       options="{'no_create': True}" domain="[('bank', '=', True), ('bank_type', '=', 'internal')]"/>
+                                <field name="job_costing_id"/>
+                                <field name="sale_id" string="Project" invisible="1"/>
+                                <field name="guarantee_type_id"/>
+                            </group>
+                            <group>
+                                <field name="company_id"/>
+                                <field name="beneficiary_id"/>
+                                <field name="guarantee_amount"/>
+                                <field name="guarantee_fee"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                            </group>
+                            <group>
+                                <field name="guarantee_fund"/>
+                                <field name="guarantee_credit"/>
+                                <field name="asset_guaranteed"/>
+                                <field name="account_asset_id"/>
+                                <!--<field name="guaranteed_total"/>-->
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Accounts" id="accounting">
+                                <group>
+                                    <group>
+                                        <field name="journal_id"/>
+                                        <field name="guarantee_account_id"/>
+                                    </group>
+                                    <group>
+                                        <field name="move_id" attrs="{'invisible': [('move_id', '=', False)]}"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"
+                               widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <act_window
+                id="account_guarantee_action"
+                name="Guarantees"
+                res_model="account.guarantee"/>
+
+        <menuitem id="account_guarantee_menu"
+                  parent="account.menu_finance_bank_management" sequence="80"
+                  name="Guarantees"
+                  action="account_guarantee_action"/>
+    </data>
+</odoo>

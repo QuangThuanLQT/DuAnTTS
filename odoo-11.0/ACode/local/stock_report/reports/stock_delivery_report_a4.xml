@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="external_layout_delivery_note">
+            <t t-if="not o and doc">
+                <t t-set="o" t-value="docs"/>
+            </t>
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"></t>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"></t>
+            </t>
+
+            <t t-call="stock_report.external_layout_header_delivery_note"/>
+            <t t-raw="0"/>
+            <!--<t t-call="stock_report.external_layout_footer_delivery_note"/>-->
+        </template>
+
+        <template id="stock_report.external_layout_header_delivery_note">
+            <div class="header">
+                 <!--style=" background-image: url('/boston_modifier_status/static/description/content.png'); background-size: cover; background-repeat: no-repeat; height:140px">-->
+                <div class="row" style="font-size: 12px;line-height: 13px;">
+                    <div class="col-xs-12">
+                        <span t-if="company.name">
+                            <span t-esc="company.name"/>
+                        </span>
+                        <br/>
+                        <span t-if="company.street">
+                            <span t-esc="company.street"/>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <!--<template id="stock_report.external_layout_footer_delivery_note">-->
+                 <!--&lt;!&ndash;style=" background-image: url('/boston_modifier_status/static/description/footer.png'); background-size: cover; background-repeat: no-repeat; height:80px; margin:10px; padding: 50px; position: relative;">&ndash;&gt;-->
+            <!--<div class="footer text-center">-->
+                <!--<ul class="list-inline">-->
+                <!--<li></li>-->
+                <!--<li><span class="page"/></li>-->
+                <!--<li>of</li>-->
+                <!--<li><span class="topage"/></li>-->
+                <!--</ul>-->
+            <!--</div>-->
+        <!--</template>-->
+
+        <template id="report_delivery_note_a4">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="company" t-value="o.company_id"/>
+                <t t-set="partner" t-value="o.partner_id"/>
+                <t t-call="stock_report.external_layout_delivery_note">
+                    <div class="page" style="font-size: 11px;">
+                        <div class="row" align="center">
+                            <!--<t t-if="not o.check_return_picking and o.origin">-->
+                                <!--<strong t-if="'SO' in o.origin"><span style="font-size:16px">PHIẾU XUẤT KHO BÁN HÀNG</span></strong>-->
+                                <!--<strong t-if="'PO' in o.origin"><span style="font-size:16px">PHIẾU NHẬP KHO MUA HÀNG</span></strong>-->
+                            <!--</t>-->
+                            <t t-if="not o.check_return_picking">
+                                <!--<strong t-if="'WH/OUT' in o.name"><span style="font-size:16px">PHIẾU XUẤT KHO BÁN HÀNG</span></strong>-->
+                                <!--<strong t-if="'WH/IN' in o.name"><span style="font-size:16px">PHIẾU NHẬP KHO MUA HÀNG</span></strong>-->
+                                <strong t-if="'XK' in o.name or 'WH/OUT' in o.name"><span style="font-size:16px">PHIẾU XUẤT KHO</span></strong>
+                                <strong t-if="'NK' in o.name or ('WH/IN' in o.name and 'WH/INT' not in o.name)"><span style="font-size:16px">PHIẾU NHẬP KHO</span></strong>
+                                <strong t-if="'WH/INT' in o.name"><span style="font-size:16px">DỊCH CHUYỂN NỘI BỘ</span></strong>
+                                <strong t-if="'CK/INT' in o.name"><span style="font-size:16px">CHUYỂN KHO NỘI BỘ</span></strong>
+                            </t>
+                            <strong t-if="o.check_color_picking == 'red'"><span style="font-size:16px">PHIẾU NHẬP KHO TRẢ HÀNG</span></strong>
+                            <strong t-if="o.check_color_picking == 'blue'"><span style="font-size:16px">PHIẾU XUẤT KHO TRẢ HÀNG</span></strong>
+                            <br/>
+                            <span t-if="o.min_date">
+                                <strong><i><span t-esc="datetime.datetime.strptime(o.min_date,'%Y-%m-%d %H:%M:%S').strftime('Ngày %d tháng %m năm %Y')"/></i></strong>
+                            </span>
+                        </div>
+                        <div class="row" style="line-height: 13px;">
+                            <div class="col-xs-9">
+                                <t>
+                                    <span>Người giao hàng:
+                                        <span style="border-bottom-style: dotted"/>
+                                    </span>
+                                </t>
+                                <br/>
+                                <t t-if="partner.name">
+                                    <span>Tên khách hàng: </span>
+                                    <span t-esc="partner.name"/>
+                                </t>
+                                <t t-if="not partner and o.sale_select_id">
+                                    <span>Tên khách hàng: </span>
+                                    <span t-esc="o.sale_select_id.partner_id.name or ''"/>
+                                </t>
+                                <br/>
+                                <t t-if="partner.street">
+                                    <span>Địa chỉ: </span>
+                                    <span t-esc="partner.street"/>
+                                </t>
+                                <br/>
+                                <t t-if="partner.name or o.note">
+                                    <span>Diễn giải: </span>
+                                    <span t-esc="o.note or ('Bán hàng ' + partner.name)"/>
+                                </t>
+                            </div>
+                            <div class="col-xs-3">
+                                <t>
+                                    <span>Số: </span>
+                                    <t t-esc="o.group_id.name or o.name"/>
+                                </t>
+                                <br/>
+                                <t>
+                                    <span>Đơn hàng: </span>
+                                    <t t-esc="o.sale_select_id.name or ''"/>
+                                </t>
+                                <!--
+                                <br/>
+                                <span>
+                                    <span>Nợ: </span>
+                                </span>
+                                <br/>
+                                <span>
+                                    <span>Có: </span>
+                                </span>
+                                -->
+                                <br/>
+                                <t>
+                                    <span>Loại tiền: VND</span>
+                                </t>
+                            </div>
+                        </div>
+
+                        <t t-set="total" t-value="0"/>
+                        <table class="table table-bordered" style="border-color:black">
+                            <tbody style="border-color:black;">
+                                <tr>
+                                    <th style="border-color:black;padding:2px 5px 2px 5px !important;">STT</th>
+                                    <th style="border-color:black;padding:2px 5px 2px 5px !important;">Mã hàng</th>
+                                    <th style="border-color:black;padding:2px 5px 2px 5px !important;">Tên hàng</th>
+                                    <th style="border-color:black;padding:2px 5px 2px 5px !important;">Đơn vị</th>
+                                    <th style="border-color:black;padding:2px 5px 2px 5px !important;">Số lượng</th>
+                                    <th style="border-color:black;padding:2px 5px 2px 5px !important;">Đơn giá</th>
+                                    <th style="border-color:black;padding:2px 5px 2px 5px !important;">Thành tiền</th>
+                                </tr>
+                                <t t-set="i" t-value="1"/>
+                                <t t-set="total" t-value="0"/>
+                                <t t-foreach="o.move_lines" t-as="move_line">
+                                    <tr>
+                                        <td style="border-color:black;padding:0px 5px 0px 5px !important;"><t t-esc="i"/></td>
+                                        <td style="border-color:black;padding:0px 5px 0px 5px !important;"><t t-esc="move_line.product_id.default_code"/></td>
+                                        <td style="border-color:black;padding:0px 5px 0px 5px !important;"><t t-esc="move_line.product_id.name"/></td>
+                                        <td style="border-color:black;padding:0px 5px 0px 5px !important;"><t t-esc="move_line.product_id.uom_id.name"/></td>
+                                        <td style="border-color:black;padding:0px 5px 0px 5px !important;" align="right"><t t-esc="'{0:,.2f}'.format(move_line.product_uom_qty).replace(',',' ').replace('.',',').replace(' ', '.')"/></td>
+                                        <td style="border-color:black;padding:0px 5px 0px 5px !important;" align="right">
+                                            <span t-field="move_line.price_unit_sale_report" t-options='{
+                                             "widget": "monetary",
+                                             "display_currency": company.currency_id
+                                            }'/>
+                                        </td>
+                                        <t t-set="tmp" t-value="move_line.product_uom_qty * move_line.price_unit_sale_report"></t>
+                                        <td style="border-color:black;padding:0px 5px 0px 5px !important;" align="right">
+                                            <span t-esc="tmp" t-options='{
+                                             "widget": "monetary",
+                                             "display_currency": company.currency_id
+                                            }'/>
+                                        </td>
+                                        <t t-set="i" t-value="i+1"/>
+                                        <t t-set="total" t-value="total + tmp"/>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td style="border-color:black;" colspan="6">
+                                        <div align="left">
+                                            Cộng:
+                                        </div>
+                                    </td>
+                                    <td style="border-color:black;" align="right">
+                                        <span t-esc="total" t-options='{
+                                                 "widget": "monetary",
+                                                 "display_currency": company.currency_id
+                                                }'/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" style="border-right: 0px; border-color:black;padding:2px 5px 2px 5px !important;">
+                                    </td>
+                                    <td colspan="2" style="border-left: 0px; border-right: 0px; border-color:black;padding:2px 5px 2px 5px !important;">
+                                        <div align="left">
+                                            Cộng tiền hàng:
+                                        </div>
+                                    </td>
+                                    <td colspan="2" style="border-left: 0px; border-color:black;padding:2px 5px 2px 5px !important;">
+                                        <div align="right">
+                                            <span t-esc="total" t-options='{
+                                                 "widget": "monetary",
+                                                 "display_currency": company.currency_id
+                                                }'/>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" style="border-right: 0px; border-color:black;padding:2px 5px 2px 5px !important;">
+                                        <div align="left">
+                                            Thuế suất GTGT:
+                                        </div>
+                                    </td>
+                                    <td colspan="4" style="border-left: 0px; border-color:black;padding:2px 5px 2px 5px !important;">
+                                        <div align="left">
+                                            Tiền thuế GTGT
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr style="border-color:black;">
+                                    <td colspan="3" style="border-right: 0px; border-color:black;padding:2px 5px 2px 5px !important;">
+                                    </td>
+                                    <td colspan="3" style="border-left: 0px; border-right: 0px; border-color:black;padding:2px 5px 2px 5px !important;">
+                                        <div align="left">
+                                            Tổng thanh toán:
+                                        </div>
+                                    </td>
+                                    <td colspan="1" style="border-left: 0px; border-color:black;padding:2px 5px 2px 5px !important;">
+                                        <div align="right">
+                                            <span t-esc="total" t-options='{
+                                                 "widget": "monetary",
+                                                 "display_currency": company.currency_id
+                                                }'/>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="row" style="margin-top:-15px">
+                            <div class="col-xs-12">
+                                <span>Số tiền viết bằng chữ:</span> <t t-esc="o.total_text(total)"/> đồng.
+                                <br/>
+                                <div class="col-xs-3" style="margin-left:-15px">
+                                <span>CO, CQ: </span>
+                                    <t t-if="o.get_co_cq()">
+                                        <input style="margin-top:-2px" type="checkbox" checked="true"/>
+                                    </t>
+                                    <t t-if="not o.get_co_cq()">
+                                        <input style="margin-top:-2px" type="checkbox"/>
+                                    </t>
+                                </div>
+                                <div class="col-xs-3">
+                                    <span>Hoá Đơn GTGT: </span>
+                                    <t t-if="o.get_invoice_gtgt()">
+                                        <input style="margin-top:-2px" type="checkbox" checked="true"/>
+                                    </t>
+                                    <t t-if="not o.get_invoice_gtgt()">
+                                        <input style="margin-top:-2px" type="checkbox"/>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4" align="center">
+                            </div>
+                            <div class="col-xs-4" align="center">
+                            </div>
+                            <div class="col-xs-4" align="center">
+                                <span>Ngày.....tháng.....năm........</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3" align="center">
+                                <span><strong>Người nhận hàng</strong></span>
+                                <br/>
+                                <span>(Ký, họ tên)</span>
+                            </div>
+                            <div class="col-xs-3" align="center">
+                                <span><strong>Kho</strong></span>
+                                <br/>
+                                <span>(Ký, họ tên)</span>
+                            </div>
+                            <div class="col-xs-3" align="center">
+                                <span><strong>Người lập phiếu</strong></span>
+                                <br/>
+                                <span>(Ký, họ tên)</span>
+                            </div>
+                            <div class="col-xs-3" align="center">
+                                <span><strong>Giám đốc</strong></span>
+                                <br/>
+                                <span>(Ký, họ tên)</span>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <record id="stock_report_delivery_note_paper_format_a4" model="report.paperformat">
+            <field name="name">Phieu xuat kho ban hang A4</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">297</field>
+            <field name="page_width">210</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">13</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">3</field>
+            <field name="margin_right">3</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">9</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+                id="action_report_delivery_a4"
+                model="stock.picking"
+                report_type="qweb-pdf"
+                string="Phiếu Hoạt Động Kho A4"
+                name="stock_report.report_delivery_note_a4"
+                file="stock_report.report_delivery_note_a4"
+        />
+
+        <record id="action_report_delivery_a4" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="stock_report_delivery_note_paper_format_a4"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+    	<!-- inherit stock production lot form -->
+    	<record id="view_order_form" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+            	<notebook position="inside">
+            		<page string="Guarantees">
+                        <field name="guarantee_ids"/>
+                    </page>
+            	</notebook>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+        <data noupdate="1">
+            <record id="stock_location_damaged" model="stock.location">
+                <field name="name">Damaged</field>
+                <field name="location_id" search="[('name', '=', 'WH'),('usage','=','view')]"/>
+                <field name="not_sellable">True</field>
+                <field name="usage">internal</field>
+                <field name="company_id"></field>
+            </record>
+        </data>
+
+        <record id="manager_department_inventory_group" model="res.groups">
+            <field name="name">Trưởng BP kho</field>
+        </record>
+        <record id="record_location_sale_product" model="location.save.product">
+            <field name="warehouse_id" ref="stock.warehouse0"/>
+        </record>
+    </data>
+</odoo>

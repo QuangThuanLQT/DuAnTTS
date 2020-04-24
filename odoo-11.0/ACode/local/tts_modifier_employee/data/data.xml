@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+       <record id="contract_type_hdtv" model="hr.contract.type">
+         <field name="name">Intern/Thử việc</field>
+       </record>
+
+       <record id="contract_type_hdl1" model="hr.contract.type">
+         <field name="name">HĐLĐ lần 1</field>
+       </record>
+
+        <record id="contract_type_hdl2" model="hr.contract.type">
+         <field name="name">HĐLĐ lần 2</field>
+       </record>
+
+        <record id="contract_type_hdvth" model="hr.contract.type">
+         <field name="name">HĐLĐ vô thời hạn</field>
+       </record>
+    </data>
+</odoo>

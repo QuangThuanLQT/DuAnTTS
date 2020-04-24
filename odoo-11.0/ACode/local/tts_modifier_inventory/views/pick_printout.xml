@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="picking_pick_printout_template">
+            <t t-foreach="docs" t-as="doc">
+                <div class="page" style="font-family: Arial;font-size: 12px;">
+                    <div class="row" align="center">
+                        <strong>
+                            <span style="font-size:18px">PHIẾU LẤY HÀNG</span>
+                        </strong>
+                    </div>
+                    <table t-if="doc.sale_id" style="width: 90%; margin-left: 10%; margin-top:3px">
+                        <tr>
+                            <td style="width: 50%">
+                                <strong>Đơn hàng:<![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]></strong>
+                                <t t-esc="doc.sale_id.name"/>
+                            </td>
+                            <td style="width: 50%">
+                                <strong>Khách hàng:<![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]></strong>
+                                <t t-esc="doc.sale_id.partner_id.name"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Nhân viên bán hàng:<![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]></strong>
+                                <t t-esc="doc.sale_id.user_id.name"/>
+                            </td>
+                            <td>
+                                <strong>Thời gian tạo phiếu:<![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]></strong>
+                                <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y %H:%M')"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Kho lưu trữ:<![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]></strong>
+                                <t t-esc="dict(doc.fields_get(allfields=['kho_luu_tru'])['kho_luu_tru']['selection'])[doc.kho_luu_tru]"/>
+                            </td>
+                            <td>
+                                <strong>Ghi chú:<![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]></strong>
+                                <t t-esc="doc.sale_id.note"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <table t-if="doc.purchase_id" style="width: 90%; margin-left: 10%; margin-top:3px">
+                        <tr>
+                            <td style="width: 50%">
+                                <strong>Đơn hàng:<![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]></strong>
+                                <t t-esc="doc.purchase_id.name"/>
+                            </td>
+                            <td style="width: 50%">
+                                <strong>Khách hàng:<![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]></strong>
+                                <t t-esc="doc.purchase_id.partner_id.name"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Nhân viên mua hàng:<![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]></strong>
+                                <t t-esc="doc.purchase_id.user_id.name"/>
+                            </td>
+                            <td>
+                                <strong>Thời gian tạo phiếu:<![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]></strong>
+                                <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y %H:%M')"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Kho lưu trữ:<![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]></strong>
+                                <t t-esc="dict(doc.fields_get(allfields=['kho_luu_tru'])['kho_luu_tru']['selection'])[doc.kho_luu_tru]"/>
+                            </td>
+                            <td>
+                                <strong>Ghi chú:<![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]></strong>
+                                <t t-esc="doc.purchase_id.notes"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="table table-bordered text-center" style="border-color:black;margin-top:20px">
+                        <tbody style="border-color:black;">
+                            <tr style="page-break-inside:avoid;text-align: center">
+                                <td style="border-color:black;padding:2px 5px 2px 5px !important;width: 4%"><strong>X</strong></td>
+                                <td style="border-color:black;padding:2px 5px 2px 5px !important;width: 4%"><strong>Y</strong></td>
+                                <td style="border-color:black;padding:2px 5px 2px 5px !important;width: 8%"><strong>Tên địa điểm</strong></td>
+                                <!--<td style="border-color:black;padding:2px 5px 2px 5px !important;width: 15%"><strong>Mã sản phẩm</strong></td>-->
+                                <td style="border-color:black;padding:2px 5px 2px 5px !important;width: 45%"><strong>Sản phẩm</strong></td>
+                                <td style="border-color:black;padding:2px 5px 2px 5px !important;width: 8%"><strong>Số lượng</strong></td>
+                                <td style="border-color:black;padding:2px 5px 2px 5px !important;width: 8%"><strong>Số lượng lấy hàng </strong></td>
+                                <td style="border-color:black;padding:2px 5px 2px 5px !important;width: 8%"><strong>Số lượng đóng gói </strong></td>
+                            </tr>
+                            <t t-set="qty" t-value="0"/>
+                            <t t-foreach="doc.get_pick_report_data()" t-as="line">
+                                <tr style="height:5px !important;page-break-inside:avoid;">
+                                    <t t-if="line.get('x', '') != -1">
+                                        <td style="border-color:black;padding:0px 5px 0px 5px !important;vertical-align: middle;" t-att-rowspan="line.get('row_span_x', '1')">
+                                            <t t-esc="line.get('x', '')"/>
+                                        </td>
+                                    </t>
+                                    <t t-if="line.get('y', '') != -1">
+                                        <td style="border-color:black;padding:0px 5px 0px 5px !important;vertical-align: middle;" t-att-rowspan="line.get('row_span_y', '1')">
+                                            <t t-esc="line.get('y', '')"/>
+                                        </td>
+                                     </t>
+                                    <td style="border-color:black;padding:0px 5px 0px 5px !important;">
+                                        <t t-esc="line.get('location_display_name', '')"/>
+                                    </td>
+                                    <!--<td style="border-color:black;padding:0px 5px 0px 5px !important;vertical-align:middle"><t t-esc="line.get('product_code', '')"/></td>-->
+                                    <td style="border-color:black;padding:0px 5px 0px 5px !important;vertical-align:middle; text-align:left"><t t-esc="line.get('product_name', '')"/></td>
+                                    <td style="border-color:black;padding:0px 5px 0px 5px !important;vertical-align:middle"><t t-esc="line.get('product_uom_qty', '')"/></td>
+                                    <t t-set="qty" t-value="qty+int(line.get('product_uom_qty', ''))"/>
+                                    <td style="border-color:black;padding:0px 5px 0px 5px !important;vertical-align:middle"><t t-esc="line.get('')"/></td>
+                                    <td style="border-color:black;padding:0px 5px 0px 5px !important;vertical-align:middle"><t t-esc="line.get('')"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <div class="row" align="right">
+                        <span>Tổng số lượng: </span>
+                        <span style="padding-right:30px"><t t-esc="qty"/></span>
+                        <br/>
+                    </div>
+                    <div class="row" align="right">
+                        <span style="padding-right:30px">Người kiểm</span>
+                        <br/>
+                        <span style="padding-right:14px">(ký và ghi rõ họ tên)</span>
+                    </div>
+                    <!--<table class="table table-bordered" style="border-color:black;margin-top:20px">-->
+                        <!--<tbody style="border-color:black;">-->
+                            <!--<tr style="page-break-inside:avoid;">-->
+                                <!--<th style="border-color:black;padding:2px 5px 2px 5px !important;">SO</th>-->
+                                <!--<th style="border-color:black;padding:2px 5px 2px 5px !important;">Vị trí</th>-->
+                                <!--<th style="border-color:black;padding:2px 5px 2px 5px !important;">PRODUCT</th>-->
+                                <!--<th style="border-color:black;padding:2px 5px 2px 5px !important;">COLOR</th>-->
+                                <!--<th style="border-color:black;padding:2px 5px 2px 5px !important;">SIZE</th>-->
+                                <!--<th style="border-color:black;padding:2px 5px 2px 5px !important;">QUANTITY</th>-->
+                            <!--</tr>-->
+                            <!--<t t-foreach="doc.move_lines" t-as="line">-->
+                                <!--<tr style="height:5px !important;page-break-inside:avoid;">-->
+                                    <!--<td style="border-color:black;padding:0px 5px 0px 5px !important;"><t t-esc="doc.sale_id.name"/></td>-->
+                                    <!--<td style="border-color:black;padding:0px 5px 0px 5px !important;"><t t-esc="line.location_id.display_name"/></td>-->
+                                    <!--<td style="border-color:black;padding:0px 5px 0px 5px !important;"><t t-esc="line.product_id.name"/></td>-->
+                                    <!--<td style="border-color:black;padding:0px 5px 0px 5px !important;"><t t-esc="line.color"/></td>-->
+                                    <!--<td style="border-color:black;padding:0px 5px 0px 5px !important;"><t t-esc="line.size"/></td>-->
+                                    <!--<td style="border-color:black;padding:0px 5px 0px 5px !important;"><t t-esc="line.product_uom_qty"/></td>-->
+                                <!--</tr>-->
+                            <!--</t>-->
+                        <!--</tbody>-->
+                    <!--</table>-->
+
+                </div>
+            </t>
+        </template>
+
+        <template id="tts_modifier_inventory.printout_picking_pick">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="tts_modifier_inventory.picking_pick_printout_template" t-lang="doc.partner_id.lang"/>
+                </t>
+            </t>
+        </template>
+
+        <record id="picking_pick_printout_format" model="report.paperformat">
+            <field name="name">phiếu lấy hàng</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">297</field>
+            <field name="page_width">210</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">13</field>
+            <field name="margin_bottom">5</field>
+            <field name="margin_left">3</field>
+            <field name="margin_right">3</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">9</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+                id="picking_pick_printout"
+                string="Phiếu lấy hàng"
+                model="stock.picking"
+                report_type="qweb-pdf"
+                file="tts_modifier_inventory.printout_picking_pick"
+                name="tts_modifier_inventory.printout_picking_pick"
+        />
+
+        <record id="tts_modifier_inventory.picking_pick_printout" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="picking_pick_printout_format"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="product_to_date_form_view" model="ir.ui.view">
+            <field name="name">product.to.date.form</field>
+            <field name="model">product.to.date</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group col="4">
+                            <field name="product_group_id" widget="many2many_tags"/>
+                            <field name="band_name_id" widget="many2many_tags"/>
+                            <field name="date_number"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="product_to_date_tree_view" model="ir.ui.view">
+            <field name="name">product.to.date.tree</field>
+            <field name="model">product.to.date</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="product_group_id"/>
+                    <field name="band_name_id"/>
+                    <field name="date_number"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_product_to_date" model="ir.actions.act_window">
+            <field name="name">Expired Time</field>
+            <field name="res_model">product.to.date</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+        </record>
+
+        <menuitem id="menu_product_to_date" name="Expired Time" action="action_product_to_date" parent="sales_team.menu_sales" sequence="12"/>
+
+        <record id="tuanhuy_sale_modifier.menu_product_to_date" model="ir.ui.menu">
+            <field name="parent_id" ref="sale.prod_config_main"/>
+        </record>
+    </data>
+</odoo>

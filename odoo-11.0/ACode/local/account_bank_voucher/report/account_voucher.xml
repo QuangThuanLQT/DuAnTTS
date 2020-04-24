@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="external_layout_unc">
+            <t t-if="not o and doc">
+                <t t-set="o" t-value="docs"/>
+            </t>
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"></t>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"></t>
+            </t>
+
+            <t t-call="account_bank_voucher.external_layout_header_unc"/>
+            <t t-raw="0"/>
+            <!--<t t-call="account_unc_modifier.external_layout_footer_sale_order"/>-->
+        </template>
+
+        <template id="account_bank_voucher.external_layout_header_unc">
+            <div>
+                <div class="row" style="font-size: 11px;">
+                    <div class="col-xs-4">
+                        <img src="/account_bank_voucher/static/src/image/abbank.png"
+                             style="height:40px;width:200px;margin-left:30px;"/>
+                    </div>
+                    <div class="col-xs-4 text-center">
+                        <span style="font-size:15px;font-weight:bold;">UỶ NHIỆM CHI</span>
+                        <br/>
+                        <span style="font-weight:bold;">(Payment Order)</span>
+                        <br/>
+                        <span>Ngày (Date):
+                            <strong t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y')"/>
+                        </span>
+                    </div>
+                    <div class="col-xs-2">
+                        <br/>
+                        <span>Mã GDV(Teller ID)</span>
+                        <br/>
+                        <span>Sổ bút toán</span>
+                        <br/>
+                        <span>(Transaction No)</span>
+                    </div>
+                    <div class="col-xs-2">
+                        <div class="text-right">Liên
+                            <span t-esc="count"/>
+                        </div>
+                        <div style="border-bottom:1px dotted black">:</div>
+                        <div style="border-bottom:1px dotted black">:</div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template id="account_bank_voucher.account_voucher_unc_template">
+            <t t-foreach="docs" t-as="doc">
+                <div class="page" style="font-family: Arial;">
+                    <t t-foreach="range(1,3)" t-as="count">
+                        <div t-if="count == 2"
+                             style="margin-bottom:10px;border-bottom:1px dashed black">&#160;
+                        </div>
+                        <t t-call="account_bank_voucher.external_layout_unc">
+                            <t t-set="company" t-value="doc.company_id"/>
+                            <div class="row" style="font-size:11px;">
+                                <div class="col-xs-12" width="100%">
+                                    <div class="col-xs-4">
+                                        <span style="font-weight:bold;">Đơn vị chuyển(Ordering name):</span>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <strong t-esc="company.name"></strong>
+                                    </div>
+                                    <div class="col-xs-4"></div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-2">
+                                        <span>Địa chỉ (Address):</span>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <!--<span t-if="company.partner_id.ref"><span t-esc="company.partner_id.ref"/>, </span>-->
+                                        <span t-if="company.partner_id.street">
+                                            <span t-esc="company.partner_id.street"/>
+                                            ,
+                                        </span>
+                                        <span t-if="company.partner_id.feosco_district_id"><span
+                                                t-esc="company.partner_id.feosco_district_id.name"/>,
+                                        </span>
+                                        <span t-if="company.partner_id.feosco_city_id"><span
+                                                t-esc="company.partner_id.feosco_city_id.name"/>,
+                                        </span>
+                                        <span t-if="company.partner_id.country_id">
+                                            <span t-esc="company.partner_id.country_id.name"/>
+                                        </span>
+                                    </div>
+                                    <div class="col-xs-4"></div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-5">
+                                        <span>Số tài khoản (A/C no):</span>
+                                        <span style="margin-left:15%">
+                                            <strong t-esc="company.partner_id.bank_ids and company.partner_id.bank_ids[0].acc_number or '0061019700079'"/>
+                                        </span>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <!--Tại : <span t-esc="doc.bank_id.name or ''"/>-->
+                                        <span>Tại (At) :
+                                            <strong>An Bình Bank</strong>
+                                        </span>
+                                    </div>
+                                    <div class="col-xs-4"></div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-3">
+                                        <span>Tên tài khoản(A/C name):</span>
+                                    </div>
+                                    <div class="col-xs-5 text-center">
+                                        <span t-esc="doc.partner_id.name or ''"/>
+                                        <strong t-esc="company.name or ''"/>
+                                    </div>
+                                    <div class="col-xs-4"></div>
+                                </div>
+
+
+                                <div class="col-xs-12">
+                                    <div class="col-xs-3">
+                                        <span>Loại tiền (Currency):</span>
+                                    </div>
+                                    <div class="col-xs-1 text-center">VND</div>
+                                    <div class="col-xs-1 text-center">USD</div>
+                                    <div class="col-xs-2 text-center">Khác (Others)</div>
+                                    <div class="col-xs-1" style="border-bottom:1px dotted black;">&#160;</div>
+                                    <div class="col-xs-4 text-center"></div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-3">
+                                        <strong style="font-weight:bold;">Số tiền</strong>
+                                    </div>
+                                    <div class="col-xs-5 text-right" style="border:1px solid black;">
+                                        <strong t-field="doc.amount"/>
+                                        <strong>VND</strong>
+                                    </div>
+                                    <div class="col-xs-4"></div>
+                                </div>
+                                <table class="col-xs-12">
+                                    <tr>
+                                        <td style="width:20%;padding-left:30px;">
+                                            <span>Bằng chữ(In words):</span>
+                                        </td>
+                                        <td style="width:75%">
+                                            <strong t-if="doc.amount" t-esc="doc.DocTienBangChu(doc.amount) + ' đồng'"/>
+                                        </td>
+                                        <td style="width:5%"></td>
+                                    </tr>
+                                </table>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-3">
+                                        <span style="font-weight:bold;">Đơn vị thụ hưởng:</span>
+                                    </div>
+                                    <div class="col-xs-5 text-center">
+                                        <strong t-esc="doc.partner_id.name or ''"/>
+                                    </div>
+                                    <div class="col-xs-4"></div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-4">Số CMND/Hộ chiếu (ID no. or Passport):</div>
+                                    <div class="col-xs-4" style="border-bottom:1px dotted black;">&#160;</div>
+                                    <div class="col-xs-4">
+                                        <span>Phí chuyển tiền (Bank charges)</span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <table class="col-xs-4">
+                                        <tr>
+                                            <td style="padding-left:15px;">Ngày cấp (Issued date):</td>
+                                            <td style="border-bottom:1px dotted black;width:35%;">&#160;</td>
+                                        </tr>
+                                    </table>
+                                    <table class="col-xs-4">
+                                        <tr>
+                                            <td style="padding-left:15px;">Nơi cấp (Issued place):</td>
+                                            <td style="border-bottom:1px dotted black;width:40%;">&#160;</td>
+                                        </tr>
+                                    </table>
+                                    <div class="col-xs-2 text-center">Người chuyển (Our)
+                                    </div>
+                                    <div class="col-xs-2 text-center">Người nhận (Beneficiary)</div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-4">
+                                        <span>Số tài khoản (Beneficiary A/C):</span>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <strong t-esc="doc.acc_number or ''"/>
+                                    </div>
+                                    <div class="col-xs-4">Nội dung (Payment Details):</div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-12">
+                                        <table class="col-xs-12">
+                                            <tr>
+                                                <td width="20%">
+                                                    Tại ngân hàng :
+                                                </td>
+                                                <td width="40%">
+                                                    <strong t-esc="doc.bank_id.name or ''"/>
+                                                </td>
+                                                <t t-if="len(doc.explain) > 80">
+                                                    <td width="40%" rowspan="2"
+                                                        style="font-weight:bold;font-size:10px;">
+                                                        <strong t-esc="doc.explain or ''"></strong>
+                                                    </td>
+                                                </t>
+                                                <t t-else="">
+                                                    <td width="40%" rowspan="2"
+                                                        style="font-weight:bold;font-size:11px;">
+                                                        <strong t-esc="doc.explain or ''"></strong>
+                                                    </td>
+                                                </t>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" style="vertical-align:bottom">
+                                                    Phần dành cho ABBANK ghi ngày chuyển tiền (Transfer Date) :
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12" style="font-weight:bold;font-size:11px;">
+                                <div>Phần dành cho ABBANK ghi ngày chuyển tiền (Transfer Date) :</div>
+                            </div>
+                            <div class="col-xs-12" style="width:100%;font-size:11px;">
+                                <div class="col-xs-5 text-center" style="padding-bottom:130px;border:1px solid black">
+                                    <span style="font-weight:bold;">Chủ tài khoản (Account Holder)</span>
+                                    <br/>
+                                    <span style="font-size:10px">Ký tên, đóng dấu (Signature, Stamp)</span>
+                                </div>
+                                <div class="col-xs-7"
+                                     style="border-top:1px solid black;border-right:1px solid black;border-bottom:1px solid black;padding-bottom:130px;">
+                                    <div class="col-xs-4 text-center">
+                                        <strong>Giao dịch viên</strong>
+                                        <br/>
+                                        <span style="font-size:10px">(Teller)</span>
+                                    </div>
+                                    <div class="col-xs-3 text-center">
+                                        <strong>Kiểm Soát</strong>
+                                        <br/>
+                                        <span style="font-size:10px">(Supervisor)</span>
+                                    </div>
+                                    <div class="col-xs-5 text-center">
+                                        <strong>GĐ/Trưởng phòng</strong>
+                                        <br/>
+                                        <span style="font-size:10px">(Manager)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </template>
+
+        <record id="account_voucher_paper_format" model="report.paperformat">
+            <field name="name">Uỷ Nhiệm Chi</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">210</field>
+            <field name="page_width">296</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">5</field>
+            <field name="margin_bottom">5</field>
+            <field name="margin_left">3</field>
+            <field name="margin_right">3</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">15</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+                id="account_voucher_unc_printout"
+                string="Uỷ Nhiệm Chi"
+                model="account.voucher"
+                report_type="qweb-pdf"
+                file="account_bank_voucher.account_voucher_unc_template"
+                name="account_bank_voucher.account_voucher_unc_template"
+        />
+
+        <record id="account_voucher_unc_printout" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="account_voucher_paper_format"/>
+        </record>
+    </data>
+</odoo>

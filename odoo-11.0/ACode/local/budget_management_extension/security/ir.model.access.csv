@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_budget_lines,product.budget.lines,model_product_budget_lines,,1,1,1,1
+access_product_spent_lines,product.spent.lines,model_product_spent_lines,,1,1,1,1
+access_group_products,group.products,model_group_products,,1,1,1,1

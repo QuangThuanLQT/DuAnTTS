@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="minimal_layout" inherit_id="report.minimal_layout">
+            <xpath expr="//t[@t-if='subst is True']" position="replace">
+                <t t-if="subst is True">
+                    <script>
+                        function subst() {
+                            var vars = {};
+                            var x = document.location.search.substring(1).split('&amp;');
+                            for (var i in x) {
+                                var z = x[i].split('=', 2);
+                                vars[z[0]] = unescape(z[1]);
+                            }
+                            var x=['frompage', 'topage', 'page', 'webpage', 'section', 'subsection', 'subsubsection'];
+                            for (var i in x) {
+                                var y = document.getElementsByClassName(x[i]);
+                                for (var j=0; j&lt;y.length; ++j)
+                                    y[j].textContent = vars[x[i]];
+                            }
+                            var operations = {
+                                'not-first-page': function (elt) {
+                                    elt.style.display = (vars.page === vars.frompage) ? "None" : "";
+                                },
+                                'not-last-page': function (elt) {
+                                    elt.style.display = (vars.page === vars.topage) ? "None" : "";
+                                },
+                                'first-page': function (elt) {
+                                    elt.style.display = (vars.page === vars.frompage) ? "" : "None";
+                                },
+                                'last-page': function (elt) {
+                                    elt.style.display = (vars.page === vars.topage) ? "" : "None";
+                                },
+                            };
+                            for (var klass in operations) {
+                                var y = document.getElementsByClassName(klass);
+                                for (var j=0; j&lt;y.length; ++j)
+                                    operations[klass](y[j]);
+                            }
+                        }
+                    </script>
+                </t>
+            </xpath>
+        </template>
+        <template id="external_layout_import_note">
+            <t t-if="not o and doc">
+                <t t-set="o" t-value="docs"/>
+            </t>
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"></t>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"></t>
+            </t>
+
+            <t t-call="stock_report.external_layout_header_import_note"/>
+            <!--<t t-raw="0"/>-->
+            <t t-call="stock_report.external_layout_footer_import_note"/>
+        </template>
+
+        <template id="stock_report.external_layout_header_import_note">
+            <div class="header">
+                <!--style=" background-image: url('/boston_modifier_status/static/description/content.png'); background-size: cover; background-repeat: no-repeat; height:140px">-->
+                <div class="row">
+                    <div class="row">
+                        <div class="col-xs-7">
+                            <span t-if="company.name">
+                                <span t-esc="company.name"/>
+                            </span>
+                            <br/>
+                            <span t-if="company.street">
+                                <span t-esc="company.street"/>
+                            </span>
+                        </div>
+                        <div class="col-xs-5 first-page" align="center">
+                            <span style="font-size:16px">
+                                <strong>Mẫu số: 01 - VT</strong>
+                            </span>
+                            <br/>
+                            <span style="font-size:12px">(Ban hành theo Thông tư số 200/2014/TTBTC</span>
+                            <br/>
+                            <span style="font-size:12px">Ngày 22/12/2014 của Bộ Tài chính)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template id="stock_report.external_layout_footer_import_note">
+            <!--style=" background-image: url('/boston_modifier_status/static/description/footer.png'); background-size: cover; background-repeat: no-repeat; height:80px; margin:10px; padding: 50px; position: relative;">-->
+            <div class="footer text-right">
+                <div style="display:inline">
+                    <span class="page"/>
+                    <span>/</span>
+                    <span class="topage"/>
+                </div>
+            </div>
+        </template>
+
+        <template id="report_import_note">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="company" t-value="o.company_id"/>
+                <t t-set="partner" t-value="o.partner_id"/>
+                <t t-call="stock_report.external_layout_import_note"/>
+                    <div class="page">
+                        <div class="row">
+                            <div class="col-xs-4"/>
+                            <div class="col-xs-4" align="center">
+                                <strong>
+                                    <span style="font-size:20px">PHIẾU NHẬP KHO</span>
+                                </strong>
+                                <br/>
+                                <span t-if="o.min_date">
+                                    <strong>
+                                        <i>
+                                            <span t-esc="datetime.datetime.strptime(o.min_date,'%Y-%m-%d %H:%M:%S').strftime('Ngày %d tháng %m năm %Y')"/>
+                                        </i>
+                                    </strong>
+                                </span>
+                                <br/>
+                                <span>Số:</span>
+                            </div>
+                            <!--
+                            <div class="col-xs-4">
+                                <span style="font-size:20px"></span>
+                                <br/>
+                                <span>Nợ:</span>
+                                <br/>
+                                <span>Có:</span>
+                            </div>
+                            -->
+                        </div>
+                        <div class="row">
+                            <div>
+                                <span t-if="partner.name">
+                                    <span>
+                                        - Họ và tên người giao:
+                                    </span>
+                                    <span t-esc="partner.name"/>
+                                </span>
+                                <br/>
+                                <div class="col-xs-4" style="margin-left:-15">
+                                    <span>
+                                        - Theo ......... ngày ..... tháng ..... năm ..... của
+                                        <!--.........................................................................................................................................................................-->
+                                    </span>
+                                </div>
+                                <div class="col-xs-8">
+                                    <div style="border-bottom: 2px dotted black; margin-left: -45px; margin-top: 13px"></div>
+                                </div>
+                                <br/>
+                                <div class="col-xs-6" style="margin-left:-15">
+                                    <span>
+                                        - Nhập tại kho: Kho hàng hoá
+                                    </span>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="col-xs-3">
+                                        <span>
+                                        Địa điểm:
+                                        </span>
+                                    </div>
+                                    <div class="col-xs-9">
+                                        <div style="border-bottom: 2px dotted black; margin-left: -50px; margin-top: 13px"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <table class="table table-bordered" style="border-color:black;">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2" style="border-color:black; vertical-align : middle;margin-bottom:10px;text-align:center;" >STT</th>
+                                    <th rowspan="2" style="border-color:black; vertical-align : middle;text-align:center;">
+                                        <span>Tên, nhãn hiệu, quy cách, phẩm chất</span>
+                                        <br/>
+                                        <span>vật tư, dụng cụ sản phẩm, hàng hoá</span>
+                                    </th>
+                                    <th rowspan="2" style="border-color:black; vertical-align : middle;text-align:center;">Mã số</th>
+                                    <th rowspan="2" style="border-color:black; vertical-align : middle;text-align:center;width:80px">Đơn vị tính</th>
+                                    <th colspan="2" style="border-color:black; vertical-align : middle;text-align:center;">Số lượng</th>
+                                    <th rowspan="2" style="border-color:black; vertical-align : middle;text-align:center;">Đơn giá</th>
+                                    <th rowspan="2" style="border-color:black; vertical-align : middle;text-align:center;">Thành tiền</th>
+                                </tr>
+                                <tr>
+                                    <th style="border-color:black; text-align:center;">Theo chứng từ</th>
+                                    <th style="border-color:black; text-align:center;">Thực nhập</th>
+                                </tr>
+                                <tr>
+                                    <th style="border-color:black; text-align:center;">A</th>
+                                    <th style="border-color:black; text-align:center;">B</th>
+                                    <th style="border-color:black; text-align:center;">C</th>
+                                    <th style="border-color:black; text-align:center;">D</th>
+                                    <th style="border-color:black; text-align:center;">1</th>
+                                    <th style="border-color:black; text-align:center;">2</th>
+                                    <th style="border-color:black; text-align:center;">3</th>
+                                    <th style="border-color:black; text-align:center;">4</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="i" t-value="1"/>
+                                <t t-set="total" t-value="0"/>
+                                <t t-foreach="o.pack_operation_product_ids" t-as="pack_product">
+                                    <tr>
+                                        <!--stt-->
+                                        <td style="border-color:black;">
+                                            <t t-esc="i"/>
+                                        </td>
+                                        <!--product-->
+                                        <td style="border-color:black;">
+                                            <t t-esc="pack_product.product_id.name"/>
+                                        </td>
+                                        <!--product code-->
+                                        <td style="border-color:black; width:110px">
+                                            <t t-esc="pack_product.product_id.default_code"/>
+                                        </td>
+                                        <!--unit-->
+                                        <td style="border-color:black;">
+                                            <t t-esc="pack_product.product_uom_id.name"/>
+                                        </td>
+                                        <!--to do-->
+                                        <td style="border-color:black;" align="right">
+                                            <t t-esc="'{0:,.2f}'.format(pack_product.product_qty).replace(',',' ').replace('.',',').replace(' ', '.')"/>
+                                        </td>
+                                        <!--done-->
+                                        <td style="border-color:black;" align="right">
+                                            <t t-esc="'{0:,.2f}'.format(pack_product.qty_done).replace(',',' ').replace('.',',').replace(' ', '.')"/>
+                                        </td>
+                                        <!--cost-->
+                                        <td style="border-color:black;" align="right">
+                                            <t t-esc="'{0:,.2f}'.format(pack_product.product_id.standard_price).replace(',',' ').replace('.',',').replace(' ', '.')"/>
+                                        </td>
+                                        <!--amount-->
+                                        <t t-set="tmp" t-value="pack_product.product_qty * pack_product.product_id.standard_price"></t>
+                                        <td style="border-color:black;" align="right"><t t-esc="'{0:,.0f}'.format(tmp).replace(',','.')"/></td>
+                                        <t t-set="i" t-value="i+1"/>
+                                        <!--total amount-->
+                                        <t t-set="total" t-value="total + tmp"/>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td style="border-color:black;"></td>
+                                    <td style="border-color:black;">
+                                        <div>
+                                            Cộng:
+                                        </div>
+                                    </td>
+                                    <td style="border-color:black;"></td>
+                                    <td style="border-color:black;"></td>
+                                    <td style="border-color:black;"></td>
+                                    <td style="border-color:black;"></td>
+                                    <td style="border-color:black;"></td>
+                                    <td style="border-color:black;" align="right">
+                                        <t t-esc="'{0:,.0f}'.format(total).replace(',','.')"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <span>Tổng số tiền (Viết bằng chữ):</span>
+                            </div>
+                            <div class="col-xs-9">
+                                <div style="border-bottom: 2px dotted black; margin-left: -60px; margin-top: 15px"></div>
+                            </div>
+                            <br/>
+                            <div class="col-xs-3">
+                                <span>Số chứng từ gốc kèm theo:</span>
+                            </div>
+                            <div class="col-xs-9">
+                                <div style="border-bottom: 2px dotted black; margin-left: -60px; margin-top: 15px"></div>
+                            </div>
+                        </div>
+                        <div style="page-break-inside:avoid;">
+                            <div class="row">
+                                <div class="col-xs-3" align="center">
+                                </div>
+                                <div class="col-xs-3" align="center">
+                                </div>
+                                <div class="col-xs-3" align="center">
+                                </div>
+                                <div class="col-xs-3" align="center">
+                                    <span>Ngày.....tháng.....năm........</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-3" align="center" style="display=block;">
+                                    <span>
+                                        <strong>Người mua hàng</strong>
+                                    </span>
+                                    <br/>
+                                    <span>(Ký, họ tên)</span>
+                                </div>
+                                <div class="col-xs-3" align="center">
+                                    <span>
+                                        <strong>Kho</strong>
+                                    </span>
+                                    <br/>
+                                    <span>(Ký, họ tên)</span>
+                                </div>
+                                <div class="col-xs-3" align="center">
+                                    <span>
+                                        <strong>Người lập phiếu</strong>
+                                    </span>
+                                    <br/>
+                                    <span>(Ký, họ tên)</span>
+                                </div>
+                                <div class="col-xs-3" align="center">
+                                    <span>
+                                        <strong>Giám Đốc</strong>
+                                    </span>
+                                    <br/>
+                                    <span>(Ký, họ tên)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </t>
+        </template>
+
+        <record id="stock_report_import_note_paper_format" model="report.paperformat">
+            <field name="name">Phieu nhap kho</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">297</field>
+            <field name="page_width">210</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">23</field>
+            <field name="margin_bottom">23</field>
+            <field name="margin_left">20</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">20</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+                id="stock.action_report_picking"
+                model="stock.picking"
+                report_type="qweb-pdf"
+                string="Phiếu Nhập Kho"
+                name="stock_report.report_import_note"
+                file="stock_report.report_import_note"
+        />
+        <record id="stock.action_report_picking" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="stock_report_import_note_paper_format"/>
+        </record>
+    </data>
+</odoo>

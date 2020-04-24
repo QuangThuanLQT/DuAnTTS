@@ -1,0 +1,141 @@
+<odoo>
+    <data>
+
+        <template id="assets_backend" inherit_id="web.assets_backend">
+          <xpath expr="." position="inside">
+              <script type="text/javascript" src="/tuanhuy_product/static/src/js/tree.js"></script>
+          </xpath>
+        </template>
+
+        <record id="product_template_barcode_tree_view_inherit" model="ir.ui.view">
+            <field name="name">product.template.tree</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="modifier_product.product_template_barcode_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="categ_id" position="replace">
+                    <field name="group_sale_id"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="product_template_form_inherit" model="ir.ui.view">
+            <field name="name">product.template</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='standard_price_uom']" position="after">
+                    <field name="cost_root" widget="monetary"/>
+                </xpath>
+                <field name="categ_id" position="before">
+                    <field name="group_id"/>
+                </field>
+                <field name="uom_id" position="attributes">
+                    <field name="options">{'no_quick_create':True, 'no_create_edit':True, 'no_open': True,}</field>
+                </field>
+                <field name="uom_po_id" position="attributes">
+                    <field name="options">{'no_quick_create':True, 'no_create_edit':True, 'no_open': True,}</field>
+                </field>
+                <xpath expr="//form/sheet/notebook/page[@name='notes']" position="after">
+                    <page string="Truy suất nguồn gốc" name="stock_move_page">
+                        <field name="product_stock_move_open"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_template_property_form_inherit" model="ir.ui.view">
+            <field name="name">product.template</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="stock.view_template_property_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='pricelist_item']" position="after">
+                   <group name="sale" string="Group Product Sale">
+                       <group>
+                           <field name="group_sale_id"/>
+                       </group>
+                       <group></group>
+                   </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product_template_graph_search_view" model="ir.ui.view">
+            <field name="name">res.lang.search</field>
+            <field name="model">res.lang</field>
+            <field name="arch" type="xml">
+                <search string="Languages">
+                    <group expand="0" string="Group By">
+                        <filter string="Thương Hiệu" name="by_brand_name" domain="[]" context="{'group_by':'brand_name'}"/>
+                        <filter string="Nhóm" name="by_group_id" domain="[]" context="{'group_by':'group_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="product_template_graph_view" model="ir.ui.view">
+            <field name="name">product.template</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+               <graph string="Product">
+                    <field name="brand_name" group="True"/>
+                    <field name="qty_available_sub" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="product_template_tree_view_inherit" model="ir.ui.view">
+            <field name="name">product.template</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='categ_id']" position="after">
+                    <field name="group_id" string="Nhóm SP"/>
+                    <field name="brand_name"/>
+                </xpath>
+                <xpath expr="//field[@name='categ_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='type']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='uom_id']" position="attributes">
+                    <attribute name="string">ĐVT</attribute>
+                </xpath>
+                <xpath expr="//field[@name='type']" position="after">
+                    <field name="group_sale_id" string="Nhóm bán hàng"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_stock_product_template_tree_inherit" model="ir.ui.view">
+            <field name="name">product.template</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="stock.view_stock_product_template_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='qty_available']" position="attributes">
+                    <attribute name="string">SL Thực tế</attribute>
+                </xpath>
+                <xpath expr="//field[@name='virtual_available']" position="attributes">
+                    <attribute name="string">SL Dự báo</attribute>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="product.product_template_action" model="ir.actions.act_window">
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="view_id" ref="product.product_template_tree_view"/>
+        </record>
+
+        <record id="purchase.product_normal_action_puchased" model="ir.actions.act_window">
+            <field name="view_mode">tree,kanban,form</field>
+        </record>
+
+        <record id="stock.product_template_action_product" model="ir.actions.act_window">
+            <field name="view_mode">tree,graph,kanban,form</field>
+            <!--<field name="search_view_id" ref=""/>-->
+            <!--<field name="context">{"search_default_by_brand_name": 1,"search_default_consumable": 1, 'default_type': 'product'}</field>-->
+        </record>
+
+    </data>
+</odoo>

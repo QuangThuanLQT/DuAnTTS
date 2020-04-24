@@ -1,0 +1,42 @@
+<odoo>
+    <data>
+        <record id="tts_sms_to_email.sms_inbox_menu" model="ir.ui.menu">
+            <field name="groups_id"
+                   eval="[(4, ref('tts_modifier_access_right.group_giam_doc_kd')),
+                        (4, ref('tts_modifier_access_right.group_truong_kd')),
+                        (4, ref('tts_modifier_access_right.group_nvkd')),
+                        (4, ref('tts_modifier_access_right.group_ketoan_tonghop')),
+                        (4, ref('tts_modifier_access_right.group_ketoan_kho')),
+                        (4, ref('base.group_erp_manager')),
+                   ]"/>
+        </record>
+
+
+        <record model="ir.ui.view" id="tts_email_inbox_tree_inherit">
+            <field name="name">tts.sms.inbox.tree.access_right</field>
+            <field name="model">tts.sms.inbox</field>
+            <field name="inherit_id" ref="tts_sms_to_email.tts_email_inbox_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='body']" position="attributes">
+                    <attribute name="groups">tts_modifier_access_right.group_ketoan_tonghop,tts_modifier_access_right.group_ketoan_kho,base.group_system</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="tts_email_inbox_from_inherit">
+            <field name="name">tts.sms.inbox.form.access_right</field>
+            <field name="model">tts.sms.inbox</field>
+            <field name="inherit_id" ref="tts_sms_to_email.tts_email_inbox_from"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='body']" position="attributes">
+                    <attribute name="groups">tts_modifier_access_right.group_ketoan_tonghop,tts_modifier_access_right.group_ketoan_kho,base.group_system</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

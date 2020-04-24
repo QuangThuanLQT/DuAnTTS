@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="product_interest_print">
+        <button type="button" class='btn btn-sm btn-primary o_product_interest_print' style="background: lightgray;border :1px solid gray">Export Overview</button>
+    </t>
+
+
+</templates>

@@ -1,0 +1,11 @@
+<odoo>
+    <data>
+        <template id="assets_backend" name="Open Mobile Assets" inherit_id="web.assets_backend">
+            <xpath expr=".">
+                <link rel="stylesheet"
+                      href="/feosco_base/static/src/less/form_view.less"
+                      />
+            </xpath>
+        </template>
+    </data>
+</odoo>

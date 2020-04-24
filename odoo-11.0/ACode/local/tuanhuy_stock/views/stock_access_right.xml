@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="user_stock_only_read" model="res.groups">
+            <field name="name">Nhân viên kho chỉ xem sản phẩm</field>
+            <field name="implied_ids" eval="[(4, ref('stock.group_stock_user'))]"/>
+        </record>
+
+        <record id="user_stock_only_read_group_access" model="access.rights.group">
+            <field name="name">Nhân viên kho chỉ xem sản phẩm</field>
+            <field name="group_ids" eval="[(4, ref('user_stock_only_read'))]"/>
+        </record>
+
+        <record id="product_template_tree_view_inherit" model="ir.ui.view">
+            <field name="name">product.template</field>
+            <field name="model">product.template</field>
+            <field name="groups_id" eval="[(4, ref('user_stock_only_read'))]"/>
+            <field name="inherit_id" ref="product.product_template_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="create">false</attribute>
+                    <attribute name="delete">false</attribute>
+                </xpath>
+                <field name="standard_price" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="list_price" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="product_pack_core_inherited_product_template_kanban_inherit" model="ir.ui.view">
+            <field name="name">product.template</field>
+            <field name="model">product.template</field>
+            <field name="groups_id" eval="[(4, ref('user_stock_only_read'))]"/>
+            <field name="inherit_id" ref="product_pack.product_pack_core_inherited_product_template_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//kanban" position="attributes">
+                    <attribute name="create">false</attribute>
+                    <attribute name="delete">false</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product_template_form_view_inherit" model="ir.ui.view">
+            <field name="name">product.template</field>
+            <field name="model">product.template</field>
+            <field name="groups_id" eval="[(4, ref('user_stock_only_read'))]"/>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="attributes">
+                    <attribute name="create">false</attribute>
+                    <attribute name="edit">false</attribute>
+                    <attribute name="delete">false</attribute>
+                </xpath>
+                <xpath expr="//label[@for='standard_price']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//div[@name='button_box']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//form/header" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//div[@name='standard_price_uom']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <field name="categ_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                 <field name="list_price" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="product_template_form_inherit_inherit" model="ir.ui.view">
+            <field name="name">product.template</field>
+            <field name="model">product.template</field>
+            <field name="groups_id" eval="[(4, ref('user_stock_only_read'))]"/>
+            <field name="inherit_id" ref="tuanhuy_product.product_template_form_inherit"/>
+            <field name="arch" type="xml">
+                <field name="cost_root" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

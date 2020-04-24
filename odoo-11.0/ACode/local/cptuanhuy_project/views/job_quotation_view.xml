@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="job_quotaion_view_form_inherit" model="ir.ui.view">
+            <field name="name">job.quotaion.form.view.inherit</field>
+            <field name="model">job.quotaion</field>
+            <field name="inherit_id" ref="job_quotaion.job_quotaion_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_confirm']" position="after">
+                    <button name="action_set_draft" type="object" string="Chuyển về bản nháp" states="done" class="oe_highlight"/>
+                    <button name="quick_create_product" type="object" string="Tạo mã nhanh" class="oe_highlight"/>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']//field[@name='so_luong']" position="before">
+                    <field name="list_price"/>
+                    <field name="virtual_available"/>
+                </xpath>
+                <xpath expr="//form/sheet/group/group" position="inside">
+                    <field name="type" widget="selection" attrs="{'readonly':[('state','=','done')]}"/>
+                    <field name="product_id" attrs="{'invisible':[('state','!=','done')], 'readonly':[('state','=','done')]}"/>
+                    <field name="bom_id" attrs="{'invisible':[('state','!=','done')], 'readonly':[('state','=','done')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="attrs">{'readonly':[('state','=','done')]}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='line_ids']/tree/button[@name='open_update_quotaion_product']" position="after">
+                    <button name="quick_create_product" type="object" string="Tạo mã"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="job_quotaion_view_tree_inherit" model="ir.ui.view">
+            <field name="name">job.quotaion.tree.view.inherit</field>
+            <field name="model">job.quotaion</field>
+            <field name="inherit_id" ref="job_quotaion.job_quotaion_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='job_quotaion_code']" position="after">
+                    <field name="state"/>
+                    <field name="type"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="job_quotaion_product_line_form" model="ir.ui.view">
+            <field name="name">Tạo sản phẩm</field>
+            <field name="model">job.quotaion.product.line</field>
+            <field name="arch" type="xml">
+                <form>
+                    <label string=""/>
+                    <group>
+                        <group>
+                            <field name="description" />
+                            <field name="default_code"/>
+                            <field name="uom_id" />
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="create_product" string="Tạo sản phẩm" type="object" default_focus="1"
+                                class="oe_highlight"/>
+                        hoặc
+                        <button string="Huỷ" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+
+    </data>
+</odoo>

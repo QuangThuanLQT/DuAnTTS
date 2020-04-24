@@ -1,0 +1,270 @@
+<odoo>
+    <data>
+        <record id="view_picking_form_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="priority" eval="100"/>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <!--<xpath expr="//field[@name='state']" position="after">-->
+                    <!--<field name="state_pick" widget="statusbar" attrs="{'invisible' : [('check_is_pick','=',False)]}" statusbar_visible="draft,waiting_pick,ready_pick,picking,done"/>-->
+                <!--</xpath>-->
+                <xpath expr="//form/header" position="replace">
+                    <header>
+                        <!--TODO button pick-->
+                        <button name="pick_action_confirm" attrs="{'invisible' : ['|',('check_is_pick','=',False),('state_pick','not in',('draft'))]}" string="Xác nhận" type="object" class="oe_highlight" groups="base.group_user"/>
+                        <button name="pick_action_assign" attrs="{'invisible' : ['|',('check_is_pick','=',False),('state_pick','not in',('ready_pick'))]}" string="Bắt đầu lấy hàng" type="object" class="oe_highlight" groups="base.group_user"/>
+                        <button name="pick_action_do_new_transfer" attrs="{'invisible' : ['|',('check_is_pick','=',False),('state_pick','not in',('picking'))]}" string="Hoàn tất xuất kho" type="object" class="oe_highlight" groups="base.group_user"/>
+                        <!--<button name="do_cancel_stock_picking" attrs="{'invisible' : ['|',('check_is_pick','=',False),('state_pick','not in',('draft','waiting_pick','ready_pick','picking'))]}" string="Cancel" type="object" groups="base.group_user"/>-->
+                        <!--<button name="action_cancel" attrs="{'invisible' : ['|',('check_is_pick','=',False),('state_pick','not in',('draft','waiting_pick','ready_pick','picking'))]}" string="Cancel" type="object" groups="base.group_user"/>-->
+                        <field name="state_pick" widget="statusbar" statusbar_visible="draft,waiting_pick,ready_pick,picking,done" attrs="{'invisible' : [('check_is_pick','=',False)]}"/>
+
+                        <!--TODO button pack-->
+                        <button name="pack_action_confirm" attrs="{'invisible' : ['|',('check_is_pack','=',False),('state_pack','not in',('draft'))]}" string="Xác nhận" type="object" class="oe_highlight" groups="base.group_user"/>
+                        <button name="pack_action_assign" attrs="{'invisible' : ['|',('check_is_pack','=',False),('state_pack','not in',('waiting_pack'))]}" string="Bắt đầu đóng gói" type="object" class="oe_highlight" groups="base.group_user"/>
+                        <button name="pack_action_do_new_transfer" attrs="{'invisible' : ['|',('check_is_pack','=',False),('state_pack','not in',('packing'))]}" string="Hoàn tất đóng gói" type="object" class="oe_highlight" groups="base.group_user"/>
+                        <!--<button name="do_cancel_stock_picking" attrs="{'invisible' : ['|',('check_is_pack','=',False),('state_pack','not in',('draft','waiting_another_operation','waiting_pick','packing'))]}" string="Cancel" type="object" groups="base.group_user"/>-->
+                        <!--<button name="action_cancel" attrs="{'invisible' : ['|',('check_is_pack','=',False),('state_pack','not in',('draft','waiting_another_operation','waiting_pick','packing'))]}" string="Cancel" type="object" groups="base.group_user"/>-->
+                        <field name="state_pack" widget="statusbar" statusbar_visible="draft,waiting_another_operation,waiting_pack,packing,done" attrs="{'invisible' : [('check_is_pack','=',False)]}"/>
+
+                        <!--TODO button delivery-->
+                        <button name="delivery_action_confirm" attrs="{'invisible' : ['|',('check_is_delivery','=',False),('state_delivery','not in',('draft'))]}" string="Xác nhận" type="object" class="oe_highlight" groups="base.group_user"/>
+                        <button name="delivery_action_assign" attrs="{'invisible' : ['|',('check_is_delivery','=',False),('state_delivery','not in',('waiting_delivery'))]}" string="Bắt đầu giao hàng" type="object" class="oe_highlight" groups="base.group_user"/>
+                        <button name="do_new_transfer_modifier" attrs="{'invisible' : ['|',('check_is_delivery','=',False),('state_delivery','not in',('delivery'))]}" string="Hoàn tất giao hàng" type="object" class="oe_highlight" groups="base.group_user"/>
+                        <!--<button name="do_cancel_stock_picking" attrs="{'invisible' : ['|',('check_is_delivery','=',False),('state_delivery','not in',('draft','waiting_another_operation','waiting_delivery'))]}" string="Cancel" type="object" groups="base.group_user"/>-->
+                        <!--<button name="action_cancel" attrs="{'invisible' : ['|',('check_is_delivery','=',False),('state_delivery','not in',('draft','waiting_another_operation','waiting_delivery'))]}" string="Cancel" type="object" groups="base.group_user"/>-->
+                        <field name="state_delivery" widget="statusbar" statusbar_visible="draft,waiting_another_operation,waiting_delivery,delivery,done" attrs="{'invisible' : [('check_is_delivery','=',False)]}"/>
+
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,partially_available,assigned,done"/>
+                    </header>
+                </xpath>
+                <field name="min_date" position="before">
+                    <field name="check_is_pick" invisible="1"/>
+                    <!--<field name="state_pick" attrs="{'invisible' : [('check_is_pick','=',False)]}"/>-->
+                    <field name="check_is_pack" invisible="1"/>
+                    <!--<field name="state_pack" attrs="{'invisible' : [('check_is_pack','=',False)]}"/>-->
+                    <field name="check_is_delivery" invisible="1"/>
+                    <!--<field name="state_delivery" attrs="{'invisible' : [('check_is_delivery','=',False)]}"/>-->
+                </field>
+                <field name="origin" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                    <attribute name="invisible">1</attribute>
+                </field>
+                 <field name="origin" position="before">
+                     <field name="origin_sub"/>
+                 </field>
+                <field name="origin" position="after">
+                    <field name="kich_thuoc_don_hang" options="{'no_quick_create':True, 'no_create_edit':True, 'no_open': True}"
+                           attrs="{'invisible' : [('check_is_pack','=',False),('check_is_delivery','=',False)], 'required' : [('check_is_pack','!=',False),('state_pack', 'in', ('packing'))]}"/>
+                </field>
+                <field name="partner_id" position="attributes">
+                    <!--<attribute name="attrs">{'invisible': [('picking_type_code', '!=', 'internal'),('check_is_pick','=',False),('check_is_pack','=',False)]}</attribute>-->
+                    <attribute name="attrs"></attribute>
+                    <attribute name="readonly">1</attribute>
+                    <attribute name="string">Partner</attribute>
+                </field>
+                <field name="partner_id" position="before">
+                    <field name="user_pick_id" attrs="{'invisible' : [('check_is_pick','=',False)], 'required' : [('check_is_pick','!=',False)]}"/>
+                    <field name="user_perform_id"/>
+                    <field name="user_pack_id" attrs="{'invisible' : [('check_is_pack','=',False)], 'required' : [('check_is_pack','!=',False)]}"/>
+                    <field name="user_delivery_id" attrs="{'invisible' : [('check_is_delivery','=',False)], 'required' : [('check_is_delivery','!=',False)]}"/>
+                </field>
+                <field name="location_id" position="attributes">
+                    <attribute name="attrs">{}</attribute>
+                </field>
+                <field name="location_dest_id" position="attributes">
+                    <attribute name="attrs">{}</attribute>
+                </field>
+                <xpath expr="//field[@name='pack_operation_product_ids']/tree/field[@name='product_id']" position="attributes">
+                    <attribute name="options">{'no_quick_create':True, 'no_create_edit':True}</attribute>
+                </xpath>
+                <!--<xpath expr="//button[@name='do_new_transfer']" position="attributes">-->
+                    <!--<attribute name="attrs">{'invisible' : ['|',('check_is_delivery','=',True)]}</attribute>-->
+                <!--</xpath>-->
+                <!--<xpath expr="//button[@name='do_new_transfer']" position="after">-->
+                    <!--<button name="do_new_transfer_modifier" attrs="{'invisible' : ['|',('check_is_delivery','=',False)]}" states="assigned" string="Xác nhận" type="object" class="oe_highlight" barcode_trigger="validate"/>-->
+                <!--</xpath>-->
+            </field>
+        </record>
+
+        <record id="vpicktree_inherit_add_origin" model="ir.ui.view">
+            <field name="name">stock.picking.tree.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="arch" type="xml">
+                <field name="origin" position="before">
+                    <field name="origin_sub"/>
+                </field>
+                <field name="origin" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="product_price_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="delivery_modifier.product_price"/>
+            <field name="arch" type="xml">
+                <field name="delivery_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                    <attribute name="required">0</attribute>
+                </field>
+                <field name="receive_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                    <attribute name="required">0</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_picking_form_inherit_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="tuanhuy_stock.view_picking_form_inherit"/>
+            <field name="arch" type="xml">
+                <field name="sale_id" position="after">
+                    <field name="user_sale_id" attrs="{'invisible' : [('sale_id', '=', False)]}"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_picking_form_inherit_invi_attach" model="ir.ui.view">
+            <field name="name">stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="sale_attachment.view_picking_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//label[@for='attachment_ids']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='attachment_ids']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="vpicktree_inherit_ihr_invisible" model="ir.ui.view">
+            <field name="name">stock.picking.tree</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="tuanhuy_stock.vpicktree_inherit"/>
+            <field name="arch" type="xml">
+                <field name="need_to_confirm" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="colors">blue:move_type == 'direct' and 'SO0' in origin;red:check_return_picking == True and 'RTP' in origin</attribute>
+                </xpath>
+                <field name="need_to_confirm" position="after">
+                    <field name="move_type" invisible="1"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="vpicktree_inherit_add_picking_cancel_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.tree</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="tuanhuy_cancel_function.vpicktree_inherit_add_picking_cancel"/>
+            <field name="arch" type="xml">
+                <field name="picking_cancel" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_tab_picking_form_inherit" model="ir.ui.view">
+            <field name="name">stock.move.form</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_picking_tree"/>
+            <field name="arch" type="xml">
+               <field name="product_id" position="attributes">
+                   <attribute name="options">{'no_quick_create':True, 'no_create_edit':True}</attribute>
+               </field>
+                <xpath expr="//tree/field[@name='product_uom']" position="after">
+                    <field name="check_is_pick" invisible="1"/>
+                    <field name="product_location_ids" invisible="1"/>
+                    <field name="color" invisible="1"/>
+                    <field name="size" invisible="1"/>
+                    <field name="area" invisible="1"/>
+                    <field name="line" invisible="1"/>
+                </xpath>
+                <field name="location_id" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                    <attribute name="context">{'move_select_location' : product_location_ids}</attribute>
+                    <!--<attribute name="domain">[('id','in',product_location_ids)]</attribute>-->
+                </field>
+                <field name="location_dest_id" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </field>
+                <field name="state" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_move_picking_tree_inherit" model="ir.ui.view">
+            <field name="name">stock.move.form</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="tuanhuy_stock.view_move_picking_tree"/>
+            <field name="arch" type="xml">
+                <field name="check_is_pick" invisible="1"/>
+                <field name="reserved_availability" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="product_qty_missing" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="delivery_send_sms_form">
+            <field name="name">delivery.send.sms.form</field>
+            <field name="model">delivery.send.sms</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="picking_id" invisible="1"/>
+                        <field name="nhan_vien_giao_hang"/>
+                        <field name="thoi_gian_giao_hang"/>
+                        <field name="giao_hang_tang_cuong"/>
+                    </group>
+                    <footer>
+                        <button name="do_new_transfer" type="object" string="Xác nhận" class="btn-primary"/>
+                        <button string="Huỷ" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="delivery_send_sms_action">
+            <field name="name">Hoàn tất giao hàng</field>
+            <field name="res_model">delivery.send.sms</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record model="ir.ui.view" id="popup_confirm_pick_form">
+            <field name="name">popup.confirm.pick.form</field>
+            <field name="model">popup.confirm.pick</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <span>Đơn hàng có sự thay đổi.</span>
+                    </group>
+                    <footer>
+                        <button name="action_confirm" type="object" string="Xác nhận" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="Huỷ" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="popup_confirm_pick_action">
+            <field name="name">Confirm</field>
+            <field name="res_model">popup.confirm.pick</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

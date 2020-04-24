@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="TuyenXe_inherit_form_view">
+            <field name="name">tuyenxe</field>
+            <field name="model">tuyen.xe</field>
+            <field name="arch" type="xml">
+                <form string="TuyenXe Form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="transporter_id"/>
+                                <field name="name"/>
+                                <field name="transporter_name"/>
+                                <field name="address"/>
+                                <field name="feosco_city_id"/>
+                                <field name="feosco_district_id"/>
+                                <field name="phuong_xa"/>
+                            </group>
+
+                            <group>
+                                <field name="transporter_address"/>
+                                <field name="transporter_phone"/>
+                                <field name="thoi_gian_xe_toi"/>
+                                <field name="uoc_tinh_phi_ship"/>
+                                <field name="note"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="TuyenXe_list_action">
+            <field name="name">Tuyến xe</field>
+            <field name="res_model">tuyen.xe</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem id="TuyenXe_menu" name="Tuyến xe"
+                  parent="sale__delivery.Delivery_menu"
+                  action="TuyenXe_list_action"/>
+
+        <record model="ir.ui.view" id="TuyenXe_1_inherit_form_view">
+            <field name="name">tuyenxe</field>
+            <field name="model">tuyen.xe</field>
+            <field name="arch" type="xml">
+                <tree string="Tuyen xe">
+                    <field name="transporter_id"/>
+                    <field name="name"/>
+                    <field name="transporter_name"/>
+                    <field name="feosco_city_id"/>
+                    <field name="feosco_district_id"/>
+                    <field name="phuong_xa"/>
+                    <field name="address"/>
+                    <field name="thoi_gian_xe_toi"/>
+                    <field name="uoc_tinh_phi_ship"/>
+                    <field name="note"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>
+

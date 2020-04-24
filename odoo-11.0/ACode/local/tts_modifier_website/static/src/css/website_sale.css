@@ -1,0 +1,139 @@
+/* ---- Default Styles ---- */
+.cart_table {
+  margin-top: 15px;
+}
+
+.cart_table td {
+  border: 1px solid #ccc;
+}
+
+.cart_table td.header {
+  background-color: #ececec;
+  text-align: center;
+  font-weight: bold;
+  font-size: 13px;
+  margin-top: 15px;
+  height: 25px;
+}
+
+.input-group-addon-modifier {
+  padding: 3px 10px;
+  font-size: 12px;
+  background-color: #ececec;
+  color: #418ccc;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 1%;
+  white-space: nowrap;
+  vertical-align: middle;
+  font-weight: normal;
+  line-height: 1;
+  text-align: center;
+  display: table-cell;
+}
+
+.oe_website_sale_modifier ul ul {
+  margin-top: 0.5em;
+}
+
+.oe_product_image #o-carousel-product .carousel-inner div.item {
+  height: 200px;
+}
+
+.oe_product_image #o-carousel-product .carousel-inner div.item img {
+  max-height: 90%;
+  top: -20px;
+}
+
+.oe_product_image #o-carousel-product .carousel-indicators li {
+  background-color: transparent !important;
+  border-radius: 0;
+  display: inline-block;
+  margin: 0 !important;
+  width: 54px !important;
+  height: 54px !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  position: relative;
+}
+
+.oe_product_image #o-carousel-product .carousel-indicators {
+  margin-top: -15px;
+  background-color: transparent;
+  overflow-y: hidden;
+  position: static;
+  text-align: left;
+  white-space: nowrap;
+  width: 100%;
+  height: 63px !important;
+  text-align: center;
+  list-style-position: inside;
+}
+
+.oe_product_image #o-carousel-product .carousel-control {
+  background-image: none !important;
+  height: 80%;
+}
+
+.oe_product .oe_product_image {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  top: 1px;
+  bottom: 95px;
+  text-align: center;
+}
+
+.oe_product .product_price {
+  padding: 6px 10%;
+  position: absolute;
+  bottom: 0;
+}
+
+.oe_product section {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  padding: 0 15px 24px 10px;
+  min-height: 56px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.75);
+  z-index: 5;
+  top: 249px;
+}
+
+@media (min-width: 1200px) {
+  #products_grid.col-md-9 .oe-height-2 {
+    height: 370px;
+  }
+}
+.oe_website_sale_modifier .row .row .col-md-12 {
+  float: none;
+}
+
+.oe_website_sale_modifier input.js_quantity {
+  min-width: 48px;
+  text-align: center;
+}
+
+.oe_website_sale_modifier input.quantity {
+  padding: 0;
+}
+
+.oe_website_sale {
+  width: 100%;
+}
+
+#wk_loader.show {
+  display: block;
+  position: relative;
+  z-index: 100;
+  background-color: #F5F5F5;
+  background-repeat: no-repeat;
+  width: 100%;
+  padding: 10px;
+  height: 40px;
+  text-align: center;
+}

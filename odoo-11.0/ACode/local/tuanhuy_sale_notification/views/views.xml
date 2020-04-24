@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <record id="sale_notification" model="ir.cron">
+            <field name="name">Sale Notification</field>
+            <field eval="True" name="active"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'sale.order.notification'"></field>
+            <field name="function" eval="'send_sale_notification'"/>
+        </record>
+    </data>
+</odoo>

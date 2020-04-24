@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="sms_inbox_export_detail">
+        <button type="button" class='btn btn-sm btn-default o_sms_inbox_export_detail' style="background: lightgray;border :1px solid gray">Export Detail</button>
+    </t>
+</templates>

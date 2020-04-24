@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_vieterp_sale_return_vieterp_sale_return,vieterp_sale_return.vieterp_sale_return,model_vieterp_sale_return_vieterp_sale_return,,1,0,0,0

@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_web_tree2_web_tree2,web_tree2.web_tree2,model_web_tree2_web_tree2,,1,0,0,0

@@ -1,0 +1,17 @@
+<odoo>
+    <data>
+        <record id="warehouse_ban_si" model="stock.warehouse">
+            <field name="name">Kho Bán Sỉ</field>
+            <field name="code">ERP</field>
+            <field name="reception_steps">three_steps</field>
+            <field name="delivery_steps">pick_pack_ship</field>
+        </record>
+
+        <record id="warehouse_in_an" model="stock.warehouse">
+            <field name="name">Kho In Ấn</field>
+            <field name="code">INAO</field>
+            <field name="reception_steps">three_steps</field>
+            <field name="delivery_steps">pick_pack_ship</field>
+        </record>
+    </data>
+</odoo>

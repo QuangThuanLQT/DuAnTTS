@@ -1,0 +1,33 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="sale_product_sold_well_tree">
+            <field name="name">sale_product_sold_well</field>
+            <field name="model">product.product</field>
+            <field name="arch" type="xml">
+                <tree create="false" default_order="amount desc">
+                    <field name="default_code" string='Reference'/>
+                    <field name="name_atr" string='Product Name'/>
+                    <field name="quantity_sold"/>
+                    <field name="amount"/>
+                    <field name="trang_thai_hd" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="sale_product_sold_action">
+            <field name="name">Products Sold Well</field>
+            <field name="res_model">product.product</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="sale_product_sold_well_tree"/>
+            <field name="domain">['|', ('active', '=', False), ('active', '=', True)]</field>
+        </record>
+
+
+        <menuitem name="Products Sold Well" id="prinizi_sale_product_sold_well" parent="sales_team.menu_sales"
+                  sequence="100" action="sale_product_sold_action"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,304 @@
+<odoo>
+    <data>
+        <record id="view_purchase_order_search" model="ir.ui.view">
+            <field name="name">report.purchase.order.search</field>
+            <field name="model">purchase.report</field>
+            <field name="inherit_id" ref="purchase.view_purchase_order_search"/>
+            <field name="arch" type="xml">
+                <filter name="group_category_id" position="after">
+                    <filter string="Nhóm" name="group_id" context="{'group_by':'group_id'}"/>
+                    <filter string="Thương Hiệu" name="brand_name" context="{'group_by':'brand_name'}"/>
+                </filter>
+            </field>
+        </record>
+
+        <record id="purchase_order_form" model="ir.ui.view">
+            <field name="name">purchase.order.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <button name="action_set_date_planned" position="replace"/>
+                <xpath expr="//form/sheet/notebook/page/field[@name='order_line']" position="before">
+                    <field name="import_data"/>
+                    <button name="import_data_excel" type="object" string="Import"/>
+                    <button name="export_po_data_excel" type="object" string="Export" class="oe_hightlight"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='taxes_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="attributes">
+                    <attribute name="attrs">{'readonly':[]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="after">
+                    <field name="product_default_code" readonly="1"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']" position="before">
+                    <field name="tax_sub"/>
+                    <field name="last_price_unit"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='taxes_id']" position="before">
+                    <!--<field name="tax_sub"/>-->
+                    <field name="brand_name" invisible="1"/>
+                    <field name="group_sale_id" invisible="1"/>
+                </xpath>
+                <xpath expr="//button[@name='action_rfq_send']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_rfq_send']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='print_quotation']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                 <xpath expr="//button[@name='print_quotation']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='print_quotation']" position="after">
+                    <button name="print_quotation" string="Print" type="object" states="to approve,purchase,done" groups="base.group_user"/>
+                </xpath>
+                <xpath expr="//form/header" position="inside">
+                    <button name="print_excel" states="to approve,purchase,done" type="object" string="In Excel"/>
+                </xpath>
+                <xpath expr="//button[@name='action_rfq_send']" position="after">
+                    <button name="create_invoice_show_view" string="Create Invoice" type="object" class="oe_highlight"
+                            attrs="{'invisible':['|',('invoice_status','!=','to invoice'),('state','!=','purchase')]}"/>
+                    <!--<button name="update_stock_picking" string="Cập nhật giao hàng" type="object"/>-->
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='sequence']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                    <!--<attribute name="string">STT</attribute>-->
+                </xpath>
+
+                <xpath expr="//field[@name='amount_total']" position="attributes">
+                    <attribute name="digits">(16, 0)</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='product_qty']" position="before">
+                    <field name="delivery_count" invisible="1"/>
+                </xpath>
+                <xpath expr="//tree/field[@name='product_qty']" position="attributes">
+                    <attribute name="digits">(16, 1)</attribute>
+                    <attribute name="attrs">{'readonly': [('delivery_count', '&gt;', 0)]}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='amount_tax']" position="attributes">
+                    <attribute name="digits">(16, 0)</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='amount_untaxed']" position="attributes">
+                    <attribute name="digits">(16, 0)</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']" position="attributes">
+                    <attribute name="digits">(16, 0)</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_edit': True,'no_create_edit': True, 'no_open': True}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_edit': True,'no_create_edit': True, 'no_open': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <field name="order_line" position="before">
+                    <field name="product_code" class="" style="width: 10%" placeholder="Mã nội bộ"/>
+                </field>
+
+                <xpath expr="//label[@for='amount_total']" position="after">
+                    <button name="button_dummy" states="draft,sent" string="(update)" type="object" class="oe_edit_only oe_link"/>
+                </xpath>
+                <xpath expr="//form/sheet/notebook/page/field[@name='notes']" position="replace">
+                    <!--<attribute name="invisible">1</attribute>-->
+                </xpath>
+                <xpath expr="//form/sheet/group/group[1]" position="inside">
+                    <field name="notes" placeholder="Diễn giải" string="Diễn giải"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom']" position="replace">
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_qty']" position="before">
+                    <field name="product_uom" groups="product.group_uom" attrs="{'readonly': [('state', 'in', ('purchase', 'done', 'cancel'))]}"/>
+                </xpath>
+                <xpath expr="//field[@name='date_approve']" position="after">
+                    <field name="user_id"/>
+                </xpath>
+                <!--<xpath expr="//form/header/button[@name='button_confirm'][1]" position="attributes">-->
+                    <!--<attribute name="invisible">1</attribute>-->
+                <!--</xpath>-->
+                <!--<xpath expr="//form/header/button[@name='button_confirm'][2]" position="attributes">-->
+                    <!--<attribute name="invisible">1</attribute>-->
+                <!--</xpath>-->
+                <!--<xpath expr="//form/header/button[@name='button_confirm']" position="after">-->
+                    <!--<button name="button_confirm_order" type="object" states="draft" string="Xác nhận đơn hàng" id="draft_confirm"/>-->
+                    <!--<button name="button_confirm_order" type="object" states="sent" string="Xác nhận đơn hàng" class="oe_highlight" id="bid_confirm"/>-->
+                <!--</xpath>-->
+
+            </field>
+        </record>
+
+        <record id="discount_purchase_view_form_inherit" model="ir.ui.view">
+            <field name="name">purchase.order.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="tuanhuy_purchase_discount_total.discount_purchase_view_form"/>
+            <field name="arch" type="xml">
+                <field name="discount_type" position="before">
+                    <field name="tax_id"/>
+                </field>
+                <field name="discount_rate" position="after">
+                    <field name="check_box_co_cq"/>
+                    <field name="check_box_invoice_gtgt"/>
+                </field>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_discount']" position="attributes">
+                    <attribute name="digits">(16, 2)</attribute>
+                    <attribute name="string">Giá trực tiếp</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']" position="attributes">
+                    <attribute name="digits">(16, 0)</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="purchase_order_tree_inherit" model="ir.ui.view">
+            <field name="name">purchase.order.tree</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="inside">
+                    <field name="check_color_picking" invisible="1"/>
+                </xpath>
+                <field name="invoice_status" position="after">
+                    <field name="delivery_status" invisible="not context.get('show_purchase', False)"/>
+                    <field name="invoice_count"/>
+                    <field name="picking_count"/>
+                    <field name="record_checked"/>
+                    <button name="change_record_checked" type="object" string="Checked"/>
+                    <field name="invoice_number_total_real"/>
+                </field>
+                <field name="partner_id" position="after">
+                    <field name="notes" string="Diễn giải"/>
+                    <field name="purchase_order_return_id" invisible="not context.get('purchase_order_return', False)"/>
+                </field>
+
+            </field>
+        </record>
+
+        <!--<record id="sale_attachment_view_order_form_inherit_purchase" model="ir.ui.view">-->
+            <!--<field name="name">purchase.order.form</field>-->
+            <!--<field name="model">purchase.order</field>-->
+            <!--<field name="inherit_id" ref="purchase.purchase_order_form"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<xpath expr="//form/sheet/notebook/page/group[2]" position="attributes">-->
+                    <!--<attribute name="invisible">1</attribute>-->
+                <!--</xpath>-->
+            <!--</field>-->
+        <!--</record>-->
+
+
+        <record id="purchase_action_update_check_record" model="ir.actions.server">
+            <field name="name">Huỷ kiểm tra</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_purchase_order"/>
+            <field name="state">code</field>
+            <field name="code">action = record.action_update_check_record();
+            </field>
+        </record>
+
+        <record model="ir.values" id="action_update_check_record">
+            <field name="model">purchase.order</field>
+            <field name="name">Huỷ kiểm tra</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('purchase_action_update_check_record'))" />
+        </record>
+
+        <record id="action_multi_create_invoice_record" model="ir.actions.server">
+            <field name="name">Tạo Hoá Đơn</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_purchase_order"/>
+            <field name="state">code</field>
+            <field name="code">action = record.multi_create_account_invoice();
+            </field>
+        </record>
+
+        <record model="ir.values" id="multi_create_invoice_record">
+            <field name="model">purchase.order</field>
+            <field name="name">Tạo Hoá Đơn</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_multi_create_invoice_record'))" />
+        </record>
+
+        <record id="action_multi_update_invoice_record" model="ir.actions.server">
+            <field name="name">Cập Nhật Hoá Đơn</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_purchase_order"/>
+            <field name="state">code</field>
+            <field name="code">action = record.multi_update_account_invoice();
+            </field>
+        </record>
+
+        <record model="ir.values" id="multi_update_invoice_record">
+            <field name="model">purchase.order</field>
+            <field name="name">Cập Nhật Hoá Đơn</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_multi_update_invoice_record'))" />
+        </record>
+
+        <record id="action_update_stock_picking_after_change_po" model="ir.actions.server">
+            <field name="name">Cập Nhật Mới Hoá Đơn</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_purchase_order"/>
+            <field name="state">code</field>
+            <field name="code">action = record.update_stock_picking_po();
+            </field>
+        </record>
+        <record model="ir.values" id="multi_update_account_invoice_po">
+            <field name="model">purchase.order</field>
+            <field name="name">Cập Nhật Mới Hoá Đơn</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_update_stock_picking_after_change_po'))" />
+        </record>
+
+        <record id="action_multi_create_picking_record" model="ir.actions.server">
+            <field name="name">Tạo Giao Hàng</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_purchase_order"/>
+            <field name="state">code</field>
+            <field name="code">action = record.multi_create_picking();
+            </field>
+        </record>
+
+        <record model="ir.values" id="multi_create_picking_record">
+            <field name="model">purchase.order</field>
+            <field name="name">Tạo Giao Hàng</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_multi_create_picking_record'))" />
+        </record>
+
+        <record id="purchase.menu_purchase_root" model="ir.ui.menu">
+            <field name="action" ref="purchase.purchase_form_action"/>
+        </record>
+
+        <!--<record id="action_multi_update_stock_record" model="ir.actions.server">
+            <field name="name">Cập nhật giao hàng</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_purchase_order"/>
+            <field name="state">code</field>
+            <field name="code">action = record.multi_update_stock_picking();
+            </field>
+        </record>
+
+        <record model="ir.values" id="multi_update_stock_record">
+            <field name="model">purchase.order</field>
+            <field name="name">Cập nhật giao hàng</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_multi_update_stock_record'))" />
+        </record>-->
+
+    </data>
+</odoo>

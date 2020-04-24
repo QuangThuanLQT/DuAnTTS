@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="job_costing_form_view_inherit" model="ir.ui.view">
+            <field name="name">job.costing.form</field>
+            <field name="model">job.costing</field>
+            <field name="inherit_id" ref="odoo_job_costing_management.job_costing_form_view"/>
+            <field name="arch" type="xml">
+                <!--<xpath expr="//field[@name='job_cost_line_ids']/tree" position="attributes">-->
+                <!--<attribute name="class">freeze_hearder_one2many</attribute>-->
+                <!--</xpath>-->
+                <xpath expr="//field[@name='job_cost_line_ids']/tree/field[@name='total_cost']" position="after">
+                    <button name="open_update_price_job_costing" type="object" string="Chọn"/>
+                </xpath>
+                <xpath expr="//div[@class='oe_button_box']" position="inside">
+                    <button name="action_open_so" type="object" class="oe_stat_button" icon="fa-book">
+                        <field string="Đơn hàng" name="so_count" widget="statinfo"/>
+                    </button>
+                </xpath>
+                <xpath expr="//field[@name='job_cost_line_ids']" position="before">
+                    <field name="import_data"/>
+                    <button name="import_data_excel" type="object" string="Nhập Excel"/>
+                    <button name="export_data_excel" type="object" string="Xuất Excel"/>
+                </xpath>
+                <xpath expr="//button[@name='action_approve']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_done']" position="attributes">
+                    <attribute name="states">confirm</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_draft']" position="attributes">
+                    <attribute name="states">cancel,fail</attribute>
+                </xpath>
+                <xpath expr="//field[@name='job_cost_line_ids']/tree/field[@name='cost_price']" position="after">
+                    <field name="list_price"/>
+                    <field name="price_ihr"/>
+                    <field name="cost_price" string="Đơn Giá"/>
+                    <field name="labor_cost"/>
+                    <field name="move_cost"/>
+                    <field name="manager_cost"/>
+                    <field name="discount"/>
+                    <field name="price_discount"/>
+                    <field name="tax"/>
+                    <field name="verage_cost"/>
+                </xpath>
+                <xpath expr="//field[@name='job_cost_line_ids']/tree/field[@name='cost_price']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='job_labour_line_ids']/tree/field[@name='cost_price']" position="after">
+                    <field name="price_ihr"/>
+                    <field name="discount"/>
+                    <field name="price_discount"/>
+                    <!--<field name="verage_cost"/>-->
+                </xpath>
+                <xpath expr="//field[@name='job_labour_line_ids']/tree/field[@name='cost_price']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='job_overhead_line_ids']/tree/field[@name='cost_price']" position="after">
+                    <field name="price_ihr"/>
+                    <field name="discount"/>
+                    <field name="price_discount"/>
+                    <!--<field name="verage_cost"/>-->
+                </xpath>
+                <xpath expr="//field[@name='job_overhead_line_ids']/tree/field[@name='cost_price']"
+                       position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='job_cost_line_ids']/tree/field[@name='date']"
+                       position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='job_cost_line_ids']/tree/field[@name='reference']"
+                       position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='job_cost_line_ids']" position="attributes">
+                    <attribute name="context">
+                        {'partner_id':partner_id,'only_show_default_code':1,'default_analytic_id':analytic_id,'default_job_type':'material',
+                        'labor_cost_percent': labor_cost_percent, 'manager_cost_percent': manager_cost_percent, 'move_cost_percent': move_cost_percent}
+                    </attribute>
+                </xpath>
+                <xpath expr="//field[@name='job_cost_line_ids']/tree/field[@name='product_id']" position="attributes">
+                    <attribute name="context">{'partner_id':parent.partner_id,'only_show_default_code':1}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='so_number']" position="after">
+                    <field name="labor_cost_percent"/>
+                    <field name="move_cost_percent" />
+                    <field name="manager_cost_percent" />
+                </xpath>
+
+                <xpath expr="//field[@name='job_labour_line_ids']" position="attributes">
+                    <attribute name="context">
+                        {'partner_id':partner_id,'only_show_default_code':1,'default_analytic_id':analytic_id,'default_job_type':'labour'}
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='job_labour_line_ids']/tree/field[@name='product_id']" position="attributes">
+                    <attribute name="context">{'partner_id':parent.partner_id,'only_show_default_code':1}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='job_overhead_line_ids']" position="attributes">
+                    <attribute name="context">
+                        {'partner_id':partner_id,'only_show_default_code':1,'default_analytic_id':analytic_id,'default_job_type':'overhead'}
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='job_overhead_line_ids']/tree/field[@name='product_id']"
+                       position="attributes">
+                    <attribute name="context">{'partner_id':parent.partner_id,'only_show_default_code':1}</attribute>
+                </xpath>
+
+                <xpath expr="//button[@name='action_cancel']" position="before">
+                    <button name="button_fail" type="object" string="Không đạt" states="draft,confirm,approve"/>
+                </xpath>
+                <xpath expr="//button[@name='action_cancel']" position="after">
+                    <button name="update_job_costing" type="object" string="Cập nhật báo giá"/>
+                </xpath>
+
+                <xpath expr="//form/sheet/notebook" position="inside">
+                    <page string="Lý do" name="reason" attrs="{'invisible': [('state','!=', 'fail')]}">
+                        <group colspan="2">
+                            <field name="reason"/>
+                        </group>
+
+                    </page>
+                </xpath>
+
+                <xpath expr="//field[@name='job_cost_line_ids']/tree/field[@name='actual_quantity']"
+                       position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='job_cost_line_ids']/tree/field[@name='actual_invoice_quantity']"
+                       position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//form/sheet/notebook" position="inside">
+                    <page string="Định mức" name="job_quotaion">
+                        <button name="confirm_job_quotation" type="object" string="Cập nhật định mức" class="btn-primary" attrs="{'invisible':[('state','=','done')]}"/>
+                        <field name="job_quotation_ids" invisible="1"/>
+                        <field name="job_quotaion_cost_ids">
+                            <tree editable="bottom">
+                                <field name="job_quotaion_id"/>
+                                <field name="quantity"/>
+                                <field name="job_quotaion_code"/>
+                                <field name="total_cost" sum="total cost"/>
+                                <field name="state"/>
+                                <button name="open_update_price_job_costing" type="object" string="Chọn"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+
+                <xpath expr="//form/sheet/notebook/page[2]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//form/sheet/notebook/page[3]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//form/sheet/notebook" position="inside">
+                    <page string="Báo giá con">
+                        <field name="child_job_costing_ids" nolabel="1" attrs="{'readonly' : [('state','in',('approve','done','cancel'))]}">
+                            <tree editable="bottom">
+                                <field name="job_type_id"/>
+                                <field name="child_job_costing_id"/>
+                                <field name="quantity"/>
+                                <field name="price"/>
+                                <field name="labor_cost"/>
+                                <field name="move_cost"/>
+                                <field name="manager_cost"/>
+                                <field name="verage_cost"/>
+                                <field name="total_discount"/>
+                                <field name="sub_total"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+                <xpath expr="//form/sheet/group[2]" position="replace">
+                    <group col="4">
+                        <group name="discount" colspan="2">
+                            <field name="discount_type"/>
+                            <field name="discount"/>
+                        </group>
+                        <group class="oe_subtotal_footer oe_right" colspan="2" name="jobcost_total">
+                            <field name="material_total" widget="monetary"/>
+                            <field name="sum_total_expected" widget="monetary"/>
+                            <field name="profit_gross"/>
+                            <field name="labor_total" widget="monetary"/>
+                            <field name="overhead_total" widget="monetary"/>
+                            <field name="total_discount" widget="monetary"/>
+                            <field name="jobcost_total" widget="monetary"/>
+                            <field name="total_tax" widget="monetary"/>
+                            <field name="total_after_tax" widget="monetary"/>
+                        </group>
+                    </group>
+                    <field name="notes_job" class="oe_inline" placeholder="Setup default Job Details or Technical contents."/>
+                    <div class="oe_clear"/>
+                </xpath>
+                <xpath expr="//field[@name='job_cost_line_ids']/tree/field[@name='job_type_id']" position="before">
+                    <field name="job_quotation_id"/>
+                </xpath>
+                <xpath expr="//field[@name='job_cost_line_ids']/tree" position="attributes">
+                    <attribute name="default_order">job_quotation_id</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_view_purchase_order_line']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_view_hr_timesheet_line']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_view_vendor_bill_line']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='job_quotaion_cost_ids']//field[@name='job_quotaion_code']" position="after">
+                    <field name="type" widget="selection"/>
+                </xpath>
+                <xpath expr="//field[@name='job_cost_line_ids']//field[@name='job_type']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="job_costing_fail_form" model="ir.ui.view">
+            <field name="name">job.costing.fail.form</field>
+            <field name="model">job.costing.fail</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="reason"/>
+                    </group>
+                    <footer>
+                        <button string='Xác nhận' name="action_confirm" type="object" class="btn-primary"
+                                context="{'job_costing_id': active_id}"/>
+                        <button string="Huỷ" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_open_update_price_job" model="ir.actions.server">
+            <field name="name">Chọn</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_job_costing"/>
+            <field name="state">code</field>
+            <field name="code">action = record.open_update_price_job_costing();
+            </field>
+        </record>
+
+        <record model="ir.values" id="value_action_open_update_price_job">
+            <field name="model">job.costing</field>
+            <field name="name">Chọn</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_open_update_price_job'))" />
+        </record>
+
+        <record id="warning_confirm_job_costing_form_view" model="ir.ui.view">
+            <field name="name">warning.confirm.job.costing.form</field>
+            <field name="model">warning.confirm.job.costing</field>
+            <field name="arch" type="xml">
+                <form string="Cảnh báo">
+                    <field name="name"/>
+                    <footer>
+                        <button name="update_job_quotaion" type="object"
+                                string="Cập nhật định mức" class="oe_highlight"/>
+                        or
+                        <button name="action_confirm" type="object"
+                                string="Xác nhận" class="oe_highlight"/>
+                        <button string="Huỷ" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="warning_confirm_job_costing_action" model="ir.actions.act_window">
+	        <field name="name">Cảnh báo</field>
+	        <field name="res_model">warning.confirm.job.costing</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">form</field>
+	        <field name="target">new</field>
+    	</record>
+    </data>
+</odoo>

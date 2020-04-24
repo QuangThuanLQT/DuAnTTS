@@ -1,0 +1,118 @@
+<odoo>
+    <data>
+        <record id="update_price_job_costing_view_form" model="ir.ui.view">
+            <field name="name">update.price.job.costing.form</field>
+            <field name="model">update.price.job.costing</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="job_costing_line_id" invisible="1"/>
+                                <field name="product_id"/>
+                                <field name="price_ihr"/>
+                                <field name="labor_cost"/>
+                                <field name="move_cost"/>
+                                <field name="manager_cost"/>
+                                <field name="discount"/>
+                                <field name="price_discount"/>
+                                <field name="tax"/>
+                                <field name="verage_cost"/>
+                                <field name="type"/>
+                            </group>
+                        </group>
+                        <separator string="Báo giá" attrs="{'invisible':[('type','=','project')]}"/>
+                        <field name="job_costing_ids" attrs="{'invisible':[('type','=','project')]}"/>
+                        <separator string="Dự án" attrs="{'invisible':[('type','!=','project')]}"/>
+                        <field name="project_ids" attrs="{'invisible':[('type','!=','project')]}"/>
+                    </sheet>
+                    <footer>
+                        <button name="action_update_job_costing" type="object" string="Chấp nhận" class="oe_highlight"/>
+                        <button string="Huỷ" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="update_price_job_costing_action" model="ir.actions.act_window">
+            <field name="name">Cập nhật giá sản phẩm cho báo giá</field>
+            <field name="res_model">update.price.job.costing</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_ids"
+                   eval="[(5, 0, 0), (0, 0, {'view_mode': 'form', 'view_id': ref('update_price_job_costing_view_form')})]"/>
+            <field name="target">new</field>
+        </record>
+
+        <record id="update_price_job_costing_view_form_1" model="ir.ui.view">
+            <field name="name">update.price.job.costing.form</field>
+            <field name="model">update.price.job.costing</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="job_costing_id"/>
+                                <field name="type"/>
+                            </group>
+                        </group>
+                        <separator string="Báo giá" attrs="{'invisible':[('type','=','project')]}"/>
+                        <field name="job_costing_ids" attrs="{'invisible':[('type','=','project')]}"/>
+                        <separator string="Dự án" attrs="{'invisible':[('type','!=','project')]}"/>
+                        <field name="project_ids" attrs="{'invisible':[('type','!=','project')]}"/>
+                    </sheet>
+                    <footer>
+                        <button name="action_update_job_costing_1" type="object" string="Chấp nhận" class="oe_highlight"/>
+                        <button string="Huỷ" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="update_price_job_costing_action_1" model="ir.actions.act_window">
+            <field name="name">Cập nhật giá sản phẩm cho báo giá</field>
+            <field name="res_model">update.price.job.costing</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_ids"
+                   eval="[(5, 0, 0), (0, 0, {'view_mode': 'form', 'view_id': ref('update_price_job_costing_view_form_1')})]"/>
+            <field name="target">new</field>
+        </record>
+
+        <record id="update_price_job_costing_view_form_base_jq" model="ir.ui.view">
+            <field name="name">update.price.job.costing.form</field>
+            <field name="model">update.price.job.costing</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="job_costing_id"/>
+                                <field name="job_quotaion_id"/>
+                                <field name="type"/>
+                            </group>
+                        </group>
+                        <separator string="Báo giá" attrs="{'invisible':[('type','=','project')]}"/>
+                        <field name="job_costing_ids" attrs="{'invisible':[('type','=','project')]}"/>
+                        <separator string="Dự án" attrs="{'invisible':[('type','!=','project')]}"/>
+                        <field name="project_ids" attrs="{'invisible':[('type','!=','project')]}"/>
+                    </sheet>
+                    <footer>
+                        <button name="action_update_job_costing_base_jq" type="object" string="Chấp nhận" class="oe_highlight"/>
+                        <button string="Huỷ" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="update_price_job_costing_action_base_jq" model="ir.actions.act_window">
+            <field name="name">Cập nhật giá sản phẩm cho báo giá</field>
+            <field name="res_model">update.price.job.costing</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_ids"
+                   eval="[(5, 0, 0), (0, 0, {'view_mode': 'form', 'view_id': ref('update_price_job_costing_view_form_base_jq')})]"/>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

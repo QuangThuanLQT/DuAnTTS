@@ -1,0 +1,27 @@
+<odoo>
+    <data>
+        <record id="product_template_only_form_view" model="ir.ui.view">
+            <field name="name">product.template.stock.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <field name="barcode" position="after">
+                    <field name="hs_code"/>
+                    <field name="group_id"/>
+                    <field name="brand_name_select"/>
+                    <field name="source_select"/>
+                    <field name="purchase_code"/>
+                </field>
+
+                <field name="list_price" position="after">
+                    <field name="cost_root"/>
+                    <field name="purchase_method"/>
+<!--                    <label for="purchase_method" />-->
+<!--                                <div>-->
+<!--                                    <field name="purchase_method" class="oe_inline"/>-->
+<!--                                </div>-->
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

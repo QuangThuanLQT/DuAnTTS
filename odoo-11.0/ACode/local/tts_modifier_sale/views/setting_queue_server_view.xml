@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="setting_queue_server_tree_view" model="ir.ui.view">
+            <field name="name">setting.queue.server.list</field>
+            <field name="model">setting.queue.server</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="queue_server"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="setting_queue_server_form_view" model="ir.ui.view">
+            <field name="name">setting.queue.server.form</field>
+            <field name="model">setting.queue.server</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="check_connect" string="Test connect" class="oe_highlight" type="object"/>
+                    </header>
+                    <group>
+                        <group>
+                            <field name="queue_server"/>
+                            <field name="active" readonly="1"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="setting_queue_server_action" model="ir.actions.act_window">
+            <field name="name">Setting Queue Action</field>
+            <field name="res_model">setting.queue.server</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="setting_queue_server_menu"
+            parent="sales_team.menu_sale_config" name="Queue Server Setting"
+                  action="setting_queue_server_action" sequence="20"/>
+    </data>
+</odoo>

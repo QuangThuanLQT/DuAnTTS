@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="account.menu_action_account_bank_journal_form" model="ir.ui.menu">
+            <field name="active" eval="False"/>
+        </record>
+        <menuitem id="account_bank_menu_parent" parent="account.menu_finance_configuration" sequence="3" name="Ngân hàng"/>
+        <menuitem action="base.action_res_partner_bank_account_form" id="menu_res_partner_bank_account" parent="account_bank_menu_parent" name="Tài khoản ngân hàng" sequence="2"/>
+
+         <record id="action_res_partner_bank" model="ir.actions.act_window">
+            <field name="name">Ngân hàng</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+             <field name="domain">[('bank','=',True)]</field>
+            <field name="context">{"partner_type":'bank'}</field>
+            <field name="search_view_id" ref="base.view_res_partner_filter"/>
+         </record>
+        <menuitem action="action_res_partner_bank" id="menu_bank_account" parent="account_bank_menu_parent" name="Ngân hàng" sequence="1"/>
+    </data>
+</odoo>

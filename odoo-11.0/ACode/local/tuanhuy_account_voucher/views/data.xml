@@ -1,0 +1,17 @@
+<odoo>
+    <data>
+        <record id="seq_account_thu" model="ir.sequence">
+            <field name="name">seq_account_thu</field>
+            <field name="code">seq_account_thu</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <!--Format Number Customer Invoice-->
+        <record id="seq_account_chi" model="ir.sequence">
+            <field name="name">seq_account_chi</field>
+            <field name="code">seq_account_chi</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

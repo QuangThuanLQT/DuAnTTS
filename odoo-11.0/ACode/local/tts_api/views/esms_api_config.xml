@@ -1,0 +1,51 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="esms_api_config_from">
+            <field name="name">esms.api.config.from</field>
+            <field name="model">esms.api.config</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="api_key"/>
+                            <field name="secret_key"/>
+                            <field name="brand_name"/>
+                            <field name="sms_type"/>
+                        </group>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="esms_api_config_tree">
+            <field name="name">esms.api.config.tree</field>
+            <field name="model">esms.api.config</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="api_key"/>
+                    <field name="secret_key"/>
+                    <field name="brand_name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- actions opening views on models -->
+
+        <record model="ir.actions.act_window" id="esms_api_config_action">
+            <field name="name">API Config</field>
+            <field name="res_model">esms.api.config</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!-- Top menu item -->
+
+        <menuitem name="Esms API Config" id="ems_api_menu_root" parent="stock.menu_stock_config_settings"
+                  sequence="50"/>
+        <menuitem name="Api Config" id="ems_api_confi_menu" parent="ems_api_menu_root"
+                  action="esms_api_config_action"/>
+        -->
+    </data>
+</odoo>

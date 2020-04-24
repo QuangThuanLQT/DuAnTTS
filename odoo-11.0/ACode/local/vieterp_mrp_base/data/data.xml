@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!-- MO States -->
+        <record id="vieterp_manufacture_order_state_cnc" model="manufacture.order.state">
+            <field name="name">CNC</field>
+            <field name="code">cnc</field>
+        </record>
+
+        <record id="vieterp_manufacture_order_state_han" model="manufacture.order.state">
+            <field name="name">Hàn</field>
+            <field name="code">han</field>
+        </record>
+
+        <record id="vieterp_manufacture_order_state_son" model="manufacture.order.state">
+            <field name="name">Sơn</field>
+            <field name="code">son</field>
+        </record>
+
+        <record id="vieterp_manufacture_order_state_dien" model="manufacture.order.state">
+            <field name="name">Điện</field>
+            <field name="code">dien</field>
+        </record>
+
+        <!-- WO States -->
+        <record id="vieterp_work_order_state_draft" model="work.order.state">
+            <field name="name">Bản thảo</field>
+            <field name="code">draft</field>
+        </record>
+
+        <record id="vieterp_work_order_state_pause" model="work.order.state">
+            <field name="name">Đang chờ</field>
+            <field name="code">pending</field>
+        </record>
+
+        <record id="vieterp_work_order_state_ready" model="work.order.state">
+            <field name="name">Sẵn sàng</field>
+            <field name="code">ready</field>
+        </record>
+
+        <record id="vieterp_work_order_state_progress" model="work.order.state">
+            <field name="name">Trong tiến trình</field>
+            <field name="code">progress</field>
+        </record>
+
+        <record id="vieterp_work_order_state_cancel" model="work.order.state">
+            <field name="name">Cancelled</field>
+            <field name="code">cancel</field>
+        </record>
+
+        <record id="vieterp_work_order_state_confirmed" model="work.order.state">
+            <field name="name">Waiting Material</field>
+            <field name="code">confirmed</field>
+        </record>
+
+        <record id="vieterp_work_order_state_waiting_director" model="work.order.state">
+            <field name="name">Đang đợi Giám đốc</field>
+            <field name="code">waiting_director</field>
+        </record>
+
+        <record id="vieterp_work_order_state_waiting_done" model="work.order.state">
+            <field name="name">Hoàn thành</field>
+            <field name="code">done</field>
+        </record>
+    </data>
+</odoo>

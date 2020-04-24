@@ -1,0 +1,213 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="account_beginning_balance_tree">
+            <field name="name">account.beginning.balance.tree</field>
+            <field name="model">account.beginning.balance</field>
+            <field name="arch" type="xml">
+                <tree string="" >
+                    <field name="name"/>
+                    <field name="date"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Số dư tài khoản form action -->
+        <record model="ir.ui.view" id="account_beginning_balance_form">
+            <field name="name">account.beginning.balance.form</field>
+            <field name="model">account.beginning.balance</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_import" states="draft" string="Xác nhận nhập" type="object"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="move_id" readonly="1" attrs="{'invisible':[('move_id','=',False)]}" string="Bút toán"/>
+                        </group>
+                    </group>
+                    <field name="import_data" attrs="{'invisible':[('move_id','!=',False)]}"/>
+                    <button name="import_data_excel" type="object" string="Import" attrs="{'invisible':[('move_id','!=',False)]}"/>
+                    <field name="line_ids">
+                        <tree editable="bottom">
+                            <field name="tai_khoan"/>
+                            <field name="so_du_no" string="Dư Nợ"/>
+                            <field name="so_du_co" string="Dư Có"/>
+                        </tree>
+                    </field>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="account_beginning_balance_action">
+            <field name="name">Số dư tài khoản</field>
+            <field name="res_model">account.beginning.balance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'default_type' : 'all'}</field>
+            <field name="domain">[('type', '=', 'all')]</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('account_beginning_balance_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('account_beginning_balance_form')})]"/>
+        </record>
+
+        <!-- Số dư công nợ khách hàng form action -->
+        <record model="ir.ui.view" id="account_beginning_balance_cus_form">
+            <field name="name">account.beginning.balance.cus.form</field>
+            <field name="model">account.beginning.balance</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_import" states="draft" string="Xác nhận nhập" type="object"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="move_id" readonly="1" attrs="{'invisible':[('move_id','=',False)]}" string="Bút toán"/>
+                        </group>
+                    </group>
+                    <field name="import_data" attrs="{'invisible':[('move_id','!=',False)]}"/>
+                    <button name="import_data_excel" type="object" string="Import" attrs="{'invisible':[('move_id','!=',False)]}"/>
+                    <field name="line_ids">
+                        <tree editable="bottom">
+                            <field name="tai_khoan"/>
+                            <field name="partner_id" string="Khách hàng" domain="[('customer', '=',True)]"/>
+                            <field name="so_du_no" string="Dư Nợ"/>
+                            <field name="so_du_co" string="Dư Có"/>
+                        </tree>
+                    </field>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="account_beginning_balance_cus_action">
+            <field name="name">Số dư công nợ khách hàng</field>
+            <field name="res_model">account.beginning.balance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'default_type' : 'cus'}</field>
+            <field name="domain">[('type', '=', 'cus')]</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('account_beginning_balance_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('account_beginning_balance_cus_form')})]"/>
+        </record>
+
+        <!-- Số dư công nợ nhà cung cấp form action -->
+        <record model="ir.ui.view" id="account_beginning_balance_ven_form">
+            <field name="name">account.beginning.balance.ven.form</field>
+            <field name="model">account.beginning.balance</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_import" states="draft" string="Xác nhận nhập" type="object"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="move_id" readonly="1" attrs="{'invisible':[('move_id','=',False)]}" string="Bút toán"/>
+                        </group>
+                    </group>
+                    <field name="import_data" attrs="{'invisible':[('move_id','!=',False)]}"/>
+                    <button name="import_data_excel" type="object" string="Import" attrs="{'invisible':[('move_id','!=',False)]}"/>
+                    <field name="line_ids">
+                        <tree editable="bottom">
+                            <field name="tai_khoan"/>
+                            <field name="partner_id" string="Nhà cung cấp" domain="[('supplier', '=',True)]"/>
+                            <field name="so_du_no" string="Dư Nợ"/>
+                            <field name="so_du_co" string="Dư Có"/>
+                        </tree>
+                    </field>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="account_beginning_balance_ven_action">
+            <field name="name">Số dư công nợ nhà cung cấp</field>
+            <field name="res_model">account.beginning.balance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'default_type' : 'ven'}</field>
+            <field name="domain">[('type', '=', 'ven')]</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('account_beginning_balance_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('account_beginning_balance_ven_form')})]"/>
+        </record>
+
+        <!-- Số dư công nợ nhân viên form action -->
+        <record model="ir.ui.view" id="account_beginning_balance_empl_form">
+            <field name="name">account.beginning.balance.empl.form</field>
+            <field name="model">account.beginning.balance</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_import" states="draft" string="Xác nhận nhập" type="object"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="move_id" readonly="1" attrs="{'invisible':[('move_id','=',False)]}" string="Bút toán"/>
+                        </group>
+                    </group>
+                    <field name="import_data" attrs="{'invisible':[('move_id','!=',False)]}"/>
+                    <button name="import_data_excel" type="object" string="Import" attrs="{'invisible':[('move_id','!=',False)]}"/>
+                    <field name="line_ids">
+                        <tree editable="bottom">
+                            <field name="tai_khoan"/>
+                            <field name="partner_id" string="Nhân viên"/>
+                            <field name="so_du_no" string="Dư Nợ"/>
+                            <field name="so_du_co" string="Dư Có"/>
+                        </tree>
+                    </field>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="account_beginning_balance_empl_action">
+            <field name="name">Số dư công nợ nhân viên</field>
+            <field name="res_model">account.beginning.balance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'default_type' : 'empl'}</field>
+            <field name="domain">[('type', '=', 'empl')]</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('account_beginning_balance_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('account_beginning_balance_empl_form')})]"/>
+        </record>
+
+
+        <menuitem id="account_beginning_balance_parent_menu" name="Nhập số dư ban đầu"
+                  parent="account.menu_finance_configuration" sequence="11"/>
+
+        <menuitem id="account_beginning_balance_menu" name="Số dư tài khoản"
+                  parent="account_beginning_balance_parent_menu" action="account_beginning_balance_action" sequence="1"/>
+
+        <menuitem id="account_beginning_balance_cus_menu" name="Số dư công nợ khách hàng"
+                  parent="account_beginning_balance_parent_menu" action="account_beginning_balance_cus_action" sequence="2"/>
+
+        <menuitem id="account_beginning_balance_ven_menu" name="Số dư công nợ nhà cung cấp"
+                  parent="account_beginning_balance_parent_menu" action="account_beginning_balance_ven_action" sequence="3"/>
+
+        <menuitem id="account_beginning_balance_empl_menu" name="Số dư công nợ nhân viên"
+                  parent="account_beginning_balance_parent_menu" action="account_beginning_balance_empl_action" sequence="4"/>
+
+        <record id="tuanhuy_import_sale_purchase.import_cong_no_menu_parent" model="ir.ui.menu">
+            <field name="active">0</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-extend="ControlPanel">
+        <t t-jquery="div.o_control_panel" t-operation="replace">
+            <div class="o_control_panel">
+                <ol class="breadcrumb"/>
+                <div class="o_cp_searchview"/>
+                <div class="o_cp_left">
+                    <div class="o_cp_buttons"/>
+                    <div class="o_cp_sidebar"/>
+                </div>
+                <div class="o_cp_right">
+                    <div class="btn-group o_search_options"/>
+                    <div class="o_cp_pager"/>
+                    <div class="btn-group btn-group-sm o_cp_switch_buttons"/>
+                </div>
+                <div class="cl_search_by_range hidden">
+                </div>
+                <div class="cl_show_credit_debit hidden" style="margin-left:40%;margin-top:2px">
+                </div>
+            </div>
+        </t>
+    </t>
+
+    <t t-name="SkyERP.buttons">
+        <div class="sky-search btn-group btn-group-sm" >
+            <div style="margin-left: 0px; margin-top: 2px; padding-right: 10px;">
+                <span style="float: left;">
+                    <select class="sky_select_field form-control" style="height: 30px;" >
+                        <option t-foreach="sky_fields" t-as="field" t-att-value="field[0]">
+                            <t t-esc="field[1]"/>
+                        </option> 
+                    </select>
+                </span>
+
+                <span style="float: left; margin-left: 2px;">
+                    <input style="height: 30px;" class="sky_start_date form-control" size="10" placeholder="Start date" type="text" />
+                </span>
+
+                <span style="float: left; margin-left: 2px;">
+                    <input style="height: 30px;" class="sky_end_date form-control" size="10" placeholder="End date" type="text" />
+                </span>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="SkyERP.SearchCustomer">
+        <div class="sky-search btn-group btn-group-sm" >
+            <div style="margin-left: 0px; margin-top: 2px; padding-right: 10px;">
+                <span style="float: left;">
+                    <select class="sky_select_customer_field form-control" style="height: 30px;" >
+                        <option t-foreach="sky_fields" t-as="field" t-att-value="field[0]">
+                            <t t-esc="field[1]"/>
+                        </option>
+                    </select>
+                </span>
+                <span style="float: left; margin-left: 2px;">
+                    <input id="input_customer_name" style="height: 30px;" class="sky_customer_name form-control" size="10" placeholder="" type="text" />
+                </span>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="SkyERP.SearchNumberVourcher">
+        <div class="sky-search btn-group btn-group-sm">
+            <div style="margin-left: 0px; margin-top: 2px; padding-right: 10px;">
+                <span style="float: left;">
+                    <select class="sky_select_number_vourcher form-control" style="height: 30px;" >
+                        <option t-foreach="sky_fields" t-as="field" t-att-value="field[0]">
+                            <t t-esc="field[1]"/>
+                        </option>
+                    </select>
+                </span>
+                <span style="float: left; margin-left: 2px;">
+                    <input style="height: 30px;" class="sky_number_vourcher form-control" size="10" placeholder="" type="text" />
+                </span>
+            </div>
+        </div>
+    </t>
+
+
+    <!--<t t-name="SkyERP.BeforeDebitNumber">-->
+        <!--<div class="sky-search btn-group btn-group-sm" >-->
+            <!--<div style="margin-left: 0px; margin-top: 2px; padding-right: 10px;">-->
+                <!--<span style="float: left;padding-top:6px">Nợ đầu-->
+                <!--</span>-->
+                <!--<span style="float: left; margin-left: 2px;">-->
+                    <!--<input style="height: 30px;width: 100px" class="sky_debit_number form-control" size="10" placeholder="0" type="text" readonly="1"/>-->
+                <!--</span>-->
+                <!--<span style="float: left;padding-top:6px">Có đầu-->
+                <!--</span>-->
+                <!--<span style="float: left; margin-left: 2px;">-->
+                    <!--<input style="height: 30px;width: 100px" class="sky_credit_number form-control" size="10" placeholder="0" type="text" readonly="1"/>-->
+                <!--</span>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</t>-->
+
+    <t t-name="SkyERP.SearchOrigin">
+        <div class="sky-search btn-group btn-group-sm" >
+            <div style="margin-left: 0px; margin-top: 2px; padding-right: 10px;">
+                <span style="float: left;">
+                    <select class="sky_select_origin_field form-control" style="height: 30px;" >
+                        <option t-foreach="sky_fields" t-as="field" t-att-value="field[0]">
+                            <t t-esc="field[1]"/>
+                        </option>
+                    </select>
+                </span>
+                <span style="float: left; margin-left: 2px;">
+                    <input style="height: 30px;" class="sky_origin_text form-control" size="10" placeholder="" type="text" />
+                </span>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="SkyERP.SearchRange">
+        <div class="sky-search btn-group btn-group-sm" >
+            <div style="margin-left: 0px; margin-top: 2px; padding-right: 10px;">
+                <span style="float: left;">
+                    <select class="sky_select_range_field form-control" style="height: 30px;" >
+                        <option t-foreach="sky_fields" t-as="field" t-att-value="field[0]">
+                            <t t-esc="field[1]"/>
+                        </option> 
+                    </select>
+                </span>
+                <span style="float: left; margin-left: 2px;">
+                    <input style="height: 30px;" class="sky_start_range form-control" size="10" placeholder="From" type="text" />
+                </span>
+                <span style="float: left; margin-left: 2px;">
+                    <input style="height: 30px;" class="sky_end_range form-control" size="10" placeholder="To" type="text" />
+                </span>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="SkyERP.ClearAll">
+        <div class="sky-search btn-group btn-group-sm" >
+            <div style="margin-left: 0px; margin-top: 2px; padding-right: 10px;">
+                <span style="float: left; margin-left: 5px;">
+                    <input class="button_clear_all" style="height: 30px;border-radius: 4px" type="button" size="10" value="ALL" onclick="$('.sky_number_vourcher').val('');$('.sky_origin_text').val('');$('.sky_customer_name').val('');$('.sky_start_range').val('');$('.sky_end_range').val('');$('.sky_end_date').val('');$('.sky_start_date').val('');" />
+                </span>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="SkyERP.after_control_panel">
+        <div class="after_control_panel" />
+    </t>
+
+    <t t-name="SkyERP.selection">
+        <div class=" btn-group btn-group-sm" >
+            <div style="text-align: left">
+                <strong><span t-esc="string"/></strong>
+                <div style="margin-left: 0px; margin-top: 0px;">
+                    <select t-att-class="class_name" style="height: 30px;" >
+                        <option value="0">All</option>
+                        <option t-foreach="fields" t-as="field" t-att-value="field.id">
+                            <t t-esc="field.display_name"/>
+                        </option> 
+                    </select>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="TGL.TreeSearch.Placeholder">
+        <div class="treesearch_placeholder" />
+    </t>
+
+    <t t-name="TGL.TreeSearch.Item">
+        <div class="btn-group btn-group-sm tree_search_item" style="padding-right: 2px;">
+            <button class="btn btn-primary dropdown-toggle form-control" data-toggle="dropdown">
+               <t t-esc="widget.string" /> <span class="caret"></span>
+            </button>
+            <ul t-att-class="widget.class_name+' dropdown-menu'" style="max-height: 450px; overflow-y: auto;">
+                <li data-field="-1" class="tgl_first_item selected" ><a>All</a></li>
+                <li t-foreach="widget.fields" t-as="value" t-att-data-field="value.id" t-att-data-key="widget.key">
+                    <a><t t-esc="value.display_name"/></a>
+                </li>
+            </ul>
+        </div>
+    </t>
+</templates>

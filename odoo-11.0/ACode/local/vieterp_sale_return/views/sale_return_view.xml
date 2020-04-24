@@ -1,0 +1,129 @@
+<odoo>
+    <data>
+        <record id="order_return_action" model="ir.actions.act_window">
+            <field name="name">Order Return</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('sale_order_return','=',True)]</field>
+            <field name="context">{'default_sale_order_return':True}</field>
+        </record>
+        <record id="sale.action_orders" model="ir.actions.act_window">
+            <field name="domain">[('state', 'not in', ('draft', 'sent', 'cancel')),('sale_order_return','=',False)]
+            </field>
+        </record>
+
+        <record id="sale.action_quotations" model="ir.actions.act_window">
+            <field name="domain">[('sale_order_return','=',False)]</field>
+        </record>
+
+        <record id="view_order_form_ihr" model="ir.ui.view">
+            <field name="name">sale.order.form.ihr</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="replace">
+                    <field name="partner_id"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="sale_order_return" invisible="1"/>
+                    <field name="sale_order" domain="[('partner_id', '=', partner_id)]"
+                           options="{'no_create_edit': True}" widget="selection"
+                           attrs="{'invisible':[('sale_order_return','=',False)]}"/>
+                    <field name="receive_method" attrs="{'invisible':[('sale_order_return','=',False)]}"/>
+                    <field name="location_return" attrs="{'invisible':[('sale_order_return','=',False)]}"/>
+                    <field name="note" string="Diễn giải" placeholder="Diễn giải"/>
+                </xpath>
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="create_uid"/>
+                    <field name="validate_by"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="after">
+                    <field name="sale_order_return" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="attributes">
+                    <attribute name="invisible">context.get('default_sale_order_return', False)</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='qty_delivered']" position="attributes">
+                    <attribute name="invisible">context.get('default_sale_order_return', False)</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='qty_invoiced']" position="attributes">
+                    <attribute name="invisible">context.get('default_sale_order_return', False)</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='tax_id']" position="attributes">
+                    <attribute name="invisible">context.get('default_sale_order_return', False)</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_draft']" position="attributes">
+                    <attribute name="invisible">context.get('default_sale_order_return', False)</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_confirm'][2]" position="attributes">
+                    <attribute name="invisible">context.get('default_sale_order_return', False)</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_cancel'][1]" position="attributes">
+                    <attribute name="invisible">context.get('default_sale_order_return', False)</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_cancel']" position="attributes">
+                    <attribute name="invisible">context.get('default_sale_order_return', False)</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_quotation_send']" position="attributes">
+                    <attribute name="invisible">context.get('default_sale_order_return', False)</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_quotation_send'][2]" position="attributes">
+                    <attribute name="invisible">context.get('default_sale_order_return', False)</attribute>
+                </xpath>
+                <xpath expr="//button[@name='print_quotation']" position="attributes">
+                    <attribute name="invisible">context.get('default_sale_order_return', False)</attribute>
+                </xpath>
+                <xpath expr="//button[@name='print_quotation'][2]" position="attributes">
+                    <attribute name="invisible">context.get('default_sale_order_return', False)</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_done']" position="attributes">
+                    <attribute name="invisible">context.get('default_sale_order_return', False)</attribute>
+                </xpath>
+                <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d']" position="attributes">
+                    <attribute name="invisible">context.get('default_sale_order_return', False)</attribute>
+                </xpath>
+                <xpath expr="//field[@name='state']" position="attributes">
+                    <attribute name="invisible">context.get('default_sale_order_return', False)</attribute>
+                </xpath>
+                <xpath expr="//header" position="inside">
+                    <button name="action_confirm_return" string="Confirm Sale Return"
+                            class="btn-default o_sale_confirm_return" type="object"
+                            attrs="{'invisible':['|',('sale_order_return', '=', False),('state', '!=', 'draft')]}"/>
+                    <field name="sale_return_state" widget="statusbar"
+                           attrs="{'invisible':[('sale_order_return', '=', False)]}"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_order_tree_ihr" model="ir.ui.view">
+            <field name="name">sale.order.tree.ihr</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="sale_order_return" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="string">Reference Return</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_order']" position="attributes">
+                    <attribute name="string">Create Date</attribute>
+                </xpath>
+                <xpath expr="//field[@name='invoice_status']" position="attributes">
+                    <attribute name="invisible">context.get('default_sale_order_return', False)</attribute>
+                </xpath>
+                <xpath expr="//field[@name='amount_total']" position="after">
+                    <field name="sale_return_state" string="Status"/>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="sale_order" string="Sale Order"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <menuitem name="Order Return" id="order_return_menu_parent" parent="sales_team.menu_base_partner" sequence="5"/>
+        <menuitem name="Order Return" id="order_return_menu" parent="order_return_menu_parent"
+                  action="order_return_action"/>
+    </data>
+</odoo>

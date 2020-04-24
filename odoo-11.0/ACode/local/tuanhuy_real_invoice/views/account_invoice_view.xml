@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="invoice_supplier_form_add_real_tab" model="ir.ui.view">
+            <field name="name">account.invoice.form.inherited</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/notebook" position="inside">
+                    <page string="Hoá Đơn Thực" name="real_invoice_page">
+                        <field name="real_invoice_ids" >
+                            <tree editable="bottom">
+                                <field name="invoice_date_real"/>
+                                <field name="invoice_number_real"/>
+                                <field name="invoice_total_real"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="invoice_form_add_real_tab" model="ir.ui.view">
+            <field name="name">account.invoice.form.inherited</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/notebook" position="inside">
+                    <page string="Hoá Đơn Thực" name="real_invoice_page">
+                        <field name="real_invoice_ids" >
+                            <tree editable="bottom">
+                                <field name="invoice_date_real"/>
+                                <field name="invoice_number_real"/>
+                                <field name="invoice_total_real"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

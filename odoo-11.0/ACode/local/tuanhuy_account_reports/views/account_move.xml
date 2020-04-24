@@ -1,0 +1,837 @@
+<odoo>
+    <data>
+
+        <record id="view_move_line_form_inherit" model="ir.ui.view">
+            <field name="name">account.move.line.form</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="account.view_move_line_form"/>
+            <field name="arch" type="xml">
+                <field name="ref" position="attributes">
+                    <attribute name="attrs">{'invisible':['|','|','|','|',('ref_purchase_order','!=',False),('ref_account_voucher','!=',False)
+                        ,('ref_account_payment_unc','!=',False),('ref_sale_order','!=',False),('ref_account_payment_gbn','!=',False)]}</attribute>
+                </field>
+                <field name="ref" position="after">
+                    <field name="ref_purchase_order" attrs="{'invisible':[('ref_purchase_order','=',False)]}"/>
+                    <field name="ref_account_voucher" attrs="{'invisible':[('ref_account_voucher','=',False)]}"/>
+                    <field name="ref_account_payment_unc" attrs="{'invisible':[('ref_account_payment_unc','=',False)]}"/>
+                    <field name="ref_sale_order" attrs="{'invisible':[('ref_sale_order','=',False)]}"/>
+                    <field name="ref_account_payment_gbn" attrs="{'invisible':[('ref_account_payment_gbn','=',False)]}"/>
+                </field>
+            </field>
+        </record>
+
+        <template id="assets_backend" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/tuanhuy_account_reports/static/src/js/search_by_range.js"></script>
+            </xpath>
+        </template>
+        <menuitem id="account_detail_report_menu" name="Báo Cáo Chi Tiết Tài Khoản"
+                  parent="account.menu_finance_reports" sequence="5"/>
+
+        <record id="account_detail_report_view" model="ir.ui.view">
+            <field name="name">Báo Cáo Chi Tiết Tài Khoản</field>
+            <field name="model">account.move.detail</field>
+            <field name="arch" type="xml">
+                <form>
+                    <label string=""/>
+                    <group>
+                        <group>
+                            <field name="account_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="start_date" string="Từ Ngày"/>
+                            <field name="end_date" string="Đến Ngày"/>
+                            <field name="partner_id"/>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="no_before"/>
+                            </group>
+                            <group>
+                                <field name="co_before"/>
+                            </group>
+                        </group>
+                        <button name="return_acction_report" string="Xem" type="object" default_focus="1"
+                                class="oe_highlight" width="20px"/>
+                        <br/>
+                        <field name="account_move_line_ids" nolabel="1">
+                            <tree options="{'no_create': True}">
+                                <field name="date"/>
+                                <field name="ref"/>
+                                <field name="name"/>
+                                <field name="partner_id"/>
+                                <field name="account_id" options="{'no_open':True}"
+                                       domain="[('company_id', '=', company_id)]"/>
+                                <field name="account_doiung"/>
+                                <field name="debit" sum="Tổng Nợ"/>
+                                <field name="credit" sum="Tổng số báo có"/>
+                                <field name="debit_amount_residual" sum="Total debit amount_residual"
+                                       string="Nợ còn lại"/>
+                                <field name="credit_amount_residual" sum="Total credit amount_residual"
+                                       string="Có còn lại"/>
+                                <field name="amount_residual" sum="Total amount_residual" on_change="1"
+                                       modifiers="{'readonly': true}"/>
+                            </tree>
+                        </field>
+
+                        <!--<group>-->
+                        <!--<field name="start_date" string="Start Date"/>-->
+                        <!--<field name="end_date" string="End Date"/>-->
+                        <!--</group>-->
+                    </group>
+                    <footer>
+                        <!--<button name="print_report" string="Print" type="object" default_focus="1"-->
+                        <!--class="oe_highlight"/>-->
+                        <!--or-->
+                        <button string="Huỷ" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record id='account_detail_report_action' model='ir.actions.act_window'>
+            <field name="name">Báo Cáo Chi Tiết Tài Khoản</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.move.detail</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <!--<menuitem id="account_detail_report" name="Báo Cáo Chi Tiết Tài Khoản"-->
+                  <!--parent="account_detail_report_menu" action="account_detail_report_action" sequence="1"/>-->
+
+        <record id="account_move_report_tree_view" model="ir.ui.view">
+            <field name="name">account.move.line.tree</field>
+            <field name="model">account.move.line</field>
+            <field name="arch" type="xml">
+                <tree default_order="date asc, ref asc">
+                    <field name="date" string="Ngày hạch toán"/>
+                    <field name="date" string="Ngày chứng từ"/>
+                    <field name="ref" string="Số chứng từ"/>
+                    <field name="partner_id" string="Đối tác"/>
+                    <field name="name" invisible="1"/>
+                    <field name="name_sub" string="Diễn giải"/>
+                    <field name="account_sub_code"/>
+                    <field name="account_doiung"/>
+                    <field name="debit"/>
+                    <field name="credit"/>
+                    <field name="so_du_no"/>
+                    <field name="so_du_co"/>
+                    <field name="record_checked" string="Done"/>
+                    <button name="change_record_checked" type="object" string="D"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_account_move_line_filter_report_inherit" model="ir.ui.view">
+            <field name="name">account.move.line.tree.report</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="account.view_account_move_line_filter"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                        <field name="product_id" string="Sản phẩm"/>
+                </field>
+            </field>
+        </record>
+
+
+        <record id="view_filter_report_111_112" model="ir.ui.view">
+            <field name="name">account.move.line.filter.report</field>
+            <field name="model">account.move.line</field>
+            <field name="arch" type="xml">
+                <search string="Search Journal Items">
+                    <field name="name" filter_domain="['|', ('name','ilike',self), ('ref','ilike',self)]" string="Tham chiếu"/>
+                    <field name="ref" string="Số chứng từ" filter_domain="[('ref','=',self)]"/>
+                    <field name="name_sub" string="Diễn giải" filter_domain="[('name','ilike',self)]"/>
+                    <!--<field name="product_id" string="Sản phẩm"/>-->
+                    <field name="date"/>
+                    <field name="tax_line_id"/>
+                    <field name="tax_ids" />
+                    <separator/>
+                    <filter string="Chưa vào sổ" domain="[('move_id.state','=','draft')]" help="Unposted Journal Items"/>
+                    <filter name="posted" string="Đã vào sổ" domain="[('move_id.state','=','posted')]" help="Posted Journal Items"/>
+                    <separator/>
+                    <filter string="Chưa được đối soát" domain="[('full_reconcile_id', '=', False), ('balance','!=', 0), ('account_id.reconcile','=',True)]" help="Journal items where matching number isn't set" name="unreconciled"/>
+                    <separator/>
+                    <filter string="Phải trả" domain="[('account_id.internal_type', '=', 'payable')]" help="From Payable accounts" name="payable"/>
+                    <filter string="Phải thu" domain="[('account_id.internal_type', '=', 'receivable')]" help="From Receivable accounts" name="receivable"/>
+                    <separator/>
+                    <field name="move_id" string="Number (Move)"/>
+                    <field name="account_id"/>
+                    <field name="partner_id"/>
+                    <field name="journal_id"/>
+                    <field name="account_doiung"/>
+                </search>
+            </field>
+        </record>
+
+        <!--Account 111-->
+        <record id='account_move_cash_report_action' model='ir.actions.act_window'>
+            <field name="name">Báo Cáo Tài Khoản 111</field>
+            <field name="res_model">account.move.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('account_id.code', '=','1111')]</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('account_move_report_tree_view')})]"/>
+            <field name="search_view_id" ref="view_filter_report_111_112"/>
+        </record>
+
+        <menuitem id="account_move_cash_report" name="Báo Cáo Tài Khoản 111"
+                  parent="account_detail_report_menu" action="account_move_cash_report_action" sequence="10"/>
+
+
+        <!--Account 112-->
+
+        <record id="account_move_report_tree_view_112" model="ir.ui.view">
+            <field name="name">account.move.line.tree</field>
+            <field name="model">account.move.line</field>
+            <field name="arch" type="xml">
+                <tree default_order="date asc, id asc">
+                    <field name="date" string="Ngày hạch toán"/>
+                    <field name="date" string="Ngày chứng từ"/>
+                    <field name="ref" string="Số chứng từ"/>
+                    <field name="partner_id" string="Đối tác"/>
+                    <field name="name" invisible="1"/>
+                    <field name="name_sub" string="Diễn giải"/>
+                    <field name="account_sub_code"/>
+                    <field name="account_doiung"/>
+                    <field name="debit"/>
+                    <field name="credit"/>
+                    <field name="account_doi_ung_1121" invisible="1"/>
+                    <!--<field name="luy_ke_112"/>-->
+                    <field name="so_du_no"/>
+                    <field name="so_du_co"/>
+                    <field name="record_checked" string="Done"/>
+                    <button name="change_record_checked" type="object" string="D"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--<record id='account_move_112_report_action' model='ir.actions.act_window'>-->
+            <!--<field name="name">Báo Cáo Tài Khoản 112</field>-->
+            <!--<field name="res_model">account.move.line</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">tree,form</field>-->
+            <!--&lt;!&ndash;<field name="context">{'bao_cao_1121':True}</field>&ndash;&gt;-->
+            <!--<field name="domain">[('account_doi_ung_1121', '=',True)]</field>-->
+            <!--<field name="view_ids" eval="[(5, 0, 0),-->
+                <!--(0, 0, {'view_mode': 'tree', 'view_id': ref('account_move_report_tree_view_112')})]"/>-->
+            <!--<field name="search_view_id" ref="view_filter_report_111_112"/>-->
+        <!--</record>-->
+
+        <!--<menuitem id="account_move_112_report" name="Báo Cáo Tài Khoản 112"-->
+                  <!--parent="account_detail_report_menu" action="account_move_112_report_action" sequence="11"/>-->
+
+        <record id='account_move_112_report_action' model='ir.actions.act_window'>
+            <field name="name">Báo Cáo Tài Khoản 112</field>
+            <field name="res_model">account.move.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('account_id.code', '=like','112%')]</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('account_move_report_tree_view_112')})]"/>
+            <field name="search_view_id" ref="view_filter_report_111_112"/>
+        </record>
+
+        <menuitem id="account_move_112_report" name="Báo Cáo Tài Khoản 112"
+                  parent="account_detail_report_menu" action="account_move_112_report_action" sequence="11"/>
+
+        <!--Account 131-->
+        <record id="account_move_131_tree_view" model="ir.ui.view">
+            <field name="name">account.move.line.tree</field>
+            <field name="model">account.move.line</field>
+            <field name="arch" type="xml">
+                <tree default_order="date asc,id asc" colors="blue:voucher_type == 'sale';red:voucher_type == 'purchase'">
+                    <field name="date"/>
+                    <field name="ref"/>
+                    <field name="name" invisible="1"/>
+                    <field name="name_sub"/>
+                    <field name="partner_id"/>
+                    <field name="account_sub_code"/>
+                    <field name="quantity"/>
+                    <field name="debit"/>
+                    <field name="credit"/>
+                    <field name="so_du_no"/>
+                    <field name="so_du_co"/>
+                    <field name="voucher_type" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id='account_move_131_report_action' model='ir.actions.act_window'>
+            <field name="name">Báo Cáo Tài Khoản 131</field>
+            <field name="res_model">account.move.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('account_move_131_tree_view')})]"/>
+            <field name="domain">[('account_id.code', '=','131')]</field>
+        </record>
+
+        <menuitem id="account_move_131_report" name="Báo Cáo Tài Khoản 131"
+                  parent="account_detail_report_menu" action="account_move_131_report_action" sequence="30"/>
+
+        <record id="cong_no_phaithu_view_form" model="ir.ui.view">
+            <field name="name">cong.no.phaithu.form</field>
+            <field name="model">cong.no.phaithu</field>
+            <field name="arch" type="xml">
+                <form string="Bao Cao Cong No">
+                    <group>
+                        <group>
+                            <field name="account_du"/>
+                            <field name="account_id"/>
+                            <field name="ref" attrs="{'invisible':['|','|',('ref_sale_order','!=',False),('ref_account_voucher','!=',False),('ref_account_payment_gbn','!=',False)]}"/>
+                            <field name="ref_sale_order" attrs="{'invisible':[('ref_sale_order','=',False)]}"/>
+                            <field name="ref_account_voucher" attrs="{'invisible':[('ref_account_voucher','=',False)]}"/>
+                            <field name="ref_account_payment_gbn" attrs="{'invisible':[('ref_account_payment_gbn','=',False)]}"/>
+                            <field name="debit"/>
+                            <field name="credit"/>
+                            <field name="confirm_date"/>
+                            <field name="debit_after"/>
+                            <field name="credit_after"/>
+                        </group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="product_code"/>
+                            <field name="account_du_id"/>
+                            <field name="price_unit"/>
+                            <field name="product_qty"/>
+                            <field name="date"/>
+                            <field name="account_code"/>
+                            <field name="description"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="cong_no_phaithu_view_tree" model="ir.ui.view">
+            <field name="name">cong.no.phaithu.tree</field>
+            <field name="model">cong.no.phaithu</field>
+            <field name="arch" type="xml">
+                <tree string="Bao Cao Cong No" colors="blue:voucher_type == 'sale';red:voucher_type == 'purchase'">
+                    <field name="date"/>
+                    <field name="confirm_date"/>
+                    <field name="ref"/>
+                    <field name="description"/>
+                    <field name="partner_id"/>
+                    <field name="product_code"/>
+                    <field name="account_code"/>
+                    <field name="account_du"/>
+                    <field name="product_qty"/>
+                    <field name="price_unit"/>
+                    <field name="debit"/>
+                    <field name="credit"/>
+                    <field name="debit_after"/>
+                    <field name="credit_after"/>
+                    <field name="voucher_type" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+         <record id="cong_no_phaithu_view_search" model="ir.ui.view">
+            <field name="name">cong.no.phaithu.search</field>
+            <field name="model">cong.no.phaithu</field>
+            <field name="arch" type="xml">
+                <search string="Search Vouchers">
+                    <group expand="0" string="Group By">
+                        <field name="ref"/>
+                        <field name="product_code"/>
+                        <filter string="Số chứng từ" domain="[]" context="{'group_by':'ref'}"/>
+                        <filter string="Đối tác" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Tài khoản" domain="[]" context="{'group_by':'account_code'}"/>
+                    </group>
+                </search>
+            </field>
+         </record>
+
+        <record id="cong_no_phaithu_action" model="ir.actions.act_window">
+            <field name="name">Báo Cáo Tài Khoản 131 Chi Tiết</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cong.no.phaithu</field>
+            <field name="view_id" ref="cong_no_phaithu_view_tree"/>
+            <field name="search_view_id" ref="cong_no_phaithu_view_search"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem id="cong_no_phaithu_menu" name="Báo Cáo Tài Khoản 131 Chi Tiết" parent="account_detail_report_menu" action="cong_no_phaithu_action" sequence="31"/>
+        <!--Account 1331-->
+        <!--<record id='account_move_1331_report_action' model='ir.actions.act_window'>-->
+            <!--<field name="name">Báo Cáo Tài Khoản 1331</field>-->
+            <!--<field name="res_model">account.move.line</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">tree,form</field>-->
+            <!--<field name="domain">[('account_id.code', '=','1331')]</field>-->
+        <!--</record>-->
+
+        <!--<menuitem id="account_move_1331_report" name="Báo Cáo Tài Khoản 1331"-->
+                  <!--parent="account_detail_report_menu" action="account_move_1331_report_action"/>-->
+
+
+        <!--Account 156-->
+        <record id="account_move_156_tree_view" model="ir.ui.view">
+            <field name="name">account.move.line.tree</field>
+            <field name="model">account.move.line</field>
+            <field name="arch" type="xml">
+                <tree string="Phát sinh" create="false">
+                    <field name="date"/>
+                    <field name="move_id"/>
+                    <field name="journal_id"/>
+                    <field name="name"/>
+                    <field name="ref" invisible="1"/>
+                    <field name="ref_156_sub"/>
+                    <field name="partner_id"/>
+                    <field name="account_id"/>
+                    <field name="account_doiung"/>
+                    <field name="full_reconcile_id"/>
+                    <field name="product_code"/>
+                    <field name="product_name"/>
+                    <field name="product_price"/>
+                    <field name="quantity"/>
+                    <field name="debit" sum="Tổng Nợ"/>
+                    <field name="credit" sum="Tổng số báo có"/>
+                    <field name="amount_residual" sum="Total amount_residual" on_change="1" modifiers="{'readonly': true}"/>
+                    <field name="debit_amount_residual" sum="Total debit amount_residual" string="Nợ còn lại" modifiers="{'readonly': true}"/>
+                    <field name="credit_amount_residual" sum="Total credit amount_residual" string="Có còn lại" modifiers="{'readonly': true}"/>
+                    <field name="amount_currency" readonly="True" on_change="1" invisible="1"/>
+                    <field name="currency_id" readonly="True" invisible="1" on_change="1" can_create="true" can_write="true"/>
+                    <field name="record_checked" string="Done" modifiers="{}"/>
+                    <button name="change_record_checked" type="object" string="D"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id='account_move_156_report_action' model='ir.actions.act_window'>
+            <field name="name">Báo Cáo Tài Khoản 156</field>
+            <field name="res_model">account.move.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('account_move_156_tree_view')})]"/>
+            <field name="domain">[('account_id.code', '=','1561')]</field>
+        </record>
+
+        <menuitem id="account_move_156_report" name="Báo Cáo Tài Khoản 156"
+                  parent="account_detail_report_menu" action="account_move_156_report_action" sequence="12"/>
+
+
+        <!--Account 331-->
+        <record id='account_move_331_report_action' model='ir.actions.act_window'>
+            <field name="name">Báo Cáo Tài Khoản 331</field>
+            <field name="res_model">account.move.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('account_move_131_tree_view')})]"/>
+            <field name="domain">[('account_id.code', '=','331')]</field>
+        </record>
+
+        <menuitem id="account_move_331_report" name="Báo Cáo Tài Khoản 331"
+                  parent="account_detail_report_menu" action="account_move_331_report_action" sequence="40"/>
+
+        <record id="cong_no_phaitra_form_view" model="ir.ui.view">
+            <field name="name">cong.no.phaitra.form</field>
+            <field name="model">cong.no.phaitra</field>
+            <field name="arch" type="xml">
+                <form string="Bao Cao Cong No">
+                    <group>
+                        <group>
+                            <field name="account_du"/>
+                            <field name="account_id"/>
+                            <field name="ref" attrs="{'invisible':['|','|',('ref_purchase_order','!=',False),('ref_account_voucher','!=',False),('ref_account_payment_unc','!=',False)]}"/>
+                            <field name="ref_purchase_order" attrs="{'invisible':[('ref_purchase_order','=',False)]}"/>
+                            <field name="ref_account_voucher" attrs="{'invisible':[('ref_account_voucher','=',False)]}"/>
+                            <field name="ref_account_payment_unc" attrs="{'invisible':[('ref_account_payment_unc','=',False)]}"/>
+                            <field name="debit"/>
+                            <field name="credit"/>
+                            <field name="confirm_date"/>
+                            <field name="debit_after"/>
+                            <field name="credit_after"/>
+                        </group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="product_code"/>
+                            <field name="account_du_id"/>
+                            <field name="price_unit"/>
+                            <field name="product_qty"/>
+                            <field name="date"/>
+                            <field name="account_code"/>
+                            <field name="description"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="cong_no_phaitra_view_tree" model="ir.ui.view">
+            <field name="name">cong.no.phaitra.tree</field>
+            <field name="model">cong.no.phaitra</field>
+            <field name="arch" type="xml">
+                <tree string="Bao Cao Cong No" colors="blue:voucher_type == 'sale';red:voucher_type == 'purchase'">
+                    <field name="date"/>
+                    <field name="confirm_date"/>
+                    <field name="ref"/>
+                    <field name="description"/>
+                    <field name="partner_id"/>
+                    <field name="product_code"/>
+                    <field name="account_code"/>
+                    <field name="account_du"/>
+                    <field name="product_qty"/>
+                    <field name="price_unit"/>
+                    <field name="debit"/>
+                    <field name="credit"/>
+                    <field name="debit_after"/>
+                    <field name="credit_after"/>
+                    <field name="voucher_type" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="cong_no_phaitra_action" model="ir.actions.act_window">
+            <field name="name">Báo Cáo Tài Khoản 331 Chi Tiết</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cong.no.phaitra</field>
+            <field name="view_id" ref="cong_no_phaitra_view_tree"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem id="cong_no_phaitra_menu" name="Báo Cáo Tài Khoản 331 Chi Tiết" parent="account_detail_report_menu" action="cong_no_phaitra_action" sequence="41"/>
+
+        <!--Account 3331-->
+        <!--<record id='account_move_3331_report_action' model='ir.actions.act_window'>-->
+            <!--<field name="name">Báo Cáo Tài Khoản 3331</field>-->
+            <!--<field name="res_model">account.move.line</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">tree,form</field>-->
+            <!--<field name="domain">[('account_id.code', '=','3331')]</field>-->
+        <!--</record>-->
+
+        <!--<menuitem id="account_move_3331_report" name="Báo Cáo Tài Khoản 3331"-->
+                  <!--parent="account_detail_report_menu" action="account_move_3331_report_action"/>-->
+
+        <!--Account 33311-->
+        <!--<record id='account_move_33311_report_action' model='ir.actions.act_window'>-->
+            <!--<field name="name">Báo Cáo Tài Khoản 33311</field>-->
+            <!--<field name="res_model">account.move.line</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">tree,form</field>-->
+            <!--<field name="domain">[('account_id.code', '=','33311')]</field>-->
+        <!--</record>-->
+
+        <!--<menuitem id="account_move_33311_report" name="Báo Cáo Tài Khoản 33311"-->
+                  <!--parent="account_detail_report_menu" action="account_move_33311_report_action"/>-->
+
+
+        <!--Account 3341-->
+        <!--<record id='account_move_3341_report_action' model='ir.actions.act_window'>-->
+            <!--<field name="name">Báo Cáo Tài Khoản 3341</field>-->
+            <!--<field name="res_model">account.move.line</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">tree,form</field>-->
+            <!--<field name="domain">[('account_id.code', '=','3341')]</field>-->
+        <!--</record>-->
+
+        <!--<menuitem id="account_move_3341_report" name="Báo Cáo Tài Khoản 3341"-->
+                  <!--parent="account_detail_report_menu" action="account_move_3341_report_action"/>-->
+
+
+        <!--Account 3381-->
+        <!--<record id='account_move_3381_report_action' model='ir.actions.act_window'>-->
+            <!--<field name="name">Báo Cáo Tài Khoản 3381</field>-->
+            <!--<field name="res_model">account.move.line</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">tree,form</field>-->
+            <!--<field name="domain">[('account_id.code', '=','3381')]</field>-->
+        <!--</record>-->
+
+        <!--<menuitem id="account_move_3381_report" name="Báo Cáo Tài Khoản 3381"-->
+                  <!--parent="account_detail_report_menu" action="account_move_3381_report_action"/>-->
+
+
+        <!--Account 3388-->
+        <!--<record id='account_move_3388_report_action' model='ir.actions.act_window'>-->
+            <!--<field name="name">Báo Cáo Tài Khoản 3388</field>-->
+            <!--<field name="res_model">account.move.line</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">tree,form</field>-->
+            <!--<field name="domain">[('account_id.code', '=','3388')]</field>-->
+        <!--</record>-->
+
+        <!--<menuitem id="account_move_3388_report" name="Báo Cáo Tài Khoản 3388"-->
+                  <!--parent="account_detail_report_menu" action="account_move_3388_report_action"/>-->
+
+
+        <!--Account 411-->
+        <!--<record id='account_move_411_report_action' model='ir.actions.act_window'>-->
+            <!--<field name="name">Báo Cáo Tài Khoản 411</field>-->
+            <!--<field name="res_model">account.move.line</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">tree,form</field>-->
+            <!--<field name="domain">[('account_id.code', '=','4111')]</field>-->
+        <!--</record>-->
+
+        <!--<menuitem id="account_move_411_report" name="Báo Cáo Tài Khoản 411"-->
+                  <!--parent="account_detail_report_menu" action="account_move_411_report_action"/>-->
+
+
+        <!--Account 511-->
+        <record id='account_move_511_report_action' model='ir.actions.act_window'>
+            <field name="name">Báo Cáo Tài Khoản 511</field>
+            <field name="res_model">account.move.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('account_id.code', '=like','511%')]</field>
+        </record>
+
+        <menuitem id="account_move_511_report" name="Báo Cáo Tài Khoản 511"
+                  parent="account_detail_report_menu" action="account_move_511_report_action" sequence="13"/>
+
+
+        <!--Account 515-->
+        <!--<record id='account_move_515_report_action' model='ir.actions.act_window'>-->
+            <!--<field name="name">Báo Cáo Tài Khoản 515</field>-->
+            <!--<field name="res_model">account.move.line</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">tree,form</field>-->
+            <!--<field name="domain">[('account_id.code', '=','515')]</field>-->
+        <!--</record>-->
+
+        <!--<menuitem id="account_move_515_report" name="Báo Cáo Tài Khoản 515"-->
+                  <!--parent="account_detail_report_menu" action="account_move_515_report_action"/>-->
+
+
+        <!--Account 521-->
+        <record id='account_move_521_report_action' model='ir.actions.act_window'>
+            <field name="name">Báo Cáo Tài Khoản 521</field>
+            <field name="res_model">account.move.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('account_id.code', 'ilike','521')]</field>
+        </record>
+
+        <menuitem id="account_move_521_report" name="Báo Cáo Tài Khoản 521"
+                  parent="account_detail_report_menu" action="account_move_521_report_action" sequence="14"/>
+
+        <!--Account 632-->
+        <record id='account_move_632_report_action' model='ir.actions.act_window'>
+            <field name="name">Báo Cáo Tài Khoản 632</field>
+            <field name="res_model">account.move.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('account_id.code', '=like','632%')]</field>
+        </record>
+
+        <menuitem id="account_move_632_report" name="Báo Cáo Tài Khoản 632"
+                  parent="account_detail_report_menu" action="account_move_632_report_action" sequence="15"/>
+
+        <record id="tree_view_account_511_521_632" model="ir.ui.view">
+            <field name="name">account.move.line.tree</field>
+            <field name="model">account.move.line</field>
+            <field name="arch" type="xml">
+                <tree string="Journal Items" create="false" default_order="date asc,id asc">
+                    <field name="date" string="Ngày hạch toán"/>
+                    <field name="date" string="Ngày chứng từ"/>
+                    <field name="ref" string="Số chứng từ"/>
+                    <field name="partner_id" string="Đối tác"/>
+                    <field name="product_default_code"/>
+                    <field name="product_name"/>
+                    <field name="product_price"/>
+                    <field name="quantity"/>
+                    <field name="account_sub_code"/>
+                    <field name="account_doiung"/>
+                    <field name="debit" sum="debit" string="Phát sinh Nợ"/>
+                    <field name="credit" sum="credit" string="Phát sinh Có"/>
+                    <field name="so_du_no" string="Dư Nợ"/>
+                    <field name="so_du_co" string="Dư Có"/>
+                    <field name="record_checked" string="Done"/>
+                    <button name="change_record_checked" type="object" string="D"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="tree_view_account_632" model="ir.ui.view">
+            <field name="name">account.move.line.tree</field>
+            <field name="model">account.move.line</field>
+            <field name="arch" type="xml">
+                <tree string="Journal Items" create="false" default_order="date asc,id asc">
+                    <field name="date"/>
+                    <field name="move_id"/>
+                    <field name="journal_id"/>
+                    <field name="name"/>
+                    <field name="ref" invisible="1"/>
+                    <field name="ref_156_sub"/>
+                    <field name="analytic_tag_ids"/>
+                    <field name="partner_id"/>
+                    <field name="account_id"/>
+                    <field name="account_doiung"/>
+                    <field name="full_reconcile_id"/>
+                    <field name="product_code"/>
+                    <field name="product_name"/>
+                    <field name="product_price"/>
+                    <field name="quantity"/>
+                    <field name="debit" sum="debit" string="Phát sinh Nợ"/>
+                    <field name="credit" sum="credit" string="Phát sinh Có"/>
+                    <field name="so_du_no" string="Dư Nợ"/>
+                    <field name="so_du_co" string="Dư Có"/>
+                    <field name="record_checked" string="Done"/>
+                    <button name="change_record_checked" type="object" string="D"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="tuanhuy_account_reports.account_move_632_report_action" model="ir.actions.act_window">
+            <field name="view_id" ref="tuanhuy_account_reports.tree_view_account_632"/>
+        </record>
+
+        <record id="tuanhuy_account_reports.account_move_521_report_action" model="ir.actions.act_window">
+            <field name="view_id" ref="tuanhuy_account_reports.tree_view_account_511_521_632"/>
+        </record>
+
+        <record id="tuanhuy_account_reports.account_move_511_report_action" model="ir.actions.act_window">
+            <field name="view_id" ref="tuanhuy_account_reports.tree_view_account_511_521_632"/>
+        </record>
+
+        <!--Account 635-->
+        <!--<record id='account_move_635_report_action' model='ir.actions.act_window'>-->
+            <!--<field name="name">Báo Cáo Tài Khoản 635</field>-->
+            <!--<field name="res_model">account.move.line</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">tree,form</field>-->
+            <!--<field name="domain">[('account_id.code', '=','635')]</field>-->
+        <!--</record>-->
+
+        <!--<menuitem id="account_move_635_report" name="Báo Cáo Tài Khoản 635"-->
+                  <!--parent="account_detail_report_menu" action="account_move_635_report_action"/>-->
+
+
+        <!--Account 6411-->
+        <record id='account_move_6411_report_action' model='ir.actions.act_window'>
+            <field name="name">Báo Cáo Tài Khoản 641</field>
+            <field name="res_model">account.move.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('account_id.code', 'ilike','641')]</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('account_move_report_tree_view')})]"/>
+        </record>
+
+        <menuitem id="account_move_6411_report" name="Báo Cáo Tài Khoản 641"
+                  parent="account_detail_report_menu" action="account_move_6411_report_action" sequence="16"/>
+
+        <!--Account 6413-->
+        <!--<record id='account_move_6413_report_action' model='ir.actions.act_window'>-->
+            <!--<field name="name">Báo Cáo Tài Khoản 6413</field>-->
+            <!--<field name="res_model">account.move.line</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">tree,form</field>-->
+            <!--<field name="domain">[('account_id.code', '=','6413')]</field>-->
+        <!--</record>-->
+
+        <!--<menuitem id="account_move_6413_report" name="Báo Cáo Tài Khoản 6413"-->
+                  <!--parent="account_detail_report_menu" action="account_move_6413_report_action"/>-->
+
+
+        <!--Account 6418-->
+        <!--<record id='account_move_6418_report_action' model='ir.actions.act_window'>-->
+            <!--<field name="name">Báo Cáo Tài Khoản 6418</field>-->
+            <!--<field name="res_model">account.move.line</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">tree,form</field>-->
+            <!--<field name="domain">[('account_id.code', '=','6418')]</field>-->
+        <!--</record>-->
+
+        <!--<menuitem id="account_move_6418_report" name="Báo Cáo Tài Khoản 6418"-->
+                  <!--parent="account_detail_report_menu" action="account_move_6418_report_action"/>-->
+
+
+        <!--Account 6421-->
+        <record id='account_move_6421_report_action' model='ir.actions.act_window'>
+            <field name="name">Báo Cáo Tài Khoản 642</field>
+            <field name="res_model">account.move.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('account_id.code', 'ilike','642')]</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('account_move_report_tree_view')})]"/>
+        </record>
+
+        <menuitem id="account_move_6421_report" name="Báo Cáo Tài Khoản 642"
+                  parent="account_detail_report_menu" action="account_move_6421_report_action" sequence="17"/>
+
+
+        <!--Account 711-->
+        <record id='account_move_711_report_action' model='ir.actions.act_window'>
+            <field name="name">Báo Cáo Tài Khoản 711</field>
+            <field name="res_model">account.move.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('account_id.code', 'ilike','711')]</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('account_move_report_tree_view')})]"/>
+
+        </record>
+
+        <menuitem id="account_move_711_report" name="Báo Cáo Tài Khoản 711"
+                  parent="account_detail_report_menu" action="account_move_711_report_action" sequence="18"/>
+
+
+        <!--Account 811-->
+        <record id='account_move_811_report_action' model='ir.actions.act_window'>
+            <field name="name">Báo Cáo Tài Khoản 811</field>
+            <field name="res_model">account.move.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('account_id.code', '=like','811%')]</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('account_move_report_tree_view')})]"/>
+        </record>
+
+        <menuitem id="account_move_811_report" name="Báo Cáo Tài Khoản 811"
+                  parent="account_detail_report_menu" action="account_move_811_report_action" sequence="19"/>
+
+        <record id="view_move_line_tree_modifier_all" model="ir.ui.view">
+            <field name="name">account.move.line.tree</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="tuanhuy_account_account.view_move_line_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="replace">
+                    <tree default_order="date asc,id asc" string="Phát sinh">
+                        <field name="date" string="Ngày hạch toán"/>
+                        <field name="date" string="Ngày chứng từ"/>
+                        <field name="ref" string="Số chứng từ"/>
+                        <field name="partner_id" string="Đối tác"/>
+                        <field name="name" invisible="1"/>
+                        <!--<field name="name_sub" string="Diễn giải"/>-->
+                        <field name="product_default_code"/>
+                        <field name="product_id"/>
+                        <field name="product_uom_id"/>
+                        <field name="quantity"/>
+                        <field name="product_price"/>
+                        <field name="account_sub_code"/>
+                        <field name="account_doiung"/>
+                        <field name="debit" sum="Tổng nợ"/>
+                        <field name="credit" sum="Tổng có"/>
+                        <field name="so_du_no"/>
+                        <field name="so_du_co"/>
+                        <field name="record_checked" string="Hoàn thành"/>
+                        <button name="change_record_checked" type="object" string="D"/>
+                        <field name="company_currency_id" invisible="1"/>
+                        <field name="company_id" invisible="1"/>
+                        <field name="currency_id" readonly="True" invisible="1" />
+                        <field name="reconciled" invisible="1"/>
+                        <field name="statement_id" invisible="1"/>
+                    </tree>
+                </xpath>
+            </field>
+        </record>
+        <!--Action Print Account Report Excel -->
+
+    </data>
+</odoo>

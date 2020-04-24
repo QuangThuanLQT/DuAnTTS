@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="ir_model_invoice_update" model="ir.cron">
+            <field name="name">Invoice Update</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'sale.order'" name="model"/>
+            <field eval="'process_scheduler_invoice_update'" name="function"/>
+        </record>
+
+        <record id="ir_model_invoice_create" model="ir.cron">
+            <field name="name">Invoice Create</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'sale.order'" name="model"/>
+            <field eval="'process_scheduler_invoice_create'" name="function"/>
+        </record>
+    </data>
+</odoo>

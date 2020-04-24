@@ -1,0 +1,7 @@
+<odoo>
+    <data>
+        <menuitem id="account.menu_finance_bank" name="Bank" parent="account.menu_finance" sequence="4"/>
+        <menuitem id="account.menu_finance_bank_management" name="Management" parent="account.menu_finance_bank" sequence="4" groups="account.group_account_user"/>
+        <menuitem id="account.menu_finance_bank_configuration" name="Configuration" parent="account.menu_finance_bank" sequence="5" groups="account.group_account_user"/>
+    </data>
+</odoo>

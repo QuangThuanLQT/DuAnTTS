@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_order_form" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="tuanhuy_sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@class='oe_button_box']" position="inside">
+                    <button name="action_open_profit_and_lost" type="object" class="oe_stat_button" icon="fa-book">
+                        <field string="PnL" name="move_line_count" widget="statinfo"/>
+                    </button>
+                </xpath>
+                <xpath expr="//div[@class='oe_button_box']" position="inside">
+                    <button name="action_open_phan_bo_mo" type="object" class="oe_stat_button" icon="fa-book" string="Phân Bổ">
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_move_line_search" model="ir.ui.view">
+            <field name="name">account.move.line.search.view</field>
+            <field name="model">account.move.line</field>
+            <field name="arch" type="xml">
+                <search string="Profilt and Lost">
+                    <filter name="511" string="511 - Doanh thu" domain="[('account_id.code', '=like', '511%')]" />
+                    <filter name="632" string="632 - Giá vốn hàng bán" domain="[('account_id.code', '=like', '632%')]" />
+                    <filter name="641" string="641 - CP bán hàng" domain="[('account_id.code', '=like', '641%')]" />
+                    <filter name="642" string="642 - CP quản lý" domain="[('account_id.code', '=like', '642%')]" />
+                    <separator/>
+                </search>
+            </field>
+        </record>
+
+        <record id='account_move_pnl_report_action' model='ir.actions.act_window'>
+            <field name="name">Báo Cáo PnL</field>
+            <field name="res_model">account.move.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="account.view_account_move_line_filter" />
+        </record>
+
+        <record id="view_account_move_line_filter_account_inherit" model="ir.ui.view">
+            <field name="name">account.move.line.search.inherit</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="account.view_account_move_line_filter"/>
+            <field name="arch" type="xml">
+                <field name="tax_ids" position="after">
+                    <separator/>
+                    <filter name="511" string="511 - Doanh thu" domain="[('account_id.code', '=like', '511%')]" />
+                    <filter name="632" string="632 - Giá vốn hàng bán" domain="[('account_id.code', '=like', '632%')]" />
+                    <filter name="641" string="641 - CP bán hàng" domain="[('account_id.code', '=like', '641%')]" />
+                    <filter name="642" string="642 - CP quản lý" domain="[('account_id.code', '=like', '642%')]" />
+                    <filter name="622" string="622 - Chi phí nhân công trực tiếp" domain="[('account_id.code', '=like', '622%')]" />
+                    <filter name="627" string="627 - Chi phí" domain="[('account_id.code', '=like', '627%')]" />
+                    <filter name="811" string="811 - Chi phí khác" domain="[('account_id.code', '=like', '811%')]" />
+                </field>
+            </field>
+        </record>
+
+        <record id='account_action_phan_bo_mo' model='ir.actions.act_window'>
+            <field name="name">Phân Bổ</field>
+            <field name="res_model">account.move.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+        <record id="ir_cron_check_quotaion_from_website" model="ir.cron">
+            <field name="name">Check quotaion from website</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall" />
+            <field eval="False" name="active" />
+            <field name="model">sale.order</field>
+            <field name="function">_check_quotaion_in_website</field>
+            <field name="args">()</field>
+        </record>
+
+        <record id="website_sale.menu_shop" model="website.menu">
+            <field name="order_from_website">False</field>
+        </record>
+
+    </data>
+</odoo>

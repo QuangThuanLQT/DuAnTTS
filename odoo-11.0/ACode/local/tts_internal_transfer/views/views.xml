@@ -1,0 +1,51 @@
+<odoo>
+    <data>
+        <template id="assets_backend" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/tts_internal_transfer/static/src/js/search_by_range.js"></script>
+            </xpath>
+        </template>
+
+        <record id="ir_cron_update_thu_nhap_delivery" model="ir.cron">
+            <field name="name">Update Thu Nhập Delivery</field>
+            <field eval="False" name="active"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">10</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'income.inventory'" name="model"/>
+            <field eval="'update_thu_nhap_delivery'" name="function"/>
+        </record>
+
+        <record id="ir_cron_update_time_accept_picking" model="ir.cron">
+            <field name="name">Update time accept picking</field>
+            <field eval="False" name="active"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">10</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'stock.picking'" name="model"/>
+            <field eval="'update_time_accept'" name="function"/>
+        </record>
+
+        <record id="action_internal_print_product_data" model="ir.actions.server">
+            <field name="name">Xuất file</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_stock_picking"/>
+            <field name="state">code</field>
+            <field name="code">action = record.print_internal_product_data();
+            </field>
+        </record>
+
+        <record model="ir.values" id="value_internal_print_product_data">
+            <field name="model">stock.picking</field>
+            <field name="name">Xuất file</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_internal_print_product_data'))" />
+        </record>
+
+    </data>
+</odoo>

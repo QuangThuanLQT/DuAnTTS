@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="bank_tmcp_quocdan" model="account.account">
+            <field name="name">Ngân hàng TMCP Quốc Dân</field>
+            <field name="code">11210</field>
+            <field name="user_type_id" ref="account.data_account_type_liquidity"/>
+        </record>
+
+        <record id="bank_tmcp_congthuongvn" model="account.account">
+            <field name="name">Ngân hàng TMCP Công Thương Việt Nam</field>
+            <field name="code">11211</field>
+            <field name="user_type_id" ref="account.data_account_type_liquidity"/>
+        </record>
+
+        <record id="bank_tienphong_cndanang" model="account.account">
+            <field name="name">Ngân hàng Tiên Phong - CN Đà Nẵng</field>
+            <field name="code">11212</field>
+            <field name="user_type_id" ref="account.data_account_type_liquidity"/>
+        </record>
+
+        <record id="bank_teckcom_cndanang" model="account.account">
+            <field name="name">Ngân hàng TechcomBank - CN Đà Nẵng</field>
+            <field name="code">11213</field>
+            <field name="user_type_id" ref="account.data_account_type_liquidity"/>
+        </record>
+
+        <record id="bank_hanghaivn_cndanang" model="account.account">
+            <field name="name">Ngân hàng TMCP Hàng Hải - CN Đà Nẵng</field>
+            <field name="code">11214</field>
+            <field name="user_type_id" ref="account.data_account_type_liquidity"/>
+        </record>
+
+        <record id="bank_anbinh_cndanang" model="account.account">
+            <field name="name">Ngân hàng TMCP An Bình - CN Đà Nẵng</field>
+            <field name="code">11215</field>
+            <field name="user_type_id" ref="account.data_account_type_liquidity"/>
+        </record>
+
+        <record id="vay_bank_hanghai" model="account.account">
+            <field name="name">Vay của ngân hàng Hàng Hải</field>
+            <field name="code">34113</field>
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+        </record>
+
+        <record id="vay_nganhan_bank_hanghai" model="account.account">
+            <field name="name">Vay ngắn hạn của ngân hàng Hàng Hải</field>
+            <field name="code">341131</field>
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+        </record>
+
+        <record id="vay_daihan_bank_hanghai" model="account.account">
+            <field name="name">Vay dài hạn của ngân hàng Hàng Hải</field>
+            <field name="code">341132</field>
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+        </record>
+
+        <record id="vay_bank_techcombank" model="account.account">
+            <field name="name">Vay của ngân hàng TechcomBank</field>
+            <field name="code">34114</field>
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+        </record>
+
+        <record id="vay_bank_tienphong" model="account.account">
+            <field name="name">Vay của ngân hàng Tiên Phong</field>
+            <field name="code">34115</field>
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+        </record>
+
+        <record id="partner_bank_tmcp_quocdan" model="res.partner">
+            <field name="bank" eval="True"/>
+            <field name="customer" eval="False"/>
+            <field name="name">Ngân hàng TMCP Quốc Dân</field>
+            <field name="bank_account_id" ref="bank_tmcp_quocdan"/>
+        </record>
+
+        <record id="partner_bank_tmcp_congthuongvn" model="res.partner">
+            <field name="bank" eval="True"/>
+            <field name="customer" eval="False"/>
+            <field name="name">Ngân hàng TMCP Công Thương Việt Nam</field>
+            <field name="bank_account_id" ref="bank_tmcp_congthuongvn"/>
+            <field name="bank_type">internal</field>
+        </record>
+
+        <record id="partner_bank_tienphong_cndanang" model="res.partner">
+            <field name="bank" eval="True"/>
+            <field name="customer" eval="False"/>
+            <field name="name">Ngân hàng Tiên Phong - CN Đà Nẵng</field>
+            <field name="bank_account_id" ref="bank_tienphong_cndanang"/>
+            <field name="bank_type">internal</field>
+        </record>
+
+        <record id="partner_bank_teckcom_cndanang" model="res.partner">
+            <field name="bank" eval="True"/>
+            <field name="customer" eval="False"/>
+            <field name="name">Ngân hàng TechcomBank - CN Đà Nẵng</field>
+            <field name="bank_account_id" ref="bank_teckcom_cndanang"/>
+            <field name="bank_type">internal</field>
+            <field name="bank_type">internal</field>
+        </record>
+
+        <record id="partner_bank_hanghaivn_cndanang" model="res.partner">
+            <field name="bank" eval="True"/>
+            <field name="customer" eval="False"/>
+            <field name="name">Ngân hàng TMCP Hàng Hải - CN Đà Nẵng</field>
+            <field name="bank_account_id" ref="bank_hanghaivn_cndanang"/>
+            <field name="bank_type">internal</field>
+        </record>
+
+        <record id="partner_bank_anbinh_cndanang" model="res.partner">
+            <field name="bank" eval="True"/>
+            <field name="customer" eval="False"/>
+            <field name="name">Ngân hàng TMCP An Bình - CN Đà Nẵng</field>
+            <field name="bank_account_id" ref="bank_anbinh_cndanang"/>
+            <field name="bank_type">internal</field>
+        </record>
+
+        <record id="ir_cron_update_account_doiung_1121" model="ir.cron">
+            <field name="name">Update Account Doi Ung</field>
+            <field eval="False" name="active" />
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">11111</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall" />
+            <field eval="'account.move.line'" name="model" />
+            <field eval="'update_account_doi_ung_1121'" name="function" />
+        </record>
+    </data>
+</odoo>

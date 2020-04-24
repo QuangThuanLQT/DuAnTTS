@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <record id="sale_cancel_popup_form_view_inherit" model="ir.ui.view">
+            <field name="name">sale.cancel.popup.inherit</field>
+            <field name="model">sale.cancel.popup</field>
+            <field name="inherit_id" ref="tts_modifier_sale_return.sale_cancel_popup_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_cancel']" position="attributes">
+                    <attribute name="custom">do_cancel</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

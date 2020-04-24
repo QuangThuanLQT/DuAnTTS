@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="mrp_routing_tuanhuy" model="mrp.routing">
+            <field name="name">Tuan Huy Co</field>
+        </record>
+
+        <record id="mrp_routing_congtrinh" model="mrp.routing">
+            <field name="name">Tuan Huy - Công Trình</field>
+        </record>
+
+        <record id="mrp_workcenter_cnc" model="mrp.workcenter">
+            <field name="name">CNC</field>
+            <field name="resource_type">user</field>
+            <field name="mo_state">cnc</field>
+        </record>
+
+        <record id="mrp_workcenter_han" model="mrp.workcenter">
+            <field name="name">Hàn</field>
+            <field name="resource_type">user</field>
+            <field name="mo_state">han</field>
+        </record>
+
+        <record id="mrp_workcenter_son" model="mrp.workcenter">
+            <field name="name">Sơn</field>
+            <field name="resource_type">user</field>
+            <field name="mo_state">son</field>
+        </record>
+
+        <record id="mrp_workcenter_dien" model="mrp.workcenter">
+            <field name="name">Điện</field>
+            <field name="resource_type">user</field>
+            <field name="mo_state">dien</field>
+        </record>
+
+        <record id="mrp_routing_workcenter_cnc" model="mrp.routing.workcenter">
+            <field name="routing_id" ref="mrp_routing_tuanhuy"/>
+            <field name="workcenter_id" ref="mrp_workcenter_cnc"/>
+            <field name="name">CNC</field>
+            <field name="time_cycle">180</field>
+            <field name="sequence">15</field>
+            <field name="worksheet" type="base64" file="mrp/static/img/cutting-worksheet.pdf"/>
+        </record>
+
+        <record id="mrp_routing_workcenter_han" model="mrp.routing.workcenter">
+            <field name="routing_id" ref="mrp_routing_tuanhuy"/>
+            <field name="workcenter_id" ref="mrp_workcenter_han"/>
+            <field name="name">Hàn</field>
+            <field name="time_cycle">180</field>
+            <field name="sequence">15</field>
+            <field name="worksheet" type="base64" file="mrp/static/img/cutting-worksheet.pdf"/>
+        </record>
+
+        <record id="mrp_routing_workcenter_son" model="mrp.routing.workcenter">
+            <field name="routing_id" ref="mrp_routing_tuanhuy"/>
+            <field name="workcenter_id" ref="mrp_workcenter_son"/>
+            <field name="name">Sơn</field>
+            <field name="time_cycle">180</field>
+            <field name="sequence">15</field>
+            <field name="worksheet" type="base64" file="mrp/static/img/cutting-worksheet.pdf"/>
+        </record>
+
+        <record id="mrp_routing_workcenter_dien" model="mrp.routing.workcenter">
+            <field name="routing_id" ref="mrp_routing_tuanhuy"/>
+            <field name="workcenter_id" ref="mrp_workcenter_dien"/>
+            <field name="name">Điện</field>
+            <field name="time_cycle">180</field>
+            <field name="sequence">15</field>
+            <field name="worksheet" type="base64" file="mrp/static/img/cutting-worksheet.pdf"/>
+        </record>
+    </data>
+</odoo>

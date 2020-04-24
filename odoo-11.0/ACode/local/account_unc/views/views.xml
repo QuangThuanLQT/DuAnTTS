@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="assets_backend" name="account_unc_unc" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <!--Adding new js file-->
+            <script type="text/javascript" src="/account_unc/static/src/js/account_unc.js"/>
+        </xpath>
+    </template>
+    <data>
+        <record model="ir.ui.view" id="mandate_form_view">
+            <field name="name">mandate_form.view</field>
+            <field name="model">account.payment.unc</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Session Form">
+                    <header>
+                        <field name="state" widget="statusbar" nolabel="1"/>
+
+                        <!--Gửi xác nhận-->
+                        <button name="change_status_unc" string="Gửi xác nhận" type="object" class="oe_highlight"
+                                states="draft"/>
+
+                        <!--Xác nhận-->
+                        <button name="change_status_unc" string="Xác nhận" type="object" class="oe_highlight"
+                                groups="account_unc.group_ke_toan_truong" states="KT_doing"/>
+
+                        <button name="change_status_unc" string="Xác nhận" type="object" class="oe_highlight"
+                                groups="account_unc.group_pho_giam_doc_tai_chinh" states="PGD_doing"/>
+
+                        <button name="change_status_unc" string="Xác nhận" type="object" class="oe_highlight"
+                                groups="account_unc.group_tong_giam_doc" states="TGD_doing"/>
+
+                        <!--Quay về bản nháp-->
+                        <button name="set_status_unc_to_draft" string="Quay về bản nháp" type="object" class="oe_highlight"
+                                groups="account_unc.group_ke_toan_truong" states="KT_doing"/>
+
+                        <button name="set_status_unc_to_draft" string="Quay về bản nháp" type="object" class="oe_highlight"
+                                groups="account_unc.group_pho_giam_doc_tai_chinh" states="PGD_doing"/>
+
+                        <button name="set_status_unc_to_draft" string="Quay về bản nháp" type="object" class="oe_highlight"
+                                groups="account_unc.group_tong_giam_doc" states="TGD_doing"/>
+
+                         <!--Huỷ-->
+                        <button name="set_status_unc_to_cancel" string="Huỷ" type="object" class="oe_highlight"
+                                groups="account_unc.group_ke_toan_truong" states="KT_doing"/>
+
+                        <button name="set_status_unc_to_cancel" string="Huỷ" type="object" class="oe_highlight"
+                                groups="account_unc.group_pho_giam_doc_tai_chinh" states="PGD_doing"/>
+
+                        <button name="set_status_unc_to_cancel" string="Huỷ" type="object" class="oe_highlight"
+                                groups="account_unc.group_tong_giam_doc" states="TGD_doing"/>
+
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="sender_id"/>
+                            <field name="partner_id"/>
+                            <field name="bank_id" context="{'default_bank_id': True}"/>
+                            <field name="ref"/>
+                            <field name="date_create"/>
+                            <field name="amount"/>
+                            <field name="fees"/>
+                            <field name="date_unc"  invisible="1"/>
+                            <field name="note"/>
+                            <field name="acc_pay_id" readonly="1" string="Thanh toán" attrs="{'invisible': [('acc_pay_id', '=', False)]}"/>
+                            <field name="acc_inv_id" readonly="1" string="Hóa đơn Nhà cung cấp" attrs="{'invisible': [('acc_inv_id', '=', False)]}"/>
+                            <field name="journal_id" attrs="{'invisible': [('acc_pay_id', '!=', False)]}"/>
+                            <field name="account_id" attrs="{'invisible': [('acc_pay_id', '!=', False)]}"/>
+                            <field name="move_id" attrs="{'invisible': [('move_id', '=', False)]}"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="mandate_tree_view">
+            <field name="name">account tree</field>
+            <field name="model">account.payment.unc</field>
+            <field name="arch" type="xml">
+                <tree default_order="date_create desc">
+                    <field name="date_create"/>
+                    <field name="ref"/>
+                    <field name="partner_id"/>
+                    <field name="amount" sum="Tổng"/>
+                    <field name="fees" sum="Phí"/>
+                    <field name="bank_id"/>
+                    <field name="note"/>
+                    <field name="state"/>
+                    <field name="date_unc"/>
+                    <field name="account_id"/>
+                    <field name="journal_id"/>
+                    <field name="record_checked"/>
+                    <button name="change_record_checked" type="object" string="Checked"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="mandate_search_view">
+            <field name="name">account unc search</field>
+            <field name="model">account.payment.unc</field>
+            <field name="arch" type="xml">
+                <search string="Search UNC">
+                    <field name="partner_id" string="Người nhận"/>
+                    <field name="ref" string="Tham chiếu"/>
+                    <field name="account_id" string="Tài khoản"/>
+                    <field name="note"/>
+                    <field name="date_create"/>
+                    <filter string="Bản phác thảo" domain="[('state','=','draft')]" help="Bản phác thảo UNC"/>
+                    <filter string="Hoàn thành" domain="[('state','=','done')]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Tài khoản" domain="[]" context="{'group_by':'account_id'}"/>
+                        <filter string="Người nhận" domain="[]" context="{'group_by':'partner_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="account_unc_action">
+            <field name="name">Uỷ nhiệm chi</field>
+            <field name="res_model">account.payment.unc</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="usage">menu</field>
+        </record>
+
+        <menuitem id="mandate_menu"
+                  parent="account.menu_finance_bank_management" sequence="1"
+                  name="Uỷ nhiệm Chi"
+                  action="account_unc_action"/>
+
+        <record id="action_update_check_account_payment_unc" model="ir.actions.server">
+            <field name="name">Huỷ kiểm tra</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_account_payment_unc"/>
+            <field name="state">code</field>
+            <field name="code">action = record.update_check_account_payment_unc();
+            </field>
+        </record>
+
+        <record model="ir.values" id="action_update_check_account_payment_unc">
+            <field name="model">account.payment.unc</field>
+            <field name="name">Huỷ kiểm tra</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_update_check_account_payment_unc'))" />
+        </record>
+    </data>
+</odoo>

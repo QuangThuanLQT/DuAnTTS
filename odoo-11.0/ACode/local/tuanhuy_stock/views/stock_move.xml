@@ -1,0 +1,93 @@
+<odoo>
+    <data>
+        <record id="ir_cron_price_unit_stock_move" model="ir.cron">
+            <field name="name">Update Stock Move Price Unit</field>
+            <field eval="False" name="active" />
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">11111</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall" />
+            <field eval="'stock.move'" name="model" />
+            <field eval="'cron_price_unit_stock_move'" name="function" />
+        </record>
+
+        <record id="view_move_form_inherit" model="ir.ui.view">
+            <field name="name">stock.move.form</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_form"/>
+            <field name="arch" type="xml">
+                <field name="group_id" position="after">
+                    <field name="purchase_order_id" attrs="{'invisible': [('sale_order_id', '!=', False)]}"/>
+                    <field name="sale_order_id" attrs="{'invisible': [('purchase_order_id', '!=', False)]}"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_move_search" model="ir.ui.view">
+            <field name="name">stock.move.search</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="replace">
+                    <search string="Stock Moves">
+                        <field name="product_id"/>
+                        <field name="origin" filter_domain="['|', '|', ('origin', 'ilike', self), ('name', 'ilike', self), ('picking_id', 'ilike', self)]" string="Tham chiếu"/>
+                        <field name="date" groups="base.group_no_one"/>
+
+                        <filter string="Sẳn sàng" name="ready" domain="[('state','=','assigned')]" help="Stock moves that are Available (Ready to process)"/>
+                        <filter string="Cần làm" name="future" domain="[('state','in',('assigned','confirmed','waiting'))]" help="Stock moves that are Confirmed, Available or Waiting"/>
+                        <filter string="Hoàn thành" name="done" domain="[('state','=','done')]" help="Stock moves that have been processed"/>
+                        <separator/>
+                        <filter string="Hôm nay" domain="[('date','&lt;=', datetime.datetime.combine(context_today(), datetime.time(23,59,59))), ('date','&gt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0)))]" help="Orders processed Today or planned for Today"/>
+                        <field name="name" string="Địa điểm" filter_domain="['|',('location_id','ilike',self),('location_dest_id','ilike',self)]"/>
+                        <field name="partner_id" string="Đối tác" filter_domain="[('picking_id.partner_id','child_of',self)]"/>
+                        <group expand="0" string="Group By">
+                            <filter string="Sản phẩm" name="by_product" domain="[]" context="{'group_by':'product_id'}"/>
+                            <filter string="Mã phiếu" name="groupby_picking_id" domain="[]" context="{'group_by':'picking_id'}"/>
+                            <filter string="Thương hiệu" name="groupby_brand_name" domain="[]" context="{'group_by':'brand_name'}"/>
+                            <filter string="Nhóm" name="groupby_product_group_id" domain="[]" context="{'group_by':'product_group_id'}"/>
+                            <filter string="Tài liệu nguồn" name="groupby_origin" domain="[]" context="{'group_by':'origin'}"/>
+                            <filter string="Nguồn" name="groupby_location_id" domain="[]" context="{'group_by':'location_id'}" groups="stock.group_stock_multi_locations"/>
+                            <filter string="Đích" name="groupby_dest_location_id" domain="[]" context="{'group_by':'location_dest_id'}" groups="stock.group_stock_multi_locations"/>
+                            <filter string="Trạng thái" domain="[]" context="{'group_by':'state'}"/>
+                            <filter string="Tạo" name="groupby_create_date" domain="[]" context="{'group_by':'create_date'}" groups="base.group_no_one"/>
+                            <filter string="Đã ấn định" name="groupby_date" domain="[]" context="{'group_by':'date_expected'}"/>
+                        </group>
+                    </search>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_move_picking_tree" model="ir.ui.view">
+            <field name="name">stock.move.tree</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_picking_tree"/>
+            <field name="arch" type="xml">
+                <field name="reserved_availability" position="replace">
+                    <field name="reserved_availability" string="Giữ chỗ"/>
+                    <field name="product_qty_missing"/>
+                </field>
+            </field>
+        </record>
+
+        <menuitem action="stock.stock_move_action" id="stock.stock_move_menu" parent="stock.menu_warehouse_report"/>
+
+        <record id="sm_action_open_all_stock_move" model="ir.actions.server">
+            <field name="name">Xem tất cả dịch chuyển</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_stock_move"/>
+            <field name="state">code</field>
+            <field name="code">action = record.action_all_stock_move();
+            </field>
+        </record>
+
+        <record model="ir.values" id="sm_value_open_all_stock_move">
+            <field name="model">stock.move</field>
+            <field name="name">Xem tất cả dịch chuyển</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('sm_action_open_all_stock_move'))" />
+        </record>
+    </data>
+</odoo>

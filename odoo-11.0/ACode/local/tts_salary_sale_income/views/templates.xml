@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+        <template id="assets_backend" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/tts_salary_sale_income/static/src/js/search_by_range.js"></script>
+            </xpath>
+        </template>
+
+        <record id="ir_cron_update_sale_income" model="ir.cron">
+            <field name="name">Update Sale income</field>
+            <field eval="False" name="active"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">10</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'sale.income'" name="model"/>
+            <field eval="'update_sale_income'" name="function"/>
+        </record>
+    </data>
+</odoo>

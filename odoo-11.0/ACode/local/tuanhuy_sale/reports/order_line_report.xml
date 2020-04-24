@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="report_saleorder_line">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="doc"/>
+                <div class="header">
+                    <div class="row" align="center">
+                        <strong>
+                            <span style="font-size:18px">SỔ CHI TIẾT BÁN HÀNG</span>
+                        </strong>
+                        <br/>
+                        <span style="font-size: 12px;">
+                            Khánh hàng: <t t-esc="partner_name"/>; Từ này <t t-esc="date_from"/> đến ngày <t t-esc="date_to"/>
+                        </span>
+                    </div>
+                </div>
+                <div class="page" style="font-size: 11px;">
+                    <table class="" width="100%">
+                        <tbody style="">
+                            <tr>
+                                <th style="padding:2px 5px 2px 5px !important;">Ngày hạch toán</th>
+                                <th style="padding:2px 5px 2px 5px !important;">Số chứng từ</th>
+                                <th style="padding:2px 5px 2px 5px !important;">Mã hàng</th>
+                                <th style="padding:2px 5px 2px 5px !important;">Tên hàng</th>
+                                <th style="padding:2px 5px 2px 5px !important;">ĐVT</th>
+                                <th style="padding:2px 5px 2px 5px !important;">Tổng số lượng bán</th>
+                                <th style="padding:2px 5px 2px 5px !important;">Đơn giá</th>
+                                <th style="padding:2px 5px 2px 5px !important;">Doanh số bán</th>
+                            </tr>
+                            <t t-foreach="docs" t-as="line">
+                                <tr style="height:5px !important;">
+                                    <td style="padding:0px 5px 0px 5px !important;">
+                                        <t t-esc="line.date_order" t-options='{"widget": "date"}'/>
+                                    </td>
+                                    <td style="padding:0px 5px 0px 5px !important;">
+                                        <t t-esc="line.order_id.name"/>
+                                    </td>
+                                    <td style="padding:0px 5px 0px 5px !important;">
+                                        <t t-esc="line.product_id.default_code"/>
+                                    </td>
+                                    <td style="padding:0px 5px 0px 5px !important;">
+                                        <t t-esc="line.product_id.name"/>
+                                    </td>
+                                    <td style="padding:0px 5px 0px 5px !important;">
+                                        <t t-esc="line.product_uom.name"/>
+                                    </td>
+                                    <td style="padding:0px 5px 0px 5px !important;" align="right">
+                                        <t t-esc="line.product_uom_qty"/>
+                                    </td>
+                                    <td style="bpadding:0px 5px 0px 5px !important;" align="right">
+                                        <t t-esc="line.price_unit"/>
+                                    </td>
+                                    <td style="padding:0px 5px 0px 5px !important;" align="right">
+                                        <span t-field="line.price_subtotal"/>
+                                    </td>
+
+                                </tr>
+                            </t>
+                            <tr>
+                                <th style="padding:2px 5px 2px 5px !important;"></th>
+                                <th style="padding:2px 5px 2px 5px !important;"></th>
+                                <th style="padding:2px 5px 2px 5px !important;"></th>
+                                <th style="padding:2px 5px 2px 5px !important;"></th>
+                                <th style="padding:2px 5px 2px 5px !important;"></th>
+                                <th style="padding:2px 5px 2px 5px !important;"></th>
+                                <th style="padding:2px 5px 2px 5px !important;" align="right">Tổng</th>
+                                <th style="padding:2px 5px 2px 5px !important;" align="right"><span t-esc="total_amount"/></th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+
+
+        </template>
+
+
+        <report
+                id="report_sale_order_line"
+                string="SoChiTietBanHang"
+                model="sale.order.line"
+                report_type="qweb-pdf"
+                file="tuanhuy_sale.report_saleorder_line"
+                name="tuanhuy_sale.report_saleorder_line"
+        />
+
+        <record id="sale_order_line_report_paper_format" model="report.paperformat">
+            <field name="name">Sochitietbanhang</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">297</field>
+            <field name="page_width">210</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">15</field>
+            <field name="margin_bottom">5</field>
+            <field name="margin_left">3</field>
+            <field name="margin_right">3</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">12</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="tuanhuy_sale.report_sale_order_line" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="sale_order_line_report_paper_format"/>
+        </record>
+    </data>
+</odoo>

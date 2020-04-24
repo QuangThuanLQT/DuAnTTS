@@ -1,0 +1,23 @@
+<odoo>
+    <data>
+        <!-- Outstanding Fee Report wizard -->
+        <record id="do_transfer_warning_form_view" model="ir.ui.view">
+            <field name="name">do.transfer.warning.form</field>
+            <field name="model">do.transfer.warning</field>
+            <field name="arch" type="xml">
+            <form string="Cancel">
+                <separator string="Hàng về sau hàng "/>
+                <h4>
+                    <field name="reason" nolabel="1" readonly="1"/>
+                </h4>
+                <field name="picking_id" invisible="1"/>
+                 <footer>
+                    <!--<button name="do_transfer_again" type="object" string="Xác nhận" class="oe_highlight"/>-->
+                    <button string="Huỷ" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,6 @@
+.fake-drag-drop {
+    opacity: 0 !important;
+}
+.custom-drag-enter {
+    border: 2px dotted black !important;
+}

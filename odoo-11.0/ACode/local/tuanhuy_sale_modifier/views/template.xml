@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="table_border_tree" name="table_border" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href="/tuanhuy_sale_modifier/static/src/css/border.css"/>
+        </xpath>
+    </template>
+</odoo>

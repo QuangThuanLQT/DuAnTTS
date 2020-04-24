@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="course_form_view">
+            <field name="name">guarantee.notification.settings.form</field>
+            <field name="model">guarantee.notification.settings</field>
+            <field name="arch" type="xml">
+                <form string="Form">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="parnter_ids" widget="many2many_tags"/>
+                            <field name="day_number"/>
+                            <field name="email_template"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="guarantee_notification_settings_action">
+            <field name="name">Cài đặt</field>
+            <field name="res_model">guarantee.notification.settings</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create the first course
+                </p>
+            </field>
+        </record>
+
+
+        <menuitem id="guarantee_settings_menu" name="Bảo lãnh"
+                  parent="account.menu_finance_configuration" sequence="10"/>
+        <menuitem id="guarantee_notification_settings_menu" name="Thông báo bảo lãnh"
+                  parent="guarantee_settings_menu" sequence="1"
+                  action="guarantee_notification_settings_action"/>
+    </data>
+</odoo>

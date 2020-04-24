@@ -1,0 +1,13 @@
+<odoo>
+    <record id="inherit_res_partner" model="ir.ui.view">
+        <field name="name">Job Order</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <field name="project_id" position="attributes">
+                <attribute name="required">1</attribute>
+                
+            </field>
+        </field>
+    </record>
+</odoo>

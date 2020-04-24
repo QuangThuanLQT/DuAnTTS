@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <template id="assets_backend" name="Sale form" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/sale_purchase_returns/static/src/js/tuanhuy_sale_return.js"></script>
+        </xpath>
+    </template>
+
+    <data>
+
+        <record id="view_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_shipping_id" position="after">
+                    <field name="sale_order_return" invisible="1"/>
+                    <field name="sale_order_return_id" attrs="{'invisible':[('sale_order_return','=',False)]}" invisible="1"/>
+                    <field name="sale_order_return_ids" widget="many2many_tags" attrs="{'invisible':[('sale_order_return','=',False)]}"/>
+                    <field name="sort_tracking_message" invisible="1"/>
+                </field>
+                <xpath expr="//form/header" position="inside">
+                    <field name="check_show_button_return" invisible="1"/>
+                    <button name="button_action_return_have_check" attrs="{'invisible':['|',('sale_order_return','=',False),('check_show_button_return','=',True)]}"
+                            string="Confirm Sale Return" class="o_sale_confirm" type="object"/>
+                </xpath>
+                <field name="pricelist_id" position="attributes">
+                    <attribute name="attrs">{'invisible':[('sale_order_return','=',True)]}</attribute>
+                </field>
+                <field name="payment_term_id" position="attributes">
+                    <attribute name="attrs">{'invisible':[('sale_order_return','=',True)]}</attribute>
+                </field>
+                <field name="validity_date" position="attributes">
+                    <attribute name="attrs">{'invisible':['|',('sale_order_return','=',True),('state', 'in', ['sale', 'done'])]}</attribute>
+                </field>
+                <field name="date_order" position="attributes">
+                    <attribute name="class">class_date_return</attribute>
+                </field>
+                <field name="order_line" position="attributes">
+                    <attribute name="context">{'sale_order_ctx':sale_order_return_ids}</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_order_form_with_carrier_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="delivery.view_order_form_with_carrier"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//label" position="attributes">
+                     <attribute name="attrs">{'invisible':[('sale_order_return','=',True)]}</attribute>
+                 </xpath>
+                 <xpath expr="//div[@name='carrier_selection']" position="attributes">
+                     <attribute name="attrs">{'invisible':[('sale_order_return','=',True)]}</attribute>
+                 </xpath>
+            </field>
+        </record>
+
+        <record id="view_order_tree_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//field[@name='invoice_status']" position="before">
+                     <field name="invoice_return_status"/>
+                 </xpath>
+            </field>
+        </record>
+
+
+        <!-- Outstanding Fee report action-->
+        <record id="sale_order_return_action" model="ir.actions.act_window">
+	        <field name="name">Order Return</field>
+	        <field name="res_model">sale.order</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">tree,form</field>
+            <field name="domain">[('sale_order_return','=',True)]</field>
+            <field name="context">{'sale_order_return':True}</field>
+            <field name="target">current</field>
+    	</record>
+
+        <menuitem name="Order Return" id="sale_order_return_menu_parent" parent="sales_team.menu_base_partner" sequence="5"/>
+        <menuitem name="Order Return" id="sale_order_return_menu" parent="sale_order_return_menu_parent" action="sale_order_return_action"/>
+
+        <record id="sale.menu_sale_invoicing" model="ir.ui.menu">
+            <field name="active" eval="False"/>
+        </record>
+
+        <record id="sale.action_quotations" model="ir.actions.act_window">
+            <field name="domain">[('state', 'in', ('draft', 'sent', 'cancel')), ('sale_order_return', '=', False)]</field>
+        </record>
+
+        <record id="sale.action_orders" model="ir.actions.act_window">
+            <field name="domain">[('state', 'not in', ('draft', 'sent', 'cancel')), ('sale_order_return', '=', False)]</field>
+        </record>
+
+
+    </data>
+</odoo>

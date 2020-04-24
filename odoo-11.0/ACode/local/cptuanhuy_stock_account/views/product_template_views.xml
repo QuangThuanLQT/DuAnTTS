@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!-- inherit stock production lot form -->
+    	<record id="product_template_only_form_view" model="ir.ui.view">
+            <field name="name">product.template.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"></field>
+            <field name="arch" type="xml">
+            	<header position="inside">
+                    <button name="calculate_cost_price" type="object" string="Calculate Cost" groups="base.group_no_one"/>
+                </header>
+                <div name="button_box" position="inside">
+                    <button class="oe_stat_button" name="action_view_journal_entry" type="object" icon="fa-flask">
+                        <field string="PnL" name="journal_entry_count" widget="statinfo" />
+                    </button>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

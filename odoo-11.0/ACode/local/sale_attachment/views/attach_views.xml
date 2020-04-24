@@ -1,0 +1,102 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_order_form_inherit">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="note" position="after">
+                    <!--<label for="attachment_ids"/>-->
+                    <!--<field name="attachment_ids">-->
+                        <!--<tree editable="bottom">-->
+                            <!--<field name="attachment_id"/>-->
+                            <!--<field name="stock_checklist"/>-->
+                        <!--</tree>-->
+                    <!--</field>-->
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_order_form_inherit_purchase">
+            <field name="name">purchase.order.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <field name="notes" position="after">
+                    <!--<group>-->
+                        <!--<separator string="File đính kèm"/>-->
+                        <!--<field name="attachment_ids">-->
+                            <!--<tree editable="bottom">-->
+                                <!--<field name="attachment_id"/>-->
+                                <!--<field name="stock_checklist" readonly="1" />-->
+                            <!--</tree>-->
+                        <!--</field>-->
+                    <!--</group>-->
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_picking_form_inherit">
+            <field name="name">stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <field name="pack_operation_product_ids" position="after">
+                    <!--<label for="attachment_ids"/>-->
+                    <!--<field name="attachment_ids">-->
+                        <!--<tree editable="bottom">-->
+                            <!--<field name="attachment_id"/>-->
+                            <!--<field name="stock_checklist"/>-->
+                        <!--</tree>-->
+                    <!--</field>-->
+                    <field name="reason"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="sale_attachment_view">
+            <field name="name">sale.attachment.form</field>
+            <field name="model">sale.attachment</field>
+            <field name="arch" type="xml">
+                <form string="Sale Attachment">
+                    <field name="name"/>
+                </form>
+            </field>
+        </record>
+
+         <record model="ir.ui.view" id="stock_picking_wizard_view">
+            <field name="name">stock.picking.wizard.form</field>
+            <field name="model">stock.picking.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Sale Attachment">
+                    <sheet>
+                        <group>
+                            <field name="description"/>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="confirm" type="object" string="Confirm"/>
+                        <button name="cancel" string="Cancel" special="Discard"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="attachment_list_action">
+            <field name="name">Attachment</field>
+            <field name="res_model">sale.attachment</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create the first attachment
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="sale_attachment"
+                  name="Attachment"
+                  parent="sale.prod_config_main"
+                  action="attachment_list_action" sequence="6"/>
+    </data>
+</odoo>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="Account.PSDebitCredit">
+        <div class="sky-search btn-group btn-group-sm PSDebitCredit" >
+            <!-- <div style="margin-left: 10px; margin-top: 2px;"> -->
+            <div style="margin-left: 0px; margin-top: 2px; padding-right: 10px;">
+
+                <span style="float: left;padding-top:6px">PS Nợ
+                </span>
+                <span style="float: left; margin-left: 2px;">
+                    <input style="height: 30px;width: 100px;font-weight: bold;" class="sky_debit_number_ps form-control" size="10" placeholder="" type="text" readonly="1"/>
+                </span>
+
+                <span style="float: left;padding-top:6px">PS Có
+                </span>
+                <strong style="float: left; margin-left: 2px;">
+                    <input style="height: 30px;width: 100px;font-weight: bold;" class="sky_credit_number_ps form-control" size="10" placeholder="" type="text" readonly="1"/>
+                </strong>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="Account.BeforeDebitNumber">
+        <div class="sky-search btn-group btn-group-sm BeforeDebitNumber" >
+            <!-- <div style="margin-left: 10px; margin-top: 2px;"> -->
+            <div style="margin-left: 0px; margin-top: 2px; padding-right: 10px;">
+
+                <span style="float: left;padding-top:6px">Nợ ĐK
+                </span>
+                <span style="float: left; margin-left: 2px;">
+                    <input style="height: 30px;width: 100px;font-weight: bold;" class="sky_debit_number form-control" size="10" placeholder="0" type="text" readonly="1"/>
+                </span>
+
+                <span style="float: left;padding-top:6px">Có ĐK
+                </span>
+                <span style="float: left; margin-left: 2px;">
+                    <input style="height: 30px;width: 100px;font-weight: bold;" class="sky_credit_number form-control" size="10" placeholder="0" type="text" readonly="1"/>
+                </span>
+            </div>
+        </div>
+    </t>
+
+
+    <t t-name="Account.LastDebitCredit">
+        <div class="sky-search btn-group btn-group-sm LastDebitCredit" >
+            <!-- <div style="margin-left: 10px; margin-top: 2px;"> -->
+            <div style="margin-left: 0px; margin-top: 2px; padding-right: 10px;">
+
+                <span style="float: left;padding-top:6px">Nợ CK
+                </span>
+                <span style="float: left; margin-left: 2px;">
+                    <input style="height: 30px;width: 100px;font-weight: bold;" class="sky_debit_number_last form-control" size="10" placeholder="" type="text" readonly="1"/>
+                </span>
+
+                <span style="float: left;padding-top:6px">Có ĐK
+                </span>
+                <span style="float: left; margin-left: 2px;">
+                    <input style="height: 30px;width: 100px;font-weight: bold;" class="sky_credit_number_last form-control" size="10" placeholder="" type="text" readonly="1"/>
+                </span>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="Account.buttons_print">
+        <button type="button" class='btn btn-primary btn-sm o_account-print-xlsx buttons_print'>Xuất Excel</button>
+    </t>
+</templates>

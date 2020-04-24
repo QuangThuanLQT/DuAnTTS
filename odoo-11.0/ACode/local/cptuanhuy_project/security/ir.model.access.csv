@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_project_task_priority,access_project_task_priority,model_project_task_priority,,1,0,0,0
+access_project_planning,name_project_planning,model_project_planning,,1,1,1,1
+access_project_type_partner,name_project_type_partner,model_project_type_partner,,1,1,1,1
+access_feature_project,name_feature_project,model_feature_project,,1,1,1,1
+access_child_job_costing,name_child_job_costing,model_child_job_costing,,1,1,1,1
+access_job_quotaion_cost,access_job_quotaion_cost,model_job_quotaion_cost,,1,1,1,1
+access_job_quotaion_type,access_job_quotaion_type,model_job_quotaion_type,,1,1,1,1
+access_update_price_job_costingusers,update_price_job_costing_user_group,cptuanhuy_project.model_update_price_job_costing,,1,1,1,1
+access_warning_confirm_job_costingusers,warning_confirm_job_costing_user_group,cptuanhuy_project.model_warning_confirm_job_costing,,1,1,1,1
+access_job_costing_failusers,job_costing_fail_user_group,cptuanhuy_project.model_job_costing_fail,,1,1,1,1
+access_update_quotaion_productusers,update_quotaion_product_user_group,job_quotaion.model_update_quotaion_product,,1,1,1,1
+access_import_job_quotationusers,import_job_quotation_user_group,job_quotaion.model_import_job_quotation,,1,1,1,1
+access_job_quotaion_product_lineusers,job_quotaion_product_line_user_group,cptuanhuy_project.model_job_quotaion_product_line,,1,1,1,1
+access_product_child_selectusers,product_child_select_user_group,job_quotaion.model_product_child_select,,1,1,1,1

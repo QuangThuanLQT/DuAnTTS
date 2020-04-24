@@ -1,0 +1,7 @@
+<odoo>
+    <data>
+         <record id="odoo_job_costing_management.menu_materials" model="ir.ui.menu">
+            <field name="active" eval="True"/>
+        </record>
+    </data>
+</odoo>

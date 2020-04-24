@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_all_user_model_thong_tin_its,access_all_user_model_thong_tin_its,model_thong_tin_its,,1,1,1,1
+access_all_user_model_thong_tin_them_its,access_all_user_model_thong_tin_them_its,model_thong_tin_them_its,,1,1,1,1
+access_all_user_model_thong_tin_in_hinh,access_all_user_model_thong_tin_in_hinh,model_thong_tin_in_hinh,,1,1,1,1
+access_all_user_model_config_thong_tin_its,access_all_user_model_config_thong_tin_its,model_config_thong_tin_its,,1,1,1,1

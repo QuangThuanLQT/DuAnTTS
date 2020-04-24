@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+        <!--Doanh Thu va Chi Phi-->
+        <record id="account_analytic_tag_san_xuat" model="account.analytic.tag">
+            <field name="name">DT Sản xuất</field>
+        </record>
+
+        <record id="account_analytic_tag_thuong_mai" model="account.analytic.tag">
+            <field name="name">DT Thương mại</field>
+        </record>
+
+        <record id="account_analytic_tag_khac" model="account.analytic.tag">
+            <field name="name">DT Khác</field>
+        </record>
+
+        <record id="account_analytic_tag_congtrinh" model="account.analytic.tag">
+            <field name="name">DT Công trình</field>
+        </record>
+
+        <record id="cost_account_analytic_tag_san_xuat" model="account.analytic.tag">
+            <field name="name">CP Sản xuất</field>
+        </record>
+
+        <record id="cost_account_analytic_tag_thuong_mai" model="account.analytic.tag">
+            <field name="name">CP Thương mại</field>
+        </record>
+
+        <record id="cost_account_analytic_tag_khac" model="account.analytic.tag">
+            <field name="name">CP Khác</field>
+        </record>
+
+        <record id="cost_account_analytic_tag_congtrinh" model="account.analytic.tag">
+            <field name="name">CP Công trình</field>
+        </record>
+
+        <!-- project -->
+        <record id="project_tuanhuy" model="project.project">
+            <field name="name">TuanHuy</field>
+        </record>
+
+        <record id="base.project_tuanhuy_type_todo" model="project.task.type">
+            <field name="name">Todo</field>
+            <field name="project_ids" eval="[(4, ref('cptuanhuy_project.project_tuanhuy'))]"/>
+        </record>
+
+        <record id="base.project_tuanhuy_type_wip" model="project.task.type">
+            <field name="name">In Progress</field>
+            <field name="project_ids" eval="[(4, ref('cptuanhuy_project.project_tuanhuy'))]"/>
+        </record>
+
+        <record id="base.project_tuanhuy_type_qa" model="project.task.type">
+            <field name="name">QA</field>
+            <field name="project_ids" eval="[(4, ref('cptuanhuy_project.project_tuanhuy'))]"/>
+        </record>
+
+        <record id="base.project_tuanhuy_type_done" model="project.task.type">
+            <field name="name">Done</field>
+            <field name="project_ids" eval="[(4, ref('cptuanhuy_project.project_tuanhuy'))]"/>
+        </record>
+
+        <record id="project_tuanhuy_type_cancel" model="project.task.type">
+            <field name="name">Huỷ</field>
+            <field name="project_ids" eval="[(4, ref('cptuanhuy_project.project_tuanhuy'))]"/>
+        </record>
+
+        <!-- project.type.partner -->
+        <record id="project_type_partner_kh_cong_nghiep" model="project.type.partner">
+            <field name="name">KH công nghiệp</field>
+        </record>
+
+        <record id="project_type_partner_kh_dien_luc" model="project.type.partner">
+            <field name="name">KH Điện lực</field>
+        </record>
+
+        <record id="project_type_partner_kh_xay_lap" model="project.type.partner">
+            <field name="name">KH xây lắp</field>
+        </record>
+
+        <!-- feature.project -->
+        <record id="feature_project_tu_bang_dien" model="feature.project">
+            <field name="name">Tủ bảng điện</field>
+        </record>
+
+        <record id="feature_project_TMC" model="feature.project">
+            <field name="name">TMC</field>
+        </record>
+
+        <record id="feature_project_thuong_mai" model="feature.project">
+            <field name="name">Thương mại</field>
+        </record>
+
+        <record id="feature_project_nha_may" model="feature.project">
+            <field name="name">Nhà máy</field>
+        </record>
+
+        <record id="feature_project_khach_san" model="feature.project">
+            <field name="name">Khách sạn</field>
+        </record>
+
+        <record id="feature_project_duong_trung_the" model="feature.project">
+            <field name="name">Đường trung thế và trạm biến áp</field>
+        </record>
+
+
+        <!--Priority-->
+
+        <record id="priority_high" model="project.task.priority">
+            <field name="name">Cao</field>
+        </record>
+
+        <record id="priority_fit" model="project.task.priority">
+            <field name="name">Vừa</field>
+        </record>
+
+        <record id="priority_low" model="project.task.priority">
+            <field name="name">Thấp</field>
+        </record>
+
+
+        <record id="project_notification_cron" model="ir.cron">
+            <field name="name">Project Notification</field>
+            <field eval="True" name="active"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'project.project'"></field>
+            <field name="function" eval="'send_email_notification_project'"/>
+        </record>
+
+        <record id="project_notification" model="mail.template">
+            <field name="name">Project Notification</field>
+            <field name="model_id" ref="model_project_project"/>
+            <field name="email_from">info@tuanhuyco.com</field>
+            <field name="email_to">${object.create_uid.email}</field>
+            <field name="subject">Project Notification</field>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+<p><strong>Project Notification</strong></p>
+<br/>
+<br/>
+<p><strong>Dự án: ${object.name} - Ngày bắt đầu: ${object.date_start}</strong></p>
+
+<div style="display:table;">
+    <div style="display:table-header-group;">
+        <div style="display:table-row;">
+            <div style="display:table-cell;">Hạng mục</div>
+            <div style="display:table-cell;">Ngày bắt đầu</div>
+            <div style="display:table-cell;">Ngày kết thúc</div>
+            <div style="display:table-cell;">Tiến độ</div>
+            <div style="display:table-cell;">Trạng thái</div>
+        </div>
+    </div>
+    <div style="display:table-row-group;">
+        % for line in object.planning_ids:
+        <div style="display:table-row;">
+            <div style="display:table-cell;border-left:1px solid black;border-right:1px solid black;">${line.name}</div>
+            <div style="display:table-cell;border-left:1px solid black;border-right:1px solid black;">${line.date_start}</div>
+            <div style="display:table-cell;border-left:1px solid black;border-right:1px solid black;">${line.date_end}</div>
+            <div style="display:table-cell;border-left:1px solid black;border-right:1px solid black;">${line.progress}</div>
+            <div style="display:table-cell;border-left:1px solid black;border-right:1px solid black;">${line.status}</div>
+        </div>
+        % endfor
+    </div>
+</div>
+
+            ]]></field>
+        </record>
+
+
+
+        <!--Update Job Quotaion-->
+        <record id="update_job_quation_cron" model="ir.cron">
+            <field name="name">Update Job Quotaion</field>
+            <field eval="False" name="active"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'job.costing'"></field>
+            <field name="function" eval="'update_job_quation'"/>
+        </record>
+
+        <record id="job_quotaion_type_manufacturing" model="job.quotaion.type">
+            <field name="name">Sản xuất</field>
+            <field name="account_analytic_tag_ids" eval="[(6,0,[ref('account_analytic_tag_san_xuat')])]"/>
+            <field name="cost_account_analytic_tag_ids" eval="[(6,0,[ref('cost_account_analytic_tag_san_xuat')])]"/>
+        </record>
+
+        <record id="job_quotaion_type_construction" model="job.quotaion.type">
+            <field name="name">Công trình</field>
+            <field name="account_analytic_tag_ids" eval="[(6,0,[ref('account_analytic_tag_congtrinh')])]"/>
+            <field name="cost_account_analytic_tag_ids" eval="[(6,0,[ref('cost_account_analytic_tag_congtrinh')])]"/>
+        </record>
+
+        <record id="job_quotaion_type_trade" model="job.quotaion.type">
+            <field name="name">Thương mại</field>
+            <field name="account_analytic_tag_ids" eval="[(6,0,[ref('account_analytic_tag_thuong_mai')])]"/>
+            <field name="cost_account_analytic_tag_ids" eval="[(6,0,[ref('cost_account_analytic_tag_thuong_mai')])]"/>
+        </record>
+
+        <!--Update account_analytic_tag product-->
+        <record id="update_account_analytic_tag_product_cron" model="ir.cron">
+            <field name="name">Update account_analytic_tag_product</field>
+            <field eval="False" name="active"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'product.template'"></field>
+            <field name="function" eval="'update_account_analytic_tag_product'"/>
+        </record>
+
+
+        <!--<record id="job_quotaion_type_mix" model="job.quotaion.type">-->
+            <!--<field name="name">Hỗn hợp</field>-->
+        <!--</record>-->
+    </data>
+</odoo>

@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+        <record id="view_res_partner_filter_current_month" model="ir.ui.view">
+            <field name="name">res.partner.select.current.month</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='inactive']" position="after">
+                    <separator/>
+                    <filter string="Current Month" name="current_month"
+                            domain="[('create_date','&lt;',(context_today()+relativedelta(months=1)).strftime('%Y-%m-01 17:00:00')), ('create_date','&gt;=',time.strftime('%Y-%m-01 17:00:00'))]"/>
+                    <separator/>
+                    <filter string="Sale Person" name="my_partner"
+                            domain="[('user_id', '=', uid)]"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

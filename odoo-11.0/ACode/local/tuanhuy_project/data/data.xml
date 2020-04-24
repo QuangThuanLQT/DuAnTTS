@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!-- project -->
+        <record id="project_tuanhuy" model="project.project">
+            <field name="name">TuanHuy</field>
+        </record>
+
+        <record id="base.project_tuanhuy_type_todo" model="project.task.type">
+            <field name="name">Todo</field>
+            <field name="project_ids" eval="[(4, ref('tuanhuy_project.project_tuanhuy'))]"/>
+        </record>
+
+        <record id="base.project_tuanhuy_type_wip" model="project.task.type">
+            <field name="name">In Progress</field>
+            <field name="project_ids" eval="[(4, ref('tuanhuy_project.project_tuanhuy'))]"/>
+        </record>
+
+        <record id="base.project_tuanhuy_type_qa" model="project.task.type">
+            <field name="name">QA</field>
+            <field name="project_ids" eval="[(4, ref('tuanhuy_project.project_tuanhuy'))]"/>
+        </record>
+
+        <record id="base.project_tuanhuy_type_done" model="project.task.type">
+            <field name="name">Done</field>
+            <field name="project_ids" eval="[(4, ref('tuanhuy_project.project_tuanhuy'))]"/>
+        </record>
+    </data>
+</odoo>

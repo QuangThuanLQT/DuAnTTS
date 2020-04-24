@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="product_pricelist_view" model="ir.ui.view">
+            <field name="model">product.pricelist</field>
+            <field name="inherit_id" ref="product.product_pricelist_view"/>
+            <field name="arch" type="xml">
+                <sheet position="before">
+                    <header>
+                        <button string="Confirm" type="object" name="action_confirm"
+                                states="draft" class="oe_highlight" />
+                        <button string="Mark as done" type="object" name="action_done"
+                                states="confirmed" class="oe_highlight"/>
+                        <button string="Reset to draft" type="object" name="action_draft"
+                                states="confirmed,done" />
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                </sheet>
+            </field>
+        </record>
+    </data>
+</odoo>

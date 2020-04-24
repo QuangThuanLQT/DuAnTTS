@@ -1,0 +1,25 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="liabilities_time_tree">
+            <field name="name">liabilities.time_tree</field>
+            <field name="model">liabilities.time</field>
+            <field name="arch" type="xml">
+                <tree string="Thời gian công nợ" editable="top">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="liabilities_time_action" model="ir.actions.act_window">
+            <field name="name">Thời gian công nợ</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">liabilities.time</field>
+            <field name="view_mode">tree</field>
+            <field name="view_type">form</field>
+        </record>
+
+        <menuitem name="Thời gian công nợ" id="liabilities_time_menu"
+                  parent="purchase.menu_purchase_config"
+                  action="liabilities_time_action" sequence="11"/>
+    </data>
+</odoo>

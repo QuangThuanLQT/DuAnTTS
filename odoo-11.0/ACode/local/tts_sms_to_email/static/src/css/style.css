@@ -1,0 +1,6 @@
+.sms_body [data-id="body"]{width: 350px;}
+.sms_body [data-id="don_hang"]{width: 100px;}
+.sms_body [data-id="ma_kh"]{width: 100px;}
+.sms_body [data-id="customer_phone"]{width: 100px;}
+.sms_body [data-field="create_account_voucher"] button.btn_txt {background-color: #1e9880; color: white; width: 100px;}
+.sms_body [data-field="view_account_voucher"] button.btn_txt {background-color: #ddd; color: black; width: 60px;}

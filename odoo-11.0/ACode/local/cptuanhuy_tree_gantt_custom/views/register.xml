@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="assets_backend" name="cptuanhuy_tree_gantt_custom assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <!--<link rel="stylesheet" href="/cptuanhuy_tree_gantt_custom/static/src/css/custom.css"/>-->
+                <script type="text/javascript" src="/cptuanhuy_tree_gantt_custom/static/src/js/cptuanhuy_tree_gantt_custom.js"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

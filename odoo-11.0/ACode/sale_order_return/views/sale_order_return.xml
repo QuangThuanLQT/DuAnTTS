@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="order_return_list">
+            <field name="name">sale_order_return</field>
+            <field name="model">sale.order.return</field>
+            <field name="arch" type="xml">
+                <form string="Order return Form">
+                    <header attrs="{'invisible': [('don_tra_hang', '=', False)]}">
+                        <button name="order_return" type="object" string="Xác nhận"
+                                attrs="{'invisible':[('state_return','=','order_return')]}"/>
+                        <field name="state_return" widget="statusbar" statusbar_visible="draft,order_return"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" default_focus="1" placeholder="Số đơn" required="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="partner_id"/>
+                                <field name="don_tra_hang" invisible="1"/>
+                                <field name="sale_order_return_ids"/>
+                                <field name="reason_cancel"/>
+                                <field name="receive_method"/>
+                                <field name="location_return"/>
+                                <field name="note"/>
+                            </group>
+                            <group>
+                                <field name="confirmation_date"/>
+                                <field name="so_tien_da_tra"/>
+                                <field name="con_phai_tra"/>
+                                <field name="trang_thai_tt"/>
+                                <field name="trang_thai_dh"/>
+                                <field name="create_uid"/>
+                                <field name="confirm_user_id"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Order Lines">
+                                <field name='order_line_ids' string='Order Lines'>
+                                    <tree editable="bottom">
+                                        <field name="product_id"/>
+                                        <field name="invoice_name"/>
+                                        <field name="product_uom_qty"/>
+                                        <field name="check_box_prinizi_confirm"/>
+                                        <field name="print_qty"/>
+                                        <field name="price_unit"/>
+                                        <field name="price_subtotal"/>
+                                    </tree>
+                                    <form string='Thông tin order line'>
+                                        <field name="product_id"/>
+                                        <field name="invoice_name"/>
+                                        <field name="product_uom_qty"/>
+                                        <field name="check_box_prinizi_confirm"/>
+                                        <field name="print_qty"/>
+                                        <field name="price_unit"/>
+                                        <field name="price_subtotal"/>
+                                    </form>
+                                </field>
+                                <group>
+                                    <group>
+                                        <field name="tax_id"/>
+                                        <field name="discount_type"/>
+                                        <field name="discount_rate"/>
+                                        <field name="check_box_co_cq"/>
+                                        <field name="check_box_invoice_gtgt"/>
+                                    </group>
+
+                                    <group>
+                                        <field name="total_quantity"/>
+                                        <field name="amount_untaxed"/>
+                                        <field name="amount_tax"/>
+                                        <field name="amount_total"/>
+                                    </group>
+
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="order_return_list_action">
+            <field name="name">Order Return</field>
+            <field name="res_model">sale.order.return</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('don_tra_hang','=',True)]</field>
+            <field name="context">{'default_don_tra_hang': True}</field>
+        </record>
+
+        <record model="ir.ui.view" id="order_return_list_tree">
+            <field name="name">Order Return</field>
+            <field name="model">sale.order.return</field>
+            <field name="arch" type="xml">
+                <tree string="Order Return">
+                    <field name="name"/>
+                    <field name="confirmation_date" string='Thời gian tạo'/>
+                    <field name="partner_id"/>
+                    <field name="create_uid" string='Salesperson'/>
+                    <field name="note" string='Ghi chú'/>
+                    <field name="con_phai_tra"/>
+                    <field name="so_tien_da_tra"/>
+                    <field name="trang_thai_tt"/>
+                    <field name="trang_thai_dh"/>
+                </tree>
+            </field>
+        </record>
+
+        <menuitem id="order_return_menu" name="Order Return"
+                  parent="sale.sale_menu_root"/>
+        <menuitem id="order_return" name="Order Return"
+                  parent="order_return_menu"
+                  action="order_return_list_action"/>
+    </data>
+</odoo>

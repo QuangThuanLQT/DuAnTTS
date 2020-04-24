@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="apply_by_pin_code_form_view" model="ir.ui.view">
+            <field name="name">apply.by.pin.code.form</field>
+            <field name="model">apply.by.pin.code</field>
+            <field name="arch" type="xml">
+            <form string="Cancel">
+                <separator string="Nhập mã pin để xác nhận"/>
+                <group>
+                    <field name="ma_bin"/>
+                </group>
+                <footer>
+                    <button name="apply" type="object" default_focus="1"
+                        string="Xác Nhận" class="oe_highlight"/>
+                    <button string="Huỷ" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+            </field>
+        </record>
+    </data>
+</odoo>

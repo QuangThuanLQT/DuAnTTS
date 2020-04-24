@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="report_product_barcode_generator">
+            <t t-call="report.html_container">
+                <div class="page">
+                    <div class="row">
+                        <t t-foreach="docs" t-as="o">
+                            <t t-foreach="o.line_ids" t-as="line">
+                                <t t-foreach="range(line.quantity)" t-as="l">
+                                    <div class="col-xs-4" style="padding: 0px;">
+                                        <t t-if="line.product_id.barcode">
+                                            <div style="padding-left: 5px;">
+                                                <img t-att-src="'/svg/barcode/%s/%s' % (line.product_id.barcode, line.product_id.barcode)" />
+                                            </div>
+                                        </t>
+                                        <t t-if="not line.product_id.barcode">
+                                            <div style="padding-left: 5px;">
+                                                <img t-att-src="'/svg/barcode/%s/%s' % (line.product_id.default_code, line.product_id.default_code)" />
+                                            </div>
+                                        </t>
+                                        <div style="text-align: center;">
+                                            <span style="font-size:9px" t-field="line.product_id.default_code"/>
+                                        </div>
+                                    </div>
+                                </t>
+                            </t>
+                        </t>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <report
+                id="action_report_product_barcode_generator"
+                model="product.barcode.generator"
+                report_type="qweb-pdf"
+                name="barcode_printout.report_product_barcode_generator"
+                string="In Barcode"
+                file="barcode_printout.report_product_barcode_generator"/>
+
+        <record id="action_report_product_barcode_generator" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="paperformat_barcode_label"/>
+        </record>
+
+        <record model="ir.ui.view" id="generator_form_view">
+            <field name="name">product.barcode.generator.form</field>
+            <field name="model">product.barcode.generator</field>
+            <field name="arch" type="xml">
+                <form string="Generator Form">
+                    <sheet>
+                        <group colspan="2" col="2">
+                            <field name="line_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="product_id" string="Sản phẩm"/>
+                                    <field name="quantity" string="Số lượng"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="In" type="object" name="action_print" class="oe_highlight" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

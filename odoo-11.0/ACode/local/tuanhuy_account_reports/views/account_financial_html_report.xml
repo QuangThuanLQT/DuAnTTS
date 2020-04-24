@@ -1,0 +1,1937 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <menuitem id="tuanhuy_vn_report" name="Báo cáo VN" parent="account.menu_finance_reports"
+                  sequence="1" groups="account.group_account_user"/>
+
+        <!-- CASH SUMMARY -->
+
+        <record id="tuanhuy_financial_report_cashsummary0" model="account.financial.html.report">
+            <field name="name">Cash Flow Statement</field>
+            <field name="report_type">date_range_cash</field>
+            <field name='parent_id' ref='l10n_vn.account_reports_vn_statements_menu'/>
+        </record>
+
+        <record id="luuchuyentientuhoatdongkinhdoanh" model="account.financial.html.report.line">
+            <field name="name">Lưu chuyển tiền từ hoạt động kinh doanh</field>
+            <field name="code">lct_hdkd</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="0"/>
+            <!--<field name="formulas">balance = doanhthu_ban_dichvu.balance + giamtrudoanhthu.balance + thuan_ban_dichvu.balance</field>-->
+            <field name="financial_report_id" ref="tuanhuy_financial_report_cashsummary0"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="luuchuyentientuhoatdongdautu" model="account.financial.html.report.line">
+            <field name="name">Lưu chuyển tiền từ hoạt động đầu tư</field>
+            <field name="code">lci_hdkd</field>
+            <field name="sequence" eval="20"/>
+            <field name="level" eval="0"/>
+            <!--<field name="formulas">balance = doanhthu_ban_dichvu.balance + giamtrudoanhthu.balance + thuan_ban_dichvu.balance</field>-->
+            <field name="financial_report_id" ref="tuanhuy_financial_report_cashsummary0"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="lc_tien_hd_tc" model="account.financial.html.report.line">
+            <field name="name">Lưu chuyển tiền từ hoạt động tài chính</field>
+            <field name="code">lc_tien_hd_tc</field>
+            <field name="sequence" eval="30"/>
+            <field name="level" eval="0"/>
+            <!--<field name="formulas">balance = doanhthu_ban_dichvu.balance + giamtrudoanhthu.balance + thuan_ban_dichvu.balance</field>-->
+            <field name="financial_report_id" ref="tuanhuy_financial_report_cashsummary0"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="tt_bh_ccdv_dt" model="account.financial.html.report.line">
+            <field name="name">Tiền thu từ bán hàng, cung cấp dịch vụ và doanh thu khác</field>
+            <field name="code">tt_bh_ccdv_dt</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="2"/>
+            <field name="number">01</field>
+            <field name="description">(C111,113/N511,3331,131,121)</field>
+            <field name="parent_id" ref="luuchuyentientuhoatdongkinhdoanh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="t_ctcncchh_dc" model="account.financial.html.report.line">
+            <field name="name">Tiền chi trả cho người cung cấp hàng hóa và dịch vụ </field>
+            <field name="code">t_ctcncchh_dc</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="02"/>
+            <field name="number">02</field>
+            <field name="description">(C111,112/N331,151,152,153,154,155,156,157,158)</field>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="luuchuyentientuhoatdongkinhdoanh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="t_ctnld" model="account.financial.html.report.line">
+            <field name="name">Tiền chi trả cho người lao động </field>
+            <field name="code">t_ctnld</field>
+            <field name="sequence" eval="3"/>
+            <field name="level" eval="02"/>
+            <field name="number">03</field>
+            <field name="description">(C111,112/N334)</field>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="luuchuyentientuhoatdongkinhdoanh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="t_lvdt" model="account.financial.html.report.line">
+            <field name="name">Tiền lãi vay đã trả </field>
+            <field name="code">t_lvdt</field>
+            <field name="sequence" eval="4"/>
+            <field name="level" eval="02"/>
+            <field name="number">04</field>
+            <field name="description">(C111,112,113/N335,635,242)</field>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="luuchuyentientuhoatdongkinhdoanh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="ttndn_dn" model="account.financial.html.report.line">
+            <field name="name">Thuế thu nhập doanh nghiệp đã nộp </field>
+            <field name="code">ttndn_dn</field>
+            <field name="sequence" eval="5"/>
+            <field name="level" eval="02"/>
+            <field name="number">05</field>
+            <field name="description">(C111,112,113/N3334)</field>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="luuchuyentientuhoatdongkinhdoanh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="t_tkthdkd" model="account.financial.html.report.line">
+            <field name="name">Tiền thu khác từ hoạt động kinh doanh </field>
+            <field name="code">t_tkthdkd</field>
+            <field name="sequence" eval="6"/>
+            <field name="level" eval="02"/>
+            <field name="number">06</field>
+            <field name="description">(C711,133,141,244/N111,112)</field>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="luuchuyentientuhoatdongkinhdoanh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="t_ckchdkd" model="account.financial.html.report.line">
+            <field name="name">Tiền chi khác cho hoạt động kinh doanh </field>
+            <field name="code">t_ckchdkd</field>
+            <field name="sequence" eval="7"/>
+            <field name="level" eval="02"/>
+            <field name="number">07</field>
+            <field name="description">(C111,112,113/N811,161,244,333,338,344,352,353,356)</field>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="luuchuyentientuhoatdongkinhdoanh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="luuchuyentienthuan" model="account.financial.html.report.line">
+            <field name="name">Lưu chuyển tiền thuần từ hoạt động kinh doanh</field>
+            <field name="code">lctthdkd</field>
+            <field name="sequence" eval="20"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="20"/>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="luuchuyentientuhoatdongkinhdoanh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+
+        <record id="tcms_xd_tscd" model="account.financial.html.report.line">
+            <field name="name">Tiền chi để mua sắm, xây dựng TSCĐ và các tài sản dài hạn khác </field>
+            <field name="code">tcms_xd_tscd</field>
+            <field name="sequence" eval="21"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="21"/>
+            <field name="description">(C111,112,113/N211,213,217,241,331,3411)</field>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="luuchuyentientuhoatdongdautu"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <!--<record id="ttttl_nb_tscd" model="account.financial.html.report.line">-->
+            <!--<field name="name">Tiền thu từ thanh lý, nhượng bán TSCĐ và các tài sản dài hạn khác</field>-->
+            <!--<field name="code">ttttl_nb_tscd</field>-->
+            <!--<field name="sequence" eval="21"/>-->
+            <!--<field name="level" eval="2"/>-->
+            <!--<field name="number" eval="21"/>-->
+            <!--&lt;!&ndash;<field name="formulas">balance = 10000</field>&ndash;&gt;-->
+            <!--<field name="parent_id" ref="luuchuyentientuhoatdongdautu"/>-->
+            <!--<field name="special_date_changer">strict_range</field>-->
+        <!--</record>-->
+
+
+        <record id="ttttl_nb_tscd" model="account.financial.html.report.line">
+            <field name="name">Tiền thu từ thanh lý, nhượng bán TSCĐ và các tài sản dài hạn khác </field>
+            <field name="code">ttttl_nb_tscd</field>
+            <field name="sequence" eval="22"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="22"/>
+            <field name="description">(C711,5117,131/N111,112,113; C111,112,113/N632,811)</field>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="luuchuyentientuhoatdongdautu"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="tien_cv_mccdv" model="account.financial.html.report.line">
+            <field name="name">Tiền chi cho vay, mua các công cụ nợ của đơn vị khác </field>
+            <field name="code">tien_cv_mccdv</field>
+            <field name="sequence" eval="23"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="23"/>
+            <field name="description">(C111,112,113/N128,171)</field>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="luuchuyentientuhoatdongdautu"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="tien_th_blcccn" model="account.financial.html.report.line">
+            <field name="name">Tiền thu hồi cho vay, bán lại các công cụ nợ của đơn vị khác </field>
+            <field name="code">tien_th_blcccn</field>
+            <field name="sequence" eval="24"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="24"/>
+            <field name="description">(C128,171/N111,112,113)</field>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="luuchuyentientuhoatdongdautu"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="tien_dtgvdv" model="account.financial.html.report.line">
+            <field name="name">Tiền chi đầu tư góp vốn vào đơn vị khác </field>
+            <field name="code">tien_dtgvdv</field>
+            <field name="sequence" eval="25"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="25"/>
+            <field name="description">(C111,112,113/N221,222,2281,331)</field>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="luuchuyentientuhoatdongdautu"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="tien_thdtgv" model="account.financial.html.report.line">
+            <field name="name">Tiền thu hồi đầu tư góp vốn vào đơn vị khác </field>
+            <field name="code">tien_thdtgv</field>
+            <field name="sequence" eval="26"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="26"/>
+            <field name="description">(C131,221,222,2281/N111,112,113)</field>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="luuchuyentientuhoatdongdautu"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="tien_tlv_ct_ln" model="account.financial.html.report.line">
+            <field name="name">Tiền thu lãi cho vay, cổ tức và lợi nhuận được chia </field>
+            <field name="code">tien_tlv_ct_ln</field>
+            <field name="sequence" eval="27"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="27"/>
+            <field name="description">(C515/N111,112)</field>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="luuchuyentientuhoatdongdautu"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="lc_tien_thuan_dt" model="account.financial.html.report.line">
+            <field name="name">Lưu chuyển tiền thuần từ hoạt động đầu tư</field>
+            <field name="code">lc_tien_thuan_dt</field>
+            <field name="sequence" eval="30"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="30"/>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="luuchuyentientuhoatdongdautu"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+
+        <record id="tien_ttph_cophieu" model="account.financial.html.report.line">
+            <field name="name">Tiền thu từ phát hành cổ phiếu, nhận vốn góp của chủ sở hữu </field>
+            <field name="code">tien_ttph_cophieu</field>
+            <field name="sequence" eval="31"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="31"/>
+            <field name="description">(C411/N111,112,113)</field>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="lc_tien_hd_tc"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+
+        <record id="tien_tlgv_mcp" model="account.financial.html.report.line">
+            <field name="name">Tiền trả lại vốn góp cho các chủ sở hữu, mua lại cổ phiếu  của doanh nghiệp đã phát hành </field>
+            <field name="code">tien_tlgv_mcp</field>
+            <field name="sequence" eval="32"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="32"/>
+            <field name="description">(C111,112,113/N411,419)</field>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="lc_tien_hd_tc"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="tien_ttd_vay" model="account.financial.html.report.line">
+            <field name="name">Tiền thu từ đi vay </field>
+            <field name="code">tien_ttd_vay</field>
+            <field name="sequence" eval="33"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="33"/>
+            <field name="description">(C3411,3431,3432,41112/N111,112,113)</field>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="lc_tien_hd_tc"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="tien_tra_vay" model="account.financial.html.report.line">
+            <field name="name">Tiền trả nợ gốc vay </field>
+            <field name="code">tien_tra_vay</field>
+            <field name="sequence" eval="34"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="34"/>
+            <field name="description">(C111,112,113/N3411,3431,3432,41112)</field>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="lc_tien_hd_tc"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="tien_tngttc" model="account.financial.html.report.line">
+            <field name="name">Tiền trả nợ gốc thuê tài chính </field>
+            <field name="code">tien_tngttc</field>
+            <field name="sequence" eval="35"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="35"/>
+            <field name="description">(C111,112,113/N3412)</field>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="lc_tien_hd_tc"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="ct_ln_dtccsh" model="account.financial.html.report.line">
+            <field name="name">Cổ tức, lợi nhuận đã trả cho chủ sở hữu </field>
+            <field name="code">ct_ln_dtccsh</field>
+            <field name="sequence" eval="36"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="36"/>
+            <field name="description">(C111,112,113/N421,338)</field>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="lc_tien_hd_tc"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="lc_thuan_hd_taichinh" model="account.financial.html.report.line">
+            <field name="name">Lưu chuyển tiền thuần từ hoạt động tài chính</field>
+            <field name="code">lc_thuan_hd_taichinh</field>
+            <field name="sequence" eval="40"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="40"/>
+            <field name="description"></field>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="lc_tien_hd_tc"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="lc_tienthuan" model="account.financial.html.report.line">
+            <field name="name">Lưu chuyển tiền thuần trong kỳ (50 = 20+30+40)</field>
+            <field name="code">lc_tienthuan</field>
+            <field name="sequence" eval="50"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="50"/>
+            <field name="description"></field>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="lc_tien_hd_tc"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="t_l_dauky" model="account.financial.html.report.line">
+            <field name="name">Tiền và tương đương tiền đầu kỳ</field>
+            <field name="code">lc_thuan_hd_taichinh</field>
+            <field name="sequence" eval="60"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="60"/>
+            <field name="description"></field>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="lc_tien_hd_tc"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="ahtd_ngoaite" model="account.financial.html.report.line">
+            <field name="name">Ảnh hưởng của thay đổi tỷ giá hối đoái quy đổi ngoại tệ </field>
+            <field name="code">ahtd_ngoaite</field>
+            <field name="sequence" eval="61"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="61"/>
+            <field name="description">(C4131/N111,112,113)</field>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="lc_tien_hd_tc"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="tien_td_daucuoi" model="account.financial.html.report.line">
+            <field name="name">Tiền và tương đương tiền cuối kỳ (70 = 50+60+61)</field>
+            <field name="code">tien_td_daucuoi</field>
+            <field name="sequence" eval="70"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="70"/>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="lc_tien_hd_tc"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="action_account_report_cs" model="ir.actions.client">
+            <field name="name">Cash Flow Statement</field>
+            <field name="tag">account_report_generic</field>
+            <field name="context"
+                   eval="{'url': '/account_reports/output_format/financial_report/' + str(ref('tuanhuy_financial_report_cashsummary0')), 'model': 'account.financial.html.report', 'id': ref('tuanhuy_financial_report_cashsummary0')}"/>
+        </record>
+
+
+        <!-- BALANCE SHEET -->
+
+        <record id="account_financial_report_balancesheet0" model="account.financial.html.report">
+            <field name="name">Balance Sheet</field>
+            <field name="report_type">no_date_range_analytic</field>
+            <field name='parent_id' ref='l10n_vn.account_reports_vn_statements_menu'/>
+        </record>
+
+        <record id="taisan" model="account.financial.html.report.line">
+            <field name="name">TÀI SẢN</field>
+            <field name="code">tuanhuy_hoatdong</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="0"/>
+            <!--<field name="formulas">balance = doanhthu_ban_dichvu.balance + giamtrudoanhthu.balance + thuan_ban_dichvu.balance</field>-->
+            <field name="financial_report_id" ref="account_financial_report_balancesheet0"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="taisannganhan" model="account.financial.html.report.line">
+            <field name="name">TÀI SẢN NGẮN HẠN</field>
+            <field name="code">taisannganhan</field>
+            <field name="sequence" eval="100"/>
+            <field name="level" eval="1"/>
+            <field name="number" eval="100"/>
+            <field name="parent_id" ref="taisan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="tien_td_tien" model="account.financial.html.report.line">
+            <field name="name">I. Tiền và các khoản tương đương tiền</field>
+            <field name="code">taisannganhan</field>
+            <field name="sequence" eval="110"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="110"/>
+            <field name="parent_id" ref="taisannganhan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="tien" model="account.financial.html.report.line">
+            <field name="name">1. Tiền</field>
+            <field name="code">tien</field>
+            <field name="sequence" eval="111"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="111"/>
+            <field name="parent_id" ref="tien_td_tien"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="td_tien" model="account.financial.html.report.line">
+            <field name="name">2. Các khoản tương đương tiền</field>
+            <field name="code">td_tien</field>
+            <field name="sequence" eval="112"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="112"/>
+            <field name="parent_id" ref="tien_td_tien"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="dt_taichinh_nganhan" model="account.financial.html.report.line">
+            <field name="name">II. Đầu tư tài chính ngắn hạn</field>
+            <field name="code">dt_taichinh_nganhan</field>
+            <field name="sequence" eval="120"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="120"/>
+            <field name="parent_id" ref="taisannganhan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="ck_kinhdoanh" model="account.financial.html.report.line">
+            <field name="name">1. Chứng khoán kinh doanh</field>
+            <field name="code">ck_kinhdoanh</field>
+            <field name="sequence" eval="121"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="121"/>
+            <field name="parent_id" ref="dt_taichinh_nganhan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="giam_ck_kinhdoanh" model="account.financial.html.report.line">
+            <field name="name">2. Dự phòng giảm giá chứng khoán kinh doanh (*) </field>
+            <field name="code">giam_ck_kinhdoanh</field>
+            <field name="sequence" eval="122"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="122"/>
+            <field name="parent_id" ref="dt_taichinh_nganhan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="dt_den_dh" model="account.financial.html.report.line">
+            <field name="name">3. Đầu tư nắm giữ đến ngày đáo hạn</field>
+            <field name="code">dt_den_dh</field>
+            <field name="sequence" eval="123"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="123"/>
+            <field name="parent_id" ref="dt_taichinh_nganhan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+
+
+        <record id="thu_nganhan" model="account.financial.html.report.line">
+            <field name="name">III. Các khoản phải thu ngắn hạn</field>
+            <field name="code">thu_nganhan</field>
+            <field name="sequence" eval="130"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="130"/>
+            <field name="parent_id" ref="taisannganhan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="pt_nh_kh" model="account.financial.html.report.line">
+            <field name="name">1. Phải thu ngắn hạn của khách hàng</field>
+            <field name="code">pt_nh_kh</field>
+            <field name="sequence" eval="131"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="131"/>
+            <field name="parent_id" ref="thu_nganhan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="tt_ngb_nh" model="account.financial.html.report.line">
+            <field name="name">2. Trả trước cho người bán ngắn hạn</field>
+            <field name="code">tt_ngb_nh</field>
+            <field name="sequence" eval="132"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="132"/>
+            <field name="parent_id" ref="thu_nganhan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="pt_nb_nh" model="account.financial.html.report.line">
+            <field name="name">3. Phải thu nội bộ ngắn hạn</field>
+            <field name="code">pt_nb_nh</field>
+            <field name="sequence" eval="133"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="133"/>
+            <field name="parent_id" ref="taisannganhan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="pt_ttd_khhdxd_134" model="account.financial.html.report.line">
+            <field name="name">4. Phải thu theo tiến độ kế hoạch hợp đồng xây dựng</field>
+            <field name="code">pt_ttd_khhdxd_134</field>
+            <field name="sequence" eval="134"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="134"/>
+            <field name="parent_id" ref="taisannganhan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="pt_cv_nh" model="account.financial.html.report.line">
+            <field name="name">5. Phải thu về cho vay ngắn hạn</field>
+            <field name="code">pt_cv_nh</field>
+            <field name="sequence" eval="135"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="135"/>
+            <field name="parent_id" ref="taisannganhan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="pt_nh_khac" model="account.financial.html.report.line">
+            <field name="name">6. Phải thu ngắn hạn khác</field>
+            <field name="code">pt_nh_khac</field>
+            <field name="sequence" eval="136"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="136"/>
+            <field name="parent_id" ref="taisannganhan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="dp_ptnh_kd" model="account.financial.html.report.line">
+            <field name="name">7. Dự phòng phải thu ngắn hạn khó đòi (*)</field>
+            <field name="code">dp_ptnh_kd</field>
+            <field name="sequence" eval="137"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="137"/>
+            <field name="parent_id" ref="taisannganhan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="ts_tcxl" model="account.financial.html.report.line">
+            <field name="name">8. Tài sản thiếu chờ xử lý</field>
+            <field name="code">ts_tcxl</field>
+            <field name="sequence" eval="139"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="139"/>
+            <field name="parent_id" ref="taisannganhan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="hang_tonkho" model="account.financial.html.report.line">
+            <field name="name">IV. Hàng tồn kho</field>
+            <field name="code">hang_tonkho</field>
+            <field name="sequence" eval="140"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="140"/>
+            <field name="parent_id" ref="taisannganhan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="hang_tk" model="account.financial.html.report.line">
+            <field name="name">1. Hàng tồn kho</field>
+            <field name="code">hang_tk</field>
+            <field name="sequence" eval="141"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="141"/>
+            <field name="parent_id" ref="hang_tonkho"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="dp_gg_tk" model="account.financial.html.report.line">
+            <field name="name">2. Dự phòng giảm giá hàng tồn kho (*)</field>
+            <field name="code">dp_gg_tk</field>
+            <field name="sequence" eval="149"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="149"/>
+            <field name="parent_id" ref="hang_tonkho"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="ts_nganhang" model="account.financial.html.report.line">
+            <field name="name">V. Tài sản ngắn hạn khác</field>
+            <field name="code">ts_nganhang</field>
+            <field name="sequence" eval="150"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="150"/>
+            <field name="parent_id" ref="taisannganhan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="cp_pttnh" model="account.financial.html.report.line">
+            <field name="name">1. Chi phí trả trước ngắn hạn </field>
+            <field name="code">cp_pttnh</field>
+            <field name="sequence" eval="151"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="151"/>
+            <field name="parent_id" ref="ts_nganhang"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="t_gtgt_kt" model="account.financial.html.report.line">
+            <field name="name">2. Thuế GTGT được khấu trừ</field>
+            <field name="code">t_gtgt_kt</field>
+            <field name="sequence" eval="155"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="152"/>
+            <field name="parent_id" ref="ts_nganhang"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="t_ckkpt_nc" model="account.financial.html.report.line">
+            <field name="name">3. Thuế và các khoản khác phải thu Nhà nước</field>
+            <field name="code">t_ckkpt_nc</field>
+            <field name="sequence" eval="153"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="153"/>
+            <field name="parent_id" ref="ts_nganhang"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="gdmb_tpcp" model="account.financial.html.report.line">
+            <field name="name">4. Giao dịch mua bán lại trái phiếu Chính phủ</field>
+            <field name="code">gdmb_tpcp</field>
+            <field name="sequence" eval="154"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="154"/>
+            <field name="parent_id" ref="ts_nganhang"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="ts_nh_khac" model="account.financial.html.report.line">
+            <field name="name">5. Tài sản ngắn hạn khác</field>
+            <field name="code">ts_nh_khac</field>
+            <field name="sequence" eval="155"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="155"/>
+            <field name="parent_id" ref="ts_nganhang"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="taisandaihan" model="account.financial.html.report.line">
+            <field name="name">TÀI SẢN DÀI HẠN</field>
+            <field name="code">taisandaihan</field>
+            <field name="sequence" eval="200"/>
+            <field name="level" eval="1"/>
+            <field name="number" eval="200"/>
+            <field name="parent_id" ref="taisan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="ck_pt_dh" model="account.financial.html.report.line">
+            <field name="name">I. Các khoản phải thu dài hạn</field>
+            <field name="code">ck_pt_dh</field>
+            <field name="sequence" eval="210"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="210"/>
+            <field name="parent_id" ref="taisandaihan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="pt_dh_kh" model="account.financial.html.report.line">
+            <field name="name">1. Phải thu dài hạn của khách hàng</field>
+            <field name="code">pt_dh_kh</field>
+            <field name="sequence" eval="211"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="211"/>
+            <field name="parent_id" ref="ck_pt_dh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="tt_nb_dh" model="account.financial.html.report.line">
+            <field name="name">2. Trả trước cho người bán dài hạn</field>
+            <field name="code">tt_nb_dh</field>
+            <field name="sequence" eval="212"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="212"/>
+            <field name="parent_id" ref="ck_pt_dh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="vkd_dvtt" model="account.financial.html.report.line">
+            <field name="name">3. Vốn kinh doanh ở đơn vị trực thuộc</field>
+            <field name="code">vkd_dvtt</field>
+            <field name="sequence" eval="213"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="213"/>
+            <field name="parent_id" ref="ck_pt_dh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="pt_nbdh" model="account.financial.html.report.line">
+            <field name="name">4. Phải thu nội bộ dài hạn</field>
+            <field name="code">pt_nbdh</field>
+            <field name="sequence" eval="214"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="214"/>
+            <field name="parent_id" ref="ck_pt_dh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="pt_cv_dh" model="account.financial.html.report.line">
+            <field name="name">5. Phải thu về cho vay dài hạn</field>
+            <field name="code">pt_cv_dh</field>
+            <field name="sequence" eval="215"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="215"/>
+            <field name="parent_id" ref="ck_pt_dh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="pt_hd_k" model="account.financial.html.report.line">
+            <field name="name">6. Phải thu dài hạn khác</field>
+            <field name="code">pt_hd_k</field>
+            <field name="sequence" eval="216"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="216"/>
+            <field name="parent_id" ref="ck_pt_dh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="dp_pt_dhkd" model="account.financial.html.report.line">
+            <field name="name">7. Dự phòng phải thu dài hạn khó đòi (*)</field>
+            <field name="code">dp_pt_dhkd</field>
+            <field name="sequence" eval="219"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="219"/>
+            <field name="parent_id" ref="ck_pt_dh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="taisancodinh" model="account.financial.html.report.line">
+            <field name="name">II. Tài sản cố định</field>
+            <field name="code">taisancodinh</field>
+            <field name="sequence" eval="220"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="220"/>
+            <field name="parent_id" ref="taisandaihan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="ts_cd_hh" model="account.financial.html.report.line">
+            <field name="name">1. Tài sản cố định hữu hình</field>
+            <field name="code">ts_cd_hh</field>
+            <field name="sequence" eval="221"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="221"/>
+            <field name="parent_id" ref="taisancodinh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="nguyengia" model="account.financial.html.report.line">
+            <field name="name">Nguyên giá</field>
+            <field name="code">nguyengia</field>
+            <field name="sequence" eval="222"/>
+            <field name="level" eval="4"/>
+            <field name="number" eval="222"/>
+            <field name="parent_id" ref="taisancodinh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="gt_hmlk" model="account.financial.html.report.line">
+            <field name="name">Giá trị hao mòn luỹ kế (*)</field>
+            <field name="code">gt_hmlk</field>
+            <field name="sequence" eval="223"/>
+            <field name="level" eval="4"/>
+            <field name="number" eval="223"/>
+            <field name="parent_id" ref="taisancodinh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="ts_cd_ttc" model="account.financial.html.report.line">
+            <field name="name">2. Tài sản cố định thuê tài chính</field>
+            <field name="code">ts_cd_ttc</field>
+            <field name="sequence" eval="224"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="224"/>
+            <field name="parent_id" ref="taisancodinh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="nguyengia_2" model="account.financial.html.report.line">
+            <field name="name">Nguyên giá</field>
+            <field name="code">nguyengia</field>
+            <field name="sequence" eval="225"/>
+            <field name="level" eval="4"/>
+            <field name="number" eval="225"/>
+            <field name="parent_id" ref="taisancodinh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="gt_hmlk_2" model="account.financial.html.report.line">
+            <field name="name">Giá trị hao mòn luỹ kế (*)</field>
+            <field name="code">gt_hmlk</field>
+            <field name="sequence" eval="226"/>
+            <field name="level" eval="4"/>
+            <field name="number" eval="226"/>
+            <field name="parent_id" ref="taisancodinh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="ts_cd_vh" model="account.financial.html.report.line">
+            <field name="name">3. Tài sản cố định vô hình</field>
+            <field name="code">ts_cd_vh</field>
+            <field name="sequence" eval="227"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="227"/>
+            <field name="parent_id" ref="taisancodinh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="nguyengia_3" model="account.financial.html.report.line">
+            <field name="name">Nguyên giá</field>
+            <field name="code">nguyengia_3</field>
+            <field name="sequence" eval="228"/>
+            <field name="level" eval="4"/>
+            <field name="number" eval="228"/>
+            <field name="parent_id" ref="taisancodinh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="gt_hmlk_3" model="account.financial.html.report.line">
+            <field name="name">Giá trị hao mòn luỹ kế (*)</field>
+            <field name="code">gt_hmlk_3</field>
+            <field name="sequence" eval="229"/>
+            <field name="level" eval="4"/>
+            <field name="number" eval="229"/>
+            <field name="parent_id" ref="taisancodinh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="bdsdt" model="account.financial.html.report.line">
+            <field name="name">III. Bất động sản đầu tư</field>
+            <field name="code">bdsdt</field>
+            <field name="sequence" eval="230"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="230"/>
+            <field name="parent_id" ref="taisandaihan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="nguyengia_4" model="account.financial.html.report.line">
+            <field name="name">Nguyên giá</field>
+            <field name="code">nguyengia_4</field>
+            <field name="sequence" eval="231"/>
+            <field name="level" eval="4"/>
+            <field name="number" eval="231"/>
+            <field name="parent_id" ref="bdsdt"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="gt_hmlk_4" model="account.financial.html.report.line">
+            <field name="name">Giá trị hao mòn luỹ kế (*)</field>
+            <field name="code">gt_hmlk_4</field>
+            <field name="sequence" eval="232"/>
+            <field name="level" eval="4"/>
+            <field name="number" eval="232"/>
+            <field name="parent_id" ref="bdsdt"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+
+        <record id="ts_dd_dh" model="account.financial.html.report.line">
+            <field name="name">IV. Tài sản dở dang dài hạn</field>
+            <field name="code">ts_dd_dh</field>
+            <field name="sequence" eval="240"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="240"/>
+            <field name="parent_id" ref="taisandaihan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="cpsx_kddd" model="account.financial.html.report.line">
+            <field name="name">1. Chi phí sản xuất, kinh doanh dở dang dài hạn</field>
+            <field name="code">cpsx_kddd</field>
+            <field name="sequence" eval="241"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="241"/>
+            <field name="parent_id" ref="ts_dd_dh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="cpxx_cbdd" model="account.financial.html.report.line">
+            <field name="name">2. Chi phí xây dựng cơ bản dở dang</field>
+            <field name="code">cpxx_cbdd</field>
+            <field name="sequence" eval="242"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="242"/>
+            <field name="parent_id" ref="ts_dd_dh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+
+        <record id="dautu__chinh_daihan" model="account.financial.html.report.line">
+            <field name="name">V. Đầu tư tài chính dài hạn</field>
+            <field name="code">dautu__chinh_daihan</field>
+            <field name="sequence" eval="250"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="250"/>
+            <field name="parent_id" ref="taisandaihan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="dt_ctycon" model="account.financial.html.report.line">
+            <field name="name">1. Đầu tư vào công ty con </field>
+            <field name="code">dt_ctycon</field>
+            <field name="sequence" eval="251"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="251"/>
+            <field name="parent_id" ref="dautu__chinh_daihan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="dt_cty_ldlk" model="account.financial.html.report.line">
+            <field name="name">2. Đầu tư vào công ty liên doanh, liên kết</field>
+            <field name="code">dt_cty_ldlk</field>
+            <field name="sequence" eval="252"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="252"/>
+            <field name="parent_id" ref="dautu__chinh_daihan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="dt_gv_dvk" model="account.financial.html.report.line">
+            <field name="name">3. Đầu tư góp vốn vào đơn vị khác</field>
+            <field name="code">dt_gv_dvk</field>
+            <field name="sequence" eval="253"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="253"/>
+            <field name="parent_id" ref="dautu__chinh_daihan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="dp_tcdh" model="account.financial.html.report.line">
+            <field name="name">4. Dự phòng đầu tư tài chính dài hạn (*)</field>
+            <field name="code">dp_tcdh</field>
+            <field name="sequence" eval="254"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="254"/>
+            <field name="parent_id" ref="dautu__chinh_daihan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="dt_ngdndh" model="account.financial.html.report.line">
+            <field name="name">5. Đầu tư nắm giữ đến ngày đáo hạn</field>
+            <field name="code">dt_ngdndh</field>
+            <field name="sequence" eval="255"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="255"/>
+            <field name="parent_id" ref="dautu__chinh_daihan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="taisan_daihan_khac" model="account.financial.html.report.line">
+            <field name="name">VI. Tài sản dài hạn khác</field>
+            <field name="code">taisan_daihan_khac</field>
+            <field name="sequence" eval="260"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="260"/>
+            <field name="parent_id" ref="taisandaihan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="cp_tt_dh" model="account.financial.html.report.line">
+            <field name="name">1. Chi phí trả trước dài hạn</field>
+            <field name="code">cp_tt_dh</field>
+            <field name="sequence" eval="261"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="261"/>
+            <field name="parent_id" ref="taisan_daihan_khac"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="tst_snhl" model="account.financial.html.report.line">
+            <field name="name">2. Tài sản thuế thu nhập hoãn lại</field>
+            <field name="code">tst_snhl</field>
+            <field name="sequence" eval="262"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="262"/>
+            <field name="parent_id" ref="taisan_daihan_khac"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="tb_vt__pt_dh" model="account.financial.html.report.line">
+            <field name="name">3. Thiết bị, vật tư, phụ tùng thay thế dài hạn</field>
+            <field name="code">tb_vt__pt_dh</field>
+            <field name="sequence" eval="263"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="263"/>
+            <field name="parent_id" ref="taisan_daihan_khac"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="ts_dh_k" model="account.financial.html.report.line">
+            <field name="name">4. Tài sản dài hạn khác</field>
+            <field name="code">ts_dh_k</field>
+            <field name="sequence" eval="268"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="268"/>
+            <field name="parent_id" ref="taisan_daihan_khac"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="tongcongtaisan" model="account.financial.html.report.line">
+            <field name="name">TỔNG CỘNG TÀI SẢN (270 = 100 + 200</field>
+            <field name="code">tongcongtaisan</field>
+            <field name="sequence" eval="270"/>
+            <field name="level" eval="1"/>
+            <field name="number" eval="270"/>
+            <field name="parent_id" ref="taisan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="nophaitra" model="account.financial.html.report.line">
+            <field name="name">NỢ PHẢI TRẢ</field>
+            <field name="code">nophaitra</field>
+            <field name="sequence" eval="300"/>
+            <field name="level" eval="1"/>
+            <field name="number" eval="300"/>
+            <field name="parent_id" ref="taisan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="nonganhan" model="account.financial.html.report.line">
+            <field name="name">I. Nợ ngắn hạn</field>
+            <field name="code">nonganhan</field>
+            <field name="sequence" eval="310"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="310"/>
+            <field name="parent_id" ref="nophaitra"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="pt_ngb_nh" model="account.financial.html.report.line">
+            <field name="name">1. Phải trả người bán ngắn hạn</field>
+            <field name="code">pt_ngb_nh</field>
+            <field name="sequence" eval="311"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="311"/>
+            <field name="parent_id" ref="nonganhan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="nm_tt_tnh" model="account.financial.html.report.line">
+            <field name="name">2. Người mua trả tiền trước ngắn hạn</field>
+            <field name="code">nm_tt_tnh</field>
+            <field name="sequence" eval="312"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="312"/>
+            <field name="parent_id" ref="nonganhan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="t_kpn_nc" model="account.financial.html.report.line">
+            <field name="name">3. Thuế và các khoản phải nộp Nhà nước</field>
+            <field name="code">t_kpn_nc</field>
+            <field name="sequence" eval="313"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="313"/>
+            <field name="parent_id" ref="nonganhan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="pt_nld" model="account.financial.html.report.line">
+            <field name="name">4. Phải trả người lao động</field>
+            <field name="code">pt_nld</field>
+            <field name="sequence" eval="314"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="314"/>
+            <field name="parent_id" ref="nonganhan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="cp_tnh" model="account.financial.html.report.line">
+            <field name="name">5. Chi phí phải trả ngắn hạn</field>
+            <field name="code">cp_tnh</field>
+            <field name="sequence" eval="315"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="315"/>
+            <field name="parent_id" ref="nonganhan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+
+        <record id="pt_noibo_nh" model="account.financial.html.report.line">
+            <field name="name">6. Phải trả nội bộ ngắn hạn</field>
+            <field name="code">pt_noibo_nh</field>
+            <field name="sequence" eval="316"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="316"/>
+            <field name="parent_id" ref="nonganhan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+
+        <record id="pt_ttd_khhdxd" model="account.financial.html.report.line">
+            <field name="name">7. Phải trả theo tiến độ kế hoạch hợp đồng xây dựng</field>
+            <field name="code">pt_ttd_khhdxd</field>
+            <field name="sequence" eval="317"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="317"/>
+            <field name="parent_id" ref="nonganhan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+
+        <record id="dt_cth_nh" model="account.financial.html.report.line">
+            <field name="name">8. Doanh thu chưa thực hiện ngắn hạn</field>
+            <field name="code">dt_cth_nh</field>
+            <field name="sequence" eval="318"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="318"/>
+            <field name="parent_id" ref="nonganhan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+
+        <record id="pt_nh_k" model="account.financial.html.report.line">
+            <field name="name">9. Phải trả ngắn hạn khác</field>
+            <field name="code">pt_nh_k</field>
+            <field name="sequence" eval="319"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="319"/>
+            <field name="parent_id" ref="nonganhan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="v_n_tc_nh" model="account.financial.html.report.line">
+            <field name="name">10. Vay và nợ thuê tài chính ngắn hạn</field>
+            <field name="code">v_n_tc_nh</field>
+            <field name="sequence" eval="320"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="320"/>
+            <field name="parent_id" ref="nonganhan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+
+        <record id="dp_pt_nh" model="account.financial.html.report.line">
+            <field name="name">11. Dự phòng phải trả ngắn hạn</field>
+            <field name="code">dp_pt_nh</field>
+            <field name="sequence" eval="321"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="321"/>
+            <field name="parent_id" ref="nonganhan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+
+        <record id="qkt_pl" model="account.financial.html.report.line">
+            <field name="name">12. Quỹ khen thưởng, phúc lợi</field>
+            <field name="code">qkt_pl</field>
+            <field name="sequence" eval="322"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="322"/>
+            <field name="parent_id" ref="nonganhan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+
+        <record id="qbog" model="account.financial.html.report.line">
+            <field name="name">13. Quỹ bình ổn giá</field>
+            <field name="code">qbog</field>
+            <field name="sequence" eval="323"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="323"/>
+            <field name="parent_id" ref="nonganhan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="gd_mb_tp_cp" model="account.financial.html.report.line">
+            <field name="name">14. Giao dịch mua bán lại trái phiếu Chính phủ</field>
+            <field name="code">gd_mb_tp_cp</field>
+            <field name="sequence" eval="324"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="324"/>
+            <field name="parent_id" ref="nonganhan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="nodaihan" model="account.financial.html.report.line">
+            <field name="name">II. Nợ dài hạn</field>
+            <field name="code">gd_mb_tp_cp</field>
+            <field name="sequence" eval="330"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="330"/>
+            <field name="parent_id" ref="nophaitra"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="pt_nb_dh" model="account.financial.html.report.line">
+            <field name="name">1. Phải trả người bán dài hạn</field>
+            <field name="code">pt_nb_dh</field>
+            <field name="sequence" eval="331"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="331"/>
+            <field name="parent_id" ref="nodaihan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="nm_tt_tdh" model="account.financial.html.report.line">
+            <field name="name">2. Người mua trả tiền trước dài hạn</field>
+            <field name="code">nm_tt_tdh</field>
+            <field name="sequence" eval="332"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="332"/>
+            <field name="parent_id" ref="nodaihan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="cp_tdh" model="account.financial.html.report.line">
+            <field name="name">3. Chi phí phải trả dài hạn</field>
+            <field name="code">cp_tdh</field>
+            <field name="sequence" eval="333"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="333"/>
+            <field name="parent_id" ref="nodaihan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="pt_nb_vvkd" model="account.financial.html.report.line">
+            <field name="name">4. Phải trả nội bộ về vốn kinh doanh</field>
+            <field name="code">pt_nb_vvkd</field>
+            <field name="sequence" eval="334"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="334"/>
+            <field name="parent_id" ref="nodaihan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="pt_noibo_dh" model="account.financial.html.report.line">
+            <field name="name">5. Phải trả nội bộ dài hạn</field>
+            <field name="code">pt_noibo_dh</field>
+            <field name="sequence" eval="335"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="335"/>
+            <field name="parent_id" ref="nodaihan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+
+        <record id="dt_cth_dh" model="account.financial.html.report.line">
+            <field name="name">6. Doanh thu chưa thực hiện dài hạn </field>
+            <field name="code">dt_cth_dh</field>
+            <field name="sequence" eval="336"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="336"/>
+            <field name="parent_id" ref="nodaihan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+
+        <record id="pt_dh_k" model="account.financial.html.report.line">
+            <field name="name">7. Phải trả dài hạn khác</field>
+            <field name="code">pt_dh_k</field>
+            <field name="sequence" eval="337"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="337"/>
+            <field name="parent_id" ref="nodaihan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+
+        <record id="v_n_ttc_dh" model="account.financial.html.report.line">
+            <field name="name">8. Vay và nợ thuê tài chính dài hạn</field>
+            <field name="code">v_n_ttc_dh</field>
+            <field name="sequence" eval="338"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="338"/>
+            <field name="parent_id" ref="nodaihan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+
+        <record id="tpcd" model="account.financial.html.report.line">
+            <field name="name">9. Trái phiếu chuyển đổi</field>
+            <field name="code">tpcd</field>
+            <field name="sequence" eval="339"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="339"/>
+            <field name="parent_id" ref="nodaihan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="cp_ud" model="account.financial.html.report.line">
+            <field name="name">10. Cổ phiếu ưu đãi</field>
+            <field name="code">cp_ud</field>
+            <field name="sequence" eval="340"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="340"/>
+            <field name="parent_id" ref="nodaihan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+
+        <record id="ttn_hptl" model="account.financial.html.report.line">
+            <field name="name">11. Thuế thu nhập hoãn lại phải trả</field>
+            <field name="code">ttn_hptl</field>
+            <field name="sequence" eval="341"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="341"/>
+            <field name="parent_id" ref="nodaihan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+
+        <record id="dp_ptl_dh" model="account.financial.html.report.line">
+            <field name="name">12. Dự phòng phải trả dài hạn</field>
+            <field name="code">dp_ptl_dh</field>
+            <field name="sequence" eval="342"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="342"/>
+            <field name="parent_id" ref="nodaihan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="qpt_kh_cn" model="account.financial.html.report.line">
+            <field name="name">13. Quỹ phát triển khoa học và công nghệ</field>
+            <field name="code">qpt_kh_cn</field>
+            <field name="sequence" eval="343"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="343"/>
+            <field name="parent_id" ref="nophaitra"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="vonchusohuu" model="account.financial.html.report.line">
+            <field name="name">VỐN CHỦ SỞ HỮU</field>
+            <field name="code">vonchusohuu</field>
+            <field name="sequence" eval="400"/>
+            <field name="level" eval="1"/>
+            <field name="number" eval="400"/>
+            <field name="parent_id" ref="taisan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="vc_sh" model="account.financial.html.report.line">
+            <field name="name">I. Vốn chủ sở hữu</field>
+            <field name="code">vc_sh</field>
+            <field name="sequence" eval="410"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="410"/>
+            <field name="parent_id" ref="vonchusohuu"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="vg_ccsh" model="account.financial.html.report.line">
+            <field name="name">1. Vốn góp của chủ sở hữu</field>
+            <field name="code">vg_ccsh</field>
+            <field name="sequence" eval="411"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="411"/>
+            <field name="parent_id" ref="vc_sh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="vg_ccsh_cp_pt_cqbq" model="account.financial.html.report.line">
+            <field name="name">Cổ phiếu phổ thông có quyền biểu quyết</field>
+            <field name="code">vg_ccsh_cp_pt_cqbq</field>
+            <field name="sequence" eval="441"/>
+            <field name="level" eval="4"/>
+            <field name="number">411a</field>
+            <field name="parent_id" ref="vg_ccsh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="vg_ccsh_cp_ud" model="account.financial.html.report.line">
+            <field name="name">Cổ phiếu ưu đãi</field>
+            <field name="code">vg_ccsh_cp_ud</field>
+            <field name="sequence" eval="411"/>
+            <field name="level" eval="4"/>
+            <field name="number">411b</field>
+            <field name="parent_id" ref="vg_ccsh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="td_vcp" model="account.financial.html.report.line">
+            <field name="name">2. Thặng dư vốn cổ phần</field>
+            <field name="code">td_vcp</field>
+            <field name="sequence" eval="412"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="412"/>
+            <field name="parent_id" ref="vc_sh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="qccd_tp" model="account.financial.html.report.line">
+            <field name="name">3. Quyền chọn chuyển đổi trái phiếu</field>
+            <field name="code">qccd_tp</field>
+            <field name="sequence" eval="413"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="413"/>
+            <field name="parent_id" ref="vc_sh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+
+        <record id="vkccsh" model="account.financial.html.report.line">
+            <field name="name">4. Vốn khác của chủ sở hữu</field>
+            <field name="code">vkccsh</field>
+            <field name="sequence" eval="414"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="414"/>
+            <field name="parent_id" ref="vc_sh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+
+        <record id="cp_q" model="account.financial.html.report.line">
+            <field name="name">5. Cổ phiếu quỹ (*)</field>
+            <field name="code">cp_q</field>
+            <field name="sequence" eval="415"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="415"/>
+            <field name="parent_id" ref="vc_sh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+
+        <record id="cl_dglts" model="account.financial.html.report.line">
+            <field name="name">6. Chênh lệch đánh giá lại tài sản</field>
+            <field name="code">cl_dglts</field>
+            <field name="sequence" eval="416"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="416"/>
+            <field name="parent_id" ref="vc_sh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+
+        <record id="cl_tghd" model="account.financial.html.report.line">
+            <field name="name">7. Chênh lệch tỷ giá hối đoái</field>
+            <field name="code">cl_tghd</field>
+            <field name="sequence" eval="417"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="417"/>
+            <field name="parent_id" ref="vc_sh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="q_dtpt" model="account.financial.html.report.line">
+            <field name="name">8. Quỹ đầu tư phát triển</field>
+            <field name="code">q_dtpt</field>
+            <field name="sequence" eval="418"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="418"/>
+            <field name="parent_id" ref="vc_sh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+
+        <record id="qhtsx_dn" model="account.financial.html.report.line">
+            <field name="name">9. Quỹ hỗ trợ sắp xếp doanh nghiệp</field>
+            <field name="code">qhtsx_dn</field>
+            <field name="sequence" eval="419"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="419"/>
+            <field name="parent_id" ref="vc_sh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+
+        <record id="qk_tvcsh" model="account.financial.html.report.line">
+            <field name="name">10. Quỹ khác thuộc vốn chủ sở hữu</field>
+            <field name="code">qk_tvcsh</field>
+            <field name="sequence" eval="420"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="420"/>
+            <field name="parent_id" ref="vc_sh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="lnst_cpp" model="account.financial.html.report.line">
+            <field name="name">11. Lợi nhuận sau thuế chưa phân phối</field>
+            <field name="code">lnst_cpp</field>
+            <field name="sequence" eval="421"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="421"/>
+            <field name="parent_id" ref="vc_sh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="lnts_cpp_ck" model="account.financial.html.report.line">
+            <field name="name">LNST chưa phân phối lũy kế đến cuối kỳ trước</field>
+            <field name="code">lnts_cpp_ck</field>
+            <field name="sequence" eval="421"/>
+            <field name="level" eval="4"/>
+            <field name="number">421a</field>
+            <field name="parent_id" ref="lnst_cpp"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="lnst_cpp_kn" model="account.financial.html.report.line">
+            <field name="name">LNST chưa phân phối kỳ này</field>
+            <field name="code">lnst_cpp_kn</field>
+            <field name="sequence" eval="421"/>
+            <field name="level" eval="4"/>
+            <field name="number">421b</field>
+            <field name="parent_id" ref="lnst_cpp"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="nvdt_xdcd" model="account.financial.html.report.line">
+            <field name="name">12. Nguồn vốn đầu tư XDCB</field>
+            <field name="code">nvdt_xdcd</field>
+            <field name="sequence" eval="422"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="422"/>
+            <field name="parent_id" ref="vc_sh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="nguonvon_quykhac" model="account.financial.html.report.line">
+            <field name="name">II. Nguồn kinh phí và quỹ khác</field>
+            <field name="code">nguonvon_quykhac</field>
+            <field name="sequence" eval="430"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="430"/>
+            <field name="parent_id" ref="vonchusohuu"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="nkp" model="account.financial.html.report.line">
+            <field name="name">1. Nguồn kinh phí </field>
+            <field name="code">nkp</field>
+            <field name="sequence" eval="431"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="431"/>
+            <field name="parent_id" ref="nguonvon_quykhac"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+
+         <record id="nkp_dht" model="account.financial.html.report.line">
+            <field name="name">2. Nguồn kinh phí đã hình thành TSCĐ</field>
+            <field name="code">nkp_dht</field>
+            <field name="sequence" eval="432"/>
+            <field name="level" eval="3"/>
+            <field name="number" eval="432"/>
+            <field name="parent_id" ref="nguonvon_quykhac"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="tongcongnguonvon" model="account.financial.html.report.line">
+            <field name="name">TỔNG CỘNG NGUỒN VỐN (440 = 300 + 400)</field>
+            <field name="code">tongcongnguonvon</field>
+            <field name="sequence" eval="440"/>
+            <field name="level" eval="1"/>
+            <field name="number" eval="440"/>
+            <field name="parent_id" ref="taisan"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="action_account_report_bs" model="ir.actions.client">
+            <field name="name">Balance Sheet</field>
+            <field name="tag">account_report_generic</field>
+            <field name="context"
+                   eval="{'url': '/account_reports/output_format/financial_report/' + str(ref('account_financial_report_balancesheet0')), 'model': 'account.financial.html.report', 'id': ref('account_financial_report_balancesheet0')}"/>
+        </record>
+
+
+
+
+
+
+
+        <!--HOAT DONG KINH DOANH-->
+        <record id="tuanhuy_hoatdong_kinhdoanh_report" model="account.financial.html.report">
+            <field name="name">Báo cáo hoạt động kinh doanh</field>
+            <field name="report_type">date_range</field>
+            <field name='parent_id' ref='l10n_vn.account_reports_vn_statements_menu'/>
+        </record>
+
+        <record id="tuanhuy_hoatdong_kinhdoanh" model="account.financial.html.report.line">
+            <field name="name"></field>
+            <field name="code">tuanhuy_hoatdong</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="0"/>
+            <!--<field name="formulas">balance = doanhthu_ban_dichvu.balance + giamtrudoanhthu.balance + thuan_ban_dichvu.balance</field>-->
+            <field name="financial_report_id" ref="tuanhuy_hoatdong_kinhdoanh_report"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="tuanhuy_hoatdong_kinhdoanh_report_01" model="account.financial.html.report.line">
+            <field name="name">Doanh thu bán hàng và cung cấp dịch vụ</field>
+            <field name="code">doanhthu_ban_dichvu</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="1"/>
+            <field name="number">01</field>
+            <field name="parent_id" ref="tuanhuy_hoatdong_kinhdoanh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="tuanhuy_hoatdong_kinhdoanh_report_02" model="account.financial.html.report.line">
+            <field name="name">Các khoản giảm trừ doanh thu</field>
+            <field name="code">giamtrudoanhthu</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="1"/>
+            <field name="number">02</field>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="tuanhuy_hoatdong_kinhdoanh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="tuanhuy_hoatdong_kinhdoanh_report_10" model="account.financial.html.report.line">
+            <field name="name">Doanh thu thuần về bán hàng và cung cấp dịch vụ (10= 01-02)</field>
+            <field name="code">thuan_ban_dichvu</field>
+            <field name="sequence" eval="10"/>
+            <field name="level" eval="1"/>
+            <field name="number" eval="10"/>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="tuanhuy_hoatdong_kinhdoanh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="tuanhuy_hoatdong_kinhdoanh_report_11" model="account.financial.html.report.line">
+            <field name="name">Giá vốn hàng bán</field>
+            <field name="code">von_hang_ban</field>
+            <field name="sequence" eval="11"/>
+            <field name="level" eval="1"/>
+            <field name="number" eval="11"/>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="tuanhuy_hoatdong_kinhdoanh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="ll_gvbh_cc" model="account.financial.html.report.line">
+            <field name="name">Lợi nhuận gộp về bán hàng và cung cấp dịch vụ (20=10 - 11)</field>
+            <field name="code">ll_gvbh_cc</field>
+            <field name="sequence" eval="20"/>
+            <field name="level" eval="1"/>
+            <field name="number" eval="20"/>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="tuanhuy_hoatdong_kinhdoanh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="tuanhuy_hoatdong_kinhdoanh_report_21" model="account.financial.html.report.line">
+            <field name="name">Doanh thu hoạt động tài chính</field>
+            <field name="code">taichinh</field>
+            <field name="sequence" eval="21"/>
+            <field name="level" eval="1"/>
+            <field name="number" eval="21"/>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="tuanhuy_hoatdong_kinhdoanh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="tuanhuy_hoatdong_kinhdoanh_report_22" model="account.financial.html.report.line">
+            <field name="name">Chi phí tài chính</field>
+            <field name="code">chiphi_taichinh</field>
+            <field name="sequence" eval="22"/>
+            <field name="level" eval="1"/>
+            <field name="number" eval="22"/>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="tuanhuy_hoatdong_kinhdoanh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="tuanhuy_hoatdong_kinhdoanh_report_23" model="account.financial.html.report.line">
+            <field name="name">Chi phí lãi vay </field>
+            <field name="code">laivay</field>
+            <field name="sequence" eval="23"/>
+            <field name="level" eval="2"/>
+            <field name="number" eval="23"/>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="tuanhuy_hoatdong_kinhdoanh_report_22"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="tuanhuy_hoatdong_kinhdoanh_report_25" model="account.financial.html.report.line">
+            <field name="name">Chi phí bán hàng</field>
+            <field name="code">banhang</field>
+            <field name="sequence" eval="25"/>
+            <field name="level" eval="1"/>
+            <field name="number" eval="25"/>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="tuanhuy_hoatdong_kinhdoanh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="tuanhuy_hoatdong_kinhdoanh_report_26" model="account.financial.html.report.line">
+            <field name="name">Chi phí quản lý doanh nghiệp</field>
+            <field name="code">quanly_doanhnghiep</field>
+            <field name="sequence" eval="26"/>
+            <field name="level" eval="1"/>
+            <field name="number" eval="26"/>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="tuanhuy_hoatdong_kinhdoanh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="tuanhuy_hoatdong_kinhdoanh_report_30" model="account.financial.html.report.line">
+            <field name="name">Lợi nhuận thuần từ hoạt động kinh doanh {30 = 20 + (21 - 22) - (25 + 26)}</field>
+            <field name="code">loinhan_kinhdoanh</field>
+            <field name="sequence" eval="30"/>
+            <field name="level" eval="1"/>
+            <field name="number" eval="30"/>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="tuanhuy_hoatdong_kinhdoanh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="tuanhuy_hoatdong_kinhdoanh_report_31" model="account.financial.html.report.line">
+            <field name="name">Thu nhập khác</field>
+            <field name="code">thunhapkhac</field>
+            <field name="sequence" eval="31"/>
+            <field name="level" eval="1"/>
+            <field name="number" eval="31"/>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="tuanhuy_hoatdong_kinhdoanh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="tuanhuy_hoatdong_kinhdoanh_report_32" model="account.financial.html.report.line">
+            <field name="name">Chi phí khác</field>
+            <field name="code">chiphikhac</field>
+            <field name="sequence" eval="32"/>
+            <field name="level" eval="1"/>
+            <field name="number" eval="32"/>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="tuanhuy_hoatdong_kinhdoanh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="tuanhuy_hoatdong_kinhdoanh_report_40" model="account.financial.html.report.line">
+            <field name="name">Lợi nhuận khác (40 = 31 - 32)</field>
+            <field name="code">loinhuankhac</field>
+            <field name="sequence" eval="40"/>
+            <field name="level" eval="1"/>
+            <field name="number" eval="40"/>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="tuanhuy_hoatdong_kinhdoanh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="tuanhuy_hoatdong_kinhdoanh_report_50" model="account.financial.html.report.line">
+            <field name="name">Tổng lợi nhuận kế toán trước thuế (50 = 30 + 40)</field>
+            <field name="code">loinhuan_truocthue</field>
+            <field name="sequence" eval="50"/>
+            <field name="level" eval="1"/>
+            <field name="number" eval="50"/>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="tuanhuy_hoatdong_kinhdoanh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="tuanhuy_hoatdong_kinhdoanh_report_51" model="account.financial.html.report.line">
+            <field name="name">Chi phí thuế TNDN hiện hành</field>
+            <field name="code">thue_tndn_hienhanh</field>
+            <field name="sequence" eval="51"/>
+            <field name="level" eval="1"/>
+            <field name="number" eval="51"/>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="tuanhuy_hoatdong_kinhdoanh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="tuanhuy_hoatdong_kinhdoanh_report_52" model="account.financial.html.report.line">
+            <field name="name">Chi phí thuế TNDN hoãn lại</field>
+            <field name="code">thue_tndn_hoanlai</field>
+            <field name="sequence" eval="52"/>
+            <field name="level" eval="1"/>
+            <field name="number" eval="52"/>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="tuanhuy_hoatdong_kinhdoanh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="tuanhuy_hoatdong_kinhdoanh_report_60" model="account.financial.html.report.line">
+            <field name="name">Lợi nhuận sau thuế thu nhập doanh nghiệp (60=50 – 51 - 52)</field>
+            <field name="code">loinhuan_sauthue</field>
+            <field name="sequence" eval="60"/>
+            <field name="level" eval="1"/>
+            <field name="number" eval="60"/>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="tuanhuy_hoatdong_kinhdoanh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="tuanhuy_hoatdong_kinhdoanh_report_70" model="account.financial.html.report.line">
+            <field name="name">Lãi cơ bản trên cổ phiếu (*)</field>
+            <field name="code">lai_cophieu</field>
+            <field name="sequence" eval="70"/>
+            <field name="level" eval="1"/>
+            <field name="number" eval="70"/>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="tuanhuy_hoatdong_kinhdoanh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="tuanhuy_hoatdong_kinhdoanh_report_71" model="account.financial.html.report.line">
+            <field name="name">Lãi suy giảm trên cổ phiếu (*)</field>
+            <field name="code">suygiam_cophieu</field>
+            <field name="sequence" eval="71"/>
+            <field name="level" eval="1"/>
+            <field name="number" eval="71"/>
+            <!--<field name="formulas">balance = 10000</field>-->
+            <field name="parent_id" ref="tuanhuy_hoatdong_kinhdoanh"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="action_account_report_hdkd" model="ir.actions.client">
+            <field name="name">Báo cáo hoạt động kinh doanh</field>
+            <field name="tag">account_report_generic</field>
+            <field name="context"
+                   eval="{'url': '/account_reports/output_format/financial_report/' + str(ref('tuanhuy_hoatdong_kinhdoanh_report')), 'model': 'account.financial.html.report', 'id': ref('tuanhuy_hoatdong_kinhdoanh_report')}"/>
+        </record>
+
+    </data>
+</odoo>

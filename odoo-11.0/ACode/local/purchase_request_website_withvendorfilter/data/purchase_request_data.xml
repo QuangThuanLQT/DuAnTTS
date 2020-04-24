@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="menu_purchase_request" model="website.menu">
+            <field name="name">Purchase Request</field>
+            <field name="url">/purchase</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">30</field>
+        </record>
+        <!--<record id="menu_purchase" model="website.menu">
+        	<field name="name">Purchase Request</field>
+        	<field name="url">/request</field>
+        	<field name="parent_id" ref="website.main_menu"/>
+        	<field name="sequence" type="int">31</field>
+        </record>-->
+        <record id="all_vendor" model="res.partner">
+            <field name="name">SHOW ALL</field>
+            <field name="supplier">True</field>
+        </record>
+        <record id="all_categ" model="product.category">
+            <field name="name">SHOW ALL</field>
+           
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_order_line_tree_inherit" model="ir.ui.view">
+            <field name="model">sale.order.line</field>
+            <field name="inherit_id" ref="sale.view_order_line_tree"/>
+            <field name="arch" type="xml">
+                <field name="qty_delivered" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="qty_invoiced" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="qty_to_invoice" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="order_id" position="after">
+                    <field name="date_order" />
+                </field>
+                <field name="name" position="before">
+                    <field name="product_default_code"/>
+                </field>
+                <field name="product_uom_qty" position="before">
+                    <field name="price_unit"/>
+                    <field name="discount"/>
+                    <field name="price_discount" string="Giá trực tiếp"/>
+                    <field name="tax_id" invisible="1"/>
+                    <field name="tax_sub"/>
+                    <field name="last_price_unit"/>
+                </field>
+                <field name="name" position="after">
+                    <field name="brand_name" invisible="1"/>
+                    <field name="group_sale_id" invisible="1"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_sales_order_line_filter_inherit" model="ir.ui.view">
+            <field name="model">sale.order.line</field>
+            <field name="inherit_id" ref="sale.view_sales_order_line_filter"/>
+            <field name="arch" type="xml">
+                <field name="salesman_id" position="after">
+                    <field name="brand_name" />
+                    <field name="group_sale_id" />
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_sale_order_line_graph">
+            <field name="name">sale.order.line.graph</field>
+            <field name="model">sale.order.line</field>
+            <field name="arch" type="xml">
+                <graph string="Sales Orders Line">
+                    <field name="order_partner_id"/>
+                    <field name="price_total" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <!--<record id="action_create_order_line_report" model="ir.actions.server">-->
+            <!--<field name="name">In Báo Cáo</field>-->
+            <!--<field name="type">ir.actions.server</field>-->
+            <!--<field name="model_id" ref="model_sale_order_line"/>-->
+            <!--<field name="state">code</field>-->
+            <!--<field name="code">action = record.create_order_line_report();-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!--<record model="ir.values" id="order_line_create_report">-->
+            <!--<field name="model">sale.order.line</field>-->
+            <!--<field name="name">In Báo Cáo</field>-->
+            <!--<field name="key">action</field>-->
+            <!--<field name="key2">client_action_multi</field>-->
+            <!--<field name="value" eval="'ir.actions.server,' + str(ref('action_create_order_line_report'))" />-->
+        <!--</record>-->
+
+
+         <record id="sale_order_line_return_action" model="ir.actions.act_window">
+            <field name="name">Product Sold </field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="domain">[('state', 'not in', ('draft', 'sent', 'cancel')), ('sale_order_return', '=', True)]</field>
+        </record>
+
+        <record id="sale_order_summaries_action" model="ir.actions.act_window">
+            <field name="name">Sale Order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="domain">['|', ('state', 'not in', ('draft', 'sent', 'cancel')), ('sale_order_return', '=', True)]</field>
+            <field name="context">{'summaries':True,}</field>
+        </record>
+
+        <record id="sale_order_line_summaries_action" model="ir.actions.act_window">
+            <field name="name">Sale Order Line</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="context">{'summaries':True,}</field>
+        </record>
+
+        <menuitem name="Product sold return" action="sale_order_line_return_action" id="sale_order_line_return_menu" parent="sale_purchase_returns.sale_order_return_menu_parent" sequence="12"/>
+
+        <menuitem name="Order Summaries" id="sale_order_summaries_menu_parent" parent="sales_team.menu_base_partner" sequence="10"/>
+        <menuitem name="Sale Order" action="sale_order_summaries_action" id="sale_order_summaries_menu" parent="tuanhuy_sale.sale_order_summaries_menu_parent" sequence="10"/>
+        <menuitem name="Product" action="sale_order_line_summaries_action" id="sale_order_line_summaries_menu" parent="tuanhuy_sale.sale_order_summaries_menu_parent" sequence="20"/>
+
+    </data>
+</odoo>

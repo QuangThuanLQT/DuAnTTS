@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="purchase_order_form_inherit" model="ir.ui.view">
+            <field name="name">purchase.order.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_ref" position="after">
+                    <field name="purchase_order_return" invisible="1"/>
+                    <field name="purchase_order_return_id" attrs="{'invisible':[('purchase_order_return','=',False)]}"/>
+                </field>
+                <xpath expr="//form/header" position="inside">
+                    <field name="check_show_button_return" invisible="1"/>
+                    <button name="button_action_return" attrs="{'invisible':['|',('purchase_order_return','=',False),('check_show_button_return','=',True)]}"
+                            string="Confirm Purchase Return" class="o_sale_confirm" type="object"/>
+                </xpath>
+                <field name="date_order" position="attributes">
+                    <attribute name="class">class_date_return</attribute>
+                </field>
+                <field name="order_line" position="attributes">
+                    <attribute name="context">{'purchase_order_ctx':purchase_order_return_id,'only_show_default_code':True}</attribute>
+                </field>
+            </field>
+        </record>
+
+        <!-- Outstanding Fee report action-->
+        <record id="purchase_order_return_action" model="ir.actions.act_window">
+	        <field name="name">Purchase Return</field>
+	        <field name="res_model">purchase.order</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">tree,form</field>
+            <field name="domain">[('purchase_order_return','=',True)]</field>
+            <field name="context">{'purchase_order_return':True}</field>
+            <field name="target">current</field>
+    	</record>
+
+        <menuitem name="Purchase Return" id="purchase_order_return_menu_parent" parent="purchase.menu_purchase_root" sequence="2"/>
+        <menuitem name="Purchase Return" id="purchase_order_return_menu" parent="purchase_order_return_menu_parent" action="purchase_order_return_action"/>
+
+        <record id="purchase.purchase_form_action" model="ir.actions.act_window">
+            <field name="domain">[('state','not in',('draft','sent','bid', 'confirmed')), ('purchase_order_return', '=', False)]</field>
+        </record>
+
+        <record id="purchase.purchase_rfq" model="ir.actions.act_window">
+            <field name="domain">[('state','in',('draft','sent','bid','cancel', 'confirmed')), ('purchase_order_return', '=', False)]</field>
+        </record>
+        <!--<record id="sale.menu_sale_invoicing" model="ir.ui.menu">-->
+            <!--<field name="active" eval="False"/>-->
+        <!--</record>-->
+    </data>
+</odoo>

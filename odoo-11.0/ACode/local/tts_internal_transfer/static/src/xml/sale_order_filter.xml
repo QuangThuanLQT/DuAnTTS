@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="picking_receipt_buttons_export">
+        <button type="button" class='btn btn-sm btn-default o_picking_receipt_print_excel'>Export Receipt time log</button>
+    </t>
+
+    <t t-name="picking_delivery_buttons_export">
+        <button type="button" class='btn btn-sm btn-default o_picking_delivery_print_excel'>Export Delivery time log</button>
+    </t>
+
+    <t t-name="receipt_history_buttons_export">
+        <button type="button" class='btn btn-sm btn-default o_receipt_history_print_excel'>Export Overview</button>
+    </t>
+
+    <t t-name="TTS.SearchStatePick">
+        <div class="sky-search btn-group btn-group-sm" >
+            <div style="margin-left: 0px; margin-top: 2px; padding-right: 10px;">
+                <span style="float: left;">
+                    <select class="tts_select_state_picking_field form-control" style="height: 30px;" >
+                        <option t-foreach="sky_fields" t-as="field" t-att-value="field[0]">
+                            <t t-esc="field[1]"/>
+                        </option>
+                    </select>
+                </span>
+                <span style="float: left;margin-top: 5px;">
+                    <t t-foreach="state_data" t-as="field">
+                        <input type="checkbox" style="margin-left: 5px;" t-att-id="field[0]" t-att-value="field[0]" class="search_picking_state"/>
+                        <t t-esc="field[1]"/>
+                    </t>
+                </span>
+            </div>
+        </div>
+    </t>
+
+     <t t-name="TTS.SearchSourceLocation">
+        <div class="sky-search btn-group btn-group-sm" >
+            <div style="margin-left: 0px; margin-top: 2px; padding-right: 10px;">
+                <span style="float: left;">
+                    <select class="tts_select_source_location_field form-control" style="height: 30px;" >
+                        <option value="categ_id">Địa điểm nguồn</option>
+                    </select>
+                </span>
+                <span style="float: left; margin-left: 2px;">
+                    <input id="input_source_location_name" style="height: 30px;width: 200px" class="tts_source_location_name form-control" size="10" placeholder="Địa điểm nguồn...." type="text" />
+                </span>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="TTS.SearchDestLocation">
+        <div class="sky-search btn-group btn-group-sm" >
+            <div style="margin-left: 0px; margin-top: 2px; padding-right: 10px;">
+                <span style="float: left;">
+                    <select class="tts_select_dest_location_field form-control" style="height: 30px;" >
+                        <option value="categ_id">Địa điểm đích</option>
+                    </select>
+                </span>
+                <span style="float: left; margin-left: 2px;">
+                    <input id="input_dest_location_name" style="height: 30px;width: 200px" class="tts_dest_location_name form-control" size="10" placeholder="Địa điểm đích...." type="text" />
+                </span>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="TTS.DeliveryUser">
+        <div class="sky-search btn-group btn-group-sm" >
+            <div style="margin-left: 0px; margin-top: 2px; padding-right: 10px;">
+                <span style="float: left;">
+                    <select class="tts_select_delivery_user form-control" style="height: 30px;" >
+                        <option t-foreach="sky_fields" t-as="field" t-att-value="field[0]">
+                            <t t-esc="field[1]"/>
+                        </option>
+                    </select>
+                </span>
+                <span style="float: left; margin-left: 2px;">
+                    <input id="input_delivery_user" style="height: 30px;width: 200px" class="tts_delivery_user form-control" size="10" placeholder="Nhân viên giao hàng " type="text" />
+                </span>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="button_picking_export_overview">
+        <button type="button" class='btn btn-sm btn-default o_picking_export_overview'>Export Overview</button>
+    </t>
+</templates>

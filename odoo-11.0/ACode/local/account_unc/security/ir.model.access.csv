@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_account_unc_account_unc,access_account_unc_account_unc,model_account_payment_unc,,1,0,0,0
+
+access_control_ke_toan_truong,ke_toan_truong,model_account_payment_unc,account_unc.group_ke_toan_truong,1,1,1,1
+access_control_pho_giam_doc,pho_giam_doc,model_account_payment_unc,account_unc.group_pho_giam_doc_tai_chinh,1,1,1,1
+access_control_tong_giam_doc,tong_giam_doc,model_account_payment_unc,account_unc.group_tong_giam_doc,1,1,1,1
+

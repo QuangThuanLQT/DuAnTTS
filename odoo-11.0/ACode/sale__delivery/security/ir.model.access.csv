@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sale__delivery_sale__delivery,sale__delivery.sale__delivery,model_sale__delivery_sale__delivery,,1,0,0,0

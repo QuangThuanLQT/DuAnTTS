@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_tuanhuy_sale_notification_tuanhuy_sale_notification,tuanhuy_sale_notification.tuanhuy_sale_notification,model_tuanhuy_sale_notification_tuanhuy_sale_notification,,1,0,0,0

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="product.buttons_print_excel">
+        <button type="button" class='btn btn-sm btn-default o_product_buttons_print_excel'>Xuất file</button>
+    </t>
+    <t t-name="TTS.SearchProductCateg">
+        <div class="sky-search btn-group btn-group-sm" >
+            <div style="margin-left: 0px; margin-top: 2px; padding-right: 10px;">
+                <span style="float: left;">
+                    <select class="tts_select_categ_field form-control" style="height: 30px;" >
+                        <option value="categ_id">Nhóm hàng</option>
+                    </select>
+                </span>
+                <span style="float: left; margin-left: 2px;">
+                    <input id="input_categ_name" style="height: 30px;width: 200px" class="tts_categ_name form-control" size="10" placeholder="Tìm kiếm nhóm hàng...." type="text" />
+                </span>
+            </div>
+        </div>
+    </t>
+
+    <t t-extend="SkyERP.ClearAll">
+        <t t-jquery="input[class='button_clear_all']" t-operation="replace">
+            <input class="button_clear_all" style="height: 30px;border-radius: 4px" type="button" size="10" value="ALL"
+                   onclick="$('.tts_dest_location_name').val('');$('.tts_source_location_name').val('');$('.tts_categ_name').val('');$('.sky_number_vourcher').val('');$('.sky_origin_text').val('');$('.sky_customer_name').val('');
+                   $('.sky_start_range').val('');$('.sky_end_range').val('');$('.sky_end_date').val('');$('.sky_start_date').val('');$('.sky_user_id').val('');
+$('.sky_product_id').val('');$('.sky_state').val('');$('.sky_state_dh').val('');" />
+        </t>
+    </t>
+</templates>

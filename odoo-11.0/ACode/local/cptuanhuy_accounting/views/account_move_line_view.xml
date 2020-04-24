@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="assets_backend" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/cptuanhuy_accounting/static/src/js/search_by_range.js"></script>
+        </xpath>
+    </template>
+    <data>
+        <record id="tree_view_account_511" model="ir.ui.view">
+            <field name="name">account.move.line.tree</field>
+            <field name="model">account.move.line</field>
+            <field name="arch" type="xml">
+                <tree string="Journal Items" create="false" default_order="date asc,id asc">
+                    <field name="date" string="Ngày hạch toán"/>
+                    <field name="date" string="Ngày chứng từ"/>
+                    <field name="ref" string="Số chứng từ"/>
+                    <field name="analytic_tag_ids" widget="many2many_tags" string="Phân tích"/>
+                    <field name="partner_id" string="Đối tác"/>
+                    <field name="product_default_code"/>
+                    <field name="product_name"/>
+                    <field name="product_price"/>
+                    <field name="quantity"/>
+                    <field name="account_sub_code"/>
+                    <field name="account_doiung"/>
+                    <field name="debit" sum="debit" string="Phát sinh Nợ"/>
+                    <field name="credit" sum="credit" string="Phát sinh Có"/>
+                    <field name="so_du_no" string="Dư Nợ"/>
+                    <field name="so_du_co" string="Dư Có"/>
+                    <field name="record_checked" string="Done"/>
+                    <button name="change_record_checked" type="object" string="D"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="tuanhuy_account_reports.account_move_511_report_action" model="ir.actions.act_window">
+            <field name="view_id" ref="tree_view_account_511"/>
+        </record>
+
+        <record id="account_move_form_view_inherit_add_sale" model="ir.ui.view">
+            <field name="name">account.move.form.inherited</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='name']" position="after">
+                    <field name="sale_id" string="Đơn hàng"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

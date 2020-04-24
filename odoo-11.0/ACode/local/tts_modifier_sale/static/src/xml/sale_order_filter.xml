@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="sale_export_over">
+        <button type="button" class="btn btn-sm btn-default o_sale_overview">Export Overview</button>
+    </t>
+    <t t-name="sale_export_detail">
+        <button type="button" class='btn btn-sm btn-default o_sale_detail'>Export Detail</button>
+    </t>
+
+
+    <t t-name="SkyERP.SearchUser">
+        <div class="sky-search btn-group btn-group-sm" >
+            <div style="margin-left: 0px; margin-top: 2px; padding-right: 10px;">
+                <span style="float: left;">
+                    <select class="sky_select_user_id form-control" style="height: 30px;" >
+                        <option t-foreach="sky_fields" t-as="field" t-att-value="field[0]">
+                            <t t-esc="field[1]"/>
+                        </option>
+                    </select>
+                </span>
+                <span style="float: left; margin-left: 2px;">
+                    <input id="input_customer_name" style="height: 30px;" class="sky_user_id form-control" size="10" placeholder="" type="text" />
+                </span>
+            </div>
+        </div>
+    </t>
+    <t t-name="SkyERP.SearchCity">
+        <div class="sky-search btn-group btn-group-sm" >
+            <div style="margin-left: 0px; margin-top: 2px; padding-right: 10px;">
+                <span style="float: left;">
+                    <select class="sky_select_city form-control" style="height: 30px;" >
+                        <option t-foreach="sky_fields" t-as="field" t-att-value="field[0]">
+                            <t t-esc="field[1]"/>
+                        </option>
+                    </select>
+                </span>
+                <span style="float: left; margin-left: 2px;">
+                    <input id="input_city_name" style="height: 30px;" class="search_city form-control" size="10" placeholder="" type="text" />
+                </span>
+            </div>
+        </div>
+    </t>
+    <t t-name="SkyERP.SearchProduct">
+        <div class="sky-search btn-group btn-group-sm" >
+            <div style="margin-left: 0px; margin-top: 2px; padding-right: 10px;">
+                <span style="float: left;">
+                    <select class="sky_select_product_id form-control" style="height: 30px;" >
+                        <option t-foreach="sky_fields" t-as="field" t-att-value="field[0]">
+                            <t t-esc="field[1]"/>
+                        </option>
+                    </select>
+                </span>
+                <span style="float: left; margin-left: 2px;">
+                    <input id="input_product_id" style="height: 30px;" class="sky_product_id form-control" size="10" placeholder="" type="text" />
+                </span>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="SkyERP.SaleState">
+        <div class="sky-search btn-group btn-group-sm">
+            <div style="margin-left: 0px; margin-top: 2px; padding-right: 10px;">
+                <span style="float: left;">
+                    <select class="sky_select_state form-control" style="height: 30px;" >
+                        <option t-foreach="sky_fields" t-as="field" t-att-value="field[0]">
+                            <t t-esc="field[1]"/>
+                        </option>
+                    </select>
+                </span>
+                <span style="float: left; margin-left: 2px;">
+                    <select class="sky_state form-control" style="height: 30px;" >
+                        <option value="">All</option>
+                        <option value="draft">Quotation</option>
+                        <option value="sent">Quotation Sent</option>
+                        <option value="sale">Sale Order</option>
+                        <option value="cancel">Cancelled</option>
+                    </select>
+                </span>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="SkyERP.SearchOperaionState">
+        <div class="sky-search btn-group btn-group-sm">
+            <div style="margin-left: 0px; margin-top: 2px; padding-right: 10px;">
+                <span style="float: left;">
+                    <select class="sky_select_state form-control" style="height: 30px;" >
+                        <option t-foreach="sky_fields" t-as="field" t-att-value="field[0]">
+                            <t t-esc="field[1]"/>
+                        </option>
+                    </select>
+                </span>
+                <span style="float: left; margin-left: 2px;">
+                    <select class="sky_state form-control" style="height: 30px;" >
+                        <option value="">All</option>
+                        <option value="reveive">Receive</option>
+                        <option value="waiting">Waiting to Check</option>
+                        <option value="checking">Checking</option>
+                        <option value="done">Done</option>
+                        <option value="cancel">Cancel</option>
+                    </select>
+                </span>
+            </div>
+        </div>
+    </t>
+
+
+    <t t-name="SkyERP.SearchOperaionStateSaleOrder">
+        <div class="sky-search btn-group btn-group-sm">
+            <div style="margin-left: 0px; margin-top: 2px; padding-right: 10px;">
+                <span style="float: left;">
+                    <select class="sky_select_state form-control" style="height: 30px;" >
+                        <option t-foreach="sky_fields" t-as="field" t-att-value="field[0]">
+                            <t t-esc="field[1]"/>
+                        </option>
+                    </select>
+                </span>
+                <span style="float: left; margin-left: 2px;">
+                    <select class="sky_state_dh form-control" style="height: 30px;" >
+                        <option value="">All</option>
+                        <option value="waiting_pick">Waiting to Pick</option>
+                        <option value="ready_pick">Ready to Pick</option>
+                        <option value="picking">Picking</option>
+                        <option value="waiting_pack">Waiting to Pack</option>
+                        <option value="packing">Packing</option>
+                        <option value="waiting_delivery">Waiting to Delivery</option>
+                        <option value="delivery">Delivering</option>
+                        <option value="reveive">Receive</option>
+                        <option value="waiting">Waiting to Check</option>
+                        <option value="checking">Checking</option>
+                        <option value="done">Done</option>
+                        <option value="reverse_tranfer">Reverse Tranfer</option>
+                        <option value="cancel">Cancelled</option>
+                    </select>
+                </span>
+            </div>
+        </div>
+    </t>
+
+</templates>

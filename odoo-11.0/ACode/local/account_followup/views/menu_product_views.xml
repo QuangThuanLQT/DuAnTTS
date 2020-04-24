@@ -1,0 +1,10 @@
+<odoo>
+    <data>
+        <menuitem id="sales_team.menu_sales_product" name="Products" parent="sales_team.menu_base_partner" sequence="6"/>
+        <menuitem id="sale.menu_product_template_action" action="product.product_template_action" parent="sales_team.menu_sales_product" sequence="13" />
+<!--
+        <menuitem id="product_pack.menu_product_pack_core" name="Product Pack" parent="sales_team.menu_sales_product" sequence="15" action="product_pack.action_product_pack"/>
+-->
+        <menuitem id="sale.menu_products" action="product.product_normal_action_sell" parent="sales_team.menu_sales_product" groups="product.group_product_variant" sequence="99"/>
+    </data>
+</odoo>
