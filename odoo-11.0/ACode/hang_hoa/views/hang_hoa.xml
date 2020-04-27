@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="hanghoa_form_view">
+            <field name="name">khachhang</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <sheet>
+                    <group>
+                    </group>
+                </sheet>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="khachhang_list_action">
+            <field name="name">Khách hàng</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="nhacungcap_list_action">
+            <field name="name">Nhà cung cấp</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record model="ir.ui.view" id="kho_form_view">
+            <field name="name">kho</field>
+            <field name="model">stock.warehouse</field>
+            <field name="inherit_id" ref="stock.view_warehouse"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="string">Tên kho hàng</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='code']" position="attributes">
+                    <attribute name="string">Tên viết tắt</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="string">Địa chỉ</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='company_id']" position="replace"></xpath>
+                <xpath expr="//field[@name='partner_id']" position="before">
+                    <field name="company_id" string="Công ty"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="kho_list_action">
+            <field name="name">Các kho hàng</field>
+            <field name="res_model">stock.warehouse</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <record model="ir.ui.view" id="sanpham_form_view">
+            <field name="name">sanpham</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <sheet>
+                    <group>
+                    </group>
+                </sheet>
+                <!--<xpath expr="//page[@name='sales']" position="attributes">-->
+                <!--<attribute name="invisible">True</attribute>-->
+                <!--</xpath>-->
+
+                <!--<xpath expr="//page[@name='variants']" position="attributes">-->
+                <!--<attribute name="invisible">True</attribute>-->
+                <!--</xpath>-->
+
+                <!--<xpath expr="//page[2]" position="attributes">-->
+                <!--<attribute name="invisible">True</attribute>-->
+                <!--</xpath>-->
+
+                <!--<xpath expr="//page[3]" position="attributes">-->
+                <!--<attribute name="invisible">True</attribute>-->
+                <!--</xpath>-->
+
+                <!--<xpath expr="//page[@name='invoicing']" position="attributes">-->
+                <!--<attribute name="invisible">True</attribute>-->
+                <!--</xpath>-->
+
+                <!--<xpath expr="//page[@name='notes']" position="attributes">-->
+                <!--<attribute name="invisible">True</attribute>-->
+                <!--</xpath>-->
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="sanpham_list_action">
+            <field name="name">Sản phẩm</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <record model="ir.ui.view" id="hanghoa1_form_view">
+            <field name="name">hanghoaqt</field>
+            <field name="model">hang.hoa.qt</field>
+            <field name="arch" type="xml">
+                <form string='HangHoa'>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="ten_sp" placeholder="Tên sản phẩm"/>
+                                <field name="sale_ok"/>
+                                <field name="purchase_ok"/>
+                            </group>
+                        </group>
+                        <notebook colspan="4">
+                            <page string="Thông tin chung">
+                                <group>
+                                    <group>
+                                        <field name="loai_sp"/>
+                                        <field name="tham_chieu_nb"/>
+                                        <field name="ma"/>
+                                    </group>
+
+                                    <group>
+                                        <field name="nha_cung_cap"/>
+                                        <field name="kho_ngam_dinh"/>
+                                    </group>
+
+                                    <group>
+                                        <field name="gia_ban"/>
+                                        <field name="chi_phi"/>
+                                    </group>
+
+                                    <group>
+                                        <field name="ton_kho"/>
+                                        <field name="dvt"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="hanghoa1_tree" model="ir.ui.view">
+            <field name="name">hanghoaqt</field>
+            <field name="model">hang.hoa.qt</field>
+            <field name="arch" type="xml">
+                <tree string="Chi tiết">
+                    <field name="ma"/>
+                    <field name="ten_sp"/>
+                    <field name="gia_ban"/>
+                    <field name="chi_phi"/>
+                    <field name="loai_sp"/>
+                    <field name="dvt"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="hanghoa_action" model="ir.actions.act_window">
+            <field name="name">Hàng hoá</field>
+            <field name="res_model">hang.hoa.qt</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+<!--        <record model="ir.ui.view" id="phieuxuat_form_view">-->
+<!--            <field name="name">phieuxuat</field>-->
+<!--            <field name="model">stock.picking</field>-->
+<!--            <field name="inherit_id" ref="stock.view_picking_form"/>-->
+<!--            <field name="arch" type="xml">-->
+
+<!--                <xpath expr="//field[@name='partner_id']" position="attributes">-->
+<!--                    <attribute name="string">Đối tác</attribute>-->
+<!--                </xpath>-->
+
+<!--                <xpath expr="//field[@name='min_date']" position="attributes">-->
+<!--                    <attribute name="string">Ngày theo kế hoạch</attribute>-->
+<!--                </xpath>-->
+
+<!--                <xpath expr="//field[@name='origin']" position="attributes">-->
+<!--                    <attribute name="string">Tài liệu nguồn</attribute>-->
+<!--                </xpath>-->
+
+<!--                <xpath expr="//field[@name='partner_id']" position="after">-->
+<!--                    <field name="dia_diem_den"/>-->
+<!--                    <field name="dia_diem_nguon"/>-->
+<!--                </xpath>-->
+
+<!--                <xpath expr="//field[@name='min_date']" position="after">-->
+<!--                    <field name="ly_do"/>-->
+<!--                    <field name="chu_so_huu"/>-->
+<!--                </xpath>-->
+
+<!--                <xpath expr="//field[@name='group_id']" position="before">-->
+<!--                    <field name="don_hang"/>-->
+<!--                </xpath>-->
+
+<!--                <xpath expr="//field[@name='location_id']" position="attributes">-->
+<!--                    <attribute name="invisible">True</attribute>-->
+<!--                </xpath>-->
+
+<!--                <xpath expr="//field[@name='location_dest_id']" position="attributes">-->
+<!--                    <attribute name="invisible">True</attribute>-->
+<!--                </xpath>-->
+
+<!--                <xpath expr="//field[@name='owner_id']" position="attributes">-->
+<!--                    <attribute name="invisible">True</attribute>-->
+<!--                </xpath>-->
+
+
+
+<!--            </field>-->
+<!--        </record>-->
+
+<!--        <record model="ir.actions.act_window" id="phieuxuat_list_action">-->
+<!--            <field name="name">Phiếu xuất</field>-->
+<!--            <field name="res_model">stock.picking</field>-->
+<!--            <field name="view_mode">tree,form</field>-->
+<!--            <field name="help" type="html">-->
+<!--                <p class="o_view_nocontent_smiling_face">Mùa đông quá lạnh phải không 😌-->
+<!--                </p>-->
+<!--            </field>-->
+<!--        </record>-->
+
+
+        <menuitem id="main_menu_hang_hoa" name="Hàng hoá"/>
+        <menuitem id="menu_hang_hoa" parent="main_menu_hang_hoa" name="Quản lý danh mục"/>
+        <menuitem id="menu_hang_xuat" parent="main_menu_hang_hoa" name="Quản lý hàng xuất"/>
+
+        <menuitem id="khach_hang_menu" name="Khách Hàng" parent="menu_hang_hoa" action="khachhang_list_action"/>
+        <menuitem id="nha_cung_cap_menu" name="Nhà cung cấp" parent="menu_hang_hoa" action="nhacungcap_list_action"/>
+        <menuitem id="sanpham_menu" name="Sản phẩm" parent="menu_hang_hoa" action="sanpham_list_action"/>
+        <menuitem id="kho_menu" name="Kho" parent="menu_hang_hoa" action="kho_list_action"/>
+        <menuitem id="hanghoa_menu" name="Hàng hoá" parent="menu_hang_hoa" action="hanghoa_action"/>
+<!--        <menuitem id="phieuxuat_menu" name="Phiếu xuất" parent="menu_hang_xuat" action="phieuxuat_list_action"/>-->
+    </data>
+</odoo>
