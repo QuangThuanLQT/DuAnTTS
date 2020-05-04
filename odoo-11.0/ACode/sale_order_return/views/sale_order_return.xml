@@ -68,11 +68,25 @@
                                         <field name="check_box_invoice_gtgt"/>
                                     </group>
 
-                                    <group>
-                                        <field name="total_quantity"/>
-                                        <field name="amount_untaxed"/>
-                                        <field name="amount_tax"/>
-                                        <field name="amount_total"/>
+<!--                                    <group>-->
+<!--                                        <field name="total_quantity"/>-->
+<!--                                        <field name="amount_untaxed"/>-->
+<!--                                        <field name="amount_tax"/>-->
+<!--                                        <field name="amount_total"/>-->
+<!--                                    </group>-->
+
+                                    <group class="oe_subtotal_footer oe_right">
+                                        <field name="total_quantity" digits="(16, 0)" widget='monetary'
+                                               options="{'currency_field': 'currency_id'}"/>
+                                        <field name="amount_untaxed" widget="monetary"
+                                               options="{'currency_field': 'currency_id'}"/>
+                                        <field name="amount_tax" widget="monetary"
+                                               options="{'currency_field': 'currency_id'}"/>
+                                        <div class="oe_subtotal_footer_separator oe_inline">
+                                            <label for="amount_total"/>
+                                        </div>
+                                        <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator"
+                                               widget="monetary" options="{'currency_field': 'currency_id'}"/>
                                     </group>
 
                                 </group>

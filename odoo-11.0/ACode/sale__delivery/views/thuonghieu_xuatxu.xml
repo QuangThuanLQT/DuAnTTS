@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="brand_name_tree_view" model="ir.ui.view">
+            <field name="name">brand.name.tree</field>
+            <field name="model">brand.name</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="brand_name_action" model="ir.actions.act_window">
+            <field name="name">Thương hiệu</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">brand.name</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+        </record>
+
+        <record id="source_name_tree_view" model="ir.ui.view">
+            <field name="name">source.name.tree</field>
+            <field name="model">source.name</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="source_name_action" model="ir.actions.act_window">
+            <field name="name">Xuất xứ</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">source.name</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+        </record>
+
+        <menuitem id="brand_name_menu" name="Thương hiệu" action="brand_name_action" parent="sale.prod_config_main"/>
+        <menuitem id="source_name_menu" name="Xuất xứ" action="source_name_action" parent="sale.prod_config_main"/>
+    </data>
+</odoo>
+

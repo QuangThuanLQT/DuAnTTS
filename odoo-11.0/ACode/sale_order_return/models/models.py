@@ -57,33 +57,38 @@ class sale_order_return(models.Model):
     check_box_co_cq = fields.Boolean(default=False, string="CO, CQ")
     check_box_invoice_gtgt = fields.Boolean(default=False, string="Invoice GTGT")
 
-    total_quantity = fields.Float(string='Tổng số lượng', readonly=True)
-    amount_untaxed = fields.Float(string='Số tiền chưa tính', readonly=True, digits=(16,0))
-    amount_tax = fields.Float(string='Thuế', readonly=True, digits=(16,0))
-    amount_total = fields.Float(string='Total', readonly=True,digits=(16,0))
+    total_quantity = fields.Float(string='Tổng số lượng', compute='_get_total_quantity', readonly=True, digits=(16,0))
+    amount_untaxed = fields.Float(string='Untaxed Amount', compute='_untax_amount', readonly=True, digits=(16,0))
+    amount_tax = fields.Float(string='Taxes',readonly=True, digits=(16,0))
+    amount_total = fields.Float(string='Total',compute='_amount_all', readonly=True,digits=(16,0))
 
-    # @api.depends('order_line')
-    # def _get_total_quantity(self):
-    #     for rec in self:
-    #         total_quantity = 0
-    #         for line in rec.order_line:
-    #             total_quantity += line.product_uom_qty
-    #         rec.total_quantity = total_quantity
-    #
-    # @api.depends('order_line.price_total')
-    # def _amount_all(self):
-    #     for order in self:
-    #         amount_untaxed = amount_tax = 0.0
-    #         for line in order.order_line:
-    #             amount_untaxed += line.price_subtotal
-    #             amount_tax += line.price_tax
-    #         order.update({
-    #             'amount_untaxed': order.currency_id.round(amount_untaxed),
-    #             'amount_tax': order.currency_id.round(amount_tax),
-    #             'amount_total': amount_untaxed + amount_tax,
-    #         })
-    #
-    # @api.depends('price_unit', 'product_uom_qty', 'discount')
+    @api.depends('order_line_ids.product_uom_qty')
+    def _get_total_quantity(self):
+        for rec in self:
+            total_quantity = 0
+            for line in rec.order_line_ids:
+                total_quantity += line.product_uom_qty
+            rec.total_quantity = total_quantity
+
+    @api.depends('order_line_ids.price_subtotal', 'amount_untaxed')
+    def _untax_amount(self):
+        for rec in self:
+            amount_untaxed = 0
+            for line in rec.order_line_ids:
+                amount_untaxed += line.price_subtotal
+            rec.amount_untaxed = amount_untaxed
+
+    @api.depends('order_line_ids.price_subtotal')
+    def _amount_all(self):
+        for order in self:
+            amount_untaxed = amount_tax = 0.0
+            for line in order.order_line_ids:
+                amount_untaxed += line.price_subtotal
+            order.update({
+                'amount_total': amount_untaxed + amount_tax
+            })
+
+    # @api.dependssudo dpkg -i wkhtmltox_0.12.1.3-1~bionic_amd64.deb
     # def _compute_amount(self):
     #     for rec in self:
     #         if rec.discount:
@@ -100,11 +105,16 @@ class sale_order_return(models.Model):
         order_line_id = fields.Many2one('sale.order.return')
         product_id = fields.Many2one('product.product', string='Sản phẩm')
         invoice_name = fields.Char(string='Tên Hoá Đơn')
-        product_uom_qty = fields.Float(string='Số lượng đặt hàng', default=1.0)
-        check_box_prinizi_confirm = fields.Boolean(default=False, string="Xác nhận in")
+        product_uom_qty = fields.Float(string='Ordered Qty', default=1.0)
+        check_box_prinizi_confirm = fields.Boolean(default=False, string="Confirm Print")
         print_qty = fields.Float(string='Print Qty', digits=(16, 0))
-        price_unit = fields.Float(string='Đơn giá', default=0.0)
-        price_subtotal = fields.Float(string='Tổng phụ', default=0.0)
+        price_unit = fields.Float(string='Unit Price', default=0.0)
+        price_subtotal = fields.Float(string='Subtotal', compute='_compute_amount', default=0.0)
+
+        @api.depends('price_unit', 'product_uom_qty', 'price_subtotal')
+        def _compute_amount(self):
+            for rec in self:
+                    rec.price_subtotal = rec.price_unit * rec.product_uom_qty
 
 
 

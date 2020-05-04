@@ -9,10 +9,9 @@ class product_template(models.Model):
     hs_code = fields.Char(string="HS Code", help="Standardized code for international shipping and goods declaration")
     group_id = fields.Char(string="Group Product")
     # group_id = fields.Many2one('product.group', string="Group Product")
-    brand_name_select = fields.Char(string='Thương hiệu')
-    # brand_name_select = fields.Many2one('brand.name', string='Thương hiệu')
-    source_select = fields.Char(string='Xuất xứ')
-    # source_select = fields.Many2one('source.name', string='Xuất xứ')
+
+    brand_name_select = fields.Many2one('brand.name', string='Thương hiệu')
+    source_select = fields.Many2one('source.name', string='Xuất xứ')
     purchase_code = fields.Char('Mã mua hàng')
     # categ_id = fields.Many2one(
     #     'product.category', 'Internal Category',

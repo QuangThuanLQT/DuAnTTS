@@ -1,0 +1,60 @@
+<odoo>
+    <data>
+        <record id="view_order_form_inherit_delivery" model="ir.ui.view">
+            <field name="name">tts_modifier_sale</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+
+                 <xpath expr="//field[@name='partner_invoice_id']" position="attributes">
+                        <attribute name="invisible">True</attribute>
+                </xpath>
+
+                 <xpath expr="//field[@name='partner_shipping_id']" position="attributes">
+                        <attribute name="invisible">True</attribute>
+                </xpath>
+
+                 <xpath expr="//field[@name='validity_date']" position="before">
+                        <field name="date_order"/>
+                </xpath>
+
+                <xpath expr="//field[@name='partner_shipping_id']" position="after">
+                    <field name="payment_address"/>
+                    <field name="note"/>
+                </xpath>
+
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="so_tien_da_thu"/>
+                    <field name="con_phai_thu"/>
+                    <field name="trang_thai_tt"/>
+                    <field name="payment_method"/>
+                    <field name="quy_trinh_ban_hang"/>
+                    <field name="delivery_method"/>
+                    <field name="transport_route_id"/>
+                    <field name="delivery_scope_id"/>
+                    <field name="trang_thai_dh"/>
+                    <field name="create_uid" string="Create by"/>
+                    <field name="confirm_user_id" string="Validate by"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="sale_order_view_amount_inherit" model="ir.ui.view">
+            <field name="name">sale.order.view.amount</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='amount_untaxed']" position="before">
+                    <field name="total_quantity"/>
+                </xpath>
+                <xpath expr="//field[@name='amount_untaxed']" position="after">
+                    <field name="delivery_amount"/>
+                    <field name="tong_phi_in"/>
+                    <field name="transport_amount"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

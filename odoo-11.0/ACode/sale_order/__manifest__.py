@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "sale_Delivery",
+    'name': "sale_order",
 
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as
@@ -27,11 +27,7 @@
         # 'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
-        'views/nha_xe.xml',
-        'views/tuyen_xe.xml',
-        'views/pham_vi_giao_hang.xml',
-        'views/delivery.xml',
-        'views/thuonghieu_xuatxu.xml'
+        'views/update_order.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
