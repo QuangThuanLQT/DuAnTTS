@@ -1,0 +1,103 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="tts_email_inbox_from">
+            <field name="name">tts_sms_inbox</field>
+            <field name="model">tts.sms.inbox</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="create_account_voucher" string="Tạo Phiếu Thu" type="object" class="btn-primary"/>
+<!--                                attrs="{'invisible': [('created_voucher', '=', True)]}"/>-->
+                        <field name="state" widget="statusbar" readonly="1"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="date"/>
+                                <field name="don_hang"/>
+                                <field name="phone" string="Ngân hàng"/>
+                                <field name="body" string="Nội dung tin nhắn"/>
+                                <field name="create_uid_voucher"/>
+                                <field name="create_date_voucher"/>
+                            </group>
+                            <group>
+                                <field name="amount" widget="integer"/>
+                                <field name="ma_kh" string="Mã KH"/>
+                                <field name="infor_customer"/>
+                                <field name="customer_id"/>
+                                <field name="customer_phone"/>
+                                <field name="user_id" string="Nhân viên bán hàng"/>
+                                <field name="account_voucher_id"/>
+                            </group>
+<!--                            <group invisible="1">-->
+<!--                                <field name="account_voucher_line" widget="many2many_tags"/>-->
+<!--                            </group>-->
+                        </group>
+                    </sheet>
+<!--                    <div class="oe_chatter">-->
+<!--                        <field name="message_follower_ids" widget="mail_followers"/>-->
+<!--                        <field name="message_ids" widget="mail_thread"/>-->
+<!--                    </div>-->
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="tts_email_inbox_tree">
+            <field name="name">tts_sms_inbox</field>
+            <field name="model">tts.sms.inbox</field>
+            <field name="arch" type="xml">
+                <tree class="sms_body">
+                    <field name="date" string="Thời gian nhận"/>
+                    <field name="phone" string="Ngân hàng"/>
+                    <field name="body" string="Nội dung tin nhắn"/>
+                    <field name="amount" widget="integer"/>
+                    <field name="don_hang"/>
+                    <field name="ma_kh" string="Mã KH" invisible="0"/>
+                    <field name="customer_id"/>
+                    <field name="customer_phone"/>
+                    <field name="user_id" string="Nhân viên bán hàng"/>
+                    <field name="create_uid_voucher"/>
+                    <field name="create_date_voucher"/>
+                    <field name="state" string="Trạng thái"/>
+                    <field name="infor_customer"/>
+                    <field name="created_voucher" invisible="1"/>
+                    <button name="create_account_voucher" string="Tạo Phiếu Thu" type="object" class="btn-primary"
+                            attrs="{'invisible': [('created_voucher', '=', True)]}"/>
+                    <button name="view_account_voucher" string="Chi tiết" type="object" class="btn-primary"
+                            attrs="{'invisible': [('created_voucher', '=', False)]}"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="seq_sms" model="ir.sequence">
+            <field name="name">SMS</field>
+            <field name="code">sms.assemble</field>
+            <field name="prefix">SMS</field>
+            <field name="suffix">/%(month)s%(y)s</field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_ma_kh" model="ir.sequence">
+            <field name="name">Ma KH</field>
+            <field name="code">ma_kh.assemble</field>
+            <field name="prefix">KH</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record model="ir.actions.act_window" id="tts_email_inbox_action">
+            <field name="name">SMS Payment</field>
+            <field name="res_model">tts.sms.inbox</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('add_check', '=', False)]</field>
+        </record>
+
+
+        <menuitem name="SMS Payment" id="sms_inbox_menu" parent="sale.sale_order_menu"
+                  action="tts_email_inbox_action"/>
+
+    </data>
+</odoo>

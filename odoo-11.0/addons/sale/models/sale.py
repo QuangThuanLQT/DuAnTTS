@@ -165,7 +165,7 @@ class SaleOrder(models.Model):
         ('no', 'Nothing to Invoice')
         ], string='Invoice Status', compute='_get_invoiced', store=True, readonly=True)
 
-    note = fields.Text('Terms and conditions', default=_default_note)
+    note = fields.Text('Diễn giải', default=_default_note)
 
     amount_untaxed = fields.Monetary(string='Untaxed Amount', store=True, readonly=True, compute='_amount_all', track_visibility='onchange')
     amount_tax = fields.Monetary(string='Taxes', store=True, readonly=True, compute='_amount_all')
