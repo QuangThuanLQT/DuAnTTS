@@ -6,32 +6,40 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
 
-                 <xpath expr="//field[@name='partner_invoice_id']" position="attributes">
-                        <attribute name="invisible">True</attribute>
+                <xpath expr="//field[@name='partner_invoice_id']" position="attributes">
+                    <attribute name="invisible">True</attribute>
                 </xpath>
 
-                 <xpath expr="//field[@name='partner_shipping_id']" position="attributes">
-                        <attribute name="invisible">True</attribute>
+                <xpath expr="//field[@name='partner_shipping_id']" position="attributes">
+                    <attribute name="invisible">True</attribute>
                 </xpath>
 
-                 <xpath expr="//field[@name='validity_date']" position="before">
-                        <field name="date_order"/>
+                <xpath expr="//field[@name='validity_date']" position="before">
+                    <field name="date_order"/>
                 </xpath>
 
                 <xpath expr="//field[@name='partner_shipping_id']" position="after">
-                    <field name="payment_address"/>
-                    <field name="note"/>
+                    <field name="payment_address"
+                           attrs="{'invisible' : ['|',('delivery_method', '=', 'warehouse'), ('delivery_method', '=', False)]}"/>
+                    <field name="notes"/>
                 </xpath>
 
                 <xpath expr="//field[@name='payment_term_id']" position="after">
-                    <field name="so_tien_da_thu"/>
-                    <field name="con_phai_thu"/>
-                    <field name="trang_thai_tt"/>
+                    <field name="so_tien_da_thu" attrs="{'invisible' : [('state', 'in', ('draft', 'sent', 'cancel'))]}"/>
+                    <field name="con_phai_thu" attrs="{'invisible' : [('state', 'in', ('draft', 'sent', 'cancel'))]}"/>
+                    <field name="trang_thai_tt" attrs="{'invisible' : [('state', 'in', ('draft', 'sent', 'cancel'))], 'required' : [('state', 'not in', ('draft', 'sent', 'cancel'))]}"/>
                     <field name="payment_method"/>
                     <field name="quy_trinh_ban_hang"/>
+
                     <field name="delivery_method"/>
-                    <field name="transport_route_id"/>
-                    <field name="delivery_scope_id"/>
+                    <!--                    <field name="transport_route_id"/>-->
+                    <!--                    <field name="delivery_scope_id"/>-->
+                    <field name="transport_route_id"
+                           attrs="{'invisible': [('delivery_method', '!=', 'transport')], 'required': [('delivery_method', '=', 'transport')]}"
+                           options="{'no_create_edit': True, 'no_quick_create':True}"/>
+                    <field name="delivery_scope_id"
+                           attrs="{'invisible' : ['|',('delivery_method', '=', 'warehouse'), ('delivery_scope_id', '=', False)], 'required' : [('delivery_method', '!=', 'warehouse'), ('delivery_scope_id', '!=', False)]}"/>
+
                     <field name="trang_thai_dh"/>
                     <field name="create_uid" string="Create by"/>
                     <field name="confirm_user_id" string="Validate by"/>
@@ -49,12 +57,91 @@
                     <field name="total_quantity"/>
                 </xpath>
                 <xpath expr="//field[@name='amount_untaxed']" position="after">
-                    <field name="delivery_amount"/>
-                    <field name="tong_phi_in"/>
-                    <field name="transport_amount"/>
+                    <label for="delivery_amount"/>
+                    <div>
+                        <field name="delivery_amount" class="oe_inline" modifiers="{}"/>
+                        ₫
+                    </div>
+
+                    <label for="tong_phi_in"/>
+                    <div>
+                        <field name="tong_phi_in" class="oe_inline" modifiers="{}"/>
+                        ₫
+                    </div>
+
+                    <label for="transport_amount"/>
+                    <div>
+                        <field name="transport_amount" class="oe_inline" modifiers="{}"/>
+                        ₫
+                    </div>
+                    <!--                    <field name="delivery_amount"/>-->
+                    <!--                    <field name="tong_phi_in"/>-->
+                    <!--                    <field name="transport_amount"/>-->
+                </xpath>
+
+
+                <xpath expr="//field[@name='note']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='note']" position="before">
+                    <div class="oe_left">
+                        <group>
+                            <field name="tax_id" string="Thuế"/>
+                            <field name="discount_type" string="Loại giảm giá"/>
+                            <field name="discount_rate" string="Tỷ lệ chiết khấu"/>
+                            <field name="check_box_co_cq" string="CO, CQ"/>
+                            <field name="check_box_invoice_gtgt" string="Invoice GTGT"/>
+                        </group>
+                    </div>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_order_tree_inherit_delivery" model="ir.ui.view">
+            <field name="name">sale.order.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="string">Số hoá đơn</attribute>
+                </xpath>
+                <xpath expr="//field[@name='confirmation_date']" position="attributes">
+                    <attribute name="string">Thời gian tạo</attribute>
+                </xpath>
+                <xpath expr="//field[@name='invoice_status']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="notes" string="Ghi chú"/>
+                    <field name="payment_method"/>
+                </xpath>
+                <xpath expr="//field[@name='amount_total']" position="after">
+                    <field name="con_phai_thu"/>
+                    <field name="so_tien_da_thu"/>
+                    <field name="trang_thai_tt"/>
+                    <field name="trang_thai_dh"/>
+                    <field name="state"/>
                 </xpath>
             </field>
         </record>
 
+        <record id="view_order_tree1_inherit_delivery" model="ir.ui.view">
+            <field name="name">sale.order.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="string">Mã báo giá</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_order']" position="attributes">
+                    <attribute name="string">Thời gian tạo</attribute>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="notes" string="Ghi chú"/>
+                </xpath>
+            </field>
+        </record>
     </data>
 </odoo>

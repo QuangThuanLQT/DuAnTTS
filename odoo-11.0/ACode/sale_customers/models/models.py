@@ -9,6 +9,7 @@ class sale_customers(models.Model):
     ref = fields.Char(string='Mã KH Nội Bộ', readonly=True, required=True, copy=False, default='New')
     maKH = fields.Char(string='Mã KH')
     kh_birthday = fields.Date(string='Sinh nhật')
+    feosco_business_license = fields.Char(u'Giấy phép kinh doanh')
     group_kh1_id = fields.Many2one('partner.group.hk1', string='PK theo Danh Mục KD')
     group_kh2_id = fields.Many2one('partner.group.hk2', string='PK theo Mô Hình KD')
     sale_type = fields.Selection([('allow', 'Cho phép kinh doanh'), ('stop', 'Ngừng kinh doanh')], string='Trạng thái',
@@ -56,6 +57,8 @@ class sale_customers(models.Model):
                                                   domain="[('internal_type', '=', 'payable'), ('deprecated', '=', False)]",
                                                   help="This account will be used instead of the default one as the payable account for the current partner",
                                                   required=True)
+
+
 
     @api.model
     def create(self, vals):

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="invoice_form_inherit_sale">
+            <field name="name">invoices</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_shipping_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='date_due']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                 <xpath expr="//form/sheet/notebook/page[@name='other_info']/group/group/field[@name='fiscal_position_id']" position="after">
+                     <field name="journal_id"/>
+                     <field name="account_id"/>
+                     <field name="date_order"/>
+                     <field name="date_dues"/>
+				</xpath>
+
+                 <xpath expr="//form/sheet/notebook/page[@name='other_info']/group/group/field[@name='move_id']" position="after">
+                     <field name="origin"/>
+				</xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

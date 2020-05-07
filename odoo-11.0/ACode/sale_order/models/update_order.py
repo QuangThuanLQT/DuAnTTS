@@ -7,12 +7,12 @@ class tts_modifier_sale(models.Model):
     _inherit = 'sale.order'
 
     payment_address = fields.Char('Địa chỉ giao hàng')
-    note = fields.Text('Diễn giải')
+    notes = fields.Text('Diễn giải')
 
     date_order = fields.Datetime(string='Order Date', readonly=True, index=True, default=fields.Datetime.now)
 
     so_tien_da_thu = fields.Float(string='Số tiền đã thu')
-    con_phai_thu = fields.Float(string='Số tiền còn phải thu')
+    con_phai_thu = fields.Float(string='Số tiền còn phải thu', compute='_con_phai_thu')
     trang_thai_tt = fields.Selection(
         [('chua_tt', 'Chưa thanh toán'),
          ('tt_1_phan', 'Thanh toán 1 phần'),
@@ -43,6 +43,20 @@ class tts_modifier_sale(models.Model):
     tong_phi_in = fields.Float(string='Tổng phí in')
     transport_amount = fields.Float(string="Trả trước phí ship nhà xe")
 
+    # update tong tien có phu phi gh, ship
+    @api.depends('delivery_amount', 'transport_amount')
+    def _amount_all(self):
+        res = super(tts_modifier_sale, self)._amount_all()
+        for order in self:
+            order.update({
+                'amount_total': order.amount_untaxed + order.amount_tax + order.transport_amount + order.delivery_amount,
+            })
+    #tien can thu
+    @api.depends('amount_total', 'so_tien_da_thu')
+    def _con_phai_thu(self):
+        for rec in self:
+            rec.con_phai_thu = rec.amount_total - rec.so_tien_da_thu
+
     @api.depends('order_line')
     def _get_total_quantity(self):
         for rec in self:
@@ -50,3 +64,13 @@ class tts_modifier_sale(models.Model):
             for line in rec.order_line:
                 total_quantity += line.product_uom_qty
             rec.total_quantity = total_quantity
+
+    tax_id = fields.Many2one('account.tax', string='Thuế')
+    discount_type = fields.Selection([('percent', 'Tỷ lên phần trăm'), ('amount', 'Số tiền')],
+                                     string='Loại giảm giá', default='percent')
+    discount_rate = fields.Float('Tỷ lệ chiết khấu')
+    check_box_co_cq = fields.Boolean(default=False, string="CO, CQ")
+    check_box_invoice_gtgt = fields.Boolean(default=False, string="Invoice GTGT")
+
+
+
