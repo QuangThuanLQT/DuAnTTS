@@ -13,6 +13,9 @@ class product_template(models.Model):
     brand_name_select = fields.Many2one('brand.name', string='Thương hiệu')
     source_select = fields.Many2one('source.name', string='Xuất xứ')
     purchase_code = fields.Char('Mã mua hàng')
+
+    invoice_name = fields.Char(string='Tên Hoá Đơn', required="1")
+
     # categ_id = fields.Many2one(
     #     'product.category', 'Internal Category',
     #     change_default=True, default=_get_default_category_id,

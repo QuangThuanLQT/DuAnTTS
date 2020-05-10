@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_group_sale_form" model="ir.ui.view">
+        <field name="name">product.group.sale.form</field>
+        <field name="model">product.group.sale</field>
+        <field name="arch" type="xml">
+            <form string="Product sale group">
+                <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="price_type"/>
+                    </group>
+                    <group></group>
+                </group>
+                <separator string="Group Line"/>
+                <field name="group_line_ids">
+                    <tree editable="bottom">
+                        <field name="partner_id"/>
+                        <field name="partner_name"/>
+                        <field name="discount"/>
+                    </tree>
+                    <form>
+                        <field name="partner_id"/>
+                        <field name="partner_name"/>
+                        <field name="discount"/>
+                    </form>
+                </field>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_group_sale_tree" model="ir.ui.view">
+        <field name="name">product.group.sale.tree</field>
+        <field name="model">product.group.sale</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_group_sale_action" model="ir.actions.act_window">
+        <field name="name">Product Group Sale</field>
+        <field name="res_model">product.group.sale</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Product Group Sale" id="product_group_sale_menu_parent" parent="sale.menu_sale_config"/>
+    <menuitem name="Product Group Sale" action="product_group_sale_action" id="product_group_sale_menu"
+              parent="product_group_sale_menu_parent" sequence="8"/>
+
+    <record id="product_group_sale_line_tree" model="ir.ui.view">
+        <field name="name">product.group.sale.line.tree</field>
+        <field name="model">product.group.sale.line</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="product_group_sale_id" string="Nhóm sản phẩm bán hàng"/>
+                <field name="price_type"/>
+                <field name="partner_name"/>
+                <field name="discount"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_group_sale_line_search_view" model="ir.ui.view">
+        <field name="name">product.group.sale.line.tree</field>
+        <field name="model">product.group.sale.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="partner_name" string="Nam" filter_domain="[('partner_name','ilike', self)]"/>
+                <field name="product_group_sale_id" string="Nhóm sản phẩm bán hàng"
+                       filter_domain="[('product_group_sale_id','ilike', self)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="product_group_sale_line_action" model="ir.actions.act_window">
+        <field name="name">Nhóm sản phẩm bán hàng chi tiết</field>
+        <field name="res_model">product.group.sale.line</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('product_group_sale_id','!=',False)]</field>
+    </record>
+
+    <menuitem name="Nhóm sản phẩm bán hàng chi tiết" action="product_group_sale_line_action"
+              id="product_group_sale_line_menu"
+              parent="product_group_sale_menu_parent" sequence="9"/>
+
+    <record id="product_group_sale_groups" model="res.groups">
+        <field name="name">Product sale group access</field>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
+</odoo>

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "sale_sms_payment",
+    'name': "purchases_vendor_pricelist",
 
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as
@@ -20,14 +20,14 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'fetchmail', 'account'],
+    'depends': ['base', 'purchase'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
-        'views/account_journal.xml',
+        'views/vendor_pricelist.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

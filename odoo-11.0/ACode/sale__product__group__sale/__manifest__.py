@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "sale_sms_payment",
+    'name': "sale_Product_Group_Sale",
 
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as
@@ -20,14 +20,14 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'fetchmail', 'account'],
+    'depends': ['base', 'sale', 'purchase'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
-        'views/account_journal.xml',
+        'views/product_group_sale.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

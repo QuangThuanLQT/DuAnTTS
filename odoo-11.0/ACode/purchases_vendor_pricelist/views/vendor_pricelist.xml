@@ -1,0 +1,62 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_product_supplierinfo_tree_inheirt">
+            <field name="name">product.supplierinfo.tree</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="inherit_id" ref="product.product_supplierinfo_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='price']" position="after">
+                    <field name="monthly_discount"/>
+                    <field name="bill_price"/>
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_product_supplierinfo_form_inheirt">
+            <field name="name">product.supplierinfo.form</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="inherit_id" ref="product.product_supplierinfo_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/group/group/label[@for='date_start']" position="before">
+                    <label for="monthly_discount"/>
+                    <div>
+                        <field name="monthly_discount" class="oe_inline"/> %
+                    </div>
+                    <label for="bill_price" invisible="1"/>
+                    <div>
+                        <field name="bill_price" class="oe_inline" invisible="1"/>
+                    </div>
+                    <field name="price_add_to_line"/>
+                </xpath>
+                <xpath expr="//form/group/group/label[@for='price']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//form/group/group/div/field[@name='price']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                    <attribute name="required">False</attribute>
+                </xpath>
+                <field name="name" position="attributes">
++                    <attribute name="options">{'no_create_edit': True}</attribute>
++               </field>
+                <field name="product_tmpl_id" position="attributes">
++                    <attribute name="options">{'no_create_edit': True}</attribute>
++               </field>
+                <xpath expr="//form/group" position="after">
+                    <notebook>
+                        <page name="variants" string="Variants">
+                            <field name="product_variants_line">
+                                <tree string="Product Variants Lines" create="false" editable="bottom">
+                                    <field name="product_id" invisible="1"/>
+                                    <field name="product_name"/>
+                                    <field name="attribute_value_ids" widget="many2many_tags"/>
+                                    <field name="price"/>
+                                    <field name="monthly_discount"/>
+                                    <field name="bill_price"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

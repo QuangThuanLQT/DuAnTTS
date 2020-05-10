@@ -2,9 +2,9 @@
 
 from odoo import models, fields, api
 
+
 class tts_sms_inbox(models.Model):
     _name = 'tts.sms.inbox'
-
 
     date = fields.Datetime('Date', track_visibility='onchange')
     don_hang = fields.Char('Đơn hàng')
@@ -26,6 +26,10 @@ class tts_sms_inbox(models.Model):
     state = fields.Selection([
         ('draft', 'Chưa tạo phiếu'),
         ('done', 'Đã tạo phiếu')], 'Status', default='draft', readonly=True)
+
+    @api.multi
+    def done(self):
+        self.state = 'done'
 
     created_voucher = fields.Boolean()
     add_check = fields.Boolean(compute='get_check_add', store=True)
@@ -62,4 +66,17 @@ class tts_sms_inbox(models.Model):
         }
         return action
 
+    def view_account_voucher(self):
+        view_id = self.env.ref('account_voucher.view_sale_receipt_form')
+        action = {
+            'name': 'Sales Receipts',
+            'type': 'ir.actions.act_window',
+            'res_model': 'account.voucher',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_id': self.account_voucher_id.id,
+            'view_id': view_id.id,
+            'target': 'current',
+        }
+        return action
 

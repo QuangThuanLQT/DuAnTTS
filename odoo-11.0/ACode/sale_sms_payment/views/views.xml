@@ -7,9 +7,9 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <button name="create_account_voucher" string="Tạo Phiếu Thu" type="object" class="btn-primary"/>
-<!--                                attrs="{'invisible': [('created_voucher', '=', True)]}"/>-->
-                        <field name="state" widget="statusbar" readonly="1"/>
+                        <button name="create_account_voucher" string="Tạo Phiếu Thu" type="object" class="btn-primary"
+                                attrs="{'invisible':[('state','=','done')]}"/>
+                        <field name="state" widget="statusbar" readonly="1" statusbar_visible="draft,done"/>
                     </header>
                     <sheet>
                         <group>

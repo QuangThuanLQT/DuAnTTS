@@ -22,7 +22,7 @@ class sale_order_return(models.Model):
                                         readonly=True, help="Date on which the sales order is confirmed.",
                                         default=fields.Datetime.now)
     so_tien_da_tra = fields.Float(string='Số tiền đã trả')
-    con_phai_tra = fields.Float(string='Số tiền còn phải trả')
+    con_phai_tra = fields.Float(string='Số tiền còn phải trả', compute='_con_phai_tra')
     trang_thai_tt = fields.Selection(
         [('chua_tt', 'Chưa thanh toán'),
          ('tt_1_phan', 'Thanh toán 1 phần'),
@@ -46,6 +46,11 @@ class sale_order_return(models.Model):
     @api.multi
     def order_return(self):
         self.state_return = 'order_return'
+
+    @api.multi
+    def _con_phai_tra(self):
+        for rec in self:
+            rec.con_phai_tra = rec.amount_total - rec.so_tien_da_tra
 
     order_line_ids = fields.One2many('order.line', 'order_line_id')
 
