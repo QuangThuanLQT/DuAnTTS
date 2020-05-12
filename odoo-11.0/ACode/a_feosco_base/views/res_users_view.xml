@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    	<!-- <record id="view_users_simple_form_inherit" model="ir.ui.view">
+            <field name="name">res.users.simplified.form</field>
+            <field name="model">res.users</field>
+            <field name="priority">1</field>
+            <field name="inherit_id" ref="base.view_users_simple_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='zip']" position="replace">
+            		<field name="zip" placeholder="ZIP" style="width: 20%%" invisible="1"/>
+            	</xpath>
+            	<xpath expr="//field[@name='state_id']" position="replace">
+            		<field name="state_id" invisible="1"/>
+            	</xpath>
+            	<xpath expr="//field[@name='city']" position="before">
+            		<field name="feosco_district" on_change="on_change_district(feosco_district,1)" placeholder="District..." style="width: 40%%"/>
+            	</xpath>
+            </field>
+        </record> -->
+    
+    </data>
+</odoo>

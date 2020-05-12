@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="feosco_view_company" model="ir.ui.view">
+            <field name="name">feosco.res.company.form</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='city']" position="replace">
+                    <field name="feosco_city_id" placeholder="City" class="o_address_city"/>
+                    <field name="feosco_ward_id" class="o_address_city"/>
+                </xpath>
+                <!--
+                <xpath expr="//field[@name='state_id']" position="replace">
+                    <field name="feosco_district_id" class="o_address_state" placeholder="State" options="{&quot;no_open&quot;: True}"/>
+                    <field name="state_id" invisible="1"/>
+                </xpath>
+                -->
+                <xpath expr="//field[@name='zip']" position="replace">
+                    <field name="zip" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

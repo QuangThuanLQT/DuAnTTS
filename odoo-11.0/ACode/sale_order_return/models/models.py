@@ -1,15 +1,17 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
+from odoo.exceptions import UserError, ValidationError
 
 
 class sale_order_return(models.Model):
     _name = 'sale.order.return'
 
-    name = fields.Char(string='Reference return')
+    name = fields.Char(string='Reference return', readonly=True, required=True, copy=False, default='New')
     don_tra_hang = fields.Boolean(default=False)
     partner_id = fields.Many2one('res.partner', string="Customer")
-    sale_order_return_ids = fields.Char(string="Sale Order")
+    # sale_order_return_ids = fields.Char(string="Sale Order")
+    sale_order_return_ids = fields.Many2one('sale.order', string="Sale Order", domain="[('partner_id', '=', partner_id)]")
     reason_cancel = fields.Many2one('ly.do.tra.hang', string='Lý do')
     receive_method = fields.Selection(
         [('allow', 'Nhận hàng trả lại tại kho'), ('stop', 'Nhận hàng trả lại tại địa chỉ giao hàng')],
@@ -43,9 +45,32 @@ class sale_order_return(models.Model):
         ('draft', 'Draft'),
         ('order_return', 'Order Return')], default='draft', string='Status')
 
+    @api.onchange('sale_order_return_ids')
+    def onchange_sale_order_return_ids(self):
+        if self.sale_order_return_ids:
+            for line in self.sale_order_return_ids.order_line:
+                self.order_line_ids += self.order_line_ids.new({
+                    'product_id' : line.product_id.id,
+                    'invoice_name': line.product_id.name,
+                    'price_unit': line.price_unit,
+                    'amount_tax': line.tax_id,
+                    # 'discount': line.discount,
+                    'product_uom': line.product_uom,
+                    # 'price_discount': line.price_discount,
+                    'product_uom_qty': 0,
+                })
+
     @api.multi
     def order_return(self):
         self.state_return = 'order_return'
+
+#----------------------------------------------
+    @api.model
+    def create(self, vals):
+        if vals.get('name', 'New') == 'New':
+            vals['name'] = self.env['ir.sequence'].next_by_code('sale.order.return') or 'New'
+        result = super(sale_order_return, self).create(vals)
+        return result
 
     @api.multi
     def _con_phai_tra(self):
@@ -115,6 +140,14 @@ class sale_order_return(models.Model):
         print_qty = fields.Float(string='Print Qty', digits=(16, 0))
         price_unit = fields.Float(string='Unit Price', default=0.0)
         price_subtotal = fields.Float(string='Subtotal', compute='_compute_amount', default=0.0)
+
+        @api.onchange('product_uom_qty')
+        def onchange_product_uom_qty(self):
+            if self.product_uom_qty and self.order_line_id.sale_order_return_ids:
+                line_ids = self.order_line_id.sale_order_return_ids.order_line.filtered(lambda line: line.product_id == self.product_id)
+                if self.product_uom_qty > sum(line_ids.mapped('product_uom_qty')):
+                    raise ValidationError(_("Tổng số lượng sp %s trả lại không thể lớn hơn %s." % (line_ids.product_id.name, sum(line_ids.mapped('product_uom_qty')))))
+
 
         @api.depends('price_unit', 'product_uom_qty', 'price_subtotal')
         def _compute_amount(self):

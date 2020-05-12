@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="SkyERP.buttons">
+        <div class="sky-search btn-group btn-group-sm" >
+            <div style="margin-left: 0px; margin-top: 2px; padding-right: 10px;">
+                <span style="float: left;">
+                    <select class="sky_select_field form-control" style="height: 30px;" >
+                        <option t-foreach="sky_fields" t-as="field" t-att-value="field[0]">
+                            <t t-esc="field[1]"/>
+                        </option>
+                    </select>
+                </span>
+
+                <span style="float: left; margin-left: 2px;">
+                    <input style="height: 30px;" class="sky_start_date form-control" size="10" placeholder="Start date" type="text" />
+                </span>
+
+                <span style="float: left; margin-left: 2px;">
+                    <input style="height: 30px;" class="sky_end_date form-control" size="10" placeholder="End date" type="text" />
+                </span>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="SkyERP.PartnerPhone">
+        <div class="sky-search btn-group btn-group-sm" >
+            <div style="margin-left: 0px; margin-top: 2px; padding-right: 10px;">
+                <span style="float: left;">
+                    <select class="sky_select_partner_phone form-control" style="height: 30px;" >
+                        <option t-foreach="sky_fields" t-as="field" t-att-value="field[0]">
+                            <t t-esc="field[1]"/>
+                        </option>
+                    </select>
+                </span>
+                <span style="float: left; margin-left: 2px;">
+                    <input id="input_partner_phone" style="height: 30px;" class="sky_partner_phone form-control" size="10" placeholder="" type="text" />
+                </span>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="SkyERP.SearchPartnerUser">
+        <div class="sky-search btn-group btn-group-sm" >
+            <div style="margin-left: 0px; margin-top: 2px; padding-right: 10px;">
+                <span style="float: left;">
+                    <select class="sky_select_user_id form-control" style="height: 30px;" >
+                        <option t-foreach="sky_fields" t-as="field" t-att-value="field[0]">
+                            <t t-esc="field[1]"/>
+                        </option>
+                    </select>
+                </span>
+                <span style="float: left; margin-left: 2px;">
+                    <input id="input_user_id" style="height: 30px;" class="sky_user_id form-control" size="10" placeholder="" type="text" />
+                </span>
+            </div>
+        </div>
+    </t>
+    <t t-name="SkyERP.ClearAll">
+        <div class="sky-search btn-group btn-group-sm" >
+            <div style="margin-left: 0px; margin-top: 2px; padding-right: 10px;">
+                <span style="float: left; margin-left: 5px;">
+                    <input class="button_clear_all" style="height: 30px;border-radius: 4px" type="button" size="10" value="ALL" onclick="$('.sky_user_id').val('');$('.sky_partner_phone').val('');$('.sky_select_field').val('');$('.sky_end_date').val('');$('.sky_start_date').val('');" />
+                </span>
+            </div>
+        </div>
+    </t>
+</templates>

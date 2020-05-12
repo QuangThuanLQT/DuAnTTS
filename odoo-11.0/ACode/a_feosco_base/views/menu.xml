@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem name="FEOS Tools"
+            id="menu_feosco_tool"
+            sequence="0"/>
+
+        <!-- Top menu item -->
+        <menuitem name="FEOSCO"
+            id="menu_feosco_root"
+            parent="base.menu_administration"
+            sequence="90"/>
+        
+        <menuitem name="System Configuration"
+            id="menu_sys_config_root"
+            sequence="500" groups="base.group_system_config"/>
+        
+        <!-- Master Data -->
+        
+        <menuitem name="Master Data" id="menu_feosco_master_data_root" 
+        		parent="sale.menu_sale_config"
+        		/>
+        
+       	<!-- Localization -->
+        <menuitem id="menu_feosco_localisation" name="Localization" parent="menu_feosco_root"/>
+
+        <menuitem action="base.action_country" id="menu_feosco_country" parent="menu_feosco_localisation"/>
+    </data>
+</odoo>

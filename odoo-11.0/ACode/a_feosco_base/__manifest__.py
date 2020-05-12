@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "sale_order_return",
+    'name': "a_feosco_base",
 
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as
@@ -20,21 +20,28 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'sale'],
+    'depends': ['base','fetchmail'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
-        'views/sale_order_return.xml',
-        'views/thong_tin_its_image.xml',
-        'views/thong_tin_khac.xml',
-        'views/nhat_ky_lich_su.xml',
-        'views/MaDonTra.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
+        'views/city_view.xml',
+        'views/district_view.xml',
+        'views/ir_attachment_view.xml',
+        'views/master_data_view.xml',
+        'views/menu.xml',
+        'views/res_bank_view.xml',
+        'views/res_company_view.xml',
+        'views/res_partner_view.xml',
+        'views/ward_view.xml',
+        # 'view/res_users_view.xml',
+        'security/ir.model.access.csv',
+        'views/templates.xml',
     ],
 }

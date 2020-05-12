@@ -42,7 +42,7 @@
 
                     <field name="trang_thai_dh"/>
                     <field name="create_uid" string="Create by"/>
-                    <field name="confirm_user_id" string="Validate by"/>
+                    <field name="confirm_user_id" string="Validate by" attrs="{'invisible' : [('state', 'in', ('draft', 'sent', 'cancel'))]}"/>
                 </xpath>
             </field>
         </record>

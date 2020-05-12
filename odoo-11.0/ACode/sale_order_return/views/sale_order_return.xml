@@ -14,7 +14,8 @@
                     <sheet>
                         <div class="oe_title">
                             <h1>
-                                <field name="name" default_focus="1" placeholder="Số đơn" required="1"/>
+<!--                                <field name="name" default_focus="1" placeholder="Số đơn" required="1"/>-->
+                                <field name="name" readonly="1"/>
                             </h1>
                         </div>
                         <group>
@@ -110,6 +111,7 @@
         <record model="ir.ui.view" id="order_return_list_tree">
             <field name="name">Order Return</field>
             <field name="model">sale.order.return</field>
+            <field eval="8" name="priority"/>
             <field name="arch" type="xml">
                 <tree string="Order Return">
                     <field name="name"/>
