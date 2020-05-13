@@ -64,7 +64,7 @@ class sale_order_return(models.Model):
     def order_return(self):
         self.state_return = 'order_return'
 
-#----------------------------------------------
+    # ...................
     @api.model
     def create(self, vals):
         if vals.get('name', 'New') == 'New':
@@ -72,6 +72,7 @@ class sale_order_return(models.Model):
         result = super(sale_order_return, self).create(vals)
         return result
 
+    # ...................
     @api.multi
     def _con_phai_tra(self):
         for rec in self:
@@ -118,14 +119,7 @@ class sale_order_return(models.Model):
                 'amount_total': amount_untaxed + amount_tax
             })
 
-    # @api.dependssudo dpkg -i wkhtmltox_0.12.1.3-1~bionic_amd64.deb
-    # def _compute_amount(self):
-    #     for rec in self:
-    #         if rec.discount:
-    #             disc_amount = (rec.price_unit * rec.product_uom_qty) * rec.discount / 100
-    #             rec.price_subtotal = (rec.price_unit * rec.product_uom_qty) - disc_amount
-    #         else:
-    #             rec.price_subtotal = rec.price_unit * rec.product_uom_qty
+
 
 
     class thong_tin_order_line(models.Model):
@@ -154,84 +148,3 @@ class sale_order_return(models.Model):
             for rec in self:
                     rec.price_subtotal = rec.price_unit * rec.product_uom_qty
 
-
-
-        # @api.multi
-        # def _con_phai_tra(self):
-        #     for rec in self:
-        #         rec.con_phai_tra = rec.amount_total - rec.so_tien_da_tra
-
-        # @api.multi
-        # def _get_trang_thai_dh(self):
-        #
-        #     for rec in self:
-        #         if rec.reason_cancel and not rec.sale_order_return:
-        #             if rec.picking_ids and any(picking.state not in ('done', 'cancel') for picking in
-        #                                        rec.picking_ids):
-        #                 rec.trang_thai_dh = 'reverse_tranfer'
-        #             else:
-        #                 if rec.sale_order_return == False:
-        #                     rec.trang_thai_dh = 'cancel'
-        #                 if not rec.sale_order_return == False:
-        #                     if any(picking.state != 'done' for picking in
-        #                            rec.picking_ids.filtered(lambda line: line.picking_type_code == 'incoming')):
-        #                         pick_ids = rec.picking_ids.filtered(lambda line: line.picking_type_code == 'incoming')
-        #                         if 'reveive' in pick_ids.mapped('receipt_state'):
-        #                             rec.trang_thai_dh = 'reveive'
-        #
-        #                     elif any(pack.state != 'done' for pack in
-        #                              rec.picking_ids.filtered(lambda line: line.is_internal_transfer == True)):
-        #                         pack_ids = rec.picking_ids.filtered(lambda line: line.is_internal_transfer == True)
-        #                         if 'checking' in pack_ids.mapped('internal_transfer_state'):
-        #                             rec.trang_thai_dh = 'checking'
-        #                         else:
-        #                             rec.trang_thai_dh = 'checking'
-        #                     else:
-        #                         if all(picking.state == 'done' for picking in rec.picking_ids):
-        #                             rec.trang_thai_dh = 'done'
-        #
-        #         elif rec.picking_ids:
-        #             if not rec.sale_order_return:
-        #                 if any(picking.state != 'done' for picking in
-        #                        rec.picking_ids.filtered(lambda line: line.check_is_pick == True)):
-        #                     pick_ids = rec.picking_ids.filtered(lambda line: line.check_is_pick == True)
-        #                     if 'waiting_pick' in pick_ids.mapped('state_pick'):
-        #                         rec.trang_thai_dh = 'waiting_pick'
-        #                     elif 'ready_pick' in pick_ids.mapped('state_pick'):
-        #                         rec.trang_thai_dh = 'ready_pick'
-        #                     elif 'picking' in pick_ids.mapped('state_pick'):
-        #                         rec.trang_thai_dh = 'picking'
-        #                 elif any(pack.state != 'done' for pack in
-        #                          rec.picking_ids.filtered(lambda line: line.check_is_pack == True)):
-        #                     pack_ids = rec.picking_ids.filtered(lambda line: line.check_is_pack == True)
-        #                     if 'waiting_pack' in pack_ids.mapped('state_pack'):
-        #                         rec.trang_thai_dh = 'waiting_pack'
-        #                     elif 'packing' in pack_ids.mapped('state_pack'):
-        #                         rec.trang_thai_dh = 'packing'
-        #                 else:
-        #                     delivery_ids = rec.picking_ids.filtered(lambda r: r.check_is_delivery == True)
-        #                     if 'done' in delivery_ids.mapped('state_delivery'):
-        #                         rec.trang_thai_dh = 'done'
-        #                     elif 'waiting_delivery' in delivery_ids.mapped('state_delivery'):
-        #                         rec.trang_thai_dh = 'waiting_delivery'
-        #                     elif 'delivery' in delivery_ids.mapped('state_delivery'):
-        #                         rec.trang_thai_dh = 'delivery'
-        #             else:
-        #                 if any(picking.state != 'done' for picking in
-        #                        rec.picking_ids.filtered(lambda line: line.picking_type_code == 'incoming')):
-        #                     pick_ids = rec.picking_ids.filtered(lambda line: line.picking_type_code == 'incoming')
-        #                     if 'reveive' in pick_ids.mapped('receipt_state'):
-        #                         rec.trang_thai_dh = 'reveive'
-        #                     elif 'cancel' in pick_ids.mapped('receipt_state'):
-        #                         rec.trang_thai_dh = 'cancel'
-        #
-        #                 elif any(pack.state != 'done' for pack in
-        #                          rec.picking_ids.filtered(lambda line: line.is_internal_transfer == True)):
-        #                     pack_ids = rec.picking_ids.filtered(lambda line: line.is_internal_transfer == True)
-        #                     if 'checking' in pack_ids.mapped('internal_transfer_state'):
-        #                         rec.trang_thai_dh = 'checking'
-        #                     else:
-        #                         rec.trang_thai_dh = 'checking'
-        #                 else:
-        #                     if all(picking.state == 'done' for picking in rec.picking_ids):
-        #                         rec.trang_thai_dh = 'done'

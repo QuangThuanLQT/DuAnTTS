@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="hr_view_employee_form_inherit" model="ir.ui.view">
+            <field name="name">hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='public']" position="before">
+                    <page string="General Information">
+                        <group>
+                            <group>
+                                <field name="partner_id"/>
+                                <field name="ma_nv"/>
+                                <label for="tinh_thanh" string="Địa chỉ làm việc"/>
+                                <div class="o_address_format">
+                                    <field name="dclv_tinh" placeholder="Tỉnh thành" class="o_address_street"/>
+                                    <field name="dclv_quan" placeholder="Quận (huyện)" class="o_address_street"/>
+                                    <field name="dclv_phuong" placeholder="Phường/Xã" class="o_address_street"/>
+                                    <field name="dclv_thon" placeholder="Số nhà, đường (Thôn/xóm)"
+                                           class="o_address_street"/>
+                                </div>
+                            </group>
+                            <group>
+                                <field name="sdt_cty"/>
+                                <field name="sdt_cn"/>
+                                <field name="email"/>
+                            </group>
+                        </group>
+                        <field name="notes" placeholder="Other Information ..." colspan="4"/>
+                    </page>
+
+                    <page string="Personal Information">
+                        <group>
+                            <group string="Thông tin cá nhân">
+                                <field name="quoc_tich_id"/>
+                                <field name="cmnd"/>
+                                <field name="ngay_cap"/>
+                                <field name="noi_cap"/>
+                                <field name="dan_toc"/>
+                                <field name="que_quan"/>
+                            </group>
+                            <group string="Tài khoản ngân hàng">
+                                <field name="ngan_hang"/>
+                                <field name="chi_nhanh"/>
+                                <field name="stk"/>
+                            </group>
+                            <group string="Thông tin liên lạc">
+                                <field name="gioi_tinh"/>
+                                <label for="tinh_thanh" string="Địa chỉ thường trú"/>
+                                <div class="o_address_format">
+                                    <field name="dctt_tinh" placeholder="Tỉnh thành"
+                                           class="oe_inline"/>
+                                    <field name="dctt_quan" placeholder="Quận (huyện)"
+                                           class="oe_inline"/>
+                                    <field name="dctt_xa" placeholder="Phường/Xã"
+                                           class="oe_inline"/>
+                                    <field name="dctr_thon" placeholder="Số nhà, đường (Thôn/xóm)"
+                                           class="o_address_street"/>
+                                </div>
+                                <label for="tinh_thanh" string="Địa chỉ tạm trú"/>
+                                <div class="o_address_format">
+                                    <field name="dctr_tinh" placeholder="Tỉnh thành"
+                                           class="oe_inline"/>
+                                    <field name="dctr_quan" placeholder="Quận (huyện)" class="oe_inline"/>
+                                    <field name="dctr_xa" placeholder="Phường/Xã"
+                                           class="oe_inline"/>
+                                    <field name="dctr_thon" placeholder="Số nhà, đường (Thôn/xóm)"
+                                           class="o_address_street"/>
+                                </div>
+                            </group>
+                            <group string="Sinh nhật">
+                                <field name="ngay_sinh"/>
+                                <field name="noi_sinh"/>
+                            </group>
+                            <group string="Thông tin gia đình">
+                                <field name="tinh_trang_hn"/>
+                                <field name="so_con"/>
+                            </group>
+                        </group>
+                    </page>
+
+                    <page string="Employee Information">
+                        <group>
+                            <group string="Học vấn">
+                                <field name="tthv"/>
+                                <field name="ttccn"/>
+                                <field name="cn"/>
+                                <field name="ltn"/>
+                                <field name="nk"/>
+                                <field name="ttnn"/>
+                                <field name="tttt"/>
+                            </group>
+                            <group string="Thông tin HĐLĐ">
+                                <field name="bp_id"/>
+                                <field name="cd_id"/>
+                                <field name="qltt"/>
+                                <field name="tt"/>
+                                <field name="tglv_id"/>
+                                <label for="date" string="HĐTV"/>
+                                <div class="o_date_format">
+                                    <field name="hdtv_start" options="{'no_create': True}"
+                                           class="oe_inline"/>
+                                    <field name="hdtv_end" options="{'no_create': True}"
+                                           class="oe_inline"/>
+                                </div>
+                                <label for="date" string="HĐTV lần 1"/>
+                                <div class="o_date_format">
+                                    <field name="hdtv1_start" options="{'no_create': True}"
+                                           class="oe_inline"/>
+                                    <field name="hdtv1_end" options="{'no_create': True}"
+                                           class="oe_inline"/>
+                                </div>
+                                <label for="date" string="HĐTV lần 2"/>
+                                <div class="o_date_format">
+                                    <field name="hdtv1_start" options="{'no_create': True}"
+                                           class="oe_inline"/>
+                                    <field name="hdtv2_end" options="{'no_create': True}"
+                                           class="oe_inline"/>
+                                </div>
+                                <field name="hdldvth"/>
+                                <field name="nnv"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+<!--        <record id="thongtinchung_list_tree" model="ir.ui.view">-->
+<!--            <field name="name">thongtinchung.list</field>-->
+<!--            <field name="model">res.partner</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <tree string="Thông tin Chung">-->
+<!--                    <field name="name" string="Name"/>-->
+<!--                </tree>-->
+<!--            </field>-->
+<!--        </record>-->
+
+<!--        <record id="thongtinchung_list_action" model="ir.actions.act_window">-->
+<!--            <field name="name">Thông Tin Chung</field>-->
+<!--            <field name="res_model">res.partner</field>-->
+<!--            <field name="view_type">form</field>-->
+<!--            <field name="view_mode">tree,form</field>-->
+<!--        </record>-->
+
+<!--        <menuitem id="thontinchung_menu" name="Thông Tin Chung"-->
+<!--                  parent="hr.menu_open_view_employee_list_my"-->
+<!--                  action="thongtinchung_list_action"/>-->
+
+<!--        <menuitem id="employee_menu" name="Thông tin Nhân viên"-->
+<!--                  parent="hr.menu_open_view_employee_list_my"-->
+<!--                  action="hr.open_view_employee_list"/>-->
+
+    </data>
+</odoo>
+
+
+
+
+
+
+

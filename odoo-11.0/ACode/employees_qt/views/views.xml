@@ -1,0 +1,59 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="employees__qt.list">
+      <field name="name">employees_QT list</field>
+      <field name="model">employees__qt.employees__qt</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="employees__qt.action_window">
+      <field name="name">employees_QT window</field>
+      <field name="res_model">employees__qt.employees__qt</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="employees__qt.action_server">
+      <field name="name">employees_QT server</field>
+      <field name="model_id" ref="model_employees__qt_employees__qt"/>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="employees_QT" id="employees__qt.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="employees__qt.menu_1" parent="employees__qt.menu_root"/>
+    <menuitem name="Menu 2" id="employees__qt.menu_2" parent="employees__qt.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="employees__qt.menu_1_list" parent="employees__qt.menu_1"
+              action="employees__qt.action_window"/>
+    <menuitem name="Server to list" id="employees__qt" parent="employees__qt.menu_2"
+              action="employees__qt.action_server"/>
+    -->
+  </data>
+</odoo>

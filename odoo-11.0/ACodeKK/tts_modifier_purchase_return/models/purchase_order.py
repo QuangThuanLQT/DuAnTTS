@@ -14,6 +14,7 @@ class purchase_order(models.Model):
     location_return = fields.Selection([('normal', 'Kho Bình thường'),
                                         ('damaged', 'Kho hư hỏng')], string='Kho lưu trữ sản phẩm')
     location_id = fields.Many2one('stock.location', string='Source Location Zone')
+
     operation_state = fields.Selection([
         ('waiting_pick', 'Waiting to Pick'), ('ready_pick', 'Ready to Pick'), ('picking', 'Picking'),
         ('waiting_pack', 'Waiting to Pack'), ('packing', 'Packing'),

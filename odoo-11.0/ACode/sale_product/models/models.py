@@ -46,3 +46,11 @@ class product_template(models.Model):
                 amount = record.standard_price
                 qty = 1
                 record.cost_root = float(amount / qty)
+
+
+class product_variants(models.Model):
+    _inherit = 'product.product'
+
+
+
+

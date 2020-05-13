@@ -143,11 +143,11 @@ from ${object.company_id.name}.
                                 % if company.website:
                                     <a href="${company.website}" style="text-decoration:none; color: white;">
                                         ${company.website}
-                                    </a>
+                                    </a>    </tr>
+                          </ta
                                 % endif
                               </td>
-                            </tr>
-                          </table>
+                        ble>
                         </td>
                       </tr>
                       <tr>

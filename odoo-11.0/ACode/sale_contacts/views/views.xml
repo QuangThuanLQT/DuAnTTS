@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--        #Contact Tags-->
+        <record model="ir.ui.view" id="Contact_Tags_form_view">
+            <field name="name">Contact_Tags</field>
+            <field name="model">res.partner.category</field>
+            <field name="inherit_id" ref="base.view_partner_category_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="string">Tag Name</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="Contact_Tags_list_action">
+            <field name="name">Contact Tags</field>
+            <field name="res_model">res.partner.category</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--        #Contact Titles-->
+        <record model="ir.ui.view" id="Contact_Titles_form_view">
+            <field name="name">Contact_Titles</field>
+            <field name="model">res.partner.title</field>
+            <field name="inherit_id" ref="base.view_partner_title_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="string">Title</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="Contact_Titles_list_action">
+            <field name="name">Contact Titles</field>
+            <field name="res_model">res.partner.title</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--        #Countries-->
+        <record model="ir.ui.view" id="Countries_form_view">
+            <field name="name">Countries</field>
+            <field name="model">res.country</field>
+            <field name="inherit_id" ref="base.view_country_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="string">Country Name</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="Countries_list_action">
+            <field name="name">Countries</field>
+            <field name="res_model">res.country</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--        #Fed.States-->
+        <record model="ir.ui.view" id="Fed_States_form_view">
+            <field name="name">Fed_States</field>
+            <field name="model">res.country.state</field>
+            <field name="inherit_id" ref="base.view_country_state_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="string">State Name</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="Fed_States_list_action">
+            <field name="name">Fed. States</field>
+            <field name="res_model">res.country.state</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--        #Country Group-->
+        <record model="ir.ui.view" id="Country_Group_form_view">
+            <field name="name">Country_Group</field>
+            <field name="model">res.country.group</field>
+            <field name="inherit_id" ref="base.view_country_group_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="string">Group name</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="Country_Group_list_action">
+            <field name="name">Country_Group</field>
+            <field name="res_model">res.country.group</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--        #Banks-->
+        <record model="ir.ui.view" id="Banks_form_view">
+            <field name="name">Banks</field>
+            <field name="model">res.bank</field>
+            <field name="inherit_id" ref="base.view_res_bank_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="string">Name</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="Banks_list_action">
+            <field name="name">Banks</field>
+            <field name="res_model">res.bank</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--        #Bank Accounts-->
+        <record model="ir.ui.view" id="Bank_Accounts_form_view">
+            <field name="name">Bank_Accounts</field>
+            <field name="model">res.partner.bank</field>
+            <field name="inherit_id" ref="base.view_partner_bank_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='bank_id']" position="attributes">
+                    <attribute name="string">Bank</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="Bank_Accounts_list_action">
+            <field name="name">Bank Accounts</field>
+            <field name="res_model">res.partner.bank</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--        #Partner Level-->
+        <record model="ir.ui.view" id="Partner_Level_form_view">
+            <field name="name">Partner_Level</field>
+            <field name="model">res.partner.grade</field>
+            <field name="inherit_id" ref="website_crm_partner_assign.view_partner_grade_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="string">Level Name</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="Partner_Level_list_action">
+            <field name="name">Partner Level</field>
+            <field name="res_model">res.partner.grade</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--       #Partner Activations-->
+        <record model="ir.ui.view" id="Partner_Activations_form_view">
+            <field name="name">Partner_Activations</field>
+            <field name="model">res.partner.activation</field>
+            <field name="inherit_id" ref="website_crm_partner_assign.res_partner_activation_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="string">Name</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="Partner_Activations_list_action">
+            <field name="name">Partner Activations</field>
+            <field name="res_model">res.partner.activation</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--        #Stages-->
+        <record model="ir.ui.view" id="Stages_form_view">
+            <field name="name">Stages</field>
+            <field name="model">crm.stage</field>
+            <field name="inherit_id" ref="crm.crm_stage_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="string">Stage Name</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="Stages_list_action">
+            <field name="name">Stages</field>
+            <field name="res_model">crm.stage</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--        #Lead Tags-->
+        <record model="ir.ui.view" id="Lead_Tags_form_view">
+            <field name="name">Lead_Tags</field>
+            <field name="model">crm.lead.tag</field>
+            <field name="inherit_id" ref="crm.crm_lead_tag_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="string">Name</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="Lead_Tags_list_action">
+            <field name="name">Lead Tags</field>
+            <field name="res_model">crm.lead.tag</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--        #Lost Reasons-->
+        <record model="ir.ui.view" id="Lost_Reasons_form_view">
+            <field name="name">Lost_Reasons</field>
+            <field name="model">crm.lost.reason</field>
+            <field name="inherit_id" ref="crm.crm_lost_reason_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="string">Name</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="Lost_Reasons_list_action">
+            <field name="name">Lost Reasons</field>
+            <field name="res_model">crm.lost.reason</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--        #Activity Types-->
+        <record model="ir.ui.view" id="Activity_Types_form_view">
+            <field name="name">Activity_Types</field>
+            <field name="model">mail.activity.type</field>
+            <field name="inherit_id" ref="mail.mail_activity_type_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="string">Message Type</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="Activity_Types_list_action">
+            <field name="name">Activity Types</field>
+            <field name="res_model">mail.activity.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem id="Contact_Tags_menu" name="Contact Tags" parent="sale_contacts.Contacts_menu"
+                  action="Contact_Tags_list_action"/>
+        <menuitem id="Contact_Titles_menu" name="Contact Titles" parent="sale_contacts.Contacts_menu"
+                  action="Contact_Titles_list_action"/>
+
+        <menuitem id="Countries_menu" name="Countries" parent="sale_contacts.Localization_menu"
+                  action="Countries_list_action"/>
+        <menuitem id="Fed_States_menu" name="Fed. States" parent="sale_contacts.Localization_menu"
+                  action="Fed_States_list_action"/>
+        <menuitem id="Country_Group_menu" name="Country Group" parent="sale_contacts.Localization_menu"
+                  action="Country_Group_list_action"/>
+        <menuitem id="Partner_Level_menu" name="Partner Level" parent="sale_contacts.Localization_menu"
+                  action="Partner_Level_list_action"/>
+        <menuitem id="Partner_Activations_menu" name="Partner Activations" parent="sale_contacts.Localization_menu"
+                  action="Partner_Activations_list_action"/>
+
+        <menuitem id="Banks_menu" name="Banks" parent="sale_contacts.BankAccounts_menu"
+                  action="Banks_list_action"/>
+        <menuitem id="Bank_Accounts_menu" name="Bank Accounts" parent="sale_contacts.BankAccounts_menu"
+                  action="Bank_Accounts_list_action"/>
+
+        <menuitem id="Stages_menu" name="Stages" parent="sale_contacts.Leads_Opportunities_menu"
+                  action="Stages_list_action"/>
+        <menuitem id="Lead_Tags_menu" name="Lead Tags" parent="sale_contacts.Leads_Opportunities_menu"
+                  action="Lead_Tags_list_action"/>
+        <menuitem id="Lost_Reasons_menu" name="Lost Reasons" parent="sale_contacts.Leads_Opportunities_menu"
+                  action="Lost_Reasons_list_action"/>
+        <menuitem id="Activity_Types_menu" name="Activity Types" parent="sale_contacts.Leads_Opportunities_menu"
+                  action="Activity_Types_list_action"/>
+
+    </data>
+</odoo>

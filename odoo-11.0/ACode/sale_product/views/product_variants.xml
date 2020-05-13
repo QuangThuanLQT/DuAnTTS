@@ -1,0 +1,24 @@
+<odoo>
+    <data>
+        <record id="product_variants_tree_view_inherit" model="ir.ui.view">
+            <field name="name">product_variants</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="invoice_name" string="Tên hoá đơn"/>
+                </xpath>
+                <xpath expr="//field[@name='qty_available']" position="attributes">
+                    <attribute name="string">SL Thực tế</attribute>
+                </xpath>
+                <xpath expr="//field[@name='virtual_available']" position="attributes">
+                    <attribute name="string">Sl Dự báo</attribute>
+                </xpath>
+                <xpath expr="//field[@name='uom_id']" position="attributes">
+                    <attribute name="string">ĐVT</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

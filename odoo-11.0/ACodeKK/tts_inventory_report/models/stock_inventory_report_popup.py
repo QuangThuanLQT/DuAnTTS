@@ -2,16 +2,14 @@
 from odoo import models, fields, api
 import pytz
 from datetime import datetime, timedelta
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT, DEFAULT_SERVER_DATE_FORMAT
-from odoo import tools
-import base64
-import StringIO
-import xlsxwriter
-from xlrd import open_workbook
-import sys
 
-reload(sys)
-sys.setdefaultencoding('utf-8')
+
+# from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT, DEFAULT_SERVER_DATE_FORMAT
+# from odoo import tools
+# import base64
+# import StringIO
+# import xlsxwriter
+# from xlrd import open_workbook
 
 
 class stock_inventory_report(models.TransientModel):
@@ -574,7 +572,7 @@ class stock_inventory_report(models.TransientModel):
     def get_data(self):
 
         end_date_before = (
-            datetime.strptime(self.date_start, DEFAULT_SERVER_DATE_FORMAT) - timedelta(days=1)).strftime(
+                datetime.strptime(self.date_start, DEFAULT_SERVER_DATE_FORMAT) - timedelta(days=1)).strftime(
             DEFAULT_SERVER_DATE_FORMAT)
 
         data = []
@@ -793,12 +791,14 @@ class stock_inventory_report(models.TransientModel):
             result = self.env.cr.dictfetchall()
             income_qty = income_value = 0
             for line in result:
-                print "%s" % line.get('origin')
+                print
+                "%s" % line.get('origin')
                 if line.get('product_uom_qty', False):
                     income_qty += line.get('product_uom_qty')
                 if line.get('price_unit', False):
                     income_value += line.get('price_unit', 0) * line.get('product_uom_qty', 0)
-            print "%s, %s, %s" % (partner_id.ref, income_qty, income_value)
+            print
+            "%s, %s, %s" % (partner_id.ref, income_qty, income_value)
 
     def update_amount_cost_sale(self):
         domain = [
