@@ -28,7 +28,9 @@
         'views/views.xml',
         'views/templates.xml',
         'views/product_variants.xml',
-        'views/Barcode_sp.xml'
+        'views/Barcode_sp.xml',
+        'views/MaSP.xml',
+        'views/Product Cost History.xml'
     ],
     # only loaded in demonstration mode
     'demo': [

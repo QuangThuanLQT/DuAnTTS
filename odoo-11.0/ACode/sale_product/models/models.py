@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
+from odoo.addons import decimal_precision as dp
 
 
 class product_template(models.Model):
@@ -13,6 +14,15 @@ class product_template(models.Model):
     brand_name_select = fields.Many2one('brand.name', string='Thương hiệu')
     source_select = fields.Many2one('source.name', string='Xuất xứ')
     purchase_code = fields.Char('Mã mua hàng')
+
+    default_code1 = fields.Char(string='Mã SP', readonly=True, required=True, copy=False, default='SP00xx')
+
+    @api.model
+    def create(self, vals):
+        if vals.get('default_code1', 'New') == 'New':
+            vals['default_code1'] = self.env['ir.sequence'].next_by_code('product.template') or 'New'
+        result = super(product_template, self).create(vals)
+        return result
 
     invoice_name = fields.Char(string='Tên Hoá Đơn', required="1")
 
@@ -52,5 +62,17 @@ class product_variants(models.Model):
     _inherit = 'product.product'
 
 
+class ProductPriceHistory(models.Model):
+    """ Keep track of the ``product.template`` standard prices as they are changed. """
+    _name = 'product.price.history'
+    _rec_name = 'datetime'
+    _order = 'datetime desc'
 
+    def _get_default_company_id(self):
+        return self._context.get('force_company', self.env.user.company_id.id)
 
+    company_id = fields.Many2one('res.company', string='Company',
+                                 default=_get_default_company_id, required=True)
+    product_id = fields.Many2one('product.product', 'Product', ondelete='cascade', required=True)
+    datetime = fields.Datetime('Date', default=fields.Datetime.now)
+    cost = fields.Float('Cost', digits=dp.get_precision('Product Price'))
