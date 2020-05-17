@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--    <template id="report_phieu_tra_hang">-->
+    <!--        <t t-call="web.html_container">-->
+    <!--            <t t-foreach="docs" t-as="doc">-->
+    <!--                <h2>àdfdsfdsfdsfsdf</h2>-->
+    <!--            </t>-->
+    <!--        </t>-->
+    <!--    </template>-->
+
+
+    <template id="report_saleorderreturn">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-family: Arial;font-size: 12px;">
+                        <!--                        #tieu de-->
+                        <div class="row" align="center">
+                            <strong>
+                                <span style="font-size:18px">PHIẾU NHẬP KHO TRẢ HÀNG</span>
+                            </strong>
+                            <br/>
+                            <span t-if="doc.confirmation_date">
+                                <strong>
+                                    <i>
+                                        <span t-esc="datetime.datetime.strptime(doc.confirmation_date,'%Y-%m-%d %H:%M:%S').strftime('Ngày %d tháng %m năm %Y')"/>
+                                    </i>
+                                </strong>
+                            </span>
+                        </div>
+
+                        <!--                        #phan thong tin KH-->
+                        <div class="row" style="line-height: 14px;">
+                            <div class="col-xs-7">
+                                <span>
+                                    <span>Người mua:
+                                        <span style="border-bottom-style: dotted"/>
+                                    </span>
+                                </span>
+                                <br/>
+                                <span>
+                                    <span>Tên khách hàng:</span>
+                                    <span t-esc="doc.partner_id.name"/>
+                                </span>
+                                <br/>
+                                <span>
+                                    <span>Địa chỉ:</span>
+                                    <span t-esc="doc.partner_id.street"/>
+                                </span>
+                                <br/>
+                                <span>
+                                    <t>
+                                        <span>Diễn giải: Bán hàng</span>
+                                        <span t-esc="doc.partner_id.name"/>
+                                        <span t-esc="doc.note"/>
+                                    </t>
+                                </span>
+
+                                <br/>
+                                <span>
+                                    <span>Điện thoại:</span>
+                                    <span t-esc="doc.partner_id.phone"/>
+                                </span>
+                            </div>
+                            <div class="col-xs-3">
+                                <!--<strong t-field="doc.note" />-->
+                            </div>
+                            <div class="col-xs-2">
+                                <span>
+                                    <span>Số đơn:</span>
+                                    <t t-esc="doc.name"/>
+                                </span>
+                                <br/>
+                                <span>
+                                    <span>Loại tiền: VND</span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!--                        #table thong tin mua ban-->
+
+                        <table class="table table-bordered" style="border-color:black;">
+                            <tbody style="border-color:black;">
+                                <tr style="page-break-inside:avoid;">
+                                    <th style="border-color:black;padding:2px 5px 2px 5px !important;">STT</th>
+                                    <th style="border-color:black;padding:2px 5px 2px 5px !important;">Mã hàng</th>
+                                    <th style="border-color:black;padding:2px 5px 2px 5px !important;">Tên hàng</th>
+                                    <th style="border-color:black;padding:2px 5px 2px 5px !important;">Đơn vị</th>
+                                    <th style="border-color:black;padding:2px 5px 2px 5px !important;">Số lượng</th>
+                                    <th style="border-color:black;padding:2px 5px 2px 5px !important;">Đơn giá</th>
+                                    <th style="border-color:black;padding:2px 5px 2px 5px !important;">Thành tiền</th>
+                                </tr>
+                                <t t-set="i" t-value="1"/>
+                                <!--                                +++++++-->
+                                <t t-foreach="doc.order_line_ids" t-as="line">
+                                    <tr style="height:5px !important;page-break-inside:avoid;">
+                                        <td style="border-color:black;padding:0px 5px 0px 5px !important;">
+                                            <t t-esc="i"/>
+                                        </td>
+                                        <td style="border-color:black;padding:0px 5px 0px 5px !important;">
+                                            <t t-esc="line.product_id.default_code"/>
+                                        </td>
+                                        <td style="border-color:black;padding:0px 5px 0px 5px !important;">
+                                            <t t-esc="line.product_id.name"/>
+                                        </td>
+                                        <td style="border-color:black;padding:0px 5px 0px 5px !important;">
+                                            <t t-esc="line.product_id.uom_id.name"/>
+                                        </td>
+                                        <td style="border-color:black;padding:0px 5px 0px 5px !important;"
+                                            align="right">
+                                            <t t-esc="'{0:,.2f}'.format(line.product_uom_qty).replace(',',' ').replace('.',',').replace(' ', '.')"/>
+                                        </td>
+                                        <td style="border-color:black;padding:0px 5px 0px 5px !important;"
+                                            align="right">
+                                            <span t-field="line.price_unit"
+
+                                            />
+                                        </td>
+                                        <td style="border-color:black;padding:0px 5px 0px 5px !important;"
+                                            align="right">
+                                            <span t-field="line.price_subtotal"
+
+                                            />
+                                        </td>
+                                        <t t-set="i" t-value="i+1"/>
+                                        <t t-set="l" t-value="line"/>
+                                        <!--                                        <span style="display: none;" t-field="l.discount"/>-->
+                                    </tr>
+                                </t>
+                                <tr style="page-break-inside:avoid;">
+                                    <td style="border-color:black;padding:2px 5px 2px 5px !important;" colspan="6">
+                                        <div align="left">
+                                            Cộng:
+                                        </div>
+                                    </td>
+                                    <td style="border-color:black;padding:2px 5px 2px 5px !important;" align="right">
+                                        <span t-field="doc.amount_untaxed"/>
+                                    </td>
+                                </tr>
+                                <tr style="page-break-inside:avoid;">
+                                    <td colspan="3"
+                                        style="border-right: 0px; border-color:black;padding:2px 5px 2px 5px !important;">
+                                    </td>
+                                    <td colspan="2"
+                                        style="border-left: 0px; border-right: 0px; border-color:black;padding:2px 5px 2px 5px !important;">
+                                        <div align="left">
+                                            Cộng tiền hàng:
+                                        </div>
+                                    </td>
+                                    <td colspan="2"
+                                        style="border-left: 0px; border-color:black;padding:2px 5px 2px 5px !important;">
+                                        <div align="right">
+                                            <span t-esc="doc.amount_untaxed"
+
+                                            />
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr style="page-break-inside:avoid;">
+                                    <td colspan="3"
+                                        style="border-right: 0px; border-color:black;padding:2px 5px 2px 5px !important;">
+                                        <div align="left">
+                                            <span>Thuế suất GTGT:</span>
+                                        </div>
+                                        <div align="right">
+                                        </div>
+                                    </td>
+                                    <td colspan="4"
+                                        style="border-left: 0px; border-color:black;padding:2px 5px 2px 5px !important;">
+                                        <div align="left">
+                                            <span>Tiền thuế GTGT</span>
+                                        </div>
+                                        <div align="right">
+                                            <span t-field="doc.amount_tax"
+
+                                            />
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr style="border-color:black;page-break-inside:avoid;">
+                                    <td colspan="3"
+                                        style="border-right: 0px; border-color:black;padding:2px 5px 2px 5px !important;">
+                                    </td>
+                                    <td colspan="3"
+                                        style="border-left: 0px; border-right: 0px; border-color:black;padding:2px 5px 2px 5px !important;">
+                                        <div align="left">
+                                            Tổng thanh toán:
+                                        </div>
+                                    </td>
+                                    <td colspan="1"
+                                        style="border-left: 0px; border-color:black;padding:2px 5px 2px 5px !important;">
+                                        <div align="right">
+                                            <span t-field="doc.amount_total"
+
+                                            />
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!--                        #thong tin khac       -->
+                        <div style="display: none;">
+                            <table>
+                                <tr class="border-black"/>
+                            </table>
+                        </div>
+                        <div class="row" style="margin-top:-15px">
+                            <div class="col-xs-12">
+                                <span>Số tiền viết bằng chữ:</span>
+<!--                                <t t-esc="doc.total_text"/>-->
+                                đồng.
+                                <br/>
+                                <div class="col-xs-3" style="margin-left:-15px">
+                                    <span>CO, CQ:</span>
+                                    <t t-if="doc.check_box_co_cq">
+                                        <input style="margin-top:-2px" type="checkbox" checked="true"/>
+                                    </t>
+                                    <t t-if="not doc.check_box_co_cq">
+                                        <input style="margin-top:-2px" type="checkbox"/>
+                                    </t>
+                                </div>
+                                <div class="col-xs-3">
+                                    <span>Hoá Đơn GTGT:</span>
+                                    <t t-if="doc.check_box_invoice_gtgt">
+                                        <input style="margin-top:-2px" type="checkbox" checked="true"/>
+                                    </t>
+                                    <t t-if="not doc.check_box_invoice_gtgt">
+                                        <input style="margin-top:-2px" type="checkbox"/>
+                                    </t>
+                                </div>
+<!--                                <div name="payment_term" t-if="doc.payment_term_id.note">-->
+<!--                                    <span t-field="doc.payment_term_id.note"/>-->
+<!--                                </div>-->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4" align="center">
+                            </div>
+                            <div class="col-xs-4" align="center">
+                            </div>
+                            <div class="col-xs-4" align="center">
+                                <span>Ngày.....tháng.....năm........</span>
+                            </div>
+                        </div>
+                        <div class="row" name="total">
+                            <div class="col-xs-3" align="center">
+                                <span>
+                                    <strong>Người nhận hàng</strong>
+                                </span>
+                                <br/>
+                                <span>(Ký, họ tên)</span>
+                            </div>
+                            <div class="col-xs-3" align="center">
+                                <span>
+                                    <strong>Kho</strong>
+                                </span>
+                                <br/>
+                                <span>(Ký, họ tên)</span>
+                            </div>
+                            <div class="col-xs-3" align="center">
+                                <span>
+                                    <strong>Người lập phiếu</strong>
+                                </span>
+                                <br/>
+                                <span>(Ký, họ tên)</span>
+                            </div>
+                            <div class="col-xs-3" align="center">
+                                <span>
+                                    <strong>Giám đốc</strong>
+                                </span>
+                                <br/>
+                                <span>(Ký, họ tên)</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
+

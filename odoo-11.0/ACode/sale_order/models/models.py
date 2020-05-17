@@ -19,7 +19,7 @@ class thong_tin_them_its(models.Model):
     _name = 'thong.tin.them.its'
 
 
-    product_id = fields.Many2one('product.print', string='Product Print')
+    product_id = fields.Many2one('product.product', string='Product Print')
     vi_tri_in = fields.Many2one('vi.tri.in', tring='Vị trí in', required=1)
     kich_thuot_in = fields.Char('Kích thước in', required=1)
     dien_tich_in = fields.Many2one('prinizi.product.attribute.value', string='Diện tích in')
@@ -31,7 +31,7 @@ class thong_tin_them_its(models.Model):
 class thong_tin_in_hinh(models.Model):
     _name = 'thong.tin.in.hinh'
 
-    product_id = fields.Many2one('product.print', string='Product Print')
+    product_id = fields.Many2one('product.product', string='Product Print')
     vi_tri_in = fields.Many2one('vi.tri.in', tring='Vị trí in hình', required=1)
     chat_lieu_in_hinh = fields.Many2one('prinizi.product.attribute.value', string='Chất liệu in hình')
     kich_thuot_in = fields.Char('Kích thước in hình', required=1)

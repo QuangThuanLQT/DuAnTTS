@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sale_oder_return" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="19380163-3a47-4f03-ba64-68b3735d492c">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DemoDataAdapter "/>
+	<queryString language="xPath">
+		<![CDATA[data/record]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="id"/>
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="Last_Modified_on-__last_update" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Last_Modified_on-__last_update"/>
+		<fieldDescription><![CDATA[Last_Modified_on-__last_update]]></fieldDescription>
+	</field>
+	<field name="Taxes-amount_tax" class="java.math.BigDecimal">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Taxes-amount_tax"/>
+		<fieldDescription><![CDATA[Taxes-amount_tax]]></fieldDescription>
+	</field>
+	<field name="Total-amount_total" class="java.math.BigDecimal">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Total-amount_total"/>
+		<fieldDescription><![CDATA[Total-amount_total]]></fieldDescription>
+	</field>
+	<field name="Untaxed_Amount-amount_untaxed" class="java.math.BigDecimal">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Untaxed_Amount-amount_untaxed"/>
+		<fieldDescription><![CDATA[Untaxed_Amount-amount_untaxed]]></fieldDescription>
+	</field>
+	<field name="Checkbox_tất_cả-check_all_tt_its" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Checkbox_tất_cả-check_all_tt_its"/>
+		<fieldDescription><![CDATA[Checkbox_tất_cả-check_all_tt_its]]></fieldDescription>
+	</field>
+	<field name="CO__CQ-check_box_co_cq" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="CO__CQ-check_box_co_cq"/>
+		<fieldDescription><![CDATA[CO__CQ-check_box_co_cq]]></fieldDescription>
+	</field>
+	<field name="Invoice_GTGT-check_box_invoice_gtgt" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Invoice_GTGT-check_box_invoice_gtgt"/>
+		<fieldDescription><![CDATA[Invoice_GTGT-check_box_invoice_gtgt]]></fieldDescription>
+	</field>
+	<field name="Tham_khảo_khách_hàng-client_order_ref" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Tham_khảo_khách_hàng-client_order_ref"/>
+		<fieldDescription><![CDATA[Tham_khảo_khách_hàng-client_order_ref]]></fieldDescription>
+	</field>
+	<field name="Số_tiền_còn_phải_trả-con_phai_tra" class="java.math.BigDecimal">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Số_tiền_còn_phải_trả-con_phai_tra"/>
+		<fieldDescription><![CDATA[Số_tiền_còn_phải_trả-con_phai_tra]]></fieldDescription>
+	</field>
+	<field name="Confirmation_Date-confirmation_date" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Confirmation_Date-confirmation_date"/>
+		<fieldDescription><![CDATA[Confirmation_Date-confirmation_date]]></fieldDescription>
+	</field>
+	<field name="Created_on-create_date" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Created_on-create_date"/>
+		<fieldDescription><![CDATA[Created_on-create_date]]></fieldDescription>
+	</field>
+	<field name="Tỷ_lệ_chiết_khấu-discount_rate" class="java.math.BigDecimal">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Tỷ_lệ_chiết_khấu-discount_rate"/>
+		<fieldDescription><![CDATA[Tỷ_lệ_chiết_khấu-discount_rate]]></fieldDescription>
+	</field>
+	<field name="Loại_giảm_giá-discount_type" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Loại_giảm_giá-discount_type"/>
+		<fieldDescription><![CDATA[Loại_giảm_giá-discount_type]]></fieldDescription>
+	</field>
+	<field name="Display_Name-display_name" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Display_Name-display_name"/>
+		<fieldDescription><![CDATA[Display_Name-display_name]]></fieldDescription>
+	</field>
+	<field name="Don_Tra_Hang-don_tra_hang" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Don_Tra_Hang-don_tra_hang"/>
+		<fieldDescription><![CDATA[Don_Tra_Hang-don_tra_hang]]></fieldDescription>
+	</field>
+	<field name="Vị_trí_tài_chính-fiscal_position_id" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Vị_trí_tài_chính-fiscal_position_id"/>
+		<fieldDescription><![CDATA[Vị_trí_tài_chính-fiscal_position_id]]></fieldDescription>
+	</field>
+	<field name="ID-id" class="java.lang.Integer">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="ID-id"/>
+		<fieldDescription><![CDATA[ID-id]]></fieldDescription>
+	</field>
+	<field name="Kho_lưu_trữ_sản_phẩm-location_return" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Kho_lưu_trữ_sản_phẩm-location_return"/>
+		<fieldDescription><![CDATA[Kho_lưu_trữ_sản_phẩm-location_return]]></fieldDescription>
+	</field>
+	<field name="Reference_return-name" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Reference_return-name"/>
+		<fieldDescription><![CDATA[Reference_return-name]]></fieldDescription>
+	</field>
+	<field name="Diễn_giải-note" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Diễn_giải-note"/>
+		<fieldDescription><![CDATA[Diễn_giải-note]]></fieldDescription>
+	</field>
+	<field name="Note_Image-note_image" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Note_Image-note_image"/>
+		<fieldDescription><![CDATA[Note_Image-note_image]]></fieldDescription>
+	</field>
+	<field name="Cơ_hội-opportunity_id" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Cơ_hội-opportunity_id"/>
+		<fieldDescription><![CDATA[Cơ_hội-opportunity_id]]></fieldDescription>
+	</field>
+	<field name="Tài_liệu_nguồn-origin" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Tài_liệu_nguồn-origin"/>
+		<fieldDescription><![CDATA[Tài_liệu_nguồn-origin]]></fieldDescription>
+	</field>
+	<field name="Phí_in_hình-phi_in_hinh" class="java.math.BigDecimal">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Phí_in_hình-phi_in_hinh"/>
+		<fieldDescription><![CDATA[Phí_in_hình-phi_in_hinh]]></fieldDescription>
+	</field>
+	<field name="Phí_in_tên_số-phi_its" class="java.math.BigDecimal">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Phí_in_tên_số-phi_its"/>
+		<fieldDescription><![CDATA[Phí_in_tên_số-phi_its]]></fieldDescription>
+	</field>
+	<field name="Phí_in_thêm_tên_số-phi_them_its" class="java.math.BigDecimal">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Phí_in_thêm_tên_số-phi_them_its"/>
+		<fieldDescription><![CDATA[Phí_in_thêm_tên_số-phi_them_its]]></fieldDescription>
+	</field>
+	<field name="Chính_sách_vận_chuyển-picking_policy" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Chính_sách_vận_chuyển-picking_policy"/>
+		<fieldDescription><![CDATA[Chính_sách_vận_chuyển-picking_policy]]></fieldDescription>
+	</field>
+	<field name="Phương_thức_nhận_hàng-receive_method" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Phương_thức_nhận_hàng-receive_method"/>
+		<fieldDescription><![CDATA[Phương_thức_nhận_hàng-receive_method]]></fieldDescription>
+	</field>
+	<field name="Số_tiền_đã_trả-so_tien_da_tra" class="java.math.BigDecimal">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Số_tiền_đã_trả-so_tien_da_tra"/>
+		<fieldDescription><![CDATA[Số_tiền_đã_trả-so_tien_da_tra]]></fieldDescription>
+	</field>
+	<field name="Status-state_return" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Status-state_return"/>
+		<fieldDescription><![CDATA[Status-state_return]]></fieldDescription>
+	</field>
+	<field name="Thẻ-tag_ids" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Thẻ-tag_ids"/>
+		<fieldDescription><![CDATA[Thẻ-tag_ids]]></fieldDescription>
+	</field>
+	<field name="Tổng_phí_in-tong_phi_in" class="java.math.BigDecimal">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Tổng_phí_in-tong_phi_in"/>
+		<fieldDescription><![CDATA[Tổng_phí_in-tong_phi_in]]></fieldDescription>
+	</field>
+	<field name="Tổng_số_lượng-total_quantity" class="java.math.BigDecimal">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Tổng_số_lượng-total_quantity"/>
+		<fieldDescription><![CDATA[Tổng_số_lượng-total_quantity]]></fieldDescription>
+	</field>
+	<field name="Trạng_thái_đơn_hàng-trang_thai_dh" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Trạng_thái_đơn_hàng-trang_thai_dh"/>
+		<fieldDescription><![CDATA[Trạng_thái_đơn_hàng-trang_thai_dh]]></fieldDescription>
+	</field>
+	<field name="Trạng_thái_thanh_toán-trang_thai_tt" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Trạng_thái_thanh_toán-trang_thai_tt"/>
+		<fieldDescription><![CDATA[Trạng_thái_thanh_toán-trang_thai_tt]]></fieldDescription>
+	</field>
+	<field name="Last_Updated_on-write_date" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Last_Updated_on-write_date"/>
+		<fieldDescription><![CDATA[Last_Updated_on-write_date]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="137" height="30" uuid="574c18bb-b838-4232-9dd0-afb37504df61">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f657f312-4ca4-4f75-9ed0-0c77333abefa"/>
+				</reportElement>
+				<text><![CDATA[id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="137" y="0" width="133" height="30" uuid="b46cad24-b24d-49dc-8812-c7452e6d5de4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e9e855b7-b5b1-496a-a098-54456f777ae4"/>
+				</reportElement>
+				<text><![CDATA[Last_Modified_on-__last_update]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="270" y="0" width="133" height="30" uuid="58e97c5c-9d39-41c3-90dc-2529ee53567e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="52d5b4c2-edb7-4d54-bf17-2c326e6233be"/>
+				</reportElement>
+				<text><![CDATA[Taxes-amount_tax]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="403" y="0" width="133" height="30" uuid="f4623347-4b50-4b38-910f-e74f7cabae5b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7e036566-0c37-4174-b48e-8a51742f39d2"/>
+				</reportElement>
+				<text><![CDATA[Total-amount_total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="536" y="0" width="133" height="30" uuid="9ed6cb24-546f-4db3-8bf4-66e7a4f16e94">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ca857beb-d3d8-4177-a373-9275ddb7c388"/>
+				</reportElement>
+				<text><![CDATA[Untaxed_Amount-amount_untaxed]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="669" y="0" width="133" height="30" uuid="657e701e-b5fd-49f1-bf0c-70431137f0f9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d07aec0c-c438-4050-b71f-4e5320199b80"/>
+				</reportElement>
+				<text><![CDATA[Checkbox_tất_cả-check_all_tt_its]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="137" height="30" uuid="00bd8055-785e-46ad-979d-cfebf7ec96f3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f657f312-4ca4-4f75-9ed0-0c77333abefa"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="137" y="0" width="133" height="30" uuid="5e160cdb-49e8-40fe-8767-0f352e7935ff">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e9e855b7-b5b1-496a-a098-54456f777ae4"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Last_Modified_on-__last_update}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="0" width="133" height="30" uuid="ef9f7f95-d6d9-4dbc-83e4-5e9b074c190f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="52d5b4c2-edb7-4d54-bf17-2c326e6233be"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Taxes-amount_tax}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="403" y="0" width="133" height="30" uuid="7bb94dcf-bd65-4d53-b9ad-9504828c1490">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7e036566-0c37-4174-b48e-8a51742f39d2"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Total-amount_total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="536" y="0" width="133" height="30" uuid="509c50e8-3f8e-4bb4-b541-6bacee0987b7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ca857beb-d3d8-4177-a373-9275ddb7c388"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Untaxed_Amount-amount_untaxed}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="669" y="0" width="133" height="30" uuid="906cbec9-8131-4a00-9848-efd3fb2749fc">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d07aec0c-c438-4050-b71f-4e5320199b80"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Checkbox_tất_cả-check_all_tt_its}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>

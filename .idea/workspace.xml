@@ -2,16 +2,366 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ed2daa9-808d-45c8-8f81-4bc5b9bca564" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/odoo_web_login/static/description/change_background_day_web.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/odoo_web_login/static/src/img/background_login_0.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_product/views/MaSP.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_product/views/Product Cost History.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_load/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_load/__manifest__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_load/load.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/JasperReports/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/JasperReports/abstract_data_generator.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/JasperReports/browse_data_generator.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/JasperReports/jasper_report.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/JasperReports/jasper_server.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/JasperReports/record_data_generator.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/__manifest__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/controllers/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/controllers/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/custom_reports/jasper_sale_order.jrxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/custom_reports/sale.order.return_template.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/custom_reports/sale_oder_return.jrxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/custom_reports/sale_order_report.jasper" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/custom_reports/sale_order_report.jrxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/custom_reports/sale_order_template.jasper" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/custom_reports/sale_order_template.jrxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/custom_reports/saleorderreturn_template.jrxml.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/custom_reports/user.jasper" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/custom_reports/user.jrxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/data/jasper_data.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/demo/Blank_Letter_Landscape.jasper" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/demo/Blank_Letter_Landscape.jrxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/demo/Invoice_jasper.jrxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/demo/Jasper Invoice Report.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/demo/Jasper Sale Order Single" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/demo/Jasper_Res_Users" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/demo/Jasper_Sale_Order" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/demo/Sale Order Sub Report" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/demo/User Report.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/demo/User Report.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/demo/User Report.ods" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/demo/User Report.odt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/demo/User Report.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/demo/User Report.rtf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/demo/User Report.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/demo/User Report.xls" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/demo/sale_order_report.jrxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/demo/sale_order_report_single.jrxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/demo/sub_report.jrxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/demo/user.jrxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/demo/user_query_report.jrxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/doc/jasper_reports.rst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/http_server.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/i18n/ar.po" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/i18n/ca.po" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/i18n/ca@valencia.po" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/i18n/ca_ES.po" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/i18n/es.po" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/i18n/es_ES.po" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/i18n/fr.po" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/i18n/hr.po" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/i18n/jasper_reports.pot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/i18n/pt_BR.po" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/i18n/ru.po" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/i18n/th.po" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/i18n/zh_CN.po" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/images/SerpentCS.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/images/jasper_reports-hover.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/images/jasper_reports.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/jasper_report.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/jasper_report_menu.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/jasper_wizard.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/com/nantic/jasperreports/CsvMultiLanguageDataSource.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/com/nantic/jasperreports/CsvMultiLanguageDataSource.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/com/nantic/jasperreports/I18nGetText.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/com/nantic/jasperreports/I18nGetText.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/com/nantic/jasperreports/I18nGroovyCompiler.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/com/nantic/jasperreports/I18nGroovyCompiler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/com/nantic/jasperreports/JasperServer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/com/nantic/jasperreports/JasperServer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/com/nantic/jasperreports/LanguageTable.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/com/nantic/jasperreports/LanguageTable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/com/nantic/jasperreports/ReportCompiler.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/com/nantic/jasperreports/ReportCompiler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/com/nantic/jasperreports/Translator.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/com/nantic/jasperreports/Translator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/com/nantic/jasperreports/XmlMultiLanguageDataSource.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/com/nantic/jasperreports/XmlMultiLanguageDataSource.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/compile.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/create-report.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/hs_err_pid31345.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/hs_err_pid3793.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/hs_err_pid4771.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/hs_err_pid5446.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/hs_err_pid5850.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/hs_err_pid6547.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/hs_err_pid7791.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/jasperserver.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/jasperserver.log.2015-09-08" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/jrxml2pot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/antlr.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/apache-commons.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/asm-attrs.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/barbecue-1.5-beta1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/barcode4j-2.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/batik-anim.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/batik-awt-util.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/batik-bridge.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/batik-css.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/batik-dom.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/batik-ext.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/batik-gvt.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/batik-parser.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/batik-script.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/batik-svg-dom.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/batik-svggen.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/batik-util.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/batik-xml.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/bcel-5.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/bsh-2.0b4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/castor-1.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/cglib-2.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/cincom-jr-xmla.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/commons-collections4-4.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/commons-dbcp-1.2.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/commons-digester-1.8_1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/commons-javaflow-20060411.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/commons-logging-1.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/commons-math-1.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/commons-pool-1.3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/commons-vfs-1.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/dom4j-1.6.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/ehcache-1.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/eigenbase-properties-1.1.0.10924.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/eigenbase-resgen-1.3.0.11873.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/eigenbase-xom-1.3.0.11999.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/ejb3-persistence.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/gettext-commons-0.9.6.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/groovy-all-1.7.5.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/groovy-all-2.1.3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/hibernate-annotations.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/hibernate-commons-annotations.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/hibernate3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/hsqldb-1.8.0-10.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/i18n.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/iText-2.1.7.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/iTextAsian.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/jakarta-bcel-20050813.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/jasperreports-6.5.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/jasperreports-chart-customizers-6.5.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/jasperreports-chart-themes-6.5.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/jasperreports-fonts-6.5.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/jasperreports-functions-6.5.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/jasperreports-javaflow-6.5.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/javacup.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/javassist-3.4.GA.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/javax.xml.jaxp.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/jaxen-1.1.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/jcommon-1.0.15.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/jdt-compiler-3.1.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/jfreechart-1.0.12.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/joda-time-2.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/jpa.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/js_activation-1.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/js_axis-1.4patched.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/js_commons-codec-1.3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/js_commons-discovery-0.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/js_commons-httpclient-3.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/js_jaxrpc.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/js_mail-1.4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/js_saaj-api-1.3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/js_wsdl4j-1.5.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/jta.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/jxl-2.6.10.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/log4j-1.2.15.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/olap4j-0.9.7.145.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/png-encoder-1.5.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/poi-3.17.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/postgresql-42.2.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/rex-20080421.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/rhino-1.7R1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/saaj-api-1.3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/slf4j-api.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/slf4j-log4j12.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/spring.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/sqleonardo-2009.03.rc1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/swingx-2007_10_07.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/update-jasper-reports.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/ws-commons-util-1.0.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/xalan.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/xml-apis-ext.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/xml-apis.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/xmlrpc-common-3.1.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/lib/xmlrpc-server.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/log4j.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/java/po2properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/com/nantic/jasperreports/CsvMultiLanguageDataSource.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/com/nantic/jasperreports/CsvMultiLanguageDataSource.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/com/nantic/jasperreports/I18nGetText.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/com/nantic/jasperreports/I18nGetText.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/com/nantic/jasperreports/I18nGroovyCompiler.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/com/nantic/jasperreports/I18nGroovyCompiler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/com/nantic/jasperreports/JasperServer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/com/nantic/jasperreports/JasperServer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/com/nantic/jasperreports/LanguageTable.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/com/nantic/jasperreports/LanguageTable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/com/nantic/jasperreports/ReportCompiler.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/com/nantic/jasperreports/ReportCompiler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/com/nantic/jasperreports/Translator.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/com/nantic/jasperreports/Translator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/com/nantic/jasperreports/XmlMultiLanguageDataSource.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/com/nantic/jasperreports/XmlMultiLanguageDataSource.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/compile.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/create-report.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/hs_err_pid31345.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/hs_err_pid3793.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/hs_err_pid4771.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/hs_err_pid5446.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/hs_err_pid5850.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/hs_err_pid6547.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/hs_err_pid7791.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/jasperserver.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/jasperserver.log.2015-09-08" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/jrxml2pot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/ant-1.7.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/antlr-2.7.6.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/asm-attrs.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/asm.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/barbecue-1.5-beta1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/barcode4j-2.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/batik-anim.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/batik-awt-util.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/batik-bridge.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/batik-css.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/batik-dom.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/batik-ext.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/batik-gvt.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/batik-parser.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/batik-script.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/batik-svg-dom.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/batik-svggen.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/batik-util.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/batik-xml.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/bcel-5.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/bsh-2.0b4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/castor-1.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/cglib-2.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/cincom-jr-xmla.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/commons-beanutils-1.8.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/commons-collections-3.2.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/commons-dbcp-1.2.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/commons-digester-1.7.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/commons-javaflow-20060411.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/commons-logging-1.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/commons-math-1.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/commons-pool-1.3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/commons-vfs-1.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/dom4j-1.6.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/ehcache-1.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/eigenbase-properties-1.1.0.10924.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/eigenbase-resgen-1.3.0.11873.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/eigenbase-xom-1.3.0.11999.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/ejb3-persistence.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/gettext-commons-0.9.6.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/groovy-all-1.7.5.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/hibernate-annotations.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/hibernate-commons-annotations.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/hibernate3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/hsqldb-1.8.0-10.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/i18n.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/iText-2.1.7.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/iTextAsian.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/jakarta-bcel-20050813.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/jasperreports-4.0.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/jasperreports-chart-themes-4.0.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/jasperreports-extensions-3.5.3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/jasperreports-fonts-4.0.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/javacup.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/javassist-3.4.GA.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/jaxen-1.1.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/jcommon-1.0.15.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/jdt-compiler-3.1.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/jfreechart-1.0.12.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/jpa.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/js_activation-1.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/js_axis-1.4patched.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/js_commons-codec-1.3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/js_commons-discovery-0.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/js_commons-httpclient-3.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/js_jasperserver-common-ws-3.5.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/js_jaxrpc.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/js_mail-1.4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/js_saaj-api-1.3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/js_wsdl4j-1.5.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/jta.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/jxl-2.6.10.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/log4j-1.2.15.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/mondrian-3.1.1.12687-Jaspersoft.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/olap4j-0.9.7.145.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/png-encoder-1.5.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/poi-3.6.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/postgresql-8.4-701.jdbc4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/rex-20080421.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/rhino-1.7R1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/saaj-api-1.3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/slf4j-api.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/slf4j-log4j12.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/spring.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/sqleonardo-2009.03.rc1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/swingx-2007_10_07.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/update-jasper-reports.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/ws-commons-util-1.0.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/xalan.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/xml-apis-ext.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/xml-apis.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/xmlrpc-common-3.1.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/lib/xmlrpc-server-3.1.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/log4j.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/old_java/po2properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/report/document_header.jasper" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/report/document_header.jrxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/report/landscape_header.jasper" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/report/landscape_header.jrxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/report/portrait_header.jasper" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/report/portrait_header.jrxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/report/report_header.jasper" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/report/report_header.jrxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/report_xml.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/report_xml_view.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/res_company.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/res_company_view.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/security/ir.model.access.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/static/description/apps.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/static/description/create_report.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/static/description/data_template.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/static/description/example.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/static/description/icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/static/description/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/static/description/jasper_menu.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/static/description/jasper_studio.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/static/description/java_path.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/static/description/print_report.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/static/src/img/icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/static/src/js/report/jasperactionmanager.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/tests/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/tests/test_jasper_report.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/tests/user.jrxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/views/webclient_templates.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/websrv_lib.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/wizard/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/wizard/jasper_create_data_template.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/jasper_reports/wizard/jasper_create_data_template.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order/report/phieu_xuat_kho.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order/report/quotaion_report.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order_return/report/phieu_tra_hang.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order_return/report/sale_return_report.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/odoo_web_login/templates/webclient_templates.xml" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/odoo_web_login/templates/webclient_templates.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_product/__manifest__.py" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_product/__manifest__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_product/models/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_product/models/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_product/views/product_variants.xml" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_product/views/product_variants.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_product/views/views.xml" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_product/views/views.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order/__manifest__.py" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order/__manifest__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order/models/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order/models/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order/models/update_order.py" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order/models/update_order.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order_return/__manifest__.py" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order_return/__manifest__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order_return/models/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order_return/models/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACodeKK/tuanhuy_sale/models/sale_order.py" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACodeKK/tuanhuy_sale/models/sale_order.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/odoo-11.0/addons/mrp_repair/report/mrp_repair_reports.xml" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/addons/mrp_repair/report/mrp_repair_reports.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/odoo-11.0/addons/sale/report/sale_report.xml" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/addons/sale/report/sale_report.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/odoo.conf" beforeDir="false" afterPath="$PROJECT_DIR$/odoo.conf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,25 +403,25 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="ignore.virus.scanning.warn.message" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/odoo-11.0/ACode/odoo_web_login/static/src/img" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/odoo-11.0/ACode/sale_order_return/report" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="aDefault" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\QuangThuan\Documents\GitHub\DuAnTTS\odoo-11.0\ACode\odoo_web_login\static\src\img" />
-      <recent name="C:\Users\QuangThuan\Documents\GitHub\DuAnTTS\odoo-11.0\ACode" />
-      <recent name="C:\Users\QuangThuan\Documents\GitHub\DuAnTTS\odoo-11.0\ACode\hang_hoa" />
-      <recent name="C:\odoo11\odoo11-server\AAACode" />
-      <recent name="C:\odoo11\odoo11-server\AAACode\sale_sale_order\views" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\QuangThuan\Documents\GitHub\DuAnTTS\odoo-11.0\ACode" />
       <recent name="C:\odoo-11.0\odoo-11.0\ACode" />
       <recent name="C:\odoo11\odoo11-server\addons" />
       <recent name="C:\odoo11" />
       <recent name="C:\odoo11\odoo11-server\addons\vieterp\vieterp_bao_cao_tour" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\QuangThuan\Documents\GitHub\DuAnTTS\odoo-11.0\ACode\sale_order_return\report" />
+      <recent name="C:\Users\QuangThuan\Documents\GitHub\DuAnTTS\odoo-11.0\ACode\odoo_web_login\static\src\img" />
+      <recent name="C:\Users\QuangThuan\Documents\GitHub\DuAnTTS\odoo-11.0\ACode" />
+      <recent name="C:\Users\QuangThuan\Documents\GitHub\DuAnTTS\odoo-11.0\ACode\hang_hoa" />
+      <recent name="C:\odoo11\odoo11-server\AAACode" />
     </key>
   </component>
   <component name="RunManager" selected="Python.DuAnTTS">
@@ -321,7 +671,7 @@
     <option name="showServicesTree" value="false" />
   </component>
   <component name="SvnConfiguration">
-    <configuration />
+    <configuration>C:\Users\QuangThuan\AppData\Roaming\Subversion</configuration>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -346,15 +696,15 @@
     </state>
     <state x="275" y="40" key="#Notifications/0.0.1366.738@0.0.1366.738" timestamp="1586948167453" />
     <state x="275" y="42" key="#Notifications/0.0.1366.768@0.0.1366.768" timestamp="1582291633870" />
-    <state x="274" y="1" width="1092" height="707" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1589086283722">
+    <state x="274" y="1" width="1092" height="707" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1589536799784">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="274" y="1" width="1092" height="727" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1583281742185" />
-    <state x="274" y="1" width="1092" height="707" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.738@0.0.1366.738" timestamp="1589086283722" />
-    <state x="425" y="180" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1588584212063">
+    <state x="274" y="1" width="1092" height="707" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.738@0.0.1366.738" timestamp="1589536799784" />
+    <state x="425" y="180" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1589619120330">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="425" y="180" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.738@0.0.1366.738" timestamp="1588584212063" />
+    <state x="425" y="180" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.738@0.0.1366.738" timestamp="1589619120330" />
     <state x="425" y="187" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.768@0.0.1366.768" timestamp="1582711296093" />
     <state x="432" y="200" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog" timestamp="1582263791931">
       <screen x="0" y="0" width="1366" height="728" />
@@ -372,58 +722,58 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="216" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1589086867254" />
-    <state x="553" y="167" key="FileChooserDialogImpl" timestamp="1589172740471">
+    <state x="553" y="167" key="FileChooserDialogImpl" timestamp="1589536760841">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1583280588905" />
-    <state x="553" y="167" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1589172740471" />
-    <state width="1345" height="303" key="GridCell.Tab.0.bottom" timestamp="1589510828079">
+    <state x="553" y="167" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1589536760841" />
+    <state width="1345" height="95" key="GridCell.Tab.0.bottom" timestamp="1589690736732">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="1345" height="224" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1583486636512" />
-    <state width="1345" height="303" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1589510828079" />
+    <state width="1345" height="95" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1589690736732" />
     <state width="1345" height="2" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1583005482440" />
-    <state width="1345" height="303" key="GridCell.Tab.0.center" timestamp="1589510828077">
+    <state width="1345" height="95" key="GridCell.Tab.0.center" timestamp="1589690736731">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="1345" height="224" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1583486636512" />
-    <state width="1345" height="303" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1589510828077" />
+    <state width="1345" height="95" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1589690736731" />
     <state width="1345" height="2" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1583005482440" />
-    <state width="1345" height="303" key="GridCell.Tab.0.left" timestamp="1589510828076">
+    <state width="1345" height="95" key="GridCell.Tab.0.left" timestamp="1589690736731">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="1345" height="224" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1583486636512" />
-    <state width="1345" height="303" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1589510828076" />
+    <state width="1345" height="95" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1589690736731" />
     <state width="1345" height="2" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1583005482439" />
-    <state width="1345" height="303" key="GridCell.Tab.0.right" timestamp="1589510828078">
+    <state width="1345" height="95" key="GridCell.Tab.0.right" timestamp="1589690736732">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="1345" height="224" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1583486636512" />
-    <state width="1345" height="303" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1589510828078" />
+    <state width="1345" height="95" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1589690736732" />
     <state width="1345" height="2" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1583005482440" />
-    <state width="1345" height="35" key="GridCell.Tab.1.bottom" timestamp="1589365874037">
+    <state width="1345" height="146" key="GridCell.Tab.1.bottom" timestamp="1589539362618">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="1345" height="223" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1582270008463" />
-    <state width="1345" height="35" key="GridCell.Tab.1.bottom/0.0.1366.738@0.0.1366.738" timestamp="1589365874037" />
+    <state width="1345" height="146" key="GridCell.Tab.1.bottom/0.0.1366.738@0.0.1366.738" timestamp="1589539362618" />
     <state width="1345" height="280" key="GridCell.Tab.1.bottom/0.0.1366.768@0.0.1366.768" timestamp="1582610303100" />
-    <state width="1345" height="35" key="GridCell.Tab.1.center" timestamp="1589365874037">
+    <state width="1345" height="146" key="GridCell.Tab.1.center" timestamp="1589539362617">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="1345" height="223" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1582270008462" />
-    <state width="1345" height="35" key="GridCell.Tab.1.center/0.0.1366.738@0.0.1366.738" timestamp="1589365874037" />
+    <state width="1345" height="146" key="GridCell.Tab.1.center/0.0.1366.738@0.0.1366.738" timestamp="1589539362617" />
     <state width="1345" height="280" key="GridCell.Tab.1.center/0.0.1366.768@0.0.1366.768" timestamp="1582610303100" />
-    <state width="1345" height="35" key="GridCell.Tab.1.left" timestamp="1589365874037">
+    <state width="1345" height="146" key="GridCell.Tab.1.left" timestamp="1589539362616">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="1345" height="223" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1582270008462" />
-    <state width="1345" height="35" key="GridCell.Tab.1.left/0.0.1366.738@0.0.1366.738" timestamp="1589365874037" />
+    <state width="1345" height="146" key="GridCell.Tab.1.left/0.0.1366.738@0.0.1366.738" timestamp="1589539362616" />
     <state width="1345" height="280" key="GridCell.Tab.1.left/0.0.1366.768@0.0.1366.768" timestamp="1582610303100" />
-    <state width="1345" height="35" key="GridCell.Tab.1.right" timestamp="1589365874037">
+    <state width="1345" height="146" key="GridCell.Tab.1.right" timestamp="1589539362617">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="1345" height="223" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1582270008462" />
-    <state width="1345" height="35" key="GridCell.Tab.1.right/0.0.1366.738@0.0.1366.738" timestamp="1589365874037" />
+    <state width="1345" height="146" key="GridCell.Tab.1.right/0.0.1366.738@0.0.1366.738" timestamp="1589539362617" />
     <state width="1345" height="280" key="GridCell.Tab.1.right/0.0.1366.768@0.0.1366.768" timestamp="1582610303100" />
     <state x="388" y="84" key="MultipleFileMergeDialog" timestamp="1586771844461">
       <screen x="0" y="0" width="1366" height="738" />
@@ -433,11 +783,11 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="444" y="79" key="RollbackChangesDialog/0.0.1366.738@0.0.1366.738" timestamp="1589086894227" />
-    <state x="184" y="7" key="SettingsEditor" timestamp="1589178265982">
+    <state x="184" y="7" key="SettingsEditor" timestamp="1589538256454">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="184" y="7" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1582268983643" />
-    <state x="184" y="7" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1589178265982" />
+    <state x="184" y="7" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1589538256454" />
     <state x="184" y="7" key="SettingsEditor/0.0.1366.768@0.0.1366.768" timestamp="1582523352149" />
     <state width="546" height="446" key="SwitcherDM" timestamp="1587313561932">
       <screen x="0" y="0" width="1366" height="738" />
@@ -447,10 +797,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="379" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1582225748637" />
-    <state x="322" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1589268357111">
+    <state x="322" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1589701251327">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="322" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.738@0.0.1366.738" timestamp="1589268357111" />
+    <state x="322" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.738@0.0.1366.738" timestamp="1589701251327" />
     <state x="492" y="285" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1586771758119">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -459,11 +809,11 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="254" y="104" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1366.738@0.0.1366.738" timestamp="1589342657215" />
-    <state x="446" y="202" width="920" height="536" key="find.popup" timestamp="1589476204593">
+    <state x="446" y="201" width="920" height="536" key="find.popup" timestamp="1589704110452">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="446" y="192" width="920" height="536" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1583297780720" />
-    <state x="446" y="202" width="920" height="536" key="find.popup/0.0.1366.738@0.0.1366.738" timestamp="1589476204593" />
+    <state x="446" y="201" width="920" height="536" key="find.popup/0.0.1366.738@0.0.1366.738" timestamp="1589704110452" />
     <state x="446" y="91" width="920" height="555" key="find.popup/0.0.1366.768@0.0.1366.768" timestamp="1582843597773" />
     <state x="346" y="86" width="672" height="652" key="search.everywhere.popup" timestamp="1588656776667">
       <screen x="0" y="0" width="1366" height="738" />

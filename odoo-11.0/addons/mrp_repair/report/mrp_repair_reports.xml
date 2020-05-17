@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <report 
-            string="Quotation / Order" 
+            string="Báo giá / Đơn hàng A4"
             id="action_report_mrp_repair_order" 
             model="mrp.repair" 
             name="mrp_repair.report_mrprepairorder2"

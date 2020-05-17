@@ -3,7 +3,7 @@
     <data>
         <report 
             id="action_report_saleorder"
-            string="Quotation / Order"
+            string="Báo giá / Đơn hàng A4 "
             model="sale.order" 
             report_type="qweb-pdf"
             file="sale.report_saleorder" 

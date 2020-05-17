@@ -44,14 +44,15 @@ class tts_modifier_sale(models.Model):
     transport_amount = fields.Float(string="Trả trước phí ship nhà xe")
 
     # update tong tien có phu phi gh, ship
-    @api.depends('delivery_amount', 'transport_amount')
+    @api.depends('delivery_amount', 'transport_amount', 'tong_phi_in')
     def _amount_all(self):
         res = super(tts_modifier_sale, self)._amount_all()
         for order in self:
             order.update({
-                'amount_total': order.amount_untaxed + order.amount_tax + order.transport_amount + order.delivery_amount,
+                'amount_total': order.amount_untaxed + order.amount_tax + order.transport_amount + order.delivery_amount + order.tong_phi_in,
             })
-    #tien can thu
+
+    # tien can thu
     @api.depends('amount_total', 'so_tien_da_thu')
     def _con_phai_thu(self):
         for rec in self:
@@ -71,6 +72,3 @@ class tts_modifier_sale(models.Model):
     discount_rate = fields.Float('Tỷ lệ chiết khấu')
     check_box_co_cq = fields.Boolean(default=False, string="CO, CQ")
     check_box_invoice_gtgt = fields.Boolean(default=False, string="Invoice GTGT")
-
-
-

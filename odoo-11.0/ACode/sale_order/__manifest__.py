@@ -28,7 +28,9 @@
         'views/views.xml',
         'views/templates.xml',
         'views/update_order.xml',
-        'views/update_invoices.xml'
+        'views/update_invoices.xml',
+        'report/quotaion_report.xml',
+        'report/phieu_xuat_kho.xml'
     ],
     # only loaded in demonstration mode
     'demo': [

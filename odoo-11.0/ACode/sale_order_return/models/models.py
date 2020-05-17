@@ -4,18 +4,19 @@ from odoo import models, fields, api, _
 from odoo.exceptions import UserError, ValidationError
 
 
+
 class sale_order_return(models.Model):
     _name = 'sale.order.return'
 
     name = fields.Char(string='Reference return', readonly=True, required=True, copy=False, default='New')
     don_tra_hang = fields.Boolean(default=False)
-    partner_id = fields.Many2one('res.partner', string="Customer")
+    partner_id = fields.Many2one('res.partner', string="Customer", readonly=True, copy=False)
     # sale_order_return_ids = fields.Char(string="Sale Order")
     sale_order_return_ids = fields.Many2one('sale.order', string="Sale Order", domain="[('partner_id', '=', partner_id)]")
     reason_cancel = fields.Many2one('ly.do.tra.hang', string='Lý do')
     receive_method = fields.Selection(
         [('allow', 'Nhận hàng trả lại tại kho'), ('stop', 'Nhận hàng trả lại tại địa chỉ giao hàng')],
-        string="Phương thức nhận hàng")
+        string="Phương thức nhận hàng", readonly=True)
     location_return = fields.Selection([('allow', 'Kho Bình thường'), ('stop', 'Kho hư hỏng')],
                                        string="Kho lưu trữ sản phẩm")
     note = fields.Text(string='Diễn giải')
@@ -44,6 +45,17 @@ class sale_order_return(models.Model):
     state_return = fields.Selection([
         ('draft', 'Draft'),
         ('order_return', 'Order Return')], default='draft', string='Status')
+    # ----------------------chuyển sô tiền qua string
+
+    total_text = fields.Char('Total Text', compute='_compute_total')
+
+    @api.multi
+    def _compute_total(self):
+        for record in self:
+            subtotal = record.amount_total
+            total_text = self.env['stock.picking'].DocTienBangChu(subtotal)
+            record.total_text = total_text
+
 
     @api.onchange('sale_order_return_ids')
     def onchange_sale_order_return_ids(self):

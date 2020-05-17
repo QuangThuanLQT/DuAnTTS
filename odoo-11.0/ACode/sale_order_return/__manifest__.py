@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'sale'],
+    'depends': ['base', 'sale', 'account'],
 
     # always loaded
     'data': [
@@ -32,6 +32,8 @@
         'views/thong_tin_khac.xml',
         'views/nhat_ky_lich_su.xml',
         'views/MaDonTra.xml',
+        'report/sale_return_report.xml',
+        'report/phieu_tra_hang.xml'
     ],
     # only loaded in demonstration mode
     'demo': [
