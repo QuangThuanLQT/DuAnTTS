@@ -2,6 +2,15 @@
 <odoo>
     <data>
         <report
+            id="action_report_saleorderbg"
+            string="Phiếu báo giá"
+            model="sale.order"
+            report_type="qweb-pdf"
+            file="sale_order.report_saleorderbg"
+            name="sale_order.report_saleorderbg"
+        />
+
+         <report
             id="action_report_saleorder"
             string="Phiếu xuất kho"
             model="sale.order"
