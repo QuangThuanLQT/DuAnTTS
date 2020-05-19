@@ -108,7 +108,7 @@ class Registry(Mapping):
         return registry
 
     def init(self, db_name):
-        self.models = {}    # model name/model instance mapping
+        self.models = {}  # model name/model instance mapping
         self._sql_error = {}
         self._init = True
         self._init_parent = {}
@@ -118,7 +118,7 @@ class Registry(Mapping):
 
         # modules fully loaded (maintained during init phase by `loading` module)
         self._init_modules = set()
-        self.updated_modules = []       # installed/updated modules
+        self.updated_modules = []  # installed/updated modules
 
         self.db_name = db_name
         self._db = odoo.sql_db.db_connect(db_name)
@@ -127,8 +127,8 @@ class Registry(Mapping):
         self.test_cr = None
 
         # Indicates that the registry is
-        self.loaded = False             # whether all modules are loaded
-        self.ready = False              # whether everything is set up
+        self.loaded = False  # whether all modules are loaded
+        self.ready = False  # whether everything is set up
 
         # Inter-process signaling:
         # The `base_registry_signaling` sequence indicates the whole registry
@@ -369,7 +369,8 @@ class Registry(Mapping):
             # must be reloaded.
             # The `base_cache_signaling` sequence indicates when all caches must
             # be invalidated (i.e. cleared).
-            cr.execute("SELECT sequence_name FROM information_schema.sequences WHERE sequence_name='base_registry_signaling'")
+            cr.execute(
+                "SELECT sequence_name FROM information_schema.sequences WHERE sequence_name='base_registry_signaling'")
             if not cr.fetchall():
                 cr.execute("CREATE SEQUENCE base_registry_signaling INCREMENT BY 1 START WITH 1")
                 cr.execute("SELECT nextval('base_registry_signaling')")
@@ -490,11 +491,15 @@ class Registry(Mapping):
 
 class DummyRLock(object):
     """ Dummy reentrant lock, to be used while running rpc and js tests """
+
     def acquire(self):
         pass
+
     def release(self):
         pass
+
     def __enter__(self):
         self.acquire()
+
     def __exit__(self, type, value, traceback):
         self.release()

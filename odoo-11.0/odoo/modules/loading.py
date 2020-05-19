@@ -35,6 +35,7 @@ def load_module_graph(cr, graph, status=None, perform_checks=True,
        :param skip_modules: optional list of module names (packages) which have previously been loaded and can be skipped
        :return: list of modules that were installed or updated
     """
+
     def load_test(module_name, idref, mode):
         cr.commit()
         try:
@@ -51,7 +52,6 @@ def load_module_graph(cr, graph, status=None, perform_checks=True,
                 cr.rollback()
                 # avoid keeping stale xml_id, etc. in cache
                 odoo.registry(cr.dbname).clear_caches()
-
 
     def _get_files_of_kind(kind):
         if kind == 'demo':
@@ -125,9 +125,9 @@ def load_module_graph(cr, graph, status=None, perform_checks=True,
         _logger.debug('loading module %s (%d/%d)', module_name, index, module_count)
 
         needs_update = (
-            hasattr(package, "init")
-            or hasattr(package, "update")
-            or package.state in ("to install", "to upgrade")
+                hasattr(package, "init")
+                or hasattr(package, "update")
+                or package.state in ("to install", "to upgrade")
         )
         if needs_update:
             if package.name != 'base':
@@ -175,7 +175,7 @@ def load_module_graph(cr, graph, status=None, perform_checks=True,
             if perform_checks:
                 module._check()
 
-            if package.state=='to upgrade':
+            if package.state == 'to upgrade':
                 # upgrading the module information
                 module.write(module.get_values_from_terp(package.data))
             _load_data(cr, module_name, idref, mode, kind='data')
@@ -208,7 +208,7 @@ def load_module_graph(cr, graph, status=None, perform_checks=True,
                     # Yamel test
                     report.record_result(load_test(module_name, idref, mode))
                     # Python tests
-                    env['ir.http']._clear_routing_map()     # force routing map to be rebuilt
+                    env['ir.http']._clear_routing_map()  # force routing map to be rebuilt
                     report.record_result(odoo.modules.module.run_unit_tests(module_name, cr.dbname))
                     # tests may have reset the environment
                     env = api.Environment(cr, SUPERUSER_ID, {})
@@ -231,13 +231,15 @@ def load_module_graph(cr, graph, status=None, perform_checks=True,
             registry._init_modules.add(package.name)
         cr.commit()
 
-    _logger.log(25, "%s modules loaded in %.2fs, %s queries", len(graph), time.time() - t0, odoo.sql_db.sql_counter - t0_sql)
+    _logger.log(25, "%s modules loaded in %.2fs, %s queries", len(graph), time.time() - t0,
+                odoo.sql_db.sql_counter - t0_sql)
 
     registry.clear_caches()
 
     cr.commit()
 
     return loaded_modules, processed_modules
+
 
 def _check_module_names(cr, module_names):
     mod_names = set(module_names)
@@ -253,6 +255,7 @@ def _check_module_names(cr, module_names):
             incorrect_names = mod_names.difference([x['name'] for x in cr.dictfetchall()])
             _logger.warning('invalid module names, ignored: %s', ", ".join(incorrect_names))
 
+
 def load_marked_modules(cr, graph, states, force, progressdict, report,
                         loaded_modules, perform_checks, models_to_check=None):
     """Loads modules marked with ``states``, adding them to ``graph`` and
@@ -263,7 +266,7 @@ def load_marked_modules(cr, graph, states, force, progressdict, report,
 
     processed_modules = []
     while True:
-        cr.execute("SELECT name from ir_module_module WHERE state IN %s" ,(tuple(states),))
+        cr.execute("SELECT name from ir_module_module WHERE state IN %s", (tuple(states),))
         module_list = [name for (name,) in cr.fetchall() if name not in graph]
         if not module_list:
             break
@@ -279,6 +282,7 @@ def load_marked_modules(cr, graph, states, force, progressdict, report,
             break
     return processed_modules
 
+
 def load_modules(db, force_demo=False, status=None, update_module=False):
     initialize_sys_path()
 
@@ -293,7 +297,7 @@ def load_modules(db, force_demo=False, status=None, update_module=False):
         if not odoo.modules.db.is_initialized(cr):
             _logger.info("init db")
             odoo.modules.db.initialize(cr)
-            update_module = True # process auto-installed modules
+            update_module = True  # process auto-installed modules
             tools.config["init"]["all"] = 1
             tools.config['update']['all'] = 1
             if not tools.config['without_demo']:
@@ -304,7 +308,8 @@ def load_modules(db, force_demo=False, status=None, update_module=False):
         registry = odoo.registry(cr.dbname)
 
         if 'base' in tools.config['update'] or 'all' in tools.config['update']:
-            cr.execute("update ir_module_module set state=%s where name=%s and state=%s", ('to upgrade', 'base', 'installed'))
+            cr.execute("update ir_module_module set state=%s where name=%s and state=%s",
+                       ('to upgrade', 'base', 'installed'))
 
         # STEP 1: LOAD BASE (must be done before module dependencies can be computed for later steps)
         graph = odoo.modules.graph.Graph()
@@ -353,7 +358,6 @@ def load_modules(db, force_demo=False, status=None, update_module=False):
             cr.execute("update ir_module_module set state=%s where name=%s", ('installed', 'base'))
             Module.invalidate_cache(['state'])
 
-
         # STEP 3: Load marked modules (skipping base which was done in STEP 1)
         # IMPORTANT: this is done in two parts, first loading all installed or
         #            partially installed modules (i.e. installed/to upgrade), to
@@ -372,12 +376,13 @@ def load_modules(db, force_demo=False, status=None, update_module=False):
         while previously_processed < len(processed_modules):
             previously_processed = len(processed_modules)
             processed_modules += load_marked_modules(cr, graph,
-                ['installed', 'to upgrade', 'to remove'],
-                force, status, report, loaded_modules, update_module, models_to_check)
+                                                     ['installed', 'to upgrade', 'to remove'],
+                                                     force, status, report, loaded_modules, update_module,
+                                                     models_to_check)
             if update_module:
                 processed_modules += load_marked_modules(cr, graph,
-                    ['to install'], force, status, report,
-                    loaded_modules, update_module, models_to_check)
+                                                         ['to install'], force, status, report,
+                                                         loaded_modules, update_module, models_to_check)
 
         registry.loaded = True
         registry.setup_models(cr)
@@ -390,15 +395,18 @@ def load_modules(db, force_demo=False, status=None, update_module=False):
         # STEP 4: Finish and cleanup installations
         if processed_modules:
             env = api.Environment(cr, SUPERUSER_ID, {})
-            cr.execute("""select model,name from ir_model where id NOT IN (select distinct model_id from ir_model_access)""")
+            cr.execute(
+                """select model,name from ir_model where id NOT IN (select distinct model_id from ir_model_access)""")
             for (model, name) in cr.fetchall():
                 if model in registry and not registry[model]._abstract and not registry[model]._transient:
-                    _logger.warning('The model %s has no access rules, consider adding one. E.g. access_%s,access_%s,model_%s,base.group_user,1,0,0,0',
+                    _logger.warning(
+                        'The model %s has no access rules, consider adding one. E.g. access_%s,access_%s,model_%s,base.group_user,1,0,0,0',
                         model, model.replace('.', '_'), model.replace('.', '_'), model.replace('.', '_'))
 
             # Temporary warning while we remove access rights on osv_memory objects, as they have
             # been replaced by owner-only access rights
-            cr.execute("""select distinct mod.model, mod.name from ir_model_access acc, ir_model mod where acc.model_id = mod.id""")
+            cr.execute(
+                """select distinct mod.model, mod.name from ir_model_access acc, ir_model mod where acc.model_id = mod.id""")
             for (model, name) in cr.fetchall():
                 if model in registry and registry[model]._transient:
                     _logger.warning('The transient model %s (%s) should not have explicit access rules!', model, name)
@@ -407,8 +415,10 @@ def load_modules(db, force_demo=False, status=None, update_module=False):
             for (model,) in cr.fetchall():
                 if model in registry:
                     env[model]._check_removed_columns(log=True)
-                elif _logger.isEnabledFor(logging.INFO):    # more an info that a warning...
-                    _logger.warning("Model %s is declared but cannot be loaded! (Perhaps a module was partially removed or renamed)", model)
+                elif _logger.isEnabledFor(logging.INFO):  # more an info that a warning...
+                    _logger.warning(
+                        "Model %s is declared but cannot be loaded! (Perhaps a module was partially removed or renamed)",
+                        model)
 
             # Cleanup orphan records
             env['ir.model.data']._process_end(processed_modules)

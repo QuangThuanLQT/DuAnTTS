@@ -18,7 +18,6 @@ class thong_tin_its(models.Model):
 class thong_tin_them_its(models.Model):
     _name = 'thong.tin.them.its'
 
-
     product_id = fields.Many2one('product.print', string='Product Print')
     vi_tri_in = fields.Many2one('vi.tri.in', tring='Vị trí in', required=1)
     kich_thuot_in = fields.Char('Kích thước in', required=1)
@@ -44,15 +43,15 @@ class thong_tin_in_hinh(models.Model):
 class config_thong_tin_its(models.Model):
     _name = 'config.thong.tin.its'
 
-
     product_tmpl_id = fields.Many2one('product.template', string='Product Print')
-    font_chu_so = fields.Many2one('prinizi.product.attribute.value',string='Font chữ/số mặc định')
+    font_chu_so = fields.Many2one('prinizi.product.attribute.value', string='Font chữ/số mặc định')
     lung_ao = fields.Char(string='Lưng áo')
     mat_truoc_ao = fields.Char(string='Mặt trước áo')
     tay_ao = fields.Char(string='Tay áo')
     ong_quan = fields.Char(string='Ống quần')
 
     sale_id = fields.Many2one('sale.order.return')
+
 
 class ProductImage(models.Model):
     _inherit = 'sale.order.return'

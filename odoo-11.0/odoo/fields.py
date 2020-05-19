@@ -15,13 +15,14 @@ import pytz
 try:
     from xmlrpc.client import MAXINT
 except ImportError:
-    #pylint: disable=bad-python3-import
+    # pylint: disable=bad-python3-import
     from xmlrpclib import MAXINT
 
 import psycopg2
 
 from .sql_db import LazyCursor
-from .tools import float_repr, float_round, frozendict, html_sanitize, human_size, pg_varchar, ustr, OrderedSet, pycompat, sql
+from .tools import float_repr, float_round, frozendict, html_sanitize, human_size, pg_varchar, ustr, OrderedSet, \
+    pycompat, sql
 from .tools import DEFAULT_SERVER_DATE_FORMAT as DATE_FORMAT
 from .tools import DEFAULT_SERVER_DATETIME_FORMAT as DATETIME_FORMAT
 from .tools.translate import html_translate, _
@@ -35,11 +36,13 @@ RENAMED_ATTRS = [('select', 'index'), ('digits_compute', 'digits')]
 _logger = logging.getLogger(__name__)
 _schema = logging.getLogger(__name__[:-7] + '.schema')
 
-Default = object()                      # default value for __init__() methods
+Default = object()  # default value for __init__() methods
+
 
 def copy_cache(records, env):
     """ Recursively copy the cache of ``records`` to the environment ``env``. """
     env.cache.copy(records, env)
+
 
 def first(records):
     """ Return the first record in ``records``, with the same prefetching. """
@@ -96,7 +99,10 @@ class MetaField(type):
             elif attr.startswith('_description_'):
                 cls.description_attrs.append((attr[13:], attr))
 
+
 _global_seq = iter(itertools.count())
+
+
 class Field(MetaField('DummyField', (object,), {})):
     """ The field descriptor contains the field definition, and manages accesses
         and assignments of the corresponding field on records. The following
@@ -261,58 +267,58 @@ class Field(MetaField('DummyField', (object,), {})):
 
     """
 
-    type = None                         # type of the field (string)
-    relational = False                  # whether the field is a relational one
-    translate = False                   # whether the field is translated
+    type = None  # type of the field (string)
+    relational = False  # whether the field is a relational one
+    translate = False  # whether the field is translated
 
-    column_type = None                  # database column type (ident, spec)
-    column_format = '%s'                # placeholder for value in queries
-    column_cast_from = ()               # column types that may be cast to this
+    column_type = None  # database column type (ident, spec)
+    column_format = '%s'  # placeholder for value in queries
+    column_cast_from = ()  # column types that may be cast to this
 
     _slots = {
-        'args': EMPTY_DICT,             # the parameters given to __init__()
-        '_attrs': EMPTY_DICT,           # the field's non-slot attributes
-        '_module': None,                # the field's module name
-        '_setup_done': None,            # the field's setup state: None, 'base' or 'full'
-        '_sequence': None,               # absolute ordering of the field
+        'args': EMPTY_DICT,  # the parameters given to __init__()
+        '_attrs': EMPTY_DICT,  # the field's non-slot attributes
+        '_module': None,  # the field's module name
+        '_setup_done': None,  # the field's setup state: None, 'base' or 'full'
+        '_sequence': None,  # absolute ordering of the field
 
-        'automatic': False,             # whether the field is automatically created ("magic" field)
-        'inherited': False,             # whether the field is inherited (_inherits)
-        'inherited_field': None,        # the corresponding inherited field
+        'automatic': False,  # whether the field is automatically created ("magic" field)
+        'inherited': False,  # whether the field is inherited (_inherits)
+        'inherited_field': None,  # the corresponding inherited field
 
-        'name': None,                   # name of the field
-        'model_name': None,             # name of the model of this field
-        'comodel_name': None,           # name of the model of values (if relational)
+        'name': None,  # name of the field
+        'model_name': None,  # name of the model of this field
+        'comodel_name': None,  # name of the model of values (if relational)
 
-        'store': True,                  # whether the field is stored in database
-        'index': False,                 # whether the field is indexed in database
-        'manual': False,                # whether the field is a custom field
-        'copy': True,                   # whether the field is copied over by BaseModel.copy()
-        'depends': (),                  # collection of field dependencies
-        'recursive': False,             # whether self depends on itself
-        'compute': None,                # compute(recs) computes field on recs
-        'compute_sudo': False,          # whether field should be recomputed as admin
-        'inverse': None,                # inverse(recs) inverses field on recs
-        'search': None,                 # search(recs, operator, value) searches on self
-        'related': None,                # sequence of field names, for related fields
-        'related_sudo': True,           # whether related fields should be read as admin
-        'company_dependent': False,     # whether ``self`` is company-dependent (property field)
-        'default': None,                # default(recs) returns the default value
+        'store': True,  # whether the field is stored in database
+        'index': False,  # whether the field is indexed in database
+        'manual': False,  # whether the field is a custom field
+        'copy': True,  # whether the field is copied over by BaseModel.copy()
+        'depends': (),  # collection of field dependencies
+        'recursive': False,  # whether self depends on itself
+        'compute': None,  # compute(recs) computes field on recs
+        'compute_sudo': False,  # whether field should be recomputed as admin
+        'inverse': None,  # inverse(recs) inverses field on recs
+        'search': None,  # search(recs, operator, value) searches on self
+        'related': None,  # sequence of field names, for related fields
+        'related_sudo': True,  # whether related fields should be read as admin
+        'company_dependent': False,  # whether ``self`` is company-dependent (property field)
+        'default': None,  # default(recs) returns the default value
 
-        'string': None,                 # field label
-        'help': None,                   # field tooltip
-        'readonly': False,              # whether the field is readonly
-        'required': False,              # whether the field is required
-        'states': None,                 # set readonly and required depending on state
-        'groups': None,                 # csv list of group xml ids
-        'change_default': False,        # whether the field may trigger a "user-onchange"
-        'deprecated': None,             # whether the field is deprecated
+        'string': None,  # field label
+        'help': None,  # field tooltip
+        'readonly': False,  # whether the field is readonly
+        'required': False,  # whether the field is required
+        'states': None,  # set readonly and required depending on state
+        'groups': None,  # csv list of group xml ids
+        'change_default': False,  # whether the field may trigger a "user-onchange"
+        'deprecated': None,  # whether the field is deprecated
 
-        'related_field': None,          # corresponding related field
-        'group_operator': None,         # operator for aggregating values
-        'group_expand': None,           # name of method to expand groups in read_group()
-        'prefetch': True,               # whether the field is prefetched
-        'context_dependent': False,     # whether the field's value depends on context
+        'related_field': None,  # corresponding related field
+        'group_operator': None,  # operator for aggregating values
+        'group_expand': None,  # name of method to expand groups in read_group()
+        'prefetch': True,  # whether the field is prefetched
+        'context_dependent': False,  # whether the field's value depends on context
     }
 
     def __init__(self, string=Default, **kwargs):
@@ -341,7 +347,7 @@ class Field(MetaField('DummyField', (object,), {})):
             if self._attrs:
                 self._attrs[name] = value
             else:
-                self._attrs = {name: value}     # replace EMPTY_DICT
+                self._attrs = {name: value}  # replace EMPTY_DICT
 
     def set_all_attrs(self, attrs):
         """ Set all field attributes at once (with slot defaults). """
@@ -398,7 +404,7 @@ class Field(MetaField('DummyField', (object,), {})):
             # magic and custom fields do not inherit from parent classes
             for field in reversed(resolve_mro(model, name, self._can_setup_from)):
                 attrs.update(field.args)
-        attrs.update(self.args)         # necessary in case self is not in class
+        attrs.update(self.args)  # necessary in case self is not in class
 
         attrs['args'] = self.args
         attrs['model_name'] = model._name
@@ -482,6 +488,7 @@ class Field(MetaField('DummyField', (object,), {})):
 
     def _setup_regular_full(self, model):
         """ Determine the dependencies and inverse field(s) of ``self``. """
+
         def make_depends(deps):
             return tuple(deps(model) if callable(deps) else deps)
 
@@ -940,7 +947,7 @@ class Field(MetaField('DummyField', (object,), {})):
     def __get__(self, record, owner):
         """ return the value of field ``self`` on ``record`` """
         if record is None:
-            return self         # the field is accessed through the owner class
+            return self  # the field is accessed through the owner class
 
         if record:
             # only a single record may be accessed
@@ -1192,7 +1199,7 @@ class Float(Field):
     type = 'float'
     column_cast_from = ('int4', 'numeric', 'float8')
     _slots = {
-        '_digits': None,                # digits argument passed to class initializer
+        '_digits': None,  # digits argument passed to class initializer
         'group_operator': 'sum',
     }
 
@@ -1207,7 +1214,7 @@ class Float(Field):
         # FLOAT8 type is still the default when there is no precision because it
         # is faster for most operations (sums, etc.)
         return ('numeric', 'numeric') if self.digits is not None else \
-               ('float8', 'double precision')
+            ('float8', 'double precision')
 
     @property
     def digits(self):
@@ -1310,7 +1317,7 @@ class Monetary(Field):
 class _String(Field):
     """ Abstract class for string fields. """
     _slots = {
-        'translate': False,             # whether the field is translated
+        'translate': False,  # whether the field is translated
         'prefetch': None,
     }
 
@@ -1385,7 +1392,7 @@ class Char(_String):
     type = 'char'
     column_cast_from = ('text',)
     _slots = {
-        'size': None,                   # maximum size of values (deprecated)
+        'size': None,  # maximum size of values (deprecated)
     }
 
     @property
@@ -1394,8 +1401,8 @@ class Char(_String):
 
     def update_db_column(self, model, column):
         if (
-            column and column['udt_name'] == 'varchar' and column['character_maximum_length'] and
-            (self.size is None or column['character_maximum_length'] < self.size)
+                column and column['udt_name'] == 'varchar' and column['character_maximum_length'] and
+                (self.size is None or column['character_maximum_length'] < self.size)
         ):
             # the column's varchar size does not match self.size; convert it
             sql.convert_column(model._cr, model._table, self.name, self.column_type[1])
@@ -1446,12 +1453,12 @@ class Html(_String):
     type = 'html'
     column_type = ('text', 'text')
     _slots = {
-        'sanitize': True,               # whether value must be sanitized
-        'sanitize_tags': True,          # whether to sanitize tags (only a white list of attributes is accepted)
-        'sanitize_attributes': True,    # whether to sanitize attributes (only a white list of attributes is accepted)
-        'sanitize_style': False,        # whether to sanitize style attributes
-        'strip_style': False,           # whether to strip style attributes (removed and therefore not sanitized)
-        'strip_classes': False,         # whether to strip classes attributes
+        'sanitize': True,  # whether value must be sanitized
+        'sanitize_tags': True,  # whether to sanitize tags (only a white list of attributes is accepted)
+        'sanitize_attributes': True,  # whether to sanitize attributes (only a white list of attributes is accepted)
+        'sanitize_style': False,  # whether to sanitize style attributes
+        'strip_style': False,  # whether to strip style attributes (removed and therefore not sanitized)
+        'strip_classes': False,  # whether to strip classes attributes
     }
 
     def _get_attrs(self, model, name):
@@ -1649,19 +1656,21 @@ class Datetime(Field):
         assert record, 'Record expected'
         return Datetime.to_string(Datetime.context_timestamp(record, Datetime.from_string(value)))
 
+
 # http://initd.org/psycopg/docs/usage.html#binary-adaptation
 # Received data is returned as buffer (in Python 2) or memoryview (in Python 3).
 _BINARY = memoryview
 if pycompat.PY2:
-    #pylint: disable=buffer-builtin,undefined-variable
+    # pylint: disable=buffer-builtin,undefined-variable
     _BINARY = buffer
+
 
 class Binary(Field):
     type = 'binary'
     _slots = {
-        'prefetch': False,              # not prefetched by default
-        'context_dependent': True,      # depends on context (content or size)
-        'attachment': False,            # whether value is stored in attachment
+        'prefetch': False,  # not prefetched by default
+        'context_dependent': True,  # depends on context (content or size)
+        'attachment': False,  # whether value is stored in attachment
     }
 
     @property
@@ -1753,7 +1762,7 @@ class Selection(Field):
     """
     type = 'selection'
     _slots = {
-        'selection': None,              # [(value, string), ...], function or method name
+        'selection': None,  # [(value, string), ...], function or method name
     }
 
     def __init__(self, selection=Default, string=Default, **kwargs):
@@ -1883,8 +1892,8 @@ class _Relational(Field):
     """ Abstract class for relational fields. """
     relational = True
     _slots = {
-        'domain': [],                   # domain for searching values
-        'context': {},                  # context for searching values
+        'domain': [],  # domain for searching values
+        'context': {},  # context for searching values
     }
 
     def _setup_regular_base(self, model):
@@ -1941,9 +1950,9 @@ class Many2one(_Relational):
     type = 'many2one'
     column_type = ('int4', 'int4')
     _slots = {
-        'ondelete': 'set null',         # what to do when value is deleted
-        'auto_join': False,             # whether joins are generated upon search
-        'delegate': False,              # whether self implements delegation
+        'ondelete': 'set null',  # what to do when value is deleted
+        'auto_join': False,  # whether joins are generated upon search
+        'delegate': False,  # whether self implements delegation
     }
 
     def __init__(self, comodel_name=Default, string=Default, **kwargs):
@@ -2070,7 +2079,7 @@ class _RelationalMultiUpdate(object):
 class _RelationalMulti(_Relational):
     """ Abstract class for relational fields *2many. """
     _slots = {
-        'context_dependent': True,      # depends on context (active_test)
+        'context_dependent': True,  # depends on context (active_test)
     }
 
     def _update(self, records, value):
@@ -2231,10 +2240,10 @@ class One2many(_RelationalMulti):
     """
     type = 'one2many'
     _slots = {
-        'inverse_name': None,           # name of the inverse field
-        'auto_join': False,             # whether joins are generated upon search
-        'limit': None,                  # optional limit to use upon read
-        'copy': False,                  # o2m are not copied by default
+        'inverse_name': None,  # name of the inverse field
+        'auto_join': False,  # whether joins are generated upon search
+        'limit': None,  # optional limit to use upon read
+        'copy': False,  # o2m are not copied by default
     }
 
     def __init__(self, comodel_name=Default, inverse_name=Default, string=Default, **kwargs):
@@ -2369,11 +2378,11 @@ class Many2many(_RelationalMulti):
     """
     type = 'many2many'
     _slots = {
-        'relation': None,               # name of table
-        'column1': None,                # column of table referring to model
-        'column2': None,                # column of table referring to comodel
-        'auto_join': False,             # whether joins are generated upon search
-        'limit': None,                  # optional limit to use upon read
+        'relation': None,  # name of table
+        'column1': None,  # column of table referring to model
+        'column2': None,  # column of table referring to comodel
+        'auto_join': False,  # whether joins are generated upon search
+        'limit': None,  # optional limit to use upon read
     }
 
     def __init__(self, comodel_name=Default, relation=Default, column1=Default,
@@ -2442,7 +2451,8 @@ class Many2many(_RelationalMulti):
                 CREATE INDEX ON "{rel}" ("{id2}")
             """.format(rel=self.relation, id1=self.column1, id2=self.column2)
             cr.execute(query, ['RELATION BETWEEN %s AND %s' % (model._table, comodel._table)])
-            _schema.debug("Create table %r: m2m relation between %r and %r", self.relation, model._table, comodel._table)
+            _schema.debug("Create table %r: m2m relation between %r and %r", self.relation, model._table,
+                          comodel._table)
             model.pool.post_init(self.update_db_foreign_keys, model)
             return True
 
@@ -2495,8 +2505,8 @@ class Many2many(_RelationalMulti):
         comodel = records.env[self.comodel_name]
         parts = dict(rel=self.relation, id1=self.column1, id2=self.column2)
 
-        clear = False           # whether the relation should be cleared
-        links = {}              # {id: True (link it) or False (unlink it)}
+        clear = False  # whether the relation should be cleared
+        links = {}  # {id: True (link it) or False (unlink it)}
 
         for act in (value or []):
             if not isinstance(act, (list, tuple)) or not act:
@@ -2561,11 +2571,11 @@ class Id(Field):
     }
 
     def update_db(self, model, columns):
-        pass                            # this column is created with the table
+        pass  # this column is created with the table
 
     def __get__(self, record, owner):
         if record is None:
-            return self         # the field is accessed through the class owner
+            return self  # the field is accessed through the class owner
 
         # the code below is written to make record.id as quick as possible
         ids = record._ids
@@ -2578,6 +2588,7 @@ class Id(Field):
 
     def __set__(self, record, value):
         raise TypeError("field 'id' cannot be assigned")
+
 
 # imported here to avoid dependency cycle issues
 from odoo import SUPERUSER_ID
