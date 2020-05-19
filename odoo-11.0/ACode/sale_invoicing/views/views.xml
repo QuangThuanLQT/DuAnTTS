@@ -42,68 +42,69 @@
         </record>
 
         <!--        #Sales_Receipts-->
-        <record model="ir.ui.view" id="Sales_Receipts_form_view">
-            <field name="name">Sales_Receipts</field>
-            <field name="model">account.voucher</field>
-            <field name="inherit_id" ref="account_voucher.view_sale_receipt_form"/>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='partner_id']" position="attributes">
-                    <attribute name="string">Customer</attribute>
-                </xpath>
+<!--        <record model="ir.ui.view" id="Sales_Receipts_form_view">-->
+<!--            <field name="name">Sales_Receipts</field>-->
+<!--            <field name="model">account.voucher</field>-->
+<!--            <field name="inherit_id" ref="account_voucher.view_sale_receipt_form"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//field[@name='partner_id']" position="attributes">-->
+<!--                    <attribute name="string">Customer</attribute>-->
+<!--                </xpath>-->
 
-                <field name="payment_journal_id" position="after">
-                    <field name="payment_journal_id" attrs="{'invisible' : ['|',('pay_now', '=', 'pay_now'), ('pay_now', '=', False)]}"/>
-                    <field name="account_id" attrs="{'invisible' : ['|',('pay_now', '=', 'pay_now'), ('pay_now', '=', False)]}"/>
-                    <field name="amount_input"/>
-                    <field name="note"/>
-                </field>
+<!--                <field name="payment_journal_id" position="after">-->
+<!--                    <field name="payment_journal_id"-->
+<!--                           attrs="{'invisible' : ['|',('pay_now', '=', 'pay_now'), ('pay_now', '=', False)]}"/>-->
+<!--                    <field name="account_id"-->
+<!--                           attrs="{'invisible' : ['|',('pay_now', '=', 'pay_now'), ('pay_now', '=', False)]}"/>-->
+<!--                    <field name="amount_input"/>-->
+<!--                    <field name="note"/>-->
+<!--                </field>-->
 
-                <field name="date" position="before">
-                    <field name="journal_id"/>
-                </field>
+<!--                <field name="date" position="before">-->
+<!--                    <field name="journal_id"/>-->
+<!--                </field>-->
 
-                <field name="name" position="after">
-                    <field name="collect_type"/>
-                </field>
+<!--                <field name="name" position="after">-->
+<!--                    <field name="collect_type"/>-->
+<!--                </field>-->
 
-                <field name="name" position="before">
-                    <field name="number_voucher"/>
-                </field>
+<!--                <field name="name" position="before">-->
+<!--                    <field name="number_voucher"/>-->
+<!--                </field>-->
 
-                <field name="collect_type" position="after">
-                    <field name="payment_date"/>
-                    <field name="created_person"/>
-                    <field name="check_date"/>
-                    <field name="checked_person"/>
-                    <field name="validate_date"/>
-                    <field name="validated_person"/>
-                </field>
+<!--                <field name="collect_type" position="after">-->
+<!--                    <field name="payment_date"/>-->
+<!--                    <field name="created_person"/>-->
+<!--                    <field name="check_date"/>-->
+<!--                    <field name="checked_person"/>-->
+<!--                    <field name="validate_date"/>-->
+<!--                    <field name="validated_person"/>-->
+<!--                </field>-->
 
-                <xpath expr="//form/sheet/notebook/page" position="before">
-                    <page name="sale_order" string="Đơn bán hàng">
-                        <field name="voucher_sale_line_ids" nolabel="1">
-                            <tree editable="bottom" create="false">
-                                <field name="order_id" invisible="1"/>
-                                <field name="order_name"/>
-                                <field name="date_order" widget="date"/>
-                                <field name="amount_total"/>
-                                <field name="so_tien_da_thu" readonly="True"/>
-                                <field name="con_phai_thu" readonly="True"/>
-                                <field name="trang_thai_tt" readonly="True"/>
-                                <field name="check"/>
-                            </tree>
-                        </field>
-                    </page>
-                </xpath>
+<!--                <xpath expr="//form/sheet/notebook/page" position="before">-->
+<!--                    <page name="sale_order" string="Đơn bán hàng">-->
+<!--                        <field name="voucher_sale_line_ids">-->
+<!--                            <tree editable="bottom">-->
+<!--                                <field name="order_name"/>-->
+<!--                                <field name="date_order"/>-->
+<!--                                <field name="amount_total"/>-->
+<!--                                <field name="so_tien_da_thu" readonly="True"/>-->
+<!--                                <field name="con_phai_thu" readonly="True"/>-->
+<!--                                <field name="trang_thai_tt" readonly="True"/>-->
+<!--                                <field name="check"/>-->
+<!--                            </tree>-->
+<!--                        </field>-->
+<!--                    </page>-->
+<!--                </xpath>-->
 
-            </field>
-        </record>
+<!--            </field>-->
+<!--        </record>-->
 
-        <record model="ir.actions.act_window" id="Sales_Receipts_list_action">
-            <field name="name">Biên lai bán hàng</field>
-            <field name="res_model">account.voucher</field>
-            <field name="view_mode">tree,form,kanban</field>
-        </record>
+<!--        <record model="ir.actions.act_window" id="Sales_Receipts_list_action">-->
+<!--            <field name="name">Biên lai bán hàng</field>-->
+<!--            <field name="res_model">account.voucher</field>-->
+<!--            <field name="view_mode">tree,form,kanban</field>-->
+<!--        </record>-->
 
         <!--        #Payments-->
         <record model="ir.ui.view" id="Payments_form_view">
