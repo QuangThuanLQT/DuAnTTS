@@ -12,6 +12,11 @@
                         <field name="state" widget="statusbar" readonly="1" statusbar_visible="draft,done"/>
                     </header>
                     <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
                         <group>
                             <group>
                                 <field name="date"/>
@@ -47,8 +52,10 @@
         <record model="ir.ui.view" id="tts_email_inbox_tree">
             <field name="name">tts_sms_inbox</field>
             <field name="model">tts.sms.inbox</field>
+            <field eval="8" name="priority"/>
             <field name="arch" type="xml">
                 <tree class="sms_body">
+                    <field name="name"/>
                     <field name="date" string="Thời gian nhận"/>
                     <field name="phone" string="Ngân hàng"/>
                     <field name="body" string="Nội dung tin nhắn"/>

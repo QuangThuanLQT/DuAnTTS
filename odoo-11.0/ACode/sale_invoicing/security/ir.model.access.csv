@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sale_invoicing_sale_invoicing,sale_invoicing.sale_invoicing,model_sale_invoicing_sale_invoicing,,1,0,0,0

@@ -6,6 +6,7 @@ from odoo import models, fields, api
 class tts_sms_inbox(models.Model):
     _name = 'tts.sms.inbox'
 
+    name = fields.Char(string='Sô phiếu thu', readonly=True, required=True, copy=False, default='New')
     date = fields.Datetime('Date', track_visibility='onchange')
     don_hang = fields.Char('Đơn hàng')
     phone = fields.Char('Ngân hàng')
@@ -30,6 +31,13 @@ class tts_sms_inbox(models.Model):
     @api.multi
     def done(self):
         self.state = 'done'
+
+    @api.model
+    def create(self, vals):
+        if vals.get('name', 'New') == 'New':
+            vals['name'] = self.env['ir.sequence'].next_by_code('tts.sms.inbox') or 'New'
+        result = super(tts_sms_inbox, self).create(vals)
+        return result
 
     created_voucher = fields.Boolean()
     add_check = fields.Boolean(compute='get_check_add', store=True)

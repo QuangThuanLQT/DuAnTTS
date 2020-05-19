@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--        #Customer_Invoices-->
+        <record model="ir.ui.view" id="Customer_Invoices_form_view">
+            <field name="name">Customer_Invoices</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <field name="team_id" position="after">
+                    <field name="invoice_date_real"/>
+                    <field name="invoice_number_real"/>
+                    <field name="invoice_total_real"/>
+                    <field name="number_origin"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="Customer_Invoices_list_action">
+            <field name="name">Hóa đơn khách hàng</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
+
+        </record>
+
+        <!--        #Customer_Credit_Notes-->
+        <record model="ir.ui.view" id="Customer_Credit_Notes_form_view">
+            <field name="name">Customer_Credit_Notes</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="string">Customer</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="Customer_Credit_Notes_list_action">
+            <field name="name">Ghi chú tín dụng khách hàng</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
+        </record>
+
+        <!--        #Sales_Receipts-->
+        <record model="ir.ui.view" id="Sales_Receipts_form_view">
+            <field name="name">Sales_Receipts</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_sale_receipt_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="string">Customer</attribute>
+                </xpath>
+
+                <field name="payment_journal_id" position="after">
+                    <field name="payment_journal_id" attrs="{'invisible' : ['|',('pay_now', '=', 'pay_now'), ('pay_now', '=', False)]}"/>
+                    <field name="account_id" attrs="{'invisible' : ['|',('pay_now', '=', 'pay_now'), ('pay_now', '=', False)]}"/>
+                    <field name="amount_input"/>
+                    <field name="note"/>
+                </field>
+
+                <field name="date" position="before">
+                    <field name="journal_id"/>
+                </field>
+
+                <field name="name" position="after">
+                    <field name="collect_type"/>
+                </field>
+
+                <field name="name" position="before">
+                    <field name="number_voucher"/>
+                </field>
+
+                <field name="collect_type" position="after">
+                    <field name="payment_date"/>
+                    <field name="created_person"/>
+                    <field name="check_date"/>
+                    <field name="checked_person"/>
+                    <field name="validate_date"/>
+                    <field name="validated_person"/>
+                </field>
+
+                <xpath expr="//form/sheet/notebook/page" position="before">
+                    <page name="sale_order" string="Đơn bán hàng">
+                        <field name="voucher_sale_line_ids" nolabel="1">
+                            <tree editable="bottom" create="false">
+                                <field name="order_id" invisible="1"/>
+                                <field name="order_name"/>
+                                <field name="date_order" widget="date"/>
+                                <field name="amount_total"/>
+                                <field name="so_tien_da_thu" readonly="True"/>
+                                <field name="con_phai_thu" readonly="True"/>
+                                <field name="trang_thai_tt" readonly="True"/>
+                                <field name="check"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="Sales_Receipts_list_action">
+            <field name="name">Biên lai bán hàng</field>
+            <field name="res_model">account.voucher</field>
+            <field name="view_mode">tree,form,kanban</field>
+        </record>
+
+        <!--        #Payments-->
+        <record model="ir.ui.view" id="Payments_form_view">
+            <field name="name">Payments</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_type']" position="attributes">
+                    <attribute name="string">Partner Type</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="Payments_list_action">
+            <field name="name">Thanh toán</field>
+            <field name="res_model">account.payment</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--        #Sellable_Products-->
+        <record model="ir.ui.view" id="Sellable_Products_form_view">
+            <field name="name">Sellable_Products</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="string">Product Name</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="Sellable_Products_list_action">
+            <field name="name">Sản phẩm bán được</field>
+            <field name="res_model">product.product</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!--        <menuitem id="Customer_Invoices_menu" name="Customer Invoices" parent="sale_invoicing.Documents_menu"-->
+        <!--                  action="Customer_Invoices_list_action"/>-->
+        <!--        <menuitem id="Customer_Credit_Notes_menu" name="Customer Credit Notes" parent="sale_invoicing.Documents_menu"-->
+        <!--                  action="Customer_Credit_Notes_list_action"/>-->
+        <menuitem id="Sales_Receipts_menu" name="Sales Receipts" parent="sale_invoicing.Documents_menu"
+                  action="Sales_Receipts_list_action"/>
+        <menuitem id="Payments_menu" name="Payments" parent="sale_invoicing.Documents_menu"
+                  action="Payments_list_action"/>
+
+        <menuitem id="Sellable_Products_menu" name="Sellable Products" parent="sale.sale_order_menu"
+                  sequence="10"
+                  action="Sellable_Products_list_action"/>
+    </data>
+</odoo>
