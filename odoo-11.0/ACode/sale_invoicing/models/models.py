@@ -36,6 +36,7 @@ class AccountVoucher(models.Model):
     validate_date = fields.Datetime(string='Validate Date', readonly=1)
     validated_person = fields.Many2one('res.users', string='Validated Person', readonly=1)
 
+
     voucher_sale_line_ids = fields.One2many('voucher.sale.line', 'account_voucher_id')
 
 

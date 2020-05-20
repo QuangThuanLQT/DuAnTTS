@@ -13,7 +13,8 @@ class sale_order_return(models.Model):
     don_tra_hang = fields.Boolean(default=False)
     partner_id = fields.Many2one('res.partner', string="Customer", readonly=True, copy=False)
     # sale_order_return_ids = fields.Char(string="Sale Order")
-    sale_order_return_ids = fields.Many2one('sale.order', string="Sale Order", domain="[('partner_id', '=', partner_id)]")
+    sale_order_return_ids = fields.Many2one('sale.order', string="Sale Order",
+                                            domain="[('partner_id', '=', partner_id)]")
     reason_cancel = fields.Many2one('ly.do.tra.hang', string='Lý do')
     receive_method = fields.Selection(
         [('allow', 'Nhận hàng trả lại tại kho'), ('stop', 'Nhận hàng trả lại tại địa chỉ giao hàng')],
@@ -53,14 +54,14 @@ class sale_order_return(models.Model):
     def DocSo3ChuSo(self, baso):
         ChuSo = [" không", " một", " hai", " ba", " bốn", " năm", " sáu", " bảy", " tám", " chín"]
         KetQua = ""
-        tram = int(baso/100)
-        chuc = int((baso%100)/10)
-        donvi = baso%10
+        tram = int(baso / 100)
+        chuc = int((baso % 100) / 10)
+        donvi = baso % 10
 
-        if (tram==0 and chuc==0 and donvi==0):
+        if (tram == 0 and chuc == 0 and donvi == 0):
             return ""
 
-        if (tram!=0):
+        if (tram != 0):
             KetQua += ChuSo[tram] + " trăm"
             if ((chuc == 0) and (donvi != 0)):
                 KetQua += " linh "
@@ -150,7 +151,6 @@ class sale_order_return(models.Model):
         KetQua = KetQua[1: 2].upper() + KetQua[2:]
         return KetQua
 
-
     @api.multi
     def _compute_total(self):
         for record in self:
@@ -158,13 +158,12 @@ class sale_order_return(models.Model):
             total_text = self.env['sale.order.return'].DocTienBangChu(subtotal)
             record.total_text = total_text
 
-
     @api.onchange('sale_order_return_ids')
     def onchange_sale_order_return_ids(self):
         if self.sale_order_return_ids:
             for line in self.sale_order_return_ids.order_line:
                 self.order_line_ids += self.order_line_ids.new({
-                    'product_id' : line.product_id.id,
+                    'product_id': line.product_id.id,
                     'invoice_name': line.product_id.name,
                     'price_unit': line.price_unit,
                     'amount_tax': line.tax_id,
@@ -202,10 +201,10 @@ class sale_order_return(models.Model):
     check_box_co_cq = fields.Boolean(default=False, string="CO, CQ")
     check_box_invoice_gtgt = fields.Boolean(default=False, string="Invoice GTGT")
 
-    total_quantity = fields.Float(string='Tổng số lượng', compute='_get_total_quantity', readonly=True, digits=(16,0))
-    amount_untaxed = fields.Float(string='Untaxed Amount', compute='_untax_amount', readonly=True, digits=(16,0))
-    amount_tax = fields.Float(string='Taxes',readonly=True, digits=(16,0))
-    amount_total = fields.Float(string='Total',compute='_amount_all', readonly=True,digits=(16,0))
+    total_quantity = fields.Float(string='Tổng số lượng', compute='_get_total_quantity', readonly=True, digits=(16, 0))
+    amount_untaxed = fields.Float(string='Untaxed Amount', compute='_untax_amount', readonly=True, digits=(16, 0))
+    amount_tax = fields.Float(string='Taxes', readonly=True, digits=(16, 0))
+    amount_total = fields.Float(string='Total', compute='_amount_all', readonly=True, digits=(16, 0))
 
     @api.depends('order_line_ids.product_uom_qty')
     def _get_total_quantity(self):
@@ -233,12 +232,8 @@ class sale_order_return(models.Model):
                 'amount_total': amount_untaxed + amount_tax
             })
 
-
-
-
     class thong_tin_order_line(models.Model):
         _name = 'order.line'
-
 
         order_line_id = fields.Many2one('sale.order.return')
         product_id = fields.Many2one('product.product', string='Sản phẩm')
@@ -252,13 +247,13 @@ class sale_order_return(models.Model):
         @api.onchange('product_uom_qty')
         def onchange_product_uom_qty(self):
             if self.product_uom_qty and self.order_line_id.sale_order_return_ids:
-                line_ids = self.order_line_id.sale_order_return_ids.order_line.filtered(lambda line: line.product_id == self.product_id)
+                line_ids = self.order_line_id.sale_order_return_ids.order_line.filtered(
+                    lambda line: line.product_id == self.product_id)
                 if self.product_uom_qty > sum(line_ids.mapped('product_uom_qty')):
-                    raise ValidationError(_("Tổng số lượng sp %s trả lại không thể lớn hơn %s." % (line_ids.product_id.name, sum(line_ids.mapped('product_uom_qty')))))
-
+                    raise ValidationError(_("Tổng số lượng sp %s trả lại không thể lớn hơn %s." % (
+                    line_ids.product_id.name, sum(line_ids.mapped('product_uom_qty')))))
 
         @api.depends('price_unit', 'product_uom_qty', 'price_subtotal')
         def _compute_amount(self):
             for rec in self:
-                    rec.price_subtotal = rec.price_unit * rec.product_uom_qty
-
+                rec.price_subtotal = rec.price_unit * rec.product_uom_qty
