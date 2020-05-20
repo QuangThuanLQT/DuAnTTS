@@ -2,24 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ed2daa9-808d-45c8-8f81-4bc5b9bca564" name="Default Changelist" comment="">
-<<<<<<< HEAD
-      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_invoicing/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_invoicing/__manifest__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_invoicing/controllers/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_invoicing/controllers/controllers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_invoicing/demo/demo.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_invoicing/models/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_invoicing/models/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_invoicing/security/ir.model.access.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_invoicing/views/Documents.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_invoicing/views/templates.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_invoicing/views/views.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_sms_payment/views/sophieuthu.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_sms_payment/__manifest__.py" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_sms_payment/__manifest__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_sms_payment/models/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_sms_payment/models/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_sms_payment/views/views.xml" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_sms_payment/views/views.xml" afterDir="false" />
-=======
       <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order/report/phieu_bao_gia.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order/static/src/css/border.css" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order/static/src/image/header_image.png" afterDir="false" />
@@ -30,7 +12,7 @@
       <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order/report/quotaion_report.xml" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order/report/quotaion_report.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order_return/models/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order_return/models/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order_return/report/phieu_tra_hang.xml" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order_return/report/phieu_tra_hang.xml" afterDir="false" />
->>>>>>> parent of 73e4b253... update code
+      &gt;&gt;&gt;&gt;&gt;&gt;&gt; parent of 73e4b253... update code
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -387,10 +369,10 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="430" y="240" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1366.768@0.0.1366.768" timestamp="1582947129399" />
-    <state x="216" y="0" key="CommitChangelistDialog2" timestamp="1589086867254">
+    <state x="216" y="0" key="CommitChangelistDialog2" timestamp="1589939080782">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="216" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1589086867254" />
+    <state x="216" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1589939080782" />
     <state x="553" y="167" key="FileChooserDialogImpl" timestamp="1589536760841">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -470,10 +452,10 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="322" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.738@0.0.1366.738" timestamp="1589771260630" />
-    <state x="492" y="285" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1586771758119">
+    <state x="492" y="285" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1589939063552">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="492" y="285" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.738@0.0.1366.738" timestamp="1586771758119" />
+    <state x="492" y="285" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.738@0.0.1366.738" timestamp="1589939063552" />
     <state x="254" y="104" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1589342657215">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
