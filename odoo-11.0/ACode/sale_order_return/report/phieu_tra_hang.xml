@@ -209,7 +209,7 @@
                         <div class="row" style="margin-top:-15px">
                             <div class="col-xs-12">
                                 <span>Số tiền viết bằng chữ:</span>
-<!--                                <t t-esc="doc.total_text"/>-->
+                                <t t-esc="doc.total_text"/>
                                 đồng.
                                 <br/>
                                 <div class="col-xs-3" style="margin-left:-15px">
