@@ -18,9 +18,9 @@
                 </field>
 
 
-                <xpath expr="//field[@name='default_code']" position="after">
-                    <field name="default_code1" string='Mã SP'/>
-                </xpath>
+<!--                <xpath expr="//field[@name='default_code']" position="after">-->
+<!--                    <field name="default_code1" string='Mã SP'/>-->
+<!--                </xpath>-->
 
                 <field name="list_price" position="after">
                     <field name="cost_root"/>

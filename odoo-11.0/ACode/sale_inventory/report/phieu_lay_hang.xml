@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="report_layhang">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                        <div class="page" style="font-family: Arial;font-size: 12px;">
+                            <div class="row" align="center">
+                                <strong>
+                                    <span style="font-size:20px">PHIẾU LẤY HÀNG</span>
+                                </strong>
+                            </div>
+                            <table style="width: 90%; margin-left: 10%; margin-top:3px">
+                                <tr>
+                                    <td style="width: 50%">
+                                        <strong>Đơn hàng:<![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]></strong>
+                                        <t t-esc="doc.sale_id.name"/>
+                                    </td>
+                                    <td style="width: 50%">
+                                        <strong>Khách hàng:<![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]></strong>
+                                        <t t-esc="doc.partner_id.name"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Nhân viên bán hàng:<![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]></strong>
+                                        <t t-esc="doc.user_sale_id.name"/>
+                                    </td>
+                                    <td>
+                                        <strong>Thời gian tạo phiếu:<![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]></strong>
+                                        <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y %H:%M')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Kho lưu trữ:<![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]></strong>
+                                        <t t-esc="dict(doc.fields_get(allfields=['kho_luu_tru'])['kho_luu_tru']['selection'])[doc.kho_luu_tru]"/>
+                                    </td>
+                                    <td>
+                                        <strong>Ghi chú:<![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]></strong>
+                                        <t t-esc="doc.picking_note"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table class="table table-bordered text-center" style="border-color:black;margin-top:20px">
+                                <tbody style="border-color:black;">
+                                    <tr style="page-break-inside:avoid;text-align: center">
+                                        <td style="border-color:black;padding:2px 5px 2px 5px !important;width: 5%">
+                                            <strong>X</strong>
+                                        </td>
+                                        <td style="border-color:black;padding:2px 5px 2px 5px !important;width: 5%">
+                                            <strong>Y</strong>
+                                        </td>
+                                        <td style="border-color:black;padding:2px 5px 2px 5px !important;width: 10%">
+                                            <strong>Tên địa điểm</strong>
+                                        </td>
+                                        <td style="border-color:black;padding:2px 5px 2px 5px !important;width: 50%">
+                                            <strong>Sản phẩm</strong>
+                                        </td>
+                                        <td style="border-color:black;padding:2px 5px 2px 5px !important;width: 8%">
+                                            <strong>Số lượng</strong>
+                                        </td>
+                                        <td style="border-color:black;padding:2px 5px 2px 5px !important;width: 8%">
+                                            <strong>Số lượng lấy hàng</strong>
+                                        </td>
+                                        <td style="border-color:black;padding:2px 5px 2px 5px !important;width: 8%">
+                                            <strong>Số lượng đóng gói</strong>
+                                        </td>
+                                    </tr>
+                                    <t t-set="qty" t-value="0"/>
+                                    <t t-foreach="docs" t-as="line">
+                                        <tr style="height:5px !important;page-break-inside:avoid;">
+                                            <t>
+                                                <td style="border-color:black;padding:0px 5px 0px 5px !important;vertical-align: middle;">
+                                                    <t/>
+                                                </td>
+                                            </t>
+                                            <t>
+                                                <td style="border-color:black;padding:0px 5px 0px 5px !important;vertical-align: middle;">
+                                                    <t/>
+                                                </td>
+                                            </t>
+                                            <td style="border-color:black;padding:0px 5px 0px 5px !important;">
+                                                <t/>
+                                            </td>
+                                            <td style="border-color:black;padding:0px 5px 0px 5px !important;vertical-align:middle; text-align:left">
+                                                <t t-esc="line.product_id.name"/>
+                                            </td>
+                                            <td style="border-color:black;padding:0px 5px 0px 5px !important;vertical-align:middle">
+<!--                                                <t t-esc="line.product_id.product_uom_qty"/>-->
+                                            </td>
+                                            <t t-set="qty"/>
+                                            <td style="border-color:black;padding:0px 5px 0px 5px !important;vertical-align:middle">
+                                                <t/>
+                                            </td>
+                                            <td style="border-color:black;padding:0px 5px 0px 5px !important;vertical-align:middle">
+                                                <t/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                            <div class="row" align="right">
+                                <span>Tổng số lượng:</span>
+                                <span style="padding-right:30px">
+                                    <t t-esc="qty"/>
+                                </span>
+                                <br/>
+                            </div>
+                            <div class="row" align="right">
+                                <span style="padding-right:30px">Người kiểm</span>
+                                <br/>
+                                <span style="padding-right:14px">(ký và ghi rõ họ tên)</span>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+
+        </template>
+    </data>
+</odoo>

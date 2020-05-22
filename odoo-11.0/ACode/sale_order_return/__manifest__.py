@@ -33,7 +33,8 @@
         'views/nhat_ky_lich_su.xml',
         'views/MaDonTra.xml',
         'report/sale_return_report.xml',
-        'report/phieu_tra_hang.xml'
+        'report/phieu_tra_hang.xml',
+        'report/phieu_chi.xml'
     ],
     # only loaded in demonstration mode
     'demo': [

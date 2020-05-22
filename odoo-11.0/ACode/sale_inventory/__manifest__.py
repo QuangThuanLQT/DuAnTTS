@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'stock', 'purchase'],
+    'depends': ['base', 'stock', 'sale', 'product'],
 
     # always loaded
     'data': [
@@ -28,6 +28,11 @@
         'views/views.xml',
         'views/templates.xml',
         'views/nhan_hang.xml',
+        'report/phieu_giao_hang.xml',
+        'report/ten_cac_phieu.xml',
+        'report/phieu_nhan_hang.xml',
+        'report/phieu_lay_hang.xml',
+        'report/phieu_kiem_hang.xml'
     ],
     # only loaded in demonstration mode
     'demo': [

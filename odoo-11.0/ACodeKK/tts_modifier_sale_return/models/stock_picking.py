@@ -181,8 +181,8 @@ class stock_picking_ihr(models.Model):
         res = super(stock_picking_ihr, self).write(val)
         for rec in self:
             if (val.get('state_pick', False) or val.get('state_pack', False) or val.get('receipt_state', False) or \
-                        val.get('state_delivery', False) or val.get('internal_transfer_state',
-                                                                    False)) and rec.sale_id:
+                val.get('state_delivery', False) or val.get('internal_transfer_state',
+                                                            False)) and rec.sale_id:
                 rec.sale_id._get_trang_thai_dh()
         return res
 
@@ -200,7 +200,6 @@ class stock_picking_ihr(models.Model):
                 if sale_id and sale_id.sale_order_return == False:
                     sale_id._get_trang_thai_dh()
         return res
-
 
     def create_picking_return(self):
         for picking in self:
@@ -228,7 +227,8 @@ class stock_picking_ihr(models.Model):
             new_picking = picking.copy(picking_data)
             i = 0
             move_lines = []
-            print "begin loop ----%s" % (str(datetime.now()))
+            print
+            "begin loop ----%s" % (str(datetime.now()))
             for move_id in picking.move_lines:
                 # move_id.move_dest_id.do_unreserve()
                 # move_id.move_dest_id.write({'move_orig_ids': False})
@@ -259,10 +259,12 @@ class stock_picking_ihr(models.Model):
                 # self.env['stock.move'].create(data)
                 move_lines.append((0, 0, data))
                 i += 1
-                print "%s" % (i)
+                print
+                "%s" % (i)
             new_picking.write({'move_lines': move_lines})
             picking.have_picking_return = True
-            print "after create %s" % (str(datetime.now()))
+            print
+            "after create %s" % (str(datetime.now()))
             new_picking.action_confirm()
             new_picking.action_assign()
 
@@ -293,5 +295,3 @@ class ReturnPickingIhr(models.TransientModel):
         elif picking.is_picking_return:
             new_picking.is_picking_return = False
         return new_picking.id, picking_type_id
-
-

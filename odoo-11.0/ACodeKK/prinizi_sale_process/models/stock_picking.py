@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
-from odoo.tools import DEFAULT_SERVER_DATE_FORMAT,DEFAULT_SERVER_DATETIME_FORMAT
+from odoo.tools import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT
 from datetime import datetime, date
 import StringIO
 import xlsxwriter
 import pytz
 from odoo.exceptions import UserError, ValidationError
+
 
 class stock_picking(models.Model):
     _inherit = 'stock.picking'
@@ -16,14 +17,16 @@ class stock_picking(models.Model):
                                            ('ready_produce', 'Ready'),
                                            ('produce', 'Producing'),
                                            ('done', 'Done'),
-                                           ('cancel', 'Cancel')], default='waiting_produce', string="Produce Name state")
+                                           ('cancel', 'Cancel')], default='waiting_produce',
+                                          string="Produce Name state")
 
     produce_image_state = fields.Selection([('draft', 'Draft'),
                                             ('waiting_produce', 'Waiting'),
                                             ('ready_produce', 'Ready'),
                                             ('produce', 'Producing'),
                                             ('done', 'Done'),
-                                            ('cancel', 'Cancel')], default='waiting_produce', string="Produce Image state")
+                                            ('cancel', 'Cancel')], default='waiting_produce',
+                                           string="Produce Image state")
 
     kcs1_state = fields.Selection([('draft', 'Draft'),
                                    ('waiting', 'Waiting'),
@@ -45,9 +48,9 @@ class stock_picking(models.Model):
                                    ('cancel', 'Cancel')], default='waiting', string="KCS2 state")
 
     internal_sale_type = fields.Selection([('draft', 'Draft'),
-                                          ('ready', 'Ready'),
-                                          ('done', 'Done'),
-                                          ('cancel', 'Cancel')], default='draft', string="Internal Sale state")
+                                           ('ready', 'Ready'),
+                                           ('done', 'Done'),
+                                           ('cancel', 'Cancel')], default='draft', string="Internal Sale state")
 
     check_produce_name = fields.Boolean(compute='_get_check_produce_name')
     check_produce_image = fields.Boolean(compute='_get_check_produce_image')
@@ -97,9 +100,11 @@ class stock_picking(models.Model):
         text_style = workbook.add_format(
             {'bold': False, 'font_size': '11', 'align': 'left', 'valign': 'vcenter', 'border': 1})
         body_bold_color_number = workbook.add_format(
-            {'bold': False, 'font_size': '11', 'align': 'left', 'valign': 'vcenter', 'border': 1, 'num_format': '#,##0'})
+            {'bold': False, 'font_size': '11', 'align': 'left', 'valign': 'vcenter', 'border': 1,
+             'num_format': '#,##0'})
 
-        summary_header = ['Thời gian tạo', 'Nhân viên mua', 'Nhân viên tạo', 'Ghi chú', 'Tổng thành tiền','Trạng thái hoạt động']
+        summary_header = ['Thời gian tạo', 'Nhân viên mua', 'Nhân viên tạo', 'Ghi chú', 'Tổng thành tiền',
+                          'Trạng thái hoạt động']
         row = 0
         [worksheet.write(row, header_cell, unicode(summary_header[header_cell], "utf-8"), body_bold_color) for
          header_cell in range(0, len(summary_header)) if summary_header[header_cell]]
@@ -115,7 +120,9 @@ class stock_picking(models.Model):
             worksheet.write(row, 2, picking_id.create_uid.name or '', text_style)
             worksheet.write(row, 3, picking_id.note or '', text_style)
             worksheet.write(row, 4, picking_id.sum_total_internal_sale, body_bold_color_number)
-            worksheet.write(row, 5, trang_thai.get(picking_id.internal_sale_type) if picking_id.internal_sale_type else '', text_style)
+            worksheet.write(row, 5,
+                            trang_thai.get(picking_id.internal_sale_type) if picking_id.internal_sale_type else '',
+                            text_style)
 
         workbook.close()
         output.seek(0)
@@ -137,10 +144,12 @@ class stock_picking(models.Model):
         text_style = workbook.add_format(
             {'bold': False, 'font_size': '11', 'align': 'left', 'valign': 'vcenter', 'border': 1})
         body_bold_color_number = workbook.add_format(
-            {'bold': False, 'font_size': '11', 'align': 'left', 'valign': 'vcenter', 'border': 1, 'num_format': '#,##0'})
+            {'bold': False, 'font_size': '11', 'align': 'left', 'valign': 'vcenter', 'border': 1,
+             'num_format': '#,##0'})
 
-        summary_header = ['Mã phiếu bán nội bộ','Ngày đặt hàng', 'Nhân viên mua', 'Nhân viên bán hàng', 'Ghi chú','Mã biến thể nội bộ','Tên sản phẩm', 'Màu',
-                          'Size','Số lượng', 'Price Unit','Subtotal', 'Tổng thành tiền','Trạng thái hoạt động']
+        summary_header = ['Mã phiếu bán nội bộ', 'Ngày đặt hàng', 'Nhân viên mua', 'Nhân viên bán hàng', 'Ghi chú',
+                          'Mã biến thể nội bộ', 'Tên sản phẩm', 'Màu',
+                          'Size', 'Số lượng', 'Price Unit', 'Subtotal', 'Tổng thành tiền', 'Trạng thái hoạt động']
         row = 0
         [worksheet.write(row, header_cell, unicode(summary_header[header_cell], "utf-8"), body_bold_color) for
          header_cell in range(0, len(summary_header)) if summary_header[header_cell]]
@@ -171,11 +180,12 @@ class stock_picking(models.Model):
             #     worksheet.merge_range(row + 1, 13, row + len(product_ids), 13, trang_thai.get(picking_id.internal_sale_type) if picking_id.internal_sale_type else '', text_style)
 
             for product_id in product_ids:
-                move_lines = self.env['stock.move'].search([('picking_id', '=', picking_id.id), ('product_id', '=', product_id.id)])
+                move_lines = self.env['stock.move'].search(
+                    [('picking_id', '=', picking_id.id), ('product_id', '=', product_id.id)])
                 row += 1
                 mau = ''
                 if product_id.attribute_value_ids:
-                    mau = product_id.attribute_value_ids.filtered(lambda attr: attr.attribute_id.name in ['Màu','màu'])
+                    mau = product_id.attribute_value_ids.filtered(lambda attr: attr.attribute_id.name in ['Màu', 'màu'])
                     if mau:
                         mau = mau[0].name
 
@@ -235,7 +245,8 @@ class stock_picking(models.Model):
                         })
             for line in rec.move_lines:
                 pricelist_tem = promotion_data.get(str(line.product_id.product_tmpl_id), False)
-                print pricelist_tem
+                print
+                pricelist_tem
                 if pricelist_tem:
                     line.internal_sale_price = line.product_id.lst_price - pricelist_tem
                 else:
@@ -250,13 +261,15 @@ class stock_picking(models.Model):
     @api.multi
     def _get_date_order(self):
         for record in self:
-            print 'dsadjgashjdhjashjdhjsagdjgsajd'
+            print
+            'dsadjgashjdhjashjdhjsagdjgsajd'
             if record.sale_id:
                 record.date_base_order = record.sale_id.confirmation_date
             elif record.purchase_id:
                 record.date_base_order = record.purchase_id.confirmation_date
             elif record.date_internal_sale:
-                print '11111111gsajd'
+                print
+                '11111111gsajd'
                 record.date_base_order = record.date_internal_sale
 
     @api.multi
@@ -320,13 +333,12 @@ class stock_picking(models.Model):
             # rec.action_confirm()
             rec.produce_name_state = 'produce'
 
-
     @api.multi
     def pname_action_do_new_transfer(self):
         for rec in self:
             rec.produce_name_state = 'done'
             rec.state = 'done'
-                # return rec.do_new_transfer()
+            # return rec.do_new_transfer()
             if not rec.is_picking_return:
                 kcs1_id = rec.sale_id.picking_ids.filtered(lambda r: r.check_kcs1 == True)
                 pick_id = rec.sale_id.picking_ids.filtered(lambda r: r.check_is_pick == True)
@@ -337,7 +349,6 @@ class stock_picking(models.Model):
                         kcs1_id.write({
                             'kcs1_state': 'ready',
                         })
-
 
     # TODO button produce_image
 
@@ -362,7 +373,7 @@ class stock_picking(models.Model):
         for rec in self:
             rec.produce_image_state = 'done'
             rec.state = 'done'
-                # return rec.do_new_transfer()
+            # return rec.do_new_transfer()
             if not rec.is_picking_return:
                 kcs1_id = rec.sale_id.picking_ids.filtered(lambda r: r.check_kcs1 == True)
                 pick_id = rec.sale_id.picking_ids.filtered(lambda r: r.check_is_pick == True)
@@ -402,7 +413,6 @@ class stock_picking(models.Model):
                 if rec.state == 'assigned':
                     rec.kcs1_state = 'done'
                     return rec.do_new_transfer()
-
 
     # TODO button print
 
@@ -493,9 +503,8 @@ class stock_picking(models.Model):
                     return rec.do_new_transfer()
                 else:
                     for line in rec.move_lines:
-                        if line.state in ['waiting','confirmed']:
+                        if line.state in ['waiting', 'confirmed']:
                             raise UserError('Sản phẩm %s không có đủ trong kho.' % (line.product_id.name))
-
 
     @api.depends('picking_type_id')
     def _get_check_produce_name(self):
@@ -619,7 +628,7 @@ class stock_picking(models.Model):
                     'picking_id': rec.id,
                 }
                 self.env['stock.picking.log'].create(history_data)
-        res =  super(stock_picking, self).write(vals)
+        res = super(stock_picking, self).write(vals)
         # if not self._context.get('non_update', False):
         #     for rec in self:
         #         rec.with_context(non_update=True).onchange_line_value_price()
@@ -685,7 +694,7 @@ class stock_picking(models.Model):
 
         for picking_id in picking_ids:
             if (
-                picking_id.sale_id or picking_id.purchase_id) and not picking_id.check_is_pick and not picking_id.check_is_pack:
+                    picking_id.sale_id or picking_id.purchase_id) and not picking_id.check_is_pick and not picking_id.check_is_pack:
                 row += 1
                 row_0 = row_1 = row_2 = row_3 = row_4 = row_5 = row_6 = row_7 = row_8 = row_9 = row_10 = row_11 = \
                     row_12 = row_13 = row_14 = row_15 = row_16 = row_17 = row_18 = row_19 = row_20 = ''

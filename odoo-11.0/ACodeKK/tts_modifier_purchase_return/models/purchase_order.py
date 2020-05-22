@@ -246,7 +246,7 @@ class purchase_order(models.Model):
             'min_date': self.date_order,
             'user_return_id': self.env.uid,
             'picking_note': self.notes,
-            'kho_luu_tru' : kho_luu_tru
+            'kho_luu_tru': kho_luu_tru
         })
 
         picking_line = []
@@ -365,14 +365,15 @@ class purchase_order(models.Model):
         for purchase in purchase_ids:
             for line in purchase.order_line:
                 if line.product_id.default_code in default_code:
-                    print "%s - %s" % (line.product_id.display_name, line.price_unit)
+                    print
+                    "%s - %s" % (line.product_id.display_name, line.price_unit)
 
                     price_unit = line.product_id.get_history_price(line.product_id.company_id.id, line.date_order)
 
-                    print 'update Unit price -> %s' % price_unit
+                    print
+                    'update Unit price -> %s' % price_unit
                     line.price_unit = price_unit
             purchase.button_dummy()
-
 
     @api.multi
     def update_purchase_return_bill(self):

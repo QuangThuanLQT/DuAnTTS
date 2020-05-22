@@ -4,6 +4,7 @@ from odoo import models, fields, api
 import base64
 from xlrd import open_workbook
 
+
 class reset_product_history(models.TransientModel):
     _name = 'reset.product.history'
 
@@ -34,13 +35,12 @@ class reset_product_history(models.TransientModel):
                             product_ids += product_id
             return product_ids
 
-
     @api.multi
     def reset_product_history(self):
         for rec in self:
             PriceHistory = self.env['product.price.history']
             if rec.check_all:
-                product_ids = self.env['product.product'].search(['|',('active', '=', True),('active', '=', False)])
+                product_ids = self.env['product.product'].search(['|', ('active', '=', True), ('active', '=', False)])
             elif rec.import_data:
                 product_ids = self.import_data_get_product()
             else:
@@ -48,7 +48,8 @@ class reset_product_history(models.TransientModel):
             count = 0
             for product_id in product_ids:
                 count += 1
-                price_history_ids = PriceHistory.search([('datetime', '>', rec.start_date),('product_id', '=', product_id.id)])
+                price_history_ids = PriceHistory.search(
+                    [('datetime', '>', rec.start_date), ('product_id', '=', product_id.id)])
                 price_history_ids.unlink()
                 if product_id.cost_method != 'average':
                     continue
@@ -78,23 +79,25 @@ class reset_product_history(models.TransientModel):
                         amount_unit = move.product_id.get_history_price(move.company_id.id, move.date)
                         amount_cost_sale = move.product_id.get_history_price(move.company_id.id, date_order)
                         new_std_price = ((amount_unit * product_tot_qty_available) + (
-                            amount_cost_sale * move.product_qty)) / (product_tot_qty_available + move.product_qty)
+                                amount_cost_sale * move.product_qty)) / (product_tot_qty_available + move.product_qty)
                     else:
                         # if the incoming move is for a purchase order with foreign currency, need to call this to get the same value that the quant will use.
                         amount_unit = move.product_id.get_history_price(move.company_id.id, move.date)
                         new_std_price = ((amount_unit * product_tot_qty_available) + (
-                            move.price_unit * move.product_qty)) / (product_tot_qty_available + move.product_qty)
+                                move.price_unit * move.product_qty)) / (product_tot_qty_available + move.product_qty)
                     PriceHistory.create({
                         'product_id': move.product_id.id,
                         'cost': new_std_price,
                         'company_id': self._context.get('force_company', self.env.user.company_id.id),
-                        'datetime' : move.date,
+                        'datetime': move.date,
                     })
                 if new_std_price != 0:
                     product_id.with_context(not_update_price_history=True).write({
-                        'standard_price' : new_std_price,
+                        'standard_price': new_std_price,
                     })
-                print count
+                print
+                count
+
 
 class product_product_ihr(models.Model):
     _inherit = 'product.product'
@@ -102,7 +105,7 @@ class product_product_ihr(models.Model):
     @api.multi
     def _set_standard_price(self, value):
         ''' Store the standard price change in order to be able to retrieve the cost of a product for a given date'''
-        if not self._context.get('not_update_price_history',False):
+        if not self._context.get('not_update_price_history', False):
             PriceHistory = self.env['product.price.history']
             for product in self:
                 PriceHistory.create({

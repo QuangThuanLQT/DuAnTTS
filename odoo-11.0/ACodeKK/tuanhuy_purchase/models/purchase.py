@@ -25,19 +25,22 @@ class account_invoice_inherit(models.Model):
         taxes = line.taxes_id
         invoice_line_tax_ids = line.order_id.fiscal_position_id.map_tax(taxes)
         invoice_line = self.env['account.invoice.line']
-        price_unit = line.order_id.currency_id.with_context(date=self.date_invoice).compute(line.price_unit, self.currency_id, round=False)
+        price_unit = line.order_id.currency_id.with_context(date=self.date_invoice).compute(line.price_unit,
+                                                                                            self.currency_id,
+                                                                                            round=False)
         if line.price_discount:
             if line.discount == 100:
                 price_unit = line.price_discount
             else:
-                price_unit = line.price_discount*100/(100-line.discount)
+                price_unit = line.price_discount * 100 / (100 - line.discount)
         data = {
             'purchase_line_id': line.id,
-            'name': line.order_id.name+': '+line.name,
+            'name': line.order_id.name + ': ' + line.name,
             'origin': line.order_id.origin,
             'uom_id': line.product_uom.id,
             'product_id': line.product_id.id,
-            'account_id': invoice_line.with_context({'journal_id': self.journal_id.id, 'type': 'in_invoice'})._default_account(),
+            'account_id': invoice_line.with_context(
+                {'journal_id': self.journal_id.id, 'type': 'in_invoice'})._default_account(),
             'price_unit': price_unit,
             'quantity': qty,
             'discount': line.discount,
@@ -46,10 +49,12 @@ class account_invoice_inherit(models.Model):
             'analytic_tag_ids': line.analytic_tag_ids.ids,
             'invoice_line_tax_ids': invoice_line_tax_ids.ids
         }
-        account = invoice_line.get_invoice_line_account('in_invoice', line.product_id, line.order_id.fiscal_position_id, self.env.user.company_id)
+        account = invoice_line.get_invoice_line_account('in_invoice', line.product_id, line.order_id.fiscal_position_id,
+                                                        self.env.user.company_id)
         if account:
             data['account_id'] = account.id
         return data
+
 
 class purchase_order(models.Model):
     _inherit = 'purchase.order'
@@ -80,6 +85,7 @@ class purchase_order(models.Model):
     invoice_number_total_real = fields.Char(string='Số hoá đơn thực', compute='get_invoice_number_total_real')
     user_id = fields.Many2one('res.users', string='Purchaseperson', index=True, track_visibility='onchange',
                               default=lambda self: self.env.user)
+
     @api.multi
     def get_invoice_number_total_real(self):
         for record in self:
@@ -107,7 +113,7 @@ class purchase_order(models.Model):
             else:
                 order.invoice_status = 'no'
             if order.invoice_ids and all(invoice.state == 'cancel' for invoice in order.invoice_ids):
-                    order.invoice_status = 'cancel'
+                order.invoice_status = 'cancel'
 
     @api.depends('order_line.price_total')
     def _amount_all(self):
@@ -148,7 +154,7 @@ class purchase_order(models.Model):
                 taxes_id = line.taxes_id
 
             taxes = taxes_id.compute_all(price, line.order_id.currency_id, line.product_qty,
-                                              product=line.product_id, partner=line.order_id.partner_id)
+                                         product=line.product_id, partner=line.order_id.partner_id)
             line.write({
                 'price_tax': taxes['total_included'] - taxes['total_excluded'],
                 'price_total': taxes['total_included'],
@@ -177,7 +183,6 @@ class purchase_order(models.Model):
                 'amount_total': amount_untaxed + amount_tax,
             })
 
-
     @api.model
     def search_read(self, domain=None, fields=None, offset=0, limit=None, order=None):
         for do in domain:
@@ -194,7 +199,7 @@ class purchase_order(models.Model):
             if 'purchase_order_return' not in fields:
                 fields.append('purchase_order_return')
             res = super(purchase_order, self).search_read(domain=domain, fields=fields, offset=offset,
-                                                               limit=limit, order=order)
+                                                          limit=limit, order=order)
 
             def convertVals(x):
                 if x.get('purchase_order_return', False):
@@ -205,7 +210,7 @@ class purchase_order(models.Model):
             res = map(lambda x: convertVals(x), res)
             return res
         return super(purchase_order, self).search_read(domain=domain, fields=fields, offset=offset,
-                                                            limit=limit, order=order)
+                                                       limit=limit, order=order)
 
     @api.onchange('date_order')
     def on_change_date_order(self):
@@ -239,6 +244,7 @@ class purchase_order(models.Model):
                     self.order_line += line
             self.product_code = False
             return
+
     @api.multi
     def button_confirm(self):
         res = super(purchase_order, self).button_confirm()
@@ -259,18 +265,18 @@ class purchase_order(models.Model):
         ids = self.env.context.get('active_ids', [])
         purchase_order_ids = self.browse(ids)
         for purchase_order_id in purchase_order_ids:
-            if not purchase_order_id.picking_ids.filtered(lambda p:p.state != 'cancel'):
+            if not purchase_order_id.picking_ids.filtered(lambda p: p.state != 'cancel'):
                 purchase_order_id._create_picking()
 
         # return True
-
 
     def multi_update_stock_picking(self):
         ids = self.env.context.get('active_ids', [])
         purchase_order_ids = self.browse(ids)
         for purchase_order_id in purchase_order_ids:
             purchase_order_id.update_stock_picking()
-            print "--------------------" + str(purchase_order_id.id)
+            print
+            "--------------------" + str(purchase_order_id.id)
 
     def update_stock_picking(self):
         for line in self.order_line:
@@ -278,13 +284,15 @@ class purchase_order(models.Model):
                 move_id.price_unit = line.price_discount or line.price_unit * (1 - (line.discount or 0.0) / 100.0)
                 for quant_id in move_id.quant_ids:
                     quant_id.cost = line.price_discount or line.price_unit * (1 - (line.discount or 0.0) / 100.0)
-                move_id.quant_ids.with_context({'update_account_move_wh_in':False}).get_account_for_move(move_id)
+                move_id.quant_ids.with_context({'update_account_move_wh_in': False}).get_account_for_move(move_id)
                 stock_cus_location = self.env.ref('stock.stock_location_customers').id
-                quant_purchase_ids = move_id.quant_ids.filtered(lambda q:q.location_id.id == stock_cus_location)
+                quant_purchase_ids = move_id.quant_ids.filtered(lambda q: q.location_id.id == stock_cus_location)
                 for quant_purchase_id in quant_purchase_ids:
-                    account_move_sale_ids = quant_purchase_id.history_ids.filtered(lambda ac:'WH/OUT' in ac.picking_id.name)
+                    account_move_sale_ids = quant_purchase_id.history_ids.filtered(
+                        lambda ac: 'WH/OUT' in ac.picking_id.name)
                     for account_move_sale in account_move_sale_ids:
-                        account_move_sale.quant_ids.with_context({'update_account_move_wh_out':False}).get_account_for_move(account_move_sale)
+                        account_move_sale.quant_ids.with_context(
+                            {'update_account_move_wh_out': False}).get_account_for_move(account_move_sale)
 
     @api.multi
     def update_stock_picking_po(self):
@@ -351,21 +359,29 @@ class purchase_order(models.Model):
         for purchase_order_id in purchase_order_ids:
             for invoice_id in purchase_order_id.invoice_ids:
                 if invoice_id.state == 'draft':
-                    print "----------------" + str(purchase_order_id.id)
+                    print
+                    "----------------" + str(purchase_order_id.id)
                 if invoice_id.state == 'open':
-                    if invoice_id.move_id and datetime.strptime(purchase_order_id.date_order,DEFAULT_SERVER_DATETIME_FORMAT).date() != datetime.strptime(invoice_id.move_id.date,DEFAULT_SERVER_DATE_FORMAT).date():
+                    if invoice_id.move_id and datetime.strptime(purchase_order_id.date_order,
+                                                                DEFAULT_SERVER_DATETIME_FORMAT).date() != datetime.strptime(
+                            invoice_id.move_id.date, DEFAULT_SERVER_DATE_FORMAT).date():
                         self._cr.execute("""UPDATE account_move SET date='%s' WHERE id=%s""" % (
-                        datetime.strptime(purchase_order_id.date_order, DEFAULT_SERVER_DATETIME_FORMAT).strftime(
-                            DEFAULT_SERVER_DATE_FORMAT)
-                        , invoice_id.move_id.id))
+                            datetime.strptime(purchase_order_id.date_order, DEFAULT_SERVER_DATETIME_FORMAT).strftime(
+                                DEFAULT_SERVER_DATE_FORMAT)
+                            , invoice_id.move_id.id))
                         for move_line in invoice_id.move_id.line_ids:
-                            self._cr.execute("""UPDATE account_move_line SET date='%s' WHERE id=%s""" % (datetime.strptime(purchase_order_id.date_order,DEFAULT_SERVER_DATETIME_FORMAT).strftime(DEFAULT_SERVER_DATE_FORMAT)
+                            self._cr.execute("""UPDATE account_move_line SET date='%s' WHERE id=%s""" % (
+                            datetime.strptime(purchase_order_id.date_order, DEFAULT_SERVER_DATETIME_FORMAT).strftime(
+                                DEFAULT_SERVER_DATE_FORMAT)
                             , move_line.id))
-                            print "----------------" + str(purchase_order_id.id)
-            if purchase_order_id.amount_total > 0 and purchase_order_id.invoice_ids and (purchase_order_id.amount_total != sum(purchase_order_id.invoice_ids.mapped('amount_total')) or any(
-                        product_id not in purchase_order_id.invoice_ids.mapped('invoice_line_ids').mapped('product_id')
-                        for product_id in purchase_order_id.order_line.mapped('product_id'))):
-                if purchase_order_id.invoice_ids and all(invoice.state in ['draft','open'] for invoice in purchase_order_id.invoice_ids):
+                            print
+                            "----------------" + str(purchase_order_id.id)
+            if purchase_order_id.amount_total > 0 and purchase_order_id.invoice_ids and (
+                    purchase_order_id.amount_total != sum(purchase_order_id.invoice_ids.mapped('amount_total')) or any(
+                    product_id not in purchase_order_id.invoice_ids.mapped('invoice_line_ids').mapped('product_id')
+                    for product_id in purchase_order_id.order_line.mapped('product_id'))):
+                if purchase_order_id.invoice_ids and all(
+                        invoice.state in ['draft', 'open'] for invoice in purchase_order_id.invoice_ids):
                     invoice_line_ids = purchase_order_id.invoice_ids.mapped('invoice_line_ids')
                     for invoice_line_id in invoice_line_ids:
                         purchase_line_id = invoice_line_id.purchase_line_id
@@ -374,7 +390,7 @@ class purchase_order(models.Model):
                                 'quantity': purchase_line_id.product_qty,
                                 'discount': purchase_line_id.discount,
                                 'price_unit': purchase_line_id.price_unit,
-                                'price_discount' : purchase_line_id.price_discount,
+                                'price_discount': purchase_line_id.price_discount,
                                 'invoice_line_tax_ids': [(6, 0, purchase_line_id.taxes_id.ids)],
                             })
                             invoice_line_id._compute_price()
@@ -393,7 +409,7 @@ class purchase_order(models.Model):
                         else:
                             new_lines = self.env['account.invoice.line']
                             for line in (
-                                purchase_order_id.order_line - invoice_line_ids.mapped('purchase_line_id')):
+                                    purchase_order_id.order_line - invoice_line_ids.mapped('purchase_line_id')):
                                 account_id = self.env['account.account'].search([('code', '=', '3388')],
                                                                                 limit=1).id or False
                                 if line.product_id or line.quantity != 0:
@@ -426,15 +442,17 @@ class purchase_order(models.Model):
                     move_line_data = invoice_id.get_move_line_from_inv()
                     for line_data in move_line_data:
                         line_data = line_data[2]
-                        move_line_change = (invoice_id.move_id.mapped('line_ids') - move_line).filtered(lambda mvl: mvl.product_id.id == line_data.get('product_id',False)
-                         and mvl.account_id.id == line_data.get('account_id',False))
+                        move_line_change = (invoice_id.move_id.mapped('line_ids') - move_line).filtered(
+                            lambda mvl: mvl.product_id.id == line_data.get('product_id', False)
+                                        and mvl.account_id.id == line_data.get('account_id', False))
                         if move_line_change:
                             for line in move_line_change:
                                 if line.id not in line_not_ext.ids:
                                     line_not_ext += line
-                                if line.credit != line_data.get('credit',0) or line.debit != line_data.get('debit', 0):
+                                if line.credit != line_data.get('credit', 0) or line.debit != line_data.get('debit', 0):
                                     self._cr.execute("""UPDATE account_move_line SET credit=%s, debit=%s
-                                                    WHERE id=%s"""%(line_data.get('credit', 0) or 0, line_data.get('debit', 0) or 0, line.id))
+                                                    WHERE id=%s""" % (
+                                    line_data.get('credit', 0) or 0, line_data.get('debit', 0) or 0, line.id))
                                     self._cr.commit()
                                     move_line += line
                                     line.update_open_amount_residual()
@@ -442,10 +460,14 @@ class purchase_order(models.Model):
                         else:
                             script = """INSERT INTO account_move_line (name, invoice_id, tax_line_id, credit,product_uom_id,currency_id,product_id,debit
                                                       ,amount_currency,quantity,partner_id,account_id,move_id,date_maturity)
-                                                             VALUES ('%s',%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'%s')"""%(line_data['name'],
-                                line_data['invoice_id'],line_data['tax_line_id'] or 'NULL',line_data['credit'] or 0,line_data['product_uom_id'] or 'NULL',line_data['currency_id'] or 'NULL',line_data['product_id'] or 'NULL',
-                                        line_data['debit'] or 0,line_data['amount_currency'] or 0,line_data['quantity'] or 0,
-                                        line_data['partner_id'],line_data['account_id'],invoice_id.move_id.id,fields.Date.context_today(self))
+                                                             VALUES ('%s',%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'%s')""" % (
+                            line_data['name'],
+                            line_data['invoice_id'], line_data['tax_line_id'] or 'NULL', line_data['credit'] or 0,
+                            line_data['product_uom_id'] or 'NULL', line_data['currency_id'] or 'NULL',
+                            line_data['product_id'] or 'NULL',
+                            line_data['debit'] or 0, line_data['amount_currency'] or 0, line_data['quantity'] or 0,
+                            line_data['partner_id'], line_data['account_id'], invoice_id.move_id.id,
+                            fields.Date.context_today(self))
                             self._cr.execute(script)
                             self._cr.commit()
                     for line_remove in (invoice_id.move_id.mapped('line_ids') - line_not_ext):
@@ -453,16 +475,17 @@ class purchase_order(models.Model):
                     if invoice_id.payments_widget == 'false':
                         invoice_id.residual = invoice_id.amount_total
                     else:
-                        raise UserError("Bạn không thể cập nhật hoá đơn đã thanh toán một phần: %s từ đơn hàng %s"%(invoice_id.number,purchase_order_id.name))
+                        raise UserError("Bạn không thể cập nhật hoá đơn đã thanh toán một phần: %s từ đơn hàng %s" % (
+                        invoice_id.number, purchase_order_id.name))
 
     @api.multi
     def multi_create_account_invoice(self):
         ids = self.env.context.get('active_ids', [])
         purchase_order_ids = self.browse(ids)
         for purchase_order_id in purchase_order_ids:
-            if not purchase_order_id.invoice_ids.filtered(lambda inv:inv.state != 'cancel') and purchase_order_id.amount_total != 0:
+            if not purchase_order_id.invoice_ids.filtered(
+                    lambda inv: inv.state != 'cancel') and purchase_order_id.amount_total != 0:
                 purchase_order_id.create_invoice_show_view()
-
 
     @api.depends('picking_ids')
     def _compute_delivery_status(self):
@@ -470,7 +493,8 @@ class purchase_order(models.Model):
             if len(record.picking_ids) == 1:
                 record.delivery_status = record.picking_ids.state
             elif len(record.picking_ids) > 1:
-                record.delivery_status = record.picking_ids.filtered(lambda t: t.state != 'done')[0].state if record.picking_ids.filtered(lambda t: t.state != 'done') else 'done'
+                record.delivery_status = record.picking_ids.filtered(lambda t: t.state != 'done')[
+                    0].state if record.picking_ids.filtered(lambda t: t.state != 'done') else 'done'
 
     def bt_action_create_invoice(self):
         journal_domain = [
@@ -480,28 +504,28 @@ class purchase_order(models.Model):
         ]
         default_journal_id = self.env['account.journal'].search(journal_domain, limit=1)
         data_invoice = {
-            'partner_id' : self.partner_id.id,
-            'type'       : 'in_invoice',
+            'partner_id': self.partner_id.id,
+            'type': 'in_invoice',
             'purchase_id': self.id,
-            'origin'     : self.name,
-            'date_invoice':self.date_order,
+            'origin': self.name,
+            'date_invoice': self.date_order,
             'date_due': self.date_order,
             'date': self.date_order,
         }
         if default_journal_id:
             data_invoice.update({
-                'journal_id' :  default_journal_id.id,
+                'journal_id': default_journal_id.id,
             })
         invoice_id = self.env['account.invoice'].create(data_invoice)
         invoice_id.purchase_order_change()
         invoice_id._onchange_invoice_line_ids()
-        self.invoice_ids = [(4,invoice_id.id)]
+        self.invoice_ids = [(4, invoice_id.id)]
         self.invoice_ids.filtered(lambda x: x.state == 'draft').action_invoice_open()
 
     def create_invoice_show_view(self):
         if self.amount_total == 0:
             raise UserError("Bạn không thể hoá đơn khi Tổng bằng 0")
-        if not self.invoice_ids.filtered(lambda inv:inv.state != 'cancel'):
+        if not self.invoice_ids.filtered(lambda inv: inv.state != 'cancel'):
             self.bt_action_create_invoice()
             # result = self.action_view_invoice()
             # return result
@@ -582,7 +606,8 @@ class purchase_order(models.Model):
         worksheet.merge_range('A5:F5', 'Người bán:', body_bold_color)
         worksheet.merge_range('A6:F6', 'Tên nhà cung cấp: %s' % (self.partner_id.name), body_bold_color)
         worksheet.merge_range('A7:F7', 'Địa chỉ: %s' % (self.partner_id.street), body_bold_color)
-        worksheet.merge_range('A8:F8', 'Diễn giải: %s' % (self.notes or ("Mua hàng %s" %(self.partner_id.name,)),), body_bold_color)
+        worksheet.merge_range('A8:F8', 'Diễn giải: %s' % (self.notes or ("Mua hàng %s" % (self.partner_id.name,)),),
+                              body_bold_color)
         worksheet.merge_range('A9:F9', 'Điện thoại: %s' % (self.partner_id.phone or ""), body_bold_color)
 
         worksheet.write(4, 6, 'Số: %s' % (self.name), body_bold_color)
@@ -705,15 +730,17 @@ class purchase_order(models.Model):
                 row_error = []
                 for row_no in range(sheet.nrows):
                     if row_no > 0:
-                        row = (map(lambda row: isinstance(row.value, unicode) and row.value.encode('utf-8') or str(row.value), sheet.row(row_no)))
+                        row = (map(
+                            lambda row: isinstance(row.value, unicode) and row.value.encode('utf-8') or str(row.value),
+                            sheet.row(row_no)))
                         if len(row) >= 5:
                             product = self.env['product.product'].search([
                                 '|', ('default_code', '=', row[0].strip()),
                                 ('barcode', '=', row[0].strip())
                             ], limit=1)
-                            if not product or float(row[4]) < 0 or int(float(row[3]))< 0:
+                            if not product or float(row[4]) < 0 or int(float(row[3])) < 0:
                                 row_error.append({
-                                    'default_code' : row[0],
+                                    'default_code': row[0],
                                     'price': row[4],
                                     'qty': row[3],
                                 })
@@ -726,14 +753,15 @@ class purchase_order(models.Model):
                         'view_mode': 'form',
                         'target': 'new',
                         'context': {
-                            'data' : row_error,
+                            'data': row_error,
                         }
                     }
 
                 else:
                     for row_no in range(sheet.nrows):
                         row = (
-                        map(lambda row: isinstance(row.value, unicode) and row.value.encode('utf-8') or str(row.value), sheet.row(row_no)))
+                            map(lambda row: isinstance(row.value, unicode) and row.value.encode('utf-8') or str(
+                                row.value), sheet.row(row_no)))
                         if len(row) >= 5:
                             product = self.env['product.product'].search([
                                 '|', ('default_code', '=', row[0].strip()),
@@ -766,13 +794,14 @@ class purchase_order(models.Model):
         worksheet.set_column('D:D', 10)
         worksheet.set_column('E:E', 15)
 
-        header_bold_color = workbook.add_format({'bold': True, 'font_size': '11', 'align': 'center', 'valign': 'vcenter'})
+        header_bold_color = workbook.add_format(
+            {'bold': True, 'font_size': '11', 'align': 'center', 'valign': 'vcenter'})
         header_bold_color.set_text_wrap(1)
         body_bold_color = workbook.add_format({'bold': False, 'font_size': '11', 'align': 'left', 'valign': 'vcenter'})
         # body_bold_color_number = workbook.add_format({'bold': False, 'font_size': '14', 'align': 'right', 'valign': 'vcenter'})
         # body_bold_color_number.set_num_format('#,##0')
         row = 0
-        summary_header = ['Mã nội bộ', 'Miêu tả','Đơn vị','SL đặt','Giá đã CK']
+        summary_header = ['Mã nội bộ', 'Miêu tả', 'Đơn vị', 'SL đặt', 'Giá đã CK']
 
         [worksheet.write(row, header_cell, unicode(summary_header[header_cell], "utf-8"), header_bold_color) for
          header_cell in range(0, len(summary_header)) if summary_header[header_cell]]
@@ -790,8 +819,8 @@ class purchase_order(models.Model):
         result = base64.b64encode(output.read())
         attachment_obj = self.env['ir.attachment']
         attachment_id = attachment_obj.create({
-            'name': '%s.xlsx'%(self.name),
-            'datas_fname': '%s.xlsx'%(self.name),
+            'name': '%s.xlsx' % (self.name),
+            'datas_fname': '%s.xlsx' % (self.name),
             'datas': result
         })
         download_url = '/web/content/' + str(attachment_id.id) + '?download=True'
@@ -818,7 +847,7 @@ class purchase_order(models.Model):
                 name_sub = date_order.strftime("/%m%y")
                 self.env.cr.execute(
                     "select name from purchase_order where name LIKE '%s' and name LIKE '%s' ORDER BY name DESC" % (
-                    "%" + name_sub, "PO%"))
+                        "%" + name_sub, "PO%"))
                 res_trans = self.env.cr.fetchall()
                 if res_trans and res_trans[0]:
                     int_name = int(res_trans[0][0].split('PO')[1].split(name_sub)[0]) + 1

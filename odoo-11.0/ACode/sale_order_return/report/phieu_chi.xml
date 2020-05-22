@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_phieuchi">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-family: Arial;font-size: 12px;">
+                        <!--                        #tieu de-->
+                        <div class="row" align="center">
+                            <strong>
+                                <span style="font-size:18px">PHIẾU CHI</span>
+                            </strong>
+                            <br/>
+                            <span t-if="doc.confirmation_date">
+                                <strong>
+                                    <i>
+                                        <span t-esc="datetime.datetime.strptime(doc.confirmation_date,'%Y-%m-%d %H:%M:%S').strftime('Ngày %d tháng %m năm %Y')"/>
+                                    </i>
+                                </strong>
+                            </span>
+                        </div>
+
+                        <!--                        #phan thong tin KH-->
+                        <div class="row" style="line-height: 14px;">
+                            <div class="col-xs-7">
+                                <span>
+                                    <span>Họ tên người nhận tiền:
+                                        <span style="border-bottom-style: dotted"/>
+                                        <span t-esc="doc.partner_id.name"/>
+                                    </span>
+                                </span>
+                                <br/>
+                                <span>
+                                    <span>Địa chỉ:
+                                        <span style="border-bottom-style: dotted"/>
+                                    </span>
+                                    <span style="font-size:12px;line-height:40px">
+                                        <t>
+                                            <t t-if="doc.partner_id.zip">
+                                                <t t-esc="doc.partner_id.zip"/>-
+                                            </t>
+                                            <t t-if="doc.partner_id.city">
+                                                <t t-esc="doc.partner_id.city"/>-
+                                            </t>
+                                            <t t-if="doc.partner_id.street2">
+                                                <t t-esc="doc.partner_id.street2"/>-
+                                            </t>
+                                            <t t-if="doc.partner_id.street">
+                                                <t t-esc="doc.partner_id.street"/>-
+                                            </t>
+                                        </t>
+                                    </span>
+                                </span>
+                                <br/>
+                                <span>
+                                    <span>Lý do nộp:
+                                        <span style="border-bottom-style: dotted"/>
+                                        <span t-esc="doc.reason_cancel.name"/>
+                                    </span>
+                                </span>
+                                <br/>
+                                <br/>
+                                <span>
+                                    <span>Số tiền:
+                                        <span style="border-bottom-style: dotted"/>
+                                        <span t-field="doc.amount_total"/>
+                                    </span>
+                                </span>
+                                <br/>
+                                <br/>
+                                <span>
+                                    <span>Bằng chữ:
+                                        <span style="border-bottom-style: dotted"/>
+                                        <t t-esc="doc.total_text"/>
+                                        đồng.
+                                    </span>
+                                </span>
+                                <br/>
+                                <br/>
+                                <span>
+                                    <span>Kèm theo:.........
+                                        <span style="border-bottom-style: dotted"/>
+                                        Chừng từ gốc.
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="col-xs-3">
+                            </div>
+                            <div class="col-xs-2">
+                                <span>
+                                    <span>Quyển sổ: 01</span>
+                                    <t/>
+                                </span>
+                                <br/>
+                                <span>
+                                    <span>Số đơn:</span>
+                                    <t t-esc="doc.name"/>
+                                </span>
+                                <br/>
+                                <span>
+                                    <span>Có: 111</span>
+                                    <t/>
+                                </span>
+                                <br/>
+                                <span>
+                                    <span>Nợ: 334</span>
+                                    <t/>
+                                </span>
+                                <br/>
+                            </div>
+                        </div>
+                        <!--                        #thong tin       -->
+                        <div class="row">
+                            <div class="col-xs-4" align="center">
+                            </div>
+                            <div class="col-xs-4" align="center">
+                            </div>
+                            <div class="col-xs-4" align="center">
+                                <span>Ngày.....tháng.....năm........</span>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row" name="total">
+                            <div class="col-xs-2" align="center">
+                                <span>
+                                    <strong>Giám đốc</strong>
+                                </span>
+                                <br/>
+                                <span>(Ký, họ tên, đóng dấu)</span>
+                            </div>
+                            <div class="col-xs-2" align="center">
+                                <span>
+                                    <strong>Kế toán trưởng</strong>
+                                </span>
+                                <br/>
+                                <span>(Ký, họ tên)</span>
+                            </div>
+                            <div class="col-xs-2" align="center">
+                                <span>
+                                    <strong>Thủ quỹ</strong>
+                                </span>
+                                <br/>
+                                <span>(Ký, họ tên)</span>
+                            </div>
+                            <div class="col-xs-2" align="center">
+                                <span>
+                                    <strong>Người lập phiếu</strong>
+                                </span>
+                                <br/>
+                                <span>(Ký, họ tên)</span>
+                            </div>
+                            <div class="col-xs-2" align="center">
+                                <span>
+                                    <strong>Người nhận tiền</strong>
+                                </span>
+                                <br/>
+                                <span>(Ký, họ tên)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--                        #thong tin khac       -->
+                    <div style="display: none;">
+                        <table>
+                            <tr class="border-black"/>
+                        </table>
+                    </div>
+                    <div class="row" style="margin-top:-15px">
+                        <div class="col-xs-12">
+                             <br/>
+                             <br/>
+                             <br/>
+                             <br/>
+                            <span>Đã nhận đủ số tiền(viết bằng chữ):</span>
+                            ............................................................................................
+                            <br/>
+                            <span>+Tỷ giá ngoại tệ(vàng bạc, đá quý:</span>
+                            ............................................................................................
+                            <br/>
+                            <span>+ Số tiền quy đổi:</span>
+                            ............................................................................................
+                            <br/>
+                            <span>(Liên gửi ra ngoài phải đóng dấu):</span>
+                            <br/>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
+

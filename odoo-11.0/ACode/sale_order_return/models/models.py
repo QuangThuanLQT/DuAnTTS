@@ -5,13 +5,12 @@ from odoo.exceptions import UserError, ValidationError
 import math
 
 
-
 class sale_order_return(models.Model):
     _name = 'sale.order.return'
 
     name = fields.Char(string='Reference return', readonly=True, required=True, copy=False, default='New')
     don_tra_hang = fields.Boolean(default=False)
-    partner_id = fields.Many2one('res.partner', string="Customer", readonly=True, copy=False)
+    partner_id = fields.Many2one('res.partner', string="Customer")
     # sale_order_return_ids = fields.Char(string="Sale Order")
     sale_order_return_ids = fields.Many2one('sale.order', string="Sale Order",
                                             domain="[('partner_id', '=', partner_id)]")
@@ -232,28 +231,36 @@ class sale_order_return(models.Model):
                 'amount_total': amount_untaxed + amount_tax
             })
 
-    class thong_tin_order_line(models.Model):
-        _name = 'order.line'
+    @api.multi
+    def name_get(self):
+        res = []
+        for record in self:
+            res.append((record.id, "%s - %s" % (record.name, record.partner_id.name)))
+        return res
 
-        order_line_id = fields.Many2one('sale.order.return')
-        product_id = fields.Many2one('product.product', string='Sản phẩm')
-        invoice_name = fields.Char(string='Tên Hoá Đơn')
-        product_uom_qty = fields.Float(string='Ordered Qty', default=1.0)
-        check_box_prinizi_confirm = fields.Boolean(default=False, string="Confirm Print")
-        print_qty = fields.Float(string='Print Qty', digits=(16, 0))
-        price_unit = fields.Float(string='Unit Price', default=0.0)
-        price_subtotal = fields.Float(string='Subtotal', compute='_compute_amount', default=0.0)
 
-        @api.onchange('product_uom_qty')
-        def onchange_product_uom_qty(self):
-            if self.product_uom_qty and self.order_line_id.sale_order_return_ids:
-                line_ids = self.order_line_id.sale_order_return_ids.order_line.filtered(
-                    lambda line: line.product_id == self.product_id)
-                if self.product_uom_qty > sum(line_ids.mapped('product_uom_qty')):
-                    raise ValidationError(_("Tổng số lượng sp %s trả lại không thể lớn hơn %s." % (
+class thong_tin_order_line(models.Model):
+    _name = 'order.line'
+
+    order_line_id = fields.Many2one('sale.order.return')
+    product_id = fields.Many2one('product.product', string='Sản phẩm')
+    invoice_name = fields.Char(string='Tên Hoá Đơn')
+    product_uom_qty = fields.Float(string='Ordered Qty', default=1.0)
+    check_box_prinizi_confirm = fields.Boolean(default=False, string="Confirm Print")
+    print_qty = fields.Float(string='Print Qty', digits=(16, 0))
+    price_unit = fields.Float(string='Unit Price', default=0.0)
+    price_subtotal = fields.Float(string='Subtotal', compute='_compute_amount', default=0.0)
+
+    @api.onchange('product_uom_qty')
+    def onchange_product_uom_qty(self):
+        if self.product_uom_qty and self.order_line_id.sale_order_return_ids:
+            line_ids = self.order_line_id.sale_order_return_ids.order_line.filtered(
+                lambda line: line.product_id == self.product_id)
+            if self.product_uom_qty > sum(line_ids.mapped('product_uom_qty')):
+                raise ValidationError(_("Tổng số lượng sp %s trả lại không thể lớn hơn %s." % (
                     line_ids.product_id.name, sum(line_ids.mapped('product_uom_qty')))))
 
-        @api.depends('price_unit', 'product_uom_qty', 'price_subtotal')
-        def _compute_amount(self):
-            for rec in self:
-                rec.price_subtotal = rec.price_unit * rec.product_uom_qty
+    @api.depends('price_unit', 'product_uom_qty', 'price_subtotal')
+    def _compute_amount(self):
+        for rec in self:
+            rec.price_subtotal = rec.price_unit * rec.product_uom_qty

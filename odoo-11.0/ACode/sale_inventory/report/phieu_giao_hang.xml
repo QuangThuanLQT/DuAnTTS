@@ -1,0 +1,133 @@
+<odoo>
+    <data>
+        <template id="report_giaohang">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                        <div class="page" style="font-family: Arial;font-size: 15px;line-height:25px">
+                            <div class="row" align="center">
+                                <strong>
+                                    <span style="font-size:22px">PHIẾU GIAO HÀNG</span>
+                                </strong>
+                            </div>
+                            <div>
+                                <br/>
+                                <span style="font-size:28px;line-height:40px">
+                                    <strong>Tên người nhận:</strong>
+                                </span>
+                                <span style="font-size:28px;line-height:40px">
+                                    1   <t t-esc="doc.partner_id.name"/>
+                                </span>
+                                <br/>
+                                <br/>
+                                <span style="font-size:28px">
+                                    <strong>SĐT người nhận:</strong>
+                                </span>
+                                <span style="font-size:28px">
+                                    <t>
+                                        <t t-esc="doc.partner_id.phone or doc.partner_id.mobile"/>
+                                    </t>
+                                </span>
+                                <br/>
+                                <br/>
+                                <span style="font-size:28px;line-height:40px">
+                                    <strong>NVKD:</strong>
+                                </span>
+                                <span style="font-size:28px;line-height:40px">
+                                    <t t-esc="doc.user_sale_id.name"/>
+                                </span>
+                                <br/>
+                                <br/>
+                                <span style="font-size:28px;line-height:40px">
+                                    <strong>SĐT NVKD:</strong>
+                                </span>
+                                <span style="font-size:28px;line-height:40px">
+                                    <t t-esc="doc.user_sale_id.phone"/>
+                                </span>
+                                <br/>
+                                <br/>
+                                <span style="font-size:28px">
+                                    <strong>Địa chỉ:</strong>
+                                </span>
+                                <span style="font-size:28px;line-height:40px">
+                                    <t>
+                                        <t t-if="doc.partner_id.zip">
+                                            <t t-esc="doc.partner_id.zip"/>-
+                                        </t>
+                                        <t t-if="doc.partner_id.city">
+                                            <t t-esc="doc.partner_id.city"/>-
+                                        </t>
+                                        <t t-if="doc.partner_id.street2">
+                                            <t t-esc="doc.partner_id.street2"/>-
+                                        </t>
+                                        <t t-if="doc.partner_id.street">
+                                            <t t-esc="doc.partner_id.street"/>-
+                                        </t>
+                                    </t>
+                                </span>
+                                <br/>
+                                <br/>
+                                <span>Đơn hàng:</span>
+                                <span>
+                                    <t t-esc="doc.sale_id.name"/>
+                                </span>
+                                <br/>
+                                <span>Ngày in phiếu:</span>
+                                <span>
+                                    <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y %H:%M')"/>
+                                </span>
+                                <br/>
+                                <span>Ngày giao:</span>
+                                <br/>
+                                <span>Phạm vi giao hàng:</span>
+                                <t>
+                                    <t t-if="doc.partner_id.delivery_scope_id">
+                                        <t t-esc="doc.partner_id.delivery_scope_id"/>
+                                    </t>
+                                </t>
+                                <br/>
+                                <span>Phương thức giao hàng:</span>
+                                <t>
+                                    <strong>
+                                        <t t-if="doc.partner_id.pt_giao_hang"
+                                           t-esc="dict(doc.partner_id.fields_get(allfields=['pt_giao_hang'])['pt_giao_hang']['selection'])[doc.partner_id.pt_giao_hang]"/>
+                                    </strong>
+                                </t>
+                                <br/>
+                                <br/>
+                                <span>Ghi chú:</span>
+                                <span>
+                                    <t t-esc="doc.picking_note"/>
+                                </span>
+                                <br/>
+                                <span style="font-size:17px;font-weight:bold">Số tiền phải thanh toán:</span>
+                                <t t-if="doc.sale_id and doc.sale_id.con_phai_thu != 0">
+                                    <span style="font-size:17px;font-weight:bold">
+                                        <t t-esc="'{:,}'.format(int(doc.sale_id.con_phai_thu)).replace(',', '.')"/>
+                                    </span>
+                                </t>
+                                <t t-else="1">
+                                    <span style="font-size:17px;font-weight:bold">KHÔNG THU TIỀN.</span>
+                                </t>
+                                <br/>
+                                <br/>
+                                <div class="col-xs-3" align="center">
+                                    <span>Người giao</span>
+                                    <br/>
+                                    <span>(ký và ghi rõ họ tên)</span>
+                                </div>
+                                <div class="col-xs-3" align="center">
+                                </div>
+                                <div class="col-xs-3" align="center">
+                                    <span>Người nhận</span>
+                                    <br/>
+                                    <span>(ký và ghi rõ họ tên)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

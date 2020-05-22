@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'sale', 'account'],
+    'depends': ['base', 'sale', 'account', 'product', 'stock'],
 
     # always loaded
     'data': [
@@ -34,6 +34,4 @@
     'demo': [
         'demo/demo.xml',
     ],
-    'installable': False,
-    'auto_install': True,
 }

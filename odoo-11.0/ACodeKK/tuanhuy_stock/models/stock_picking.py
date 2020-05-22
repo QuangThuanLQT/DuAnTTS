@@ -4,7 +4,7 @@
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 from datetime import datetime
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT,DEFAULT_SERVER_DATE_FORMAT
+from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT, DEFAULT_SERVER_DATE_FORMAT
 from odoo.tools.float_utils import float_compare
 
 
@@ -12,24 +12,28 @@ class ReturnPicking(models.Model):
     _inherit = 'stock.picking'
     _order = "id desc, date desc, priority desc"
 
-    need_to_confirm      = fields.Boolean(default=False, string='Xác nhận lại')
-    time_to_confirm      = fields.Datetime()
+    need_to_confirm = fields.Boolean(default=False, string='Xác nhận lại')
+    time_to_confirm = fields.Datetime()
     check_return_picking = fields.Boolean(default=False)
-    check_color_picking  = fields.Char(compute='_check_color_picking')
-    date_base_order      = fields.Date(string='Ngày theo đơn hàng', compute='_get_date_order')
+    check_color_picking = fields.Char(compute='_check_color_picking')
+    date_base_order = fields.Date(string='Ngày theo đơn hàng', compute='_get_date_order')
 
     @api.model
     def _cron_check_duplicate_quants(self):
-        so_return_ids = self.env['sale.order'].search([('sale_order_return','=',True),('sale_order_return_ids','!=',False)])
+        so_return_ids = self.env['sale.order'].search(
+            [('sale_order_return', '=', True), ('sale_order_return_ids', '!=', False)])
         for so_return in so_return_ids:
             picking_return = so_return.picking_ids.filtered(lambda p: p.state == 'done')
-            picking_so = so_return.mapped('sale_order_return_ids').mapped('picking_ids').filtered(lambda p: p.state == 'done')
+            picking_so = so_return.mapped('sale_order_return_ids').mapped('picking_ids').filtered(
+                lambda p: p.state == 'done')
             if len(picking_return) == 1:
                 for picking_return_mvl in picking_return.move_lines:
                     for picking_so_mvl in picking_so.mapped('move_lines'):
                         if picking_return_mvl.product_id == picking_so_mvl.product_id and picking_return_mvl.product_uom_qty == picking_so_mvl.product_uom_qty:
-                            if float_compare(sum(picking_return_mvl.quant_ids.mapped('inventory_value')), sum(picking_so_mvl.quant_ids.mapped('inventory_value')),0) != 0:
-                                print "----- SO: %s - %s - sp: %s" %(so_return.id, so_return.name, picking_return_mvl.name)
+                            if float_compare(sum(picking_return_mvl.quant_ids.mapped('inventory_value')),
+                                             sum(picking_so_mvl.quant_ids.mapped('inventory_value')), 0) != 0:
+                                print
+                                "----- SO: %s - %s - sp: %s" % (so_return.id, so_return.name, picking_return_mvl.name)
                         # if picking_return_mvl.product_id == picking_so_mvl.product_id and picking_return_mvl.product_uom_qty != picking_so_mvl.product_uom_qty:
                         #     picking_return_amount = sum(picking_return_mvl.quant_ids.mapped('inventory_value')) / sum(picking_return_mvl.quant_ids.mapped('qty'))
                         #     picking_so_amount = sum(picking_so_mvl.quant_ids.mapped('inventory_value')) / sum(picking_so_mvl.quant_ids.mapped('qty'))
@@ -71,7 +75,8 @@ class ReturnPicking(models.Model):
         #         for line in st_id.move_lines:
         #             if not line.quant_ids:
         #                 print "-------name :%s - id :%s - sp :%s" % (so.name, so.id,line.product_id.name)
-        print "Done"
+        print
+        "Done"
 
         # picking_ids = self.env['stock.picking'].search([('state', '=', 'done')])
         # picking_error = []
@@ -144,7 +149,7 @@ class ReturnPicking(models.Model):
                 # Step 2: Cancel stock quant
                 for stock_move in picking.move_lines:
                     picking_need_reset = []
-                    quant_need_remove  = []
+                    quant_need_remove = []
 
                     # TODO: Reset stock quant
                     for stock_quant in stock_move.quant_ids:
@@ -155,13 +160,13 @@ class ReturnPicking(models.Model):
                             stock_quant.reservation_id.picking_id.do_unreserve()
 
                         current_location_id = stock_quant.location_id
-                        reset_move          = self.env['stock.move'].search([
+                        reset_move = self.env['stock.move'].search([
                             ('location_dest_id', '=', current_location_id.id),
                             ('id', 'in', stock_quant.history_ids.ids),
                             ('id', 'not in', reseted_move_ids),
                         ], order='date DESC', limit=1)
                         if not reset_move or not reset_move.id:
-                            raise UserError('Invalid stock quant: %s' %(stock_quant.id))
+                            raise UserError('Invalid stock quant: %s' % (stock_quant.id))
 
                         while reset_move.id != stock_move.id:
                             reseted_move_ids.append(reset_move.id)
@@ -169,7 +174,7 @@ class ReturnPicking(models.Model):
                                 picking_need_reset.append(reset_move.picking_id.id)
 
                             current_location_id = reset_move.location_id
-                            reset_move          = self.env['stock.move'].search([
+                            reset_move = self.env['stock.move'].search([
                                 ('location_dest_id', '=', current_location_id.id),
                                 ('id', 'in', stock_quant.history_ids.ids),
                                 ('id', 'not in', reseted_move_ids),
@@ -197,7 +202,8 @@ class ReturnPicking(models.Model):
                     if len(picking_need_reset) > 0:
                         self.browse(picking_need_reset).do_reset_stock_picking()
                         for picking_id in picking_need_reset:
-                            self.env.cr.execute("""UPDATE stock_picking SET need_to_confirm = TRUE WHERE id = %s""" % (picking_id,))
+                            self.env.cr.execute(
+                                """UPDATE stock_picking SET need_to_confirm = TRUE WHERE id = %s""" % (picking_id,))
 
                 query = "UPDATE stock_move SET state='assigned' WHERE picking_id = %s" % (picking.id,)
                 self.env.cr.execute(query)
@@ -301,7 +307,7 @@ class ReturnPicking(models.Model):
     @api.multi
     def multi_action_assign(self):
         ids = self.env.context.get('active_ids', [])
-        pickings = self.browse(ids).filtered(lambda r: r.state in ('confirmed', 'partially_available','assigned'))
+        pickings = self.browse(ids).filtered(lambda r: r.state in ('confirmed', 'partially_available', 'assigned'))
 
         if pickings and len(pickings) > 0:
             # Step1: Reset all stock picking
@@ -335,14 +341,15 @@ class ReturnPicking(models.Model):
         for stock_move_line in self.move_lines:
             quant_list = []
             for stock_quant_line in stock_move_line.quant_ids:
-                get_stock_move_sql = "SELECT move_id FROM public.stock_quant_move_rel WHERE quant_id = %s" % (stock_quant_line.id)
+                get_stock_move_sql = "SELECT move_id FROM public.stock_quant_move_rel WHERE quant_id = %s" % (
+                    stock_quant_line.id)
                 self.env.cr.execute(get_stock_move_sql)
                 get_stock_move_ids = self.env.cr.fetchall()
                 stock_move_list = []
                 for line in get_stock_move_ids:
                     if line[0] != stock_move_line.id:
                         stock_move_list.append(line[0])
-                stock_move_new_id = self.env['stock.move'].search([('id','in',stock_move_list)],limit=1)
+                stock_move_new_id = self.env['stock.move'].search([('id', 'in', stock_move_list)], limit=1)
                 for quant_line in stock_move_new_id.quant_ids:
                     if quant_line.location_id.id == 15:
                         quant_line.qty += stock_quant_line.qty
@@ -359,11 +366,12 @@ class ReturnPicking(models.Model):
         delete_stock_pack_operation_sql = "DELETE FROM stock_pack_operation WHERE picking_id = %s" % (self.id)
         self.env.cr.execute(delete_stock_pack_operation_sql)
 
-        account_move_ids = self.env['account.move'].search([('ref','=',self.name)])
+        account_move_ids = self.env['account.move'].search([('ref', '=', self.name)])
         if len(account_move_ids) > 1:
             raise UserError('Kiem tra lai')
         elif len(account_move_ids) == 1:
-            delete_account_move_line_sql = "DELETE FROM public.account_move_line WHERE move_id = %s" % (account_move_ids.id)
+            delete_account_move_line_sql = "DELETE FROM public.account_move_line WHERE move_id = %s" % (
+                account_move_ids.id)
             self.env.cr.execute(delete_account_move_line_sql)
             delete_account_move_sql = "DELETE FROM public.account_move WHERE id = %s" % (account_move_ids.id)
             self.env.cr.execute(delete_account_move_sql)
@@ -483,24 +491,24 @@ class ReturnPicking(models.Model):
     #         picking_type = self.env['stock.picking.type'].browse(self._context['active_id'])
     #     return res
 
-
     def check_stock_picking(self):
         check = False
         list_product = []
-        date = datetime.strftime(datetime.strptime(self.min_date, '%Y-%m-%d %H:%M:%S').date().replace(day=1), '%Y-%m-%d %H:%M:%S')
+        date = datetime.strftime(datetime.strptime(self.min_date, '%Y-%m-%d %H:%M:%S').date().replace(day=1),
+                                 '%Y-%m-%d %H:%M:%S')
         for line in self.move_lines:
             if line.product_id.id not in list_product:
                 list_product.append(line.product_id.id)
         for product in list_product:
             aml = self.env['stock.move'].search(
                 [('product_id', '=', product), ('location_id', '=', self.location_id.id),
-                 ('location_dest_id', '=', self.location_dest_id.id), ('state', '=', 'assigned'),('date_expected', '<', date)])
+                 ('location_dest_id', '=', self.location_dest_id.id), ('state', '=', 'assigned'),
+                 ('date_expected', '<', date)])
             if aml:
                 for picking in aml.mapped('picking_id'):
                     if picking.state == 'assigned':
                         check = True
         return check
-
 
     def conver_domain_multi_origin(self, domain, origin_multi):
         count_condition = 0
@@ -544,10 +552,11 @@ class ReturnPicking(models.Model):
             if 'origin' in do and 'ilike' in do:
                 origin_multi = do[2]
         if origin_multi and len(origin_multi.split()) > 1 and all(
-                        len(origin) > 12 for origin in origin_multi.split()):
+                len(origin) > 12 for origin in origin_multi.split()):
             domain_convert = self.conver_domain_multi_origin(domain, origin_multi)
             domain = domain_convert
-        res = super(ReturnPicking, self).search_read(domain=domain, fields=fields, offset=offset, limit=limit, order=order)
+        res = super(ReturnPicking, self).search_read(domain=domain, fields=fields, offset=offset, limit=limit,
+                                                     order=order)
         return res
 
     @api.model
@@ -557,13 +566,12 @@ class ReturnPicking(models.Model):
             if 'origin' in do and 'ilike' in do:
                 origin_multi = do[2]
         if origin_multi and len(origin_multi.split()) > 1 and all(
-                        len(origin) > 12 for origin in origin_multi.split()):
+                len(origin) > 12 for origin in origin_multi.split()):
             domain_convert = self.conver_domain_multi_origin(domain, origin_multi)
             domain = domain_convert
         res = super(ReturnPicking, self).read_group(domain, fields, groupby, offset=offset,
-                                                                                limit=limit, orderby=orderby, lazy=lazy)
+                                                    limit=limit, orderby=orderby, lazy=lazy)
         return res
-
 
 
 class account_invoice(models.Model):
@@ -603,6 +611,7 @@ class ReturnPicking_return(models.TransientModel):
     #     if picking_id:
     #         picking_id.check_return_picking = True
     #     return picking_id.id,picking_type_id
+
 
 class stock_move_inherit(models.Model):
     _inherit = "stock.move"

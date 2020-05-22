@@ -9,8 +9,10 @@ import StringIO
 import xlsxwriter
 
 import sys
+
 reload(sys)
 sys.setdefaultencoding('utf-8')
+
 
 class product_template_inherit(models.Model):
     _inherit = "product.template"
@@ -26,17 +28,21 @@ class product_template_inherit(models.Model):
                 product_id.barcode = None
                 product_id.fill_multi_barcode()
                 count += 1
-                print "------------%s" % (count)
+                print
+                "------------%s" % (count)
             if not product_id.default_code:
                 product_id.fill_multi_barcode()
                 count += 1
-                print "------------%s" % (count)
+                print
+                "------------%s" % (count)
+
 
 class import_purchase_order(models.Model):
     _name = 'import.product.template'
 
     import_data = fields.Binary(string="File Import")
-    update_group_sale = fields.Boolean(string="update group sale",help="Nhap nhom ban hang vao sp. Col 0: default_code, Col 3: Ten nhom")
+    update_group_sale = fields.Boolean(string="update group sale",
+                                       help="Nhap nhom ban hang vao sp. Col 0: default_code, Col 3: Ten nhom")
     update_product = fields.Boolean(string="update product")
     update_partner = fields.Boolean(string="update partner")
     update_unit_price = fields.Boolean(string="Update unit price")
@@ -83,18 +89,18 @@ class import_purchase_order(models.Model):
                 a = line[7].strip() and float(line[7].strip()) or 0
                 b = line[8].strip() and float(line[8].strip()) or 0
             except:
-                list_price_error.append(row_no+1)
+                list_price_error.append(row_no + 1)
             if list_price_error:
                 error_warning = "Lỗi định dạng giá tại các dòng: "
                 for error in list_price_error:
-                    error_warning += "%s ," %(error)
+                    error_warning += "%s ," % (error)
                 raise UserError(_(error_warning))
         self.import_by_cron = True
         self.row_next = 1
 
     @api.model
     def cron_import_by_cron(self):
-        import_product_ids = self.search([('import_by_cron','=',True)])
+        import_product_ids = self.search([('import_by_cron', '=', True)])
         for import_product_id in import_product_ids:
             try:
                 import_product_id.import_xls()
@@ -108,7 +114,7 @@ class import_purchase_order(models.Model):
         workbook = xlsxwriter.Workbook(output, {'in_memory': True})
         if self.update_unit_price:
             worksheet = workbook.add_worksheet(str('Cập nhật giá sp'))
-            worksheet.write(0, 0, str("Mã nội bộ") )
+            worksheet.write(0, 0, str("Mã nội bộ"))
             worksheet.write(0, 1, str("Giá"))
             worksheet.write(1, 0, "XXXXX")
             worksheet.write(1, 1, "00000")
@@ -184,13 +190,15 @@ class import_purchase_order(models.Model):
                     for row_no in range(sheet.nrows):
                         if row_no > 0:
                             line = (map(lambda row: isinstance(row.value, unicode) and row.value.encode('utf-8') or str(
-                                    row.value),sheet.row(row_no)))
+                                row.value), sheet.row(row_no)))
                             if line[0].strip():
-                                product_id = self.env['product.template'].search([('default_code', '=', line[0].strip())])
+                                product_id = self.env['product.template'].search(
+                                    [('default_code', '=', line[0].strip())])
                                 if product_id and line[1].strip():
                                     amount_tax = float(line[1].strip()) * 100
-                                    account_tax = self.env['account.tax'].search([('type_tax_use','=','sale'),('amount','=',amount_tax)])
-                                    product_id.taxes_id = [(6,0,account_tax.ids)]
+                                    account_tax = self.env['account.tax'].search(
+                                        [('type_tax_use', '=', 'sale'), ('amount', '=', amount_tax)])
+                                    product_id.taxes_id = [(6, 0, account_tax.ids)]
                     break
                 if record.update_unit_price:
                     data = base64.b64decode(record.import_data)
@@ -205,16 +213,16 @@ class import_purchase_order(models.Model):
                     worksheet.write(row_write, 1, "Mã hàng")
                     row_write += 1
 
-
                     for row_no in range(sheet.nrows):
                         if row_no == 0:
                             continue
                         line = (map(lambda row: isinstance(row.value, unicode) and row.value.encode('utf-8') or str(
-                                row.value),sheet.row(row_no)))
+                            row.value), sheet.row(row_no)))
                         product_id = self.env['product.template'].search([('default_code', '=', line[0].strip())])
                         if not product_id:
-                            print "product_not_found: %s - %s" % (row_no+1,line[0])
-                            worksheet.write(row_write, 0, row_no+1)
+                            print
+                            "product_not_found: %s - %s" % (row_no + 1, line[0])
+                            worksheet.write(row_write, 0, row_no + 1)
                             worksheet.write(row_write, 1, line[0])
                             row_write += 1
                         else:
@@ -268,21 +276,22 @@ class import_purchase_order(models.Model):
                             map(lambda row: isinstance(row.value, unicode) and row.value.encode('utf-8') or str(
                                 row.value),
                                 sheet.row(row_no)))
-                        partner_id = self.env['res.partner'].search(['|',('name','=',row[1]),('name','=',row[1].strip())])
+                        partner_id = self.env['res.partner'].search(
+                            ['|', ('name', '=', row[1]), ('name', '=', row[1].strip())])
                         if partner_id:
                             group_partner_1 = False
                             group_partner_2 = False
                             if row[4]:
-                                group_partner_1 = self.env['partner.group.hk1'].search([('name','=',row[4].strip())])
+                                group_partner_1 = self.env['partner.group.hk1'].search([('name', '=', row[4].strip())])
                                 if not group_partner_1:
                                     group_partner_1 = self.env['partner.group.hk1'].create({
-                                        'name' : row[4].strip()
+                                        'name': row[4].strip()
                                     })
                             if row[5]:
-                                group_partner_2 = self.env['partner.group.hk2'].search([('name','=',row[5].strip())])
+                                group_partner_2 = self.env['partner.group.hk2'].search([('name', '=', row[5].strip())])
                                 if not group_partner_2:
                                     group_partner_2 = self.env['partner.group.hk2'].create({
-                                        'name' : row[5].strip()
+                                        'name': row[5].strip()
                                     })
                             for partner in partner_id:
                                 if group_partner_1:
@@ -290,7 +299,8 @@ class import_purchase_order(models.Model):
                                 if group_partner_2:
                                     partner.group_kh2_id = group_partner_2
                         else:
-                            print "Khach hang khong tim thay: %s"%(row[1])
+                            print
+                            "Khach hang khong tim thay: %s" % (row[1])
                 else:
                     if not record.update_group_sale:
                         data = base64.b64decode(record.import_data)
@@ -309,10 +319,11 @@ class import_purchase_order(models.Model):
                                     record.import_by_cron = False
                                     break
                             else:
-                                if row_no == 0 :
+                                if row_no == 0:
                                     continue
                             row = (
-                                map(lambda row: isinstance(row.value, unicode) and row.value.encode('utf-8') or str(row.value),
+                                map(lambda row: isinstance(row.value, unicode) and row.value.encode('utf-8') or str(
+                                    row.value),
                                     sheet.row(row_no)))
 
                             product_model = self.env['product.template']
@@ -326,17 +337,17 @@ class import_purchase_order(models.Model):
                             purchase_code = row[4].strip()
                             brand = row[5].strip()
                             if brand:
-                                brand = self.env['brand.name'].search([('name','=',brand)], limit=1).id
+                                brand = self.env['brand.name'].search([('name', '=', brand)], limit=1).id
                                 if not brand:
                                     brand = self.env['brand.name'].create({
-                                        'name' : brand,
+                                        'name': brand,
                                     }).id
                             source = row[6].strip()
                             if source:
-                                source = self.env['source.name'].search([('name','=',source)], limit=1).id
+                                source = self.env['source.name'].search([('name', '=', source)], limit=1).id
                                 if not source:
                                     source = self.env['source.name'].create({
-                                        'name' : source,
+                                        'name': source,
                                     }).id
                             made_in = ''
                             listed_price = row[7].strip() and float(row[7].strip()) or 0
@@ -344,23 +355,26 @@ class import_purchase_order(models.Model):
                             group_product = row[9].strip()
                             group_id = False
                             if group_product:
-                                group_id = self.env['product.group'].search([('name','=',group_product)], limit=1).id
+                                group_id = self.env['product.group'].search([('name', '=', group_product)], limit=1).id
                                 if not group_id:
                                     group_id = self.env['product.group'].create({
-                                        'name' : group_product,
+                                        'name': group_product,
                                     }).id
-                                    print "Create group: %s" % (group_product,)
+                                    print
+                                    "Create group: %s" % (group_product,)
                             group_sale = row[10].strip()
                             group_sale_id = False
                             if group_sale:
-                                group_sale_id = self.env['product.group.sale'].search([('name','=',group_sale)], limit=1).id
+                                group_sale_id = self.env['product.group.sale'].search([('name', '=', group_sale)],
+                                                                                      limit=1).id
                                 if not group_sale_id:
                                     group_sale_id = self.env['product.group.sale'].create({
-                                        'name' : group_sale,
+                                        'name': group_sale,
                                     }).id
-                                    print "Create group sale: %s" % (group_sale_id,)
+                                    print
+                                    "Create group sale: %s" % (group_sale_id,)
                             if default_code:
-                                product_id = product_model.search([('default_code','=',default_code)])
+                                product_id = product_model.search([('default_code', '=', default_code)])
                                 productinf = {
                                     'name': name,
                                     'default_code': default_code,
@@ -369,9 +383,9 @@ class import_purchase_order(models.Model):
                                     'purchase_code': purchase_code,
                                     'brand_name_select': brand if brand else False,
                                     'source_select': source if source else False,
-                                    'group_id' : group_id,
+                                    'group_id': group_id,
                                     'group_sale_id': group_sale_id,
-                                    'invoice_policy' : 'delivery' ,
+                                    'invoice_policy': 'delivery',
                                 }
                                 if uom_id:
                                     productinf.update({
@@ -387,15 +401,18 @@ class import_purchase_order(models.Model):
                                         continue
                                     else:
                                         product_id.write(productinf)
-                                        print "Update-----: %s" % (row_no + 1,)
+                                        print
+                                        "Update-----: %s" % (row_no + 1,)
                                         continue
                                 product = product_model.create(productinf)
                                 if not product.barcode:
                                     barcode = self.env['ir.sequence'].next_by_code('product.template.barcode') or '/'
                                     product.barcode = barcode
-                                print "Row---------------------------: %s" % (row_no + 1,)
+                                print
+                                "Row---------------------------: %s" % (row_no + 1,)
                             else:
-                                print "Row+++++++++++++++++++++++++++: %s" % (row_no + 1,)
+                                print
+                                "Row+++++++++++++++++++++++++++: %s" % (row_no + 1,)
                     else:
                         data = base64.b64decode(record.import_data)
                         wb = open_workbook(file_contents=data)
@@ -405,21 +422,26 @@ class import_purchase_order(models.Model):
                             if row_no == 0:
                                 continue
                             line = (map(lambda row: isinstance(row.value, unicode) and row.value.encode('utf-8') or str(
-                                    row.value),sheet.row(row_no)))
+                                row.value), sheet.row(row_no)))
                             if line[1] and line[0]:
-                                product_id = self.env['product.template'].search([('default_code','=',line[0].strip())])
-                                product_group_sale_id = self.env['product.group.sale'].search([('name','=',line[1].strip())])
+                                product_id = self.env['product.template'].search(
+                                    [('default_code', '=', line[0].strip())])
+                                product_group_sale_id = self.env['product.group.sale'].search(
+                                    [('name', '=', line[1].strip())])
                                 if not product_group_sale_id:
                                     product_group_sale_id = self.env['product.group.sale'].create({
                                         'name': line[1].strip()
                                     })
-                                    print "-----Tao nhom sp sale: %s" % (line[1])
+                                    print
+                                    "-----Tao nhom sp sale: %s" % (line[1])
                                 if product_id and product_group_sale_id:
                                     product_id.group_sale_id = product_group_sale_id
                                 if not product_id:
-                                    print "Khong tim thay sp: %s - %s"%(line[0],row_no)
+                                    print
+                                    "Khong tim thay sp: %s - %s" % (line[0], row_no)
 
             else:
-                product_template_ids = self.env['product.template'].search([]).filtered(lambda pr: pr.barcode and '.0' in pr.barcode)
+                product_template_ids = self.env['product.template'].search([]).filtered(
+                    lambda pr: pr.barcode and '.0' in pr.barcode)
                 for product_id in product_template_ids:
                     product_id.barcode = product_id.barcode.split('.0')[0]

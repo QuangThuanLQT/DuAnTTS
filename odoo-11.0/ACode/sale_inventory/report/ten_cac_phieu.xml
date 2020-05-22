@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+            id="action_report_layhang"
+            string="Phiếu lấy hàng"
+            model="stock.picking"
+            report_type="qweb-pdf"
+            file="sale_inventory.report_layhang"
+            name="sale_inventory.report_layhang"
+        />
+
+        <report
+            id="action_report_kiemhang"
+            string="Phiếu kiểm hàng"
+            model="stock.picking"
+            report_type="qweb-pdf"
+            file="sale_inventory.report_kiemhang"
+            name="sale_inventory.report_kiemhang"
+        />
+
+        <report
+            id="action_report_giaohang"
+            string="Phiếu giao hàng"
+            model="stock.picking"
+            report_type="qweb-pdf"
+            file="sale_inventory.report_giaohang"
+            name="sale_inventory.report_giaohang"
+        />
+
+        <report
+            id="action_report_nhanhang"
+            string="Phiếu nhận hàng"
+            model="stock.picking"
+            report_type="qweb-pdf"
+            file="sale_inventory.report_nhanhang"
+            name="sale_inventory.report_nhanhang"
+        />
+
+    </data>
+</odoo>

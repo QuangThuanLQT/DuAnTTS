@@ -23,7 +23,7 @@ class sale_customers(models.Model):
     transport_route_id = fields.Many2one('tuyen.xe', string='Tuyến xe')
     delivery_scope_id = fields.Many2one('pham.vi.giao.hang', string='Phạm vi giao hàng')
 
-    #Sale
+    # Sale
     property_payment_term_id = fields.Many2one('account.payment.term', company_dependent=True,
                                                string='Customer Payment Terms',
                                                help="This payment term will be used instead of the default one for sale orders and customer invoices",
@@ -32,7 +32,7 @@ class sale_customers(models.Model):
                              string='Total Receivable', help="Total amount this customer owes you.")
     trust = fields.Selection([('good', 'Good Debtor'), ('normal', 'Normal Debtor'), ('bad', 'Bad Debtor')],
                              string='Degree of trust you have in this debtor', default='normal', company_dependent=True)
-    #Purchase
+    # Purchase
     property_supplier_payment_term_id = fields.Many2one('account.payment.term', company_dependent=True,
                                                         string='Vendor Payment Terms',
                                                         help="This payment term will be used instead of the default one for purchase orders and vendor bills",
@@ -41,12 +41,12 @@ class sale_customers(models.Model):
                             help="Total amount you have to pay to this vendor.")
     currency_id = fields.Many2one('res.currency', compute='_get_company_currency', readonly=True,
                                   string="Currency", help='Utility field to express amount currency')
-    #Fiscal Information
+    # Fiscal Information
     property_account_position_id = fields.Many2one('account.fiscal.position', company_dependent=True,
                                                    string="Fiscal Position",
                                                    help="The fiscal position will determine taxes and accounts used for the partner.",
                                                    oldname="property_account_position")
-    #Accounting Entries
+    # Accounting Entries
     property_account_receivable_id = fields.Many2one('account.account', company_dependent=True,
                                                      string="Account Receivable", oldname="property_account_receivable",
                                                      domain="[('internal_type', '=', 'receivable'), ('deprecated', '=', False)]",
@@ -58,11 +58,21 @@ class sale_customers(models.Model):
                                                   help="This account will be used instead of the default one as the payable account for the current partner",
                                                   required=True)
 
-
-
     @api.model
     def create(self, vals):
         if vals.get('ref', 'New') == 'New':
             vals['ref'] = self.env['ir.sequence'].next_by_code('res.partner') or 'New'
         result = super(sale_customers, self).create(vals)
         return result
+
+
+    # thêm makh sau tên cho khách hàng
+    @api.multi
+    def name_get(self):
+        res = []
+        for record in self:
+            if record.ref:
+                res.append((record.id, "%s - %s" % (record.ref, record.name)))
+            else:
+                res.append((record.id, "%s" % (record.name)))
+        return res

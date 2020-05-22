@@ -23,7 +23,7 @@ class import_cong_no(models.TransientModel):
     import_data = fields.Binary(string="File Import")
     file_name = fields.Char()
     name = fields.Text(string="Notes")
-    check_import = fields.Boolean('Allow import',default=False)
+    check_import = fields.Boolean('Allow import', default=False)
 
     @api.multi
     def check_import_file(self):
@@ -32,16 +32,17 @@ class import_cong_no(models.TransientModel):
             wb = open_workbook(file_contents=data)
             sheet = wb.sheet_by_index(0)
             data_list = {
-                'product_not_find' : [],
-                'price_not_sync'   : [],
+                'product_not_find': [],
+                'price_not_sync': [],
                 'customer_not_find': [],
             }
 
             for row_no in range(sheet.nrows):
                 if row_no >= 1:
-                    line = (map(lambda row: isinstance(row.value, unicode) and row.value.encode('utf-8') or str(row.value),
-                        sheet.row(row_no)))
-                    partner_id = self.env['res.partner'].search([('name', '=', line[0].strip())],limit=1)
+                    line = (
+                        map(lambda row: isinstance(row.value, unicode) and row.value.encode('utf-8') or str(row.value),
+                            sheet.row(row_no)))
+                    partner_id = self.env['res.partner'].search([('name', '=', line[0].strip())], limit=1)
                     if not partner_id:
                         debit = float(line[2])
                         credit = float(line[3])
@@ -63,7 +64,7 @@ class import_cong_no(models.TransientModel):
                     'import_data': record.import_data,
                     'name_action': "import.cong.no",
                     'name_model': "import.cong.no",
-                    'name'      : self.name,
+                    'name': self.name,
                 }
             }
 
@@ -75,8 +76,6 @@ class import_cong_no(models.TransientModel):
             res['name'] = self._context.get('name')
         return res
 
-
-
     @api.multi
     def import_xls(self):
         for record in self:
@@ -85,12 +84,13 @@ class import_cong_no(models.TransientModel):
                 wb = open_workbook(file_contents=data)
                 sheet = wb.sheet_by_index(0)
 
-                journal_id = self.env['account.journal'].search([('sequence_id.name', '=', "Miscellaneous Operations")],limit=1)
+                journal_id = self.env['account.journal'].search([('sequence_id.name', '=', "Miscellaneous Operations")],
+                                                                limit=1)
 
                 account_move_id = self.env['account.move'].create({
                     'narration': self.name,
-                    'journal_id' : journal_id.id,
-                    'date' : datetime.date.today().strftime(DEFAULT_SERVER_DATE_FORMAT),
+                    'journal_id': journal_id.id,
+                    'date': datetime.date.today().strftime(DEFAULT_SERVER_DATE_FORMAT),
                 })
                 count_line = 0
                 count_line_used = 0
@@ -101,11 +101,13 @@ class import_cong_no(models.TransientModel):
                 for row_no in range(sheet.nrows):
                     if row_no >= 1:
                         count_line += 1
-                        line = (map(lambda row: isinstance(row.value, unicode) and row.value.encode('utf-8') or str(row.value),sheet.row(row_no)))
+                        line = (map(
+                            lambda row: isinstance(row.value, unicode) and row.value.encode('utf-8') or str(row.value),
+                            sheet.row(row_no)))
                         debit = float(line[2])
                         credit = float(line[3])
                         if debit != 0 or credit != 0:
-                            partner_id = self.env['res.partner'].search([('name', '=', line[0].strip())],limit=1)
+                            partner_id = self.env['res.partner'].search([('name', '=', line[0].strip())], limit=1)
                             if not partner_id:
                                 if not record.check_import:
                                     raise UserError(_('Please check file first'))
@@ -115,20 +117,20 @@ class import_cong_no(models.TransientModel):
                                         'customer': True
                                     })
 
-                            account_id = self.env['account.account'].search([('code','=',line[1].strip())],limit=1)
+                            account_id = self.env['account.account'].search([('code', '=', line[1].strip())], limit=1)
                             if not account_id:
                                 raise UserError(_('Không tìm thấy tài khoản code: %s') % line[1])
 
                             count_line_used += 1
                             data = {
-                                'account_id' : account_id.id,
-                                'partner_id' : partner_id.id,
-                                'name'       : "/",
-                                'debit'      : debit,
-                                'credit'     : credit,
+                                'account_id': account_id.id,
+                                'partner_id': partner_id.id,
+                                'name': "/",
+                                'debit': debit,
+                                'credit': credit,
                             }
 
-                            line_data.append((0,0,data))
+                            line_data.append((0, 0, data))
                             debit_sum += debit
                             credit_sum += credit
 
@@ -152,11 +154,13 @@ class import_cong_no(models.TransientModel):
                     line_data.append((0, 0, data))
 
                 account_move_id.write({
-                    'line_ids' : line_data
+                    'line_ids': line_data
                 })
 
-                print count_line
-                print count_line_used
+                print
+                count_line
+                print
+                count_line_used
 
     @api.multi
     def export_xls(self):
@@ -168,7 +172,6 @@ class import_cong_no(models.TransientModel):
         worksheet.set_column('B:B', 15)
         worksheet.set_column('C:C', 20)
         worksheet.set_column('D:D', 20)
-
 
         header_bold_color = workbook.add_format(
             {'bold': True, 'font_size': '14', 'align': 'center', 'valign': 'vcenter'})
@@ -183,8 +186,10 @@ class import_cong_no(models.TransientModel):
         [worksheet.write(row, header_cell, unicode(summary_header[header_cell], "utf-8"), header_bold_color) for
          header_cell in range(0, len(summary_header)) if summary_header[header_cell]]
 
-        sample_debit_id = self.env['account.move.line'].search([('partner_id','!=',False),('debit','!=',0)],limit=1,order='id desc')
-        sample_credit_id = self.env['account.move.line'].search([('partner_id','!=',False),('credit','!=',0)],limit=1,order='id desc')
+        sample_debit_id = self.env['account.move.line'].search([('partner_id', '!=', False), ('debit', '!=', 0)],
+                                                               limit=1, order='id desc')
+        sample_credit_id = self.env['account.move.line'].search([('partner_id', '!=', False), ('credit', '!=', 0)],
+                                                                limit=1, order='id desc')
 
         if sample_debit_id:
             for line in range(0, 1):

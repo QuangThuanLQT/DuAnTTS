@@ -230,9 +230,9 @@
                                         <input style="margin-top:-2px" type="checkbox"/>
                                     </t>
                                 </div>
-<!--                                <div name="payment_term" t-if="doc.payment_term_id.note">-->
-<!--                                    <span t-field="doc.payment_term_id.note"/>-->
-<!--                                </div>-->
+                                <!--                                <div name="payment_term" t-if="doc.payment_term_id.note">-->
+                                <!--                                    <span t-field="doc.payment_term_id.note"/>-->
+                                <!--                                </div>-->
                             </div>
                         </div>
                         <div class="row">

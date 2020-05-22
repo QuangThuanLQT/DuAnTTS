@@ -2,110 +2,109 @@
 <odoo>
     <data>
         <!--        #Customer_Invoices-->
-        <record model="ir.ui.view" id="Customer_Invoices_form_view">
-            <field name="name">Customer_Invoices</field>
-            <field name="model">account.invoice</field>
-            <field name="inherit_id" ref="account.invoice_form"/>
-            <field name="arch" type="xml">
-                <field name="team_id" position="after">
-                    <field name="invoice_date_real"/>
-                    <field name="invoice_number_real"/>
-                    <field name="invoice_total_real"/>
-                    <field name="number_origin"/>
-                </field>
-            </field>
-        </record>
+        <!--        <record model="ir.ui.view" id="Customer_Invoices_form_view">-->
+        <!--            <field name="name">Customer_Invoices</field>-->
+        <!--            <field name="model">account.invoice</field>-->
+        <!--            <field name="inherit_id" ref="account.invoice_form"/>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <field name="team_id" position="after">-->
+        <!--                    <field name="invoice_date_real"/>-->
+        <!--                    <field name="invoice_number_real"/>-->
+        <!--                    <field name="invoice_total_real"/>-->
+        <!--                    <field name="number_origin"/>-->
+        <!--                </field>-->
+        <!--            </field>-->
+        <!--        </record>-->
 
-        <record model="ir.actions.act_window" id="Customer_Invoices_list_action">
-            <field name="name">Hóa đơn khách hàng</field>
-            <field name="res_model">account.invoice</field>
-            <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
-
-        </record>
+        <!--        <record model="ir.actions.act_window" id="Customer_Invoices_list_action">-->
+        <!--            <field name="name">Hóa đơn khách hàng</field>-->
+        <!--            <field name="res_model">account.invoice</field>-->
+        <!--            <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>-->
+        <!--        </record>-->
 
         <!--        #Customer_Credit_Notes-->
-        <record model="ir.ui.view" id="Customer_Credit_Notes_form_view">
-            <field name="name">Customer_Credit_Notes</field>
-            <field name="model">account.invoice</field>
-            <field name="inherit_id" ref="account.invoice_form"/>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='partner_id']" position="attributes">
-                    <attribute name="string">Customer</attribute>
-                </xpath>
-            </field>
-        </record>
+        <!--        <record model="ir.ui.view" id="Customer_Credit_Notes_form_view">-->
+        <!--            <field name="name">Customer_Credit_Notes</field>-->
+        <!--            <field name="model">account.invoice</field>-->
+        <!--            <field name="inherit_id" ref="account.invoice_form"/>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <xpath expr="//field[@name='partner_id']" position="attributes">-->
+        <!--                    <attribute name="string">Customer</attribute>-->
+        <!--                </xpath>-->
+        <!--            </field>-->
+        <!--        </record>-->
 
-        <record model="ir.actions.act_window" id="Customer_Credit_Notes_list_action">
-            <field name="name">Ghi chú tín dụng khách hàng</field>
-            <field name="res_model">account.invoice</field>
-            <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
-        </record>
+        <!--        <record model="ir.actions.act_window" id="Customer_Credit_Notes_list_action">-->
+        <!--            <field name="name">Ghi chú tín dụng khách hàng</field>-->
+        <!--            <field name="res_model">account.invoice</field>-->
+        <!--            <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>-->
+        <!--        </record>-->
 
         <!--        #Sales_Receipts-->
-        <record model="ir.ui.view" id="view_sale_receipt_form">
-            <field name="name">account.voucher.sale.form</field>
-            <field name="model">account.voucher</field>
-            <field name="inherit_id" ref="account_voucher.view_sale_receipt_form"/>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='partner_id']" position="attributes">
-                    <attribute name="string">Customer</attribute>
-                </xpath>
+        <!--        <record model="ir.ui.view" id="view_sale_receipt_form">-->
+        <!--            <field name="name">account.voucher.sale.form</field>-->
+        <!--            <field name="model">account.voucher</field>-->
+        <!--            <field name="inherit_id" ref="account_voucher.view_sale_receipt_form"/>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <xpath expr="//field[@name='partner_id']" position="attributes">-->
+        <!--                    <attribute name="string">Customer</attribute>-->
+        <!--                </xpath>-->
 
-                <field name="payment_journal_id" position="after">
-                    <field name="payment_journal_id"
-                           attrs="{'invisible' : ['|',('pay_now', '=', 'pay_now'), ('pay_now', '=', False)]}"/>
-                    <field name="account_id"
-                           attrs="{'invisible' : ['|',('pay_now', '=', 'pay_now'), ('pay_now', '=', False)]}"/>
-                    <field name="amount_input"/>
-                    <field name="note"/>
-                </field>
+        <!--                <field name="payment_journal_id" position="after">-->
+        <!--                    <field name="payment_journal_id"-->
+        <!--                           attrs="{'invisible' : ['|',('pay_now', '=', 'pay_now'), ('pay_now', '=', False)]}"/>-->
+        <!--                    <field name="account_id"-->
+        <!--                           attrs="{'invisible' : ['|',('pay_now', '=', 'pay_now'), ('pay_now', '=', False)]}"/>-->
+        <!--                    <field name="amount_input"/>-->
+        <!--                    <field name="note"/>-->
+        <!--                </field>-->
 
-                <field name="date" position="before">
-                    <field name="journal_id"/>
-                </field>
+        <!--                <field name="date" position="before">-->
+        <!--                    <field name="journal_id"/>-->
+        <!--                </field>-->
 
-                <field name="name" position="after">
-                    <field name="collect_type"/>
-                </field>
+        <!--                <field name="name" position="after">-->
+        <!--                    <field name="collect_type"/>-->
+        <!--                </field>-->
 
-                <field name="name" position="before">
-                    <field name="number_voucher"/>
-                </field>
+        <!--                <field name="name" position="before">-->
+        <!--                    <field name="number_voucher"/>-->
+        <!--                </field>-->
 
-                <field name="collect_type" position="after">
-                    <field name="payment_date"/>
-                    <field name="created_person"/>
-                    <field name="check_date"/>
-                    <field name="checked_person"/>
-                    <field name="validate_date"/>
-                    <field name="validated_person"/>
-                </field>
+        <!--                <field name="collect_type" position="after">-->
+        <!--                    <field name="payment_date"/>-->
+        <!--                    <field name="created_person"/>-->
+        <!--                    <field name="check_date"/>-->
+        <!--                    <field name="checked_person"/>-->
+        <!--                    <field name="validate_date"/>-->
+        <!--                    <field name="validated_person"/>-->
+        <!--                </field>-->
 
-                <xpath expr="//form/sheet/notebook/page" position="before">
-                    <page name="sale_order" string="Đơn bán hàng">
-                        <field name="voucher_sale_line_ids">
-                            <tree editable="bottom">
-                                <field name="order_name"/>
-                                <field name="date_order"/>
-                                <field name="amount_total"/>
-                                <field name="so_tien_da_thu" readonly="True"/>
-                                <field name="con_phai_thu" readonly="True"/>
-                                <field name="trang_thai_tt" readonly="True"/>
-                                <field name="check"/>
-                            </tree>
-                        </field>
-                    </page>
-                </xpath>
+        <!--                <xpath expr="//form/sheet/notebook/page" position="before">-->
+        <!--                    <page name="sale_order" string="Đơn bán hàng">-->
+        <!--                        <field name="voucher_sale_line_ids">-->
+        <!--                            <tree editable="bottom">-->
+        <!--                                <field name="order_name"/>-->
+        <!--                                <field name="date_order"/>-->
+        <!--                                <field name="amount_total"/>-->
+        <!--                                <field name="so_tien_da_thu" readonly="True"/>-->
+        <!--                                <field name="con_phai_thu" readonly="True"/>-->
+        <!--                                <field name="trang_thai_tt" readonly="True"/>-->
+        <!--                                <field name="check"/>-->
+        <!--                            </tree>-->
+        <!--                        </field>-->
+        <!--                    </page>-->
+        <!--                </xpath>-->
 
-            </field>
-        </record>
+        <!--            </field>-->
+        <!--        </record>-->
 
 
-<!--        <record model="ir.actions.act_window" id="Sales_Receipts_list_action">-->
-<!--            <field name="name">Biên lai bán hàng</field>-->
-<!--            <field name="res_model">account.voucher</field>-->
-<!--            <field name="view_mode">tree,form,kanban</field>-->
-<!--        </record>-->
+        <!--        <record model="ir.actions.act_window" id="Sales_Receipts_list_action">-->
+        <!--            <field name="name">Biên lai bán hàng</field>-->
+        <!--            <field name="res_model">account.voucher</field>-->
+        <!--            <field name="view_mode">tree,form,kanban</field>-->
+        <!--        </record>-->
 
         <!--        #Payments-->
         <record model="ir.ui.view" id="Payments_form_view">
@@ -126,35 +125,62 @@
         </record>
 
         <!--        #Sellable_Products-->
-        <record model="ir.ui.view" id="Sellable_Products_form_view">
-            <field name="name">Sellable_Products</field>
+<!--        <record model="ir.ui.view" id="Sellable_Products_form_view">-->
+<!--            <field name="name">Sellable_Products</field>-->
+<!--            <field name="model">product.product</field>-->
+<!--            <field name="inherit_id" ref="product.product_normal_form_view"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//field[@name='name']" position="attributes">-->
+<!--                    <attribute name="string">Product Name</attribute>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+
+<!--        <record model="ir.actions.act_window" id="Sellable_Products_list_action">-->
+<!--            <field name="name">Sản phẩm bán được</field>-->
+<!--            <field name="res_model">product.product</field>-->
+<!--            <field name="view_mode">tree,form</field>-->
+<!--        </record>-->
+
+        <record model="ir.ui.view" id="sale_product_sold_well_tree">
+            <field name="name">sale_product_sold_well</field>
             <field name="model">product.product</field>
-            <field name="inherit_id" ref="product.product_normal_form_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='name']" position="attributes">
-                    <attribute name="string">Product Name</attribute>
-                </xpath>
+                <tree create="false" default_order="amount desc">
+                    <field name="default_code" string='Reference'/>
+                    <field name="name" string='Product Name'/>
+                    <field name="quantity_sold"/>
+                    <field name="amount"/>
+                </tree>
             </field>
         </record>
 
-        <record model="ir.actions.act_window" id="Sellable_Products_list_action">
-            <field name="name">Sản phẩm bán được</field>
+
+        <record model="ir.actions.act_window" id="sale_product_sold_action">
+            <field name="name">Products Sold Well</field>
             <field name="res_model">product.product</field>
+            <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="sale_product_sold_well_tree"/>
+            <field name="domain">['|', ('active', '=', False), ('active', '=', True)]</field>
         </record>
+
+
+        <menuitem name="Products Sold Well" id="prinizi_sale_product_sold_well" parent="sale.sale_order_menu"
+                  sequence="100" action="sale_product_sold_action"/>
 
 
         <!--        <menuitem id="Customer_Invoices_menu" name="Customer Invoices" parent="sale_invoicing.Documents_menu"-->
         <!--                  action="Customer_Invoices_list_action"/>-->
         <!--        <menuitem id="Customer_Credit_Notes_menu" name="Customer Credit Notes" parent="sale_invoicing.Documents_menu"-->
         <!--                  action="Customer_Credit_Notes_list_action"/>-->
-        <menuitem id="Sales_Receipts_menu" name="Sales Receipts" parent="sale_invoicing.Documents_menu"
-                  action="Sales_Receipts_list_action"/>
+        <!--        <menuitem id="Sales_Receipts_menu" name="Sales Receipts" parent="sale_invoicing.Documents_menu"-->
+        <!--                  action="Sales_Receipts_list_action"/>-->
         <menuitem id="Payments_menu" name="Payments" parent="sale_invoicing.Documents_menu"
                   action="Payments_list_action"/>
 
-        <menuitem id="Sellable_Products_menu" name="Sellable Products" parent="sale.sale_order_menu"
-                  sequence="10"
-                  action="Sellable_Products_list_action"/>
+<!--        <menuitem id="Sellable_Products_menu" name="Sellable Products" parent="sale.sale_order_menu"-->
+<!--                  sequence="10"-->
+<!--                  action="Sellable_Products_list_action"/>-->
     </data>
 </odoo>

@@ -127,7 +127,8 @@ class WebsiteSale(http.Controller):
         '/shop/category/<model("product.public.category"):category>/page/<int:page>'
     ], type='http', auth="public", website=True)
     def shop(self, page=0, category=None, search='', ppg=False, **post):
-        print "------" + str(category)
+        print
+        "------" + str(category)
         if ppg:
             try:
                 ppg = int(ppg)
@@ -220,7 +221,8 @@ class WebsiteSale(http.Controller):
         '/lazy/load'
     ], type='json', auth="public", website=True)
     def show_more_product(self, page=0, category=None, search='', ppg=False, **post):
-        print "------" + str(category)
+        print
+        "------" + str(category)
         if ppg:
             try:
                 ppg = int(ppg)
@@ -309,7 +311,8 @@ class WebsiteSale(http.Controller):
         }
         if category:
             values['main_object'] = category
-        print "%s - %s - %s - %s - %s" % (page, pager, product_count, len(products), products)
+        print
+        "%s - %s - %s - %s - %s" % (page, pager, product_count, len(products), products)
         # request.env['ir.ui.view'].render_template("tts_modifier_website.add_product_to_pagge", values)
         value_add = {
             'data_grid': request.env['ir.ui.view'].render_template("tts_modifier_website.add_product_to_page", values),

@@ -211,3 +211,14 @@ class ProductImage(models.Model):
             subtotal = record.amount_total
             total_text = self.env['sale.order'].DocTienBangChu(subtotal)
             record.total_text = total_text
+
+
+    @api.multi
+    def name_get(self):
+        res = []
+        for record in self:
+            res.append((record.id, "%s - %s" % (record.name, record.partner_id.name)))
+        return res
+
+
+

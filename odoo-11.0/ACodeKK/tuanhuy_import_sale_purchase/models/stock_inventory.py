@@ -4,11 +4,10 @@ from xlrd import open_workbook
 from odoo.exceptions import UserError
 
 
-
 class import_purchase_order(models.TransientModel):
     _name = 'import.stock.inventory'
 
-    stock_inventory_id = fields.Many2one('stock.inventory',string="Stock Inventory")
+    stock_inventory_id = fields.Many2one('stock.inventory', string="Stock Inventory")
     import_data = fields.Binary(string="File Import")
 
     @api.multi
@@ -28,8 +27,7 @@ class import_purchase_order(models.TransientModel):
                 product = self.env['product.product'].search([('default_code', '=', row[0].strip())
                                                               ], limit=1)
                 if not product:
-                    raise UserError('Not found product %s - %s' % (row[0].strip(),row_no + 1))
-
+                    raise UserError('Not found product %s - %s' % (row[0].strip(), row_no + 1))
 
     @api.multi
     def import_xls(self):
@@ -42,7 +40,7 @@ class import_purchase_order(models.TransientModel):
                 count = 0
 
                 for row_no in range(sheet.nrows):
-                    if row_no == 0 :
+                    if row_no == 0:
                         continue
                     row = (
                         map(lambda row: isinstance(row.value, unicode) and row.value.encode('utf-8') or str(row.value),
@@ -56,15 +54,17 @@ class import_purchase_order(models.TransientModel):
                         'theoretical_qty': product_qty,
                     }
                     product = self.env['product.product'].search([('default_code', '=', row[0].strip())
-                    ], limit=1)
+                                                                  ], limit=1)
                     if product and product.id:
                         data['product_id'] = product.id
                         data['product_uom_id'] = product.uom_id.id
                         line_ids.append((0, 0, data))
                         count += 1
-                        print row_no + 1
+                        print
+                        row_no + 1
                 if record.stock_inventory_id.state == 'draft':
                     record.stock_inventory_id.state = 'confirm'
                     record.stock_inventory_id.date = fields.Datetime.now()
                 record.stock_inventory_id.write({'line_ids': line_ids})
-                print "KQ-----------------" + str(count)
+                print
+                "KQ-----------------" + str(count)
