@@ -3,6 +3,15 @@
 from odoo import models, fields, api
 
 
+class dat_coc(models.Model):
+    _inherit = 'res.partner'
+
+    dat_coc = fields.Float('Đặt cọc', digits=(16, 2))
+    sale_amount = fields.Float('Tổng bán')
+    return_amount = fields.Float('Tổng trả hàng')
+    sale_total_amount = fields.Float('Tổng bán trừ tổng trả hàng')
+
+
 class tts_modifier_sale(models.Model):
     _inherit = 'sale.order'
 
@@ -10,8 +19,8 @@ class tts_modifier_sale(models.Model):
     notes = fields.Text('Diễn giải')
 
     date_order = fields.Datetime(string='Order Date', readonly=True, index=True, default=fields.Datetime.now)
-
-    so_tien_da_thu = fields.Float(string='Số tiền đã thu')
+    tien_coc = fields.Float(string='KH đặt cọc', related='partner_id.dat_coc', digits=(16, 2))
+    so_tien_da_thu = fields.Float(string='Số tiền đã thu', digits=(16, 2))
     con_phai_thu = fields.Float(string='Số tiền còn phải thu', compute='_con_phai_thu')
     trang_thai_tt = fields.Selection(
         [('chua_tt', 'Chưa thanh toán'),
@@ -42,6 +51,17 @@ class tts_modifier_sale(models.Model):
     delivery_amount = fields.Float(string="Phụ phí giao hàng")
     tong_phi_in = fields.Float(string='Tổng phí in')
     transport_amount = fields.Float(string="Trả trước phí ship nhà xe")
+
+    @api.onchange('so_tien_da_thu')
+    def auto_money(self):
+        self.tien_coc -= self.so_tien_da_thu
+        data = []
+        record_ids = self.env['res.partner'].search([('id', '=', self.partner_id.id)])
+        for record in record_ids:
+            record.dat_coc = self.tien_coc
+            record.write({
+                'dat_coc': self.tien_coc
+            })
 
     # update tong tien có phu phi gh, ship
     @api.depends('delivery_amount', 'transport_amount', 'tong_phi_in')

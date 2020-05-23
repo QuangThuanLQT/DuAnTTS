@@ -1,0 +1,84 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="widget_doanh_so_graph_base_date">
+            <field name="name">Widget Doanh So Graph</field>
+            <field name="model">widget.doanh.so</field>
+            <field name="arch" type="xml">
+                <graph string="Total idea score by Inventor" color="gray">
+                    <field name="date_order"/>
+                    <field name="amount_total" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="widget_doanh_so_action_base_date">
+            <field name="name">Widget Doanh So Action Base Date</field>
+            <field name="res_model">widget.doanh.so</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph</field>
+            <field name="context">{'group_by': ['date_order:day'],'doanh_so_base_date':True}</field>
+            <field name="view_id" ref="widget_doanh_so_graph_base_date"/>
+        </record>
+
+        <record model="ir.actions.act_window" id="widget_doanh_so_action_base_week">
+            <field name="name">Widget Doanh So Action Base Date</field>
+            <field name="res_model">widget.doanh.so</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph</field>
+            <field name="context">{'group_by': ['date_order:week'],'doanh_so_base_week':True}</field>
+            <field name="view_id" ref="widget_doanh_so_graph_base_date"/>
+        </record>
+
+        <record model="ir.actions.act_window" id="widget_doanh_so_action_base_month">
+            <field name="name">Widget Doanh So Action Base Date</field>
+            <field name="res_model">widget.doanh.so</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph</field>
+            <field name="context">{'group_by': ['date_order:month'],'doanh_so_base_month':True}</field>
+            <field name="view_id" ref="widget_doanh_so_graph_base_date"/>
+        </record>
+
+        <record model="ir.ui.view" id="dashboard_widget_doanh_so_form">
+            <field name="name">Session Dashboard Form</field>
+            <field name="model">board.board</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Session Dashboard">
+                    <board style="3-1">
+                        <column>
+                            <action
+                                    string="Doanh số theo ngày" not_minimizi="True"
+                                    name="%(widget_doanh_so_action_base_date)d"/>
+                        </column>
+                        <column>
+                            <action
+                                    string="Doanh số theo tuần" not_minimizi="True"
+                                    name="%(widget_doanh_so_action_base_week)d"/>
+                        </column>
+                        <column>
+                            <action
+                                    string="Doanh số theo tháng" not_minimizi="True"
+                                    name="%(widget_doanh_so_action_base_month)d"/>
+                        </column>
+                    </board>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="dashboard_widget_doanh_so_action">
+            <field name="name">Session Dashboard</field>
+            <field name="res_model">board.board</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="usage">menu</field>
+            <field name="view_id" ref="dashboard_widget_doanh_so_form"/>
+        </record>
+
+        <menuitem
+                name="Dashboard Widget Doanh So" parent="base.menu_board_root"
+                action="dashboard_widget_doanh_so_action"
+                sequence="1"
+                id="menu_dashboard_widget_doanh_so" icon="terp-graph"/>
+
+    </data>
+</odoo>

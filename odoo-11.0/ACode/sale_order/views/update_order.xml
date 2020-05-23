@@ -24,10 +24,18 @@
                     <field name="notes"/>
                 </xpath>
 
+
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="tien_coc" readonly='1'
+                           attrs="{'invisible' : [('state', 'in', ('draft', 'sent', 'cancel'))]}"/>
+                </xpath>
+
                 <xpath expr="//field[@name='payment_term_id']" position="after">
-                    <field name="so_tien_da_thu" attrs="{'invisible' : [('state', 'in', ('draft', 'sent', 'cancel'))]}"/>
+                    <field name="so_tien_da_thu"
+                           attrs="{'invisible' : [('state', 'in', ('draft', 'sent', 'cancel'))]}"/>
                     <field name="con_phai_thu" attrs="{'invisible' : [('state', 'in', ('draft', 'sent', 'cancel'))]}"/>
-                    <field name="trang_thai_tt" attrs="{'invisible' : [('state', 'in', ('draft', 'sent', 'cancel'))], 'required' : [('state', 'not in', ('draft', 'sent', 'cancel'))]}"/>
+                    <field name="trang_thai_tt"
+                           attrs="{'invisible' : [('state', 'in', ('draft', 'sent', 'cancel'))], 'required' : [('state', 'not in', ('draft', 'sent', 'cancel'))]}"/>
                     <field name="payment_method"/>
                     <field name="quy_trinh_ban_hang"/>
 
@@ -42,7 +50,8 @@
 
                     <field name="trang_thai_dh"/>
                     <field name="create_uid" string="Create by"/>
-                    <field name="confirm_user_id" string="Validate by" attrs="{'invisible' : [('state', 'in', ('draft', 'sent', 'cancel'))]}"/>
+                    <field name="confirm_user_id" string="Validate by"
+                           attrs="{'invisible' : [('state', 'in', ('draft', 'sent', 'cancel'))]}"/>
                 </xpath>
             </field>
         </record>

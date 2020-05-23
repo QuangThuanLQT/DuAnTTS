@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="DashBoard.action">
+        <div t-att-data-id="action.attrs.name" class="oe_action">
+            <t t-if="!action.attrs.not_minimizi">
+                <h2 t-attf-class="oe_header #{action.attrs.string ? '' : 'oe_header_empty'}">
+                    <span class="oe_header_txt"> <t t-esc="action.attrs.string"/> </span>
+                    <input class = "oe_header_text" type="text"/>
+                    <t t-if="!action.attrs.string">&amp;nbsp;</t>
+
+                        <span class='oe_icon oe_close'></span>
+                        <span class='oe_icon oe_minimize oe_fold' t-if="!action.attrs.fold"></span>
+                        <span class='oe_icon oe_maximize oe_fold' t-if="action.attrs.fold"></span>
+                </h2>
+            </t>
+
+
+            <div t-attf-id="#{view.element_id}_action_#{column_index}_#{action_index}" class="oe_content" t-att-style="action.attrs.fold ? 'display: none' : null"></div>
+            <t t-if="action.attrs.not_minimizi">
+                <h2 t-attf-class="text-center oe_header #{action.attrs.string ? '' : 'oe_header_empty'}" style="text-align: end">
+                    <span class="oe_header_txt"> <t t-esc="action.attrs.string"/> </span>
+                    <input class = "oe_header_text" type="text"/>
+                </h2>
+            </t>
+
+        </div>
+    </t>
+</templates>
+

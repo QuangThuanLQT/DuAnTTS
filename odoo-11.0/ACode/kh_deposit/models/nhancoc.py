@@ -3,14 +3,13 @@
 from odoo import models, fields, api
 
 
-class nhancoc(models.Model):
-    _inherit = 'res.partner'
-
-    dat_coc = fields.Float('Đặt cọc', digits=(16, 2))
-    sale_amount = fields.Float('Tổng bán')
-    return_amount = fields.Float('Tổng trả hàng')
-    sale_total_amount = fields.Float('Tổng bán trừ tổng trả hàng')
-
+# class dat_coc(models.Model):
+#     _inherit = 'res.partner'
+#
+#     dat_coc = fields.Float('Đặt cọc', digits=(16, 2))
+#     sale_amount = fields.Float('Tổng bán')
+#     return_amount = fields.Float('Tổng trả hàng')
+#     sale_total_amount = fields.Float('Tổng bán trừ tổng trả hàng')
 
     # def _compute_sale_total_amount(self):
     #     for record in self:
@@ -40,6 +39,3 @@ class nhancoc(models.Model):
     #         record.sale_total_amount = sale_amount - return_amount
     #         record.sale_amount = sale_amount
     #         record.return_amount = return_amount
-
-
-

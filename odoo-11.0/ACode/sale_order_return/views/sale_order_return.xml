@@ -99,7 +99,7 @@
         </record>
 
         <record model="ir.actions.act_window" id="order_return_list_action">
-            <field name="name">Order Return</field>
+            <field name="name">Đơn hàng trả lại</field>
             <field name="res_model">sale.order.return</field>
             <field name="type">ir.actions.act_window</field>
             <field name="view_type">form</field>
@@ -109,7 +109,7 @@
         </record>
 
         <record model="ir.ui.view" id="order_return_list_tree">
-            <field name="name">Order Return</field>
+            <field name="name">Đơn hàng trả lại</field>
             <field name="model">sale.order.return</field>
             <field eval="8" name="priority"/>
             <field name="arch" type="xml">
@@ -127,9 +127,9 @@
             </field>
         </record>
 
-        <menuitem id="order_return_menu" name="Order Return"
+        <menuitem id="order_return_menu" name="Trả hàng"
                   parent="sale.sale_menu_root"/>
-        <menuitem id="order_return" name="Order Return"
+        <menuitem id="order_return" name="Trả hàng"
                   parent="order_return_menu"
                   action="order_return_list_action"/>
     </data>
