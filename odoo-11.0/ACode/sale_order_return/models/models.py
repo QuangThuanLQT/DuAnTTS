@@ -10,16 +10,16 @@ class sale_order_return(models.Model):
 
     name = fields.Char(string='Reference return', readonly=True, required=True, copy=False, default='New')
     don_tra_hang = fields.Boolean(default=False)
-    partner_id = fields.Many2one('res.partner', string="Customer")
+    partner_id = fields.Many2one('res.partner', string="Customer", required=True)
     # sale_order_return_ids = fields.Char(string="Sale Order")
     sale_order_return_ids = fields.Many2one('sale.order', string="Sale Order",
-                                            domain="[('partner_id', '=', partner_id)]")
-    reason_cancel = fields.Many2one('ly.do.tra.hang', string='Lý do')
+                                            domain="[('partner_id', '=', partner_id)]", required=True)
+    reason_cancel = fields.Many2one('ly.do.tra.hang', string='Lý do', required=True)
     receive_method = fields.Selection(
         [('allow', 'Nhận hàng trả lại tại kho'), ('stop', 'Nhận hàng trả lại tại địa chỉ giao hàng')],
-        string="Phương thức nhận hàng", readonly=True)
+        string="Phương thức nhận hàng", required=True)
     location_return = fields.Selection([('allow', 'Kho Bình thường'), ('stop', 'Kho hư hỏng')],
-                                       string="Kho lưu trữ sản phẩm")
+                                       string="Kho lưu trữ sản phẩm", required=True)
     note = fields.Text(string='Diễn giải')
     # ...................
     confirmation_date = fields.Datetime(string='Confirmation Date', compute=False, store=True, index=True,

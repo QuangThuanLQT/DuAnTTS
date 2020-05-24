@@ -60,11 +60,7 @@ class tts_product_report(models.Model):
                     sum(l.qty_to_invoice / u.factor * u2.factor) as qty_to_invoice,
                     sum(l.price_total / COALESCE(cr.rate, 1.0)) as price_total,
                     sum(l.price_subtotal / COALESCE(cr.rate, 1.0)) as price_subtotal,
-                    CASE WHEN s.sale_order_return = FALSE THEN sum(l.product_uom_qty / u.factor * u2.factor) ELSE 0 END AS qty_product_sale, 
-                    CASE WHEN s.sale_order_return = TRUE THEN sum(l.product_uom_qty / u.factor * u2.factor) ELSE 0 END AS qty_product_return,
-                    CASE WHEN s.sale_order_return = FALSE THEN sum(l.price_total / COALESCE(cr.rate, 1.0)) ELSE 0 END AS total_amount, 
-                    CASE WHEN s.sale_order_return = TRUE THEN sum(l.price_total / COALESCE(cr.rate, 1.0)) ELSE 0 END AS amount_return,
-                    CASE WHEN s.sale_order_return = TRUE THEN - sum(l.price_total / COALESCE(cr.rate, 1.0)) ELSE sum(l.price_total / COALESCE(cr.rate, 1.0)) END AS net_amount,
+               
                     count(*) as nbr,
                     s.name as name,
                     s.date_order as date,
@@ -75,7 +71,7 @@ class tts_product_report(models.Model):
                     extract(epoch from avg(date_trunc('day',s.date_order)-date_trunc('day',s.create_date)))/(24*60*60)::decimal(16,2) as delay,
                     t.categ_id as categ_id,
                     s.pricelist_id as pricelist_id,
-                    s.project_id as analytic_account_id,
+                    
                     s.team_id as team_id,
                     p.product_tmpl_id,
                     partner.country_id as country_id,
@@ -116,11 +112,11 @@ class tts_product_report(models.Model):
                     s.state,
                     s.company_id,
                     s.pricelist_id,
-                    s.project_id,
+                   
                     s.team_id,
                     p.product_tmpl_id,
                     partner.country_id,
-                    s.sale_order_return,
+                
                     partner.commercial_partner_id
         """
         return group_by_str

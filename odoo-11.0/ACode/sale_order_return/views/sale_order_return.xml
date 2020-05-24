@@ -9,6 +9,7 @@
                     <header attrs="{'invisible': [('don_tra_hang', '=', False)]}">
                         <button name="order_return" type="object" string="Xác nhận"
                                 attrs="{'invisible':[('state_return','=','order_return')]}"/>
+                        <button name="print_excel" type="object" string="In Excel"/>
                         <field name="state_return" widget="statusbar" statusbar_visible="draft,order_return"/>
                     </header>
                     <sheet>
@@ -119,6 +120,7 @@
                     <field name="partner_id"/>
                     <field name="create_uid" string='Salesperson'/>
                     <field name="note" string='Ghi chú'/>
+                    <field name="amount_total"/>
                     <field name="con_phai_tra"/>
                     <field name="so_tien_da_tra"/>
                     <field name="trang_thai_tt"/>

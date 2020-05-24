@@ -6,6 +6,10 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
 
+                <xpath expr="//form/header" position="inside">
+                    <button name="print_excel" string="In Excel" type="object" states="sale,done"/>
+                </xpath>
+
                 <xpath expr="//field[@name='partner_invoice_id']" position="attributes">
                     <attribute name="invisible">True</attribute>
                 </xpath>

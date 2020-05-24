@@ -9,7 +9,7 @@ from datetime import datetime
 import pytz
 import base64
 from xlrd import open_workbook
-from odoo.exceptions import UserError, ValidationError
+# from odoo.exceptions import UserError, ValidationError
 import json
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT, DEFAULT_SERVER_DATE_FORMAT
 from odoo.tools import float_is_zero, float_compare, DEFAULT_SERVER_DATETIME_FORMAT
@@ -65,7 +65,8 @@ class tts_modifier_sale(models.Model):
 
     @api.model
     def get_city_list(self):
-        city_ids = self.env['sale.order'].search([]).with_context({'lang': self.env.user.lang or 'vi_VN'}).mapped('city')
+        city_ids = self.env['sale.order'].search([]).with_context({'lang': self.env.user.lang or 'vi_VN'}).mapped(
+            'city')
         city_list = []
         for city_id in city_ids:
             if city_id not in city_list:
@@ -161,8 +162,9 @@ class tts_modifier_sale(models.Model):
                 values = json.dumps({
                     'sale_id': rec.id
                 })
-                job_name = '%s_sale_order_create_picking' %(queue_server.prefix,)
-                gm_client.submit_job(job_name.encode('ascii', 'ignore'), values, priority=gearman.PRIORITY_HIGH, background=True)
+                job_name = '%s_sale_order_create_picking' % (queue_server.prefix,)
+                gm_client.submit_job(job_name.encode('ascii', 'ignore'), values, priority=gearman.PRIORITY_HIGH,
+                                     background=True)
 
     def _generation_move_line_tts(self, line, picking_id, picking_type_id, procurement_id, move_line=False):
         location_id, location_dest_id = self._get_picking_location(picking_type_id)
@@ -889,7 +891,8 @@ class tts_modifier_sale(models.Model):
 
         worksheet.set_column('A:F', 20)
 
-        summary_header = ['Mã báo giá', 'Thời gian đặt hàng', 'Mã khách hàng', 'Khách hàng', 'Nhân viên bán hàng', 'Create by', 'Ghi chú',
+        summary_header = ['Mã báo giá', 'Thời gian đặt hàng', 'Mã khách hàng', 'Khách hàng', 'Nhân viên bán hàng',
+                          'Create by', 'Ghi chú',
                           'Tổng', 'Trạng thái']
         row = 0
         [worksheet.write(row, header_cell, unicode(summary_header[header_cell], "utf-8"), body_bold_color) for
@@ -937,10 +940,13 @@ class tts_modifier_sale(models.Model):
 
         worksheet.set_column('A:K', 20)
 
-        summary_header = ['Mã báo giá', 'Thời gian tạo', 'Thời gian xác nhận', 'Mã khách hàng', 'Khách hàng', 'Tỉnh/Thành phố', 'Nhân viên bán hàng',  'Created by',  'Validate by', 'Ghi chú',
-                          'Hình thức thanh toán', 'Tổng', 'Số tiền còn phải thu', 'Số tiền đã thu', 'Trạng thái thanh toán',
+        summary_header = ['Mã báo giá', 'Thời gian tạo', 'Thời gian xác nhận', 'Mã khách hàng', 'Khách hàng',
+                          'Tỉnh/Thành phố', 'Nhân viên bán hàng', 'Created by', 'Validate by', 'Ghi chú',
+                          'Hình thức thanh toán', 'Tổng', 'Số tiền còn phải thu', 'Số tiền đã thu',
+                          'Trạng thái thanh toán',
                           'Trạng thái đơn hàng', 'Trạng thái hoạt động']
-        summary_header_return = ['Reference Return', 'Thời gian tạo', 'Mã khách hàng', 'Khách hàng', 'Nhân viên bán hàng', 'Created by',  'Validate by', 'Ghi chú',
+        summary_header_return = ['Reference Return', 'Thời gian tạo', 'Mã khách hàng', 'Khách hàng',
+                                 'Nhân viên bán hàng', 'Created by', 'Validate by', 'Ghi chú',
                                  'Lý do trả hàng', 'Sale Order', 'Tổng', 'Số tiền còn phải trả', 'Số tiền đã trả',
                                  'Trạng thái thanh toán', 'Trạng thái đơn hàng', 'Trạng thái hoạt động']
         row = 0
@@ -1040,15 +1046,21 @@ class tts_modifier_sale(models.Model):
 
         worksheet.set_column('A:N', 20)
 
-        attribute_list = quotaion_ids.mapped('order_line').mapped('product_id').mapped('attribute_value_ids').mapped('attribute_id').mapped('name')
-        summary_header_quo = ['Mã báo giá', 'Ngày đặt hàng', 'Mã khách hàng', 'Khách hàng', 'SĐT Khách hàng','Nhân viên bán hàng',
-                              'Created by', 'Tổng', 'Ghi chú', 'Mã biến thể nội bộ', 'Tên sản phẩm'] + attribute_list + [
-                             'Số lượng', 'Price Unit', 'Subtotal', 'Trạng thái',]
-        summary_header = ['Mã báo giá', 'Ngày đặt hàng', 'Mã khách hàng', 'Khách hàng', 'Tỉnh/Thành phố', 'SĐT Khách hàng','Nhân viên bán hàng',
-                          'Created by',  'Validate by', 'Tổng', 'Ghi chú', 'Hình thức thanh toán', 'Mã biến thể nội bộ', 'Tên sản phẩm']+ attribute_list +[
-                          'Số lượng', 'Price Unit', 'Subtotal', 'Trạng thái đơn hàng', 'Trạng thái hoạt động']
+        attribute_list = quotaion_ids.mapped('order_line').mapped('product_id').mapped('attribute_value_ids').mapped(
+            'attribute_id').mapped('name')
+        summary_header_quo = ['Mã báo giá', 'Ngày đặt hàng', 'Mã khách hàng', 'Khách hàng', 'SĐT Khách hàng',
+                              'Nhân viên bán hàng',
+                              'Created by', 'Tổng', 'Ghi chú', 'Mã biến thể nội bộ',
+                              'Tên sản phẩm'] + attribute_list + [
+                                 'Số lượng', 'Price Unit', 'Subtotal', 'Trạng thái', ]
+        summary_header = ['Mã báo giá', 'Ngày đặt hàng', 'Mã khách hàng', 'Khách hàng', 'Tỉnh/Thành phố',
+                          'SĐT Khách hàng', 'Nhân viên bán hàng',
+                          'Created by', 'Validate by', 'Tổng', 'Ghi chú', 'Hình thức thanh toán', 'Mã biến thể nội bộ',
+                          'Tên sản phẩm'] + attribute_list + [
+                             'Số lượng', 'Price Unit', 'Subtotal', 'Trạng thái đơn hàng', 'Trạng thái hoạt động']
         summary_header_return = ['Reference Return', 'Thời gian tạo', 'Mã khách hàng', 'Khách hàng', 'SDT khách hàng',
-                                 'Nhân viên bán hàng',  'Created by',  'Validate by', 'Ghi chú', 'Lý do trả hàng', 'Sale Order', 'Tổng', 'Mã nội bộ',
+                                 'Nhân viên bán hàng', 'Created by', 'Validate by', 'Ghi chú', 'Lý do trả hàng',
+                                 'Sale Order', 'Tổng', 'Mã nội bộ',
                                  'Tên sản phẩm', 'Số lượng', 'Price Unit', 'Subtotal', 'Trạng thái đơn hàng',
                                  'Trạng thái hoạt động']
         row = 0
@@ -1150,7 +1162,8 @@ class tts_modifier_sale(models.Model):
             response.stream.write(output.read())
             output.close()
         if not type:
-            [worksheet.write(row, header_cell, unicode(str(summary_header_quo[header_cell]), "utf-8"), body_bold_color) for
+            [worksheet.write(row, header_cell, unicode(str(summary_header_quo[header_cell]), "utf-8"), body_bold_color)
+             for
              header_cell in range(0, len(summary_header_quo)) if summary_header_quo[header_cell]]
 
             for quotaion_id in quotaion_ids_:
@@ -1201,6 +1214,7 @@ class tts_modifier_sale(models.Model):
             output.seek(0)
             response.stream.write(output.read())
             output.close()
+
     @api.multi
     def print_excel(self):
         self.ensure_one()
@@ -1348,7 +1362,8 @@ class tts_modifier_sale(models.Model):
         for order in orderlines:
             for invoice_id in order.invoice_ids:
                 if invoice_id.state == 'draft':
-                    print "----------------" + str(order.id)
+                    print
+                    "----------------" + str(order.id)
                 if invoice_id.state == 'open':
                     if invoice_id.move_id and datetime.strptime(order.date_order,
                                                                 DEFAULT_SERVER_DATETIME_FORMAT).date() != datetime.strptime(
@@ -1362,12 +1377,13 @@ class tts_modifier_sale(models.Model):
                                 datetime.strptime(order.date_order, DEFAULT_SERVER_DATETIME_FORMAT).strftime(
                                     DEFAULT_SERVER_DATE_FORMAT)
                                 , move_line.id))
-                            print "----------------" + str(order.id)
+                            print
+                            "----------------" + str(order.id)
         for order in orderlines:
             if order.amount_total > 0 and order.invoice_ids and (len(orderlines) == 1 or order.amount_total != sum(
                     order.invoice_ids.mapped('amount_total')) or any(
-                    product_id not in order.invoice_ids.mapped('invoice_line_ids').mapped('product_id')
-                    for product_id in order.order_line.mapped('product_id'))):
+                product_id not in order.invoice_ids.mapped('invoice_line_ids').mapped('product_id')
+                for product_id in order.order_line.mapped('product_id'))):
                 if order.invoice_ids and all(invoice.state in ['draft', 'open'] for invoice in order.invoice_ids):
                     invoice_line_ids = order.invoice_ids.mapped('invoice_line_ids')
                     for invoice_line_id in invoice_line_ids:
@@ -1470,6 +1486,7 @@ class tts_modifier_sale(models.Model):
                 [('model', '=', 'sale.order'), ('res_id', '=', order.id), ('subtype_id', '=', subtype.id)], limit=1)
             if user_validate:
                 order.confirm_user_id = user_validate.write_uid
+
 
 class tts_transporter_route_ihr(models.Model):
     _inherit = 'tts.transporter.route'

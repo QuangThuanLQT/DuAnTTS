@@ -35,26 +35,22 @@ class tts_sale_report(models.Model):
         # self._table = sale_report
         tools.drop_view_if_exists(self.env.cr, self._table)
         self.env.cr.execute("""CREATE or REPLACE VIEW tts_sale_report as (
-            select min(so.id) as id, so.name as name, 
-                ai.date_invoice as date_order, 
-                so.partner_id as partner_id, 
-                so.user_id as user_id, 
-                so.state as state, 
-                so.amount_untaxed as amount_untaxed,  
+            select min(so.id) as id, so.name as name,
+                ai.date_invoice as date_order,
+                so.partner_id as partner_id,
+                so.user_id as user_id,
+                so.state as state,
+                so.amount_untaxed as amount_untaxed,
                 so.amount_total as amount_total,
-                CASE WHEN so.sale_order_return = FALSE THEN 1 ELSE 0 END AS qty_sale_order, 
-                CASE WHEN so.sale_order_return = TRUE THEN 1 ELSE 0 END AS qty_sale_return,
-                CASE WHEN so.sale_order_return = FALSE THEN so.amount_total ELSE 0 END AS total_amount, 
-                CASE WHEN so.sale_order_return = TRUE THEN so.amount_total ELSE 0 END AS amount_return,
-                CASE WHEN so.sale_order_return = TRUE THEN - so.amount_total ELSE so.amount_total END AS net_amount,
+              
                 0.0 as average_order_value
-            from sale_order so 
+            from sale_order so
             left join res_partner partner on so.partner_id = partner.id
             left join res_users users on so.user_id = users.id
             RIGHT JOIN account_invoice ai on so.name = ai.origin
             WHERE so.state = 'sale'
-            GROUP BY 
-                so.name, 
+            GROUP BY
+                so.name,
                 so.name,
                 so.date_order,
                 so.partner_id,
@@ -62,7 +58,7 @@ class tts_sale_report(models.Model):
                 so.state,
                 so.amount_untaxed,
                 so.amount_total,
-                so.sale_order_return,
+                
                 ai.date_invoice
             )""")
 

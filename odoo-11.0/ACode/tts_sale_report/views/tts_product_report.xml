@@ -24,7 +24,7 @@
 
 
         <menuitem name="Phân tích bán hàng theo sản phẩm" id="tts_sale_report_by_product_menu"
-                  parent="sales_team.menu_sale_report"
+                  parent="sale.menu_sale_report"
                   action="tts_sale_report_by_product_action"/>
         -->
     </data>
