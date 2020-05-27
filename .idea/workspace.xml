@@ -2,34 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ed2daa9-808d-45c8-8f81-4bc5b9bca564" name="Default Changelist" comment="Very good">
-      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/bao_cao_doanh_thu/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/bao_cao_doanh_thu/__manifest__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/bao_cao_doanh_thu/controllers/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/bao_cao_doanh_thu/controllers/controllers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/bao_cao_doanh_thu/demo/demo.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/bao_cao_doanh_thu/models/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/bao_cao_doanh_thu/models/bao_cao_doanh_thu.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/bao_cao_doanh_thu/models/so_ban_hang_report.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/bao_cao_doanh_thu/security/ir.model.access.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/bao_cao_doanh_thu/views/bao_cao_doanh_thu_view.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/bao_cao_doanh_thu/views/so_ban_hang_report.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/bao_cao_doanh_thu/views/views.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_customers/models/Thong_tin_dia_chi.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_customers/views/Menu_dia_chi.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_customers/views/Thong_tin_dia_chi.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_inventory/models/nhan_hang.py" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_inventory/models/nhan_hang.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order/__manifest__.py" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order/__manifest__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order/models/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/employees_qt/views/employees.xml" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/employees_qt/views/employees.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_customers/__manifest__.py" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_customers/__manifest__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_customers/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_customers/models/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_customers/models/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_customers/models/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order/models/update_order.py" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order/models/update_order.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order/report/phieu_xuat_kho.xml" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order/report/phieu_xuat_kho.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order/views/update_order.xml" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order/views/update_order.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order_return/models/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order_return/models/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order_return/report/phieu_tra_hang.xml" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order_return/report/phieu_tra_hang.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order_return/views/sale_order_return.xml" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order_return/views/sale_order_return.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/tts_sale_report/__manifest__.py" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/tts_sale_report/__manifest__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/tts_sale_report/models/dashboard_widget_doanh_so.py" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/tts_sale_report/models/dashboard_widget_doanh_so.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/tts_sale_report/models/tts_product_report.py" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/tts_sale_report/models/tts_product_report.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/tts_sale_report/models/tts_sale_report.py" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/tts_sale_report/models/tts_sale_report.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/tts_sale_report/security/ir.model.access.csv" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/tts_sale_report/security/ir.model.access.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/tts_sale_report/views/dashboard_widget_doanh_so.xml" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/tts_sale_report/views/dashboard_widget_doanh_so.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/tts_sale_report/views/tts_product_report.xml" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/tts_sale_report/views/tts_product_report.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/tts_sale_report/views/tts_sale_report.xml" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/tts_sale_report/views/tts_sale_report.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACodeKK/tts_modifier_sale/models/sale_order.py" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACodeKK/tts_modifier_sale/models/sale_order.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_product/models/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_product/models/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACodeKK/feosco_base/model/excel.py" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACodeKK/feosco_base/model/excel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACodeKK/feosco_base/model/master_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACodeKK/feosco_base/model/master_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/odoo-11.0/addons/delivery/views/delivery_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/addons/delivery/views/delivery_view.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/odoo.conf" beforeDir="false" afterPath="$PROJECT_DIR$/odoo.conf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -409,62 +400,62 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="430" y="240" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1366.768@0.0.1366.768" timestamp="1582947129399" />
-    <state x="216" y="0" key="CommitChangelistDialog2" timestamp="1590210165756">
+    <state x="216" y="0" key="CommitChangelistDialog2" timestamp="1590466309877">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="216" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1590210165756" />
+    <state x="216" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1590466309877" />
     <state x="553" y="167" key="FileChooserDialogImpl" timestamp="1590243313428">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1583280588905" />
     <state x="553" y="167" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1590243313428" />
-    <state width="1345" height="335" key="GridCell.Tab.0.bottom" timestamp="1590317824289">
+    <state width="1345" height="111" key="GridCell.Tab.0.bottom" timestamp="1590562906008">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="1345" height="224" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1583486636512" />
-    <state width="1345" height="335" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1590317824289" />
+    <state width="1345" height="111" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1590562906008" />
     <state width="1345" height="2" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1583005482440" />
-    <state width="1345" height="335" key="GridCell.Tab.0.center" timestamp="1590317824288">
+    <state width="1345" height="111" key="GridCell.Tab.0.center" timestamp="1590562906008">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="1345" height="224" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1583486636512" />
-    <state width="1345" height="335" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1590317824288" />
+    <state width="1345" height="111" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1590562906008" />
     <state width="1345" height="2" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1583005482440" />
-    <state width="1345" height="335" key="GridCell.Tab.0.left" timestamp="1590317824288">
+    <state width="1345" height="111" key="GridCell.Tab.0.left" timestamp="1590562906008">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="1345" height="224" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1583486636512" />
-    <state width="1345" height="335" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1590317824288" />
+    <state width="1345" height="111" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1590562906008" />
     <state width="1345" height="2" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1583005482439" />
-    <state width="1345" height="335" key="GridCell.Tab.0.right" timestamp="1590317824288">
+    <state width="1345" height="111" key="GridCell.Tab.0.right" timestamp="1590562906008">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="1345" height="224" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1583486636512" />
-    <state width="1345" height="335" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1590317824288" />
+    <state width="1345" height="111" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1590562906008" />
     <state width="1345" height="2" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1583005482440" />
-    <state width="1345" height="206" key="GridCell.Tab.1.bottom" timestamp="1590297283810">
+    <state width="1345" height="111" key="GridCell.Tab.1.bottom" timestamp="1590562905870">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="1345" height="223" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1582270008463" />
-    <state width="1345" height="206" key="GridCell.Tab.1.bottom/0.0.1366.738@0.0.1366.738" timestamp="1590297283810" />
+    <state width="1345" height="111" key="GridCell.Tab.1.bottom/0.0.1366.738@0.0.1366.738" timestamp="1590562905870" />
     <state width="1345" height="280" key="GridCell.Tab.1.bottom/0.0.1366.768@0.0.1366.768" timestamp="1582610303100" />
-    <state width="1345" height="206" key="GridCell.Tab.1.center" timestamp="1590297283809">
+    <state width="1345" height="111" key="GridCell.Tab.1.center" timestamp="1590562905870">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="1345" height="223" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1582270008462" />
-    <state width="1345" height="206" key="GridCell.Tab.1.center/0.0.1366.738@0.0.1366.738" timestamp="1590297283809" />
+    <state width="1345" height="111" key="GridCell.Tab.1.center/0.0.1366.738@0.0.1366.738" timestamp="1590562905870" />
     <state width="1345" height="280" key="GridCell.Tab.1.center/0.0.1366.768@0.0.1366.768" timestamp="1582610303100" />
-    <state width="1345" height="206" key="GridCell.Tab.1.left" timestamp="1590297283809">
+    <state width="1345" height="111" key="GridCell.Tab.1.left" timestamp="1590562905870">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="1345" height="223" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1582270008462" />
-    <state width="1345" height="206" key="GridCell.Tab.1.left/0.0.1366.738@0.0.1366.738" timestamp="1590297283809" />
+    <state width="1345" height="111" key="GridCell.Tab.1.left/0.0.1366.738@0.0.1366.738" timestamp="1590562905870" />
     <state width="1345" height="280" key="GridCell.Tab.1.left/0.0.1366.768@0.0.1366.768" timestamp="1582610303100" />
-    <state width="1345" height="206" key="GridCell.Tab.1.right" timestamp="1590297283809">
+    <state width="1345" height="111" key="GridCell.Tab.1.right" timestamp="1590562905870">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="1345" height="223" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1582270008462" />
-    <state width="1345" height="206" key="GridCell.Tab.1.right/0.0.1366.738@0.0.1366.738" timestamp="1590297283809" />
+    <state width="1345" height="111" key="GridCell.Tab.1.right/0.0.1366.738@0.0.1366.738" timestamp="1590562905870" />
     <state width="1345" height="280" key="GridCell.Tab.1.right/0.0.1366.768@0.0.1366.768" timestamp="1582610303100" />
     <state x="388" y="84" key="MultipleFileMergeDialog" timestamp="1586771844461">
       <screen x="0" y="0" width="1366" height="738" />
@@ -474,11 +465,11 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="444" y="79" key="RollbackChangesDialog/0.0.1366.738@0.0.1366.738" timestamp="1589086894227" />
-    <state x="184" y="7" key="SettingsEditor" timestamp="1590313377864">
+    <state x="184" y="7" key="SettingsEditor" timestamp="1590465560673">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="184" y="7" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1582268983643" />
-    <state x="184" y="7" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1590313377864" />
+    <state x="184" y="7" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1590465560673" />
     <state x="184" y="7" key="SettingsEditor/0.0.1366.768@0.0.1366.768" timestamp="1582523352149" />
     <state width="546" height="446" key="SwitcherDM" timestamp="1587313561932">
       <screen x="0" y="0" width="1366" height="738" />
@@ -492,24 +483,24 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="322" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.738@0.0.1366.738" timestamp="1590166506137" />
-    <state x="492" y="285" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1590207667499">
+    <state x="492" y="285" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1590464942032">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="492" y="285" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.738@0.0.1366.738" timestamp="1590207667499" />
+    <state x="492" y="285" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.738@0.0.1366.738" timestamp="1590464942032" />
     <state x="254" y="104" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1589342657215">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="254" y="104" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1366.738@0.0.1366.738" timestamp="1589342657215" />
-    <state x="446" y="201" width="920" height="536" key="find.popup" timestamp="1590316945476">
+    <state x="446" y="74" width="920" height="536" key="find.popup" timestamp="1590561792529">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="446" y="192" width="920" height="536" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1583297780720" />
-    <state x="446" y="201" width="920" height="536" key="find.popup/0.0.1366.738@0.0.1366.738" timestamp="1590316945476" />
+    <state x="446" y="74" width="920" height="536" key="find.popup/0.0.1366.738@0.0.1366.738" timestamp="1590561792529" />
     <state x="446" y="91" width="920" height="555" key="find.popup/0.0.1366.768@0.0.1366.768" timestamp="1582843597773" />
-    <state x="346" y="86" width="672" height="652" key="search.everywhere.popup" timestamp="1590209285202">
+    <state x="346" y="86" width="672" height="652" key="search.everywhere.popup" timestamp="1590451523883">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="346" y="86" width="672" height="652" key="search.everywhere.popup/0.0.1366.738@0.0.1366.738" timestamp="1590209285202" />
+    <state x="346" y="86" width="672" height="652" key="search.everywhere.popup/0.0.1366.738@0.0.1366.738" timestamp="1590451523883" />
     <state x="346" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1366.768@0.0.1366.768" timestamp="1582779774827" />
     <state x="405" y="280" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1587916405800">
       <screen x="0" y="0" width="1366" height="738" />

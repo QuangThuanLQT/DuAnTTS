@@ -46,11 +46,11 @@
                     <field name="delivery_method"/>
                     <!--                    <field name="transport_route_id"/>-->
                     <!--                    <field name="delivery_scope_id"/>-->
-                    <field name="transport_route_id"
-                           attrs="{'invisible': [('delivery_method', '!=', 'transport')], 'required': [('delivery_method', '=', 'transport')]}"
-                           options="{'no_create_edit': True, 'no_quick_create':True}"/>
-                    <field name="delivery_scope_id"
-                           attrs="{'invisible' : ['|',('delivery_method', '=', 'warehouse'), ('delivery_scope_id', '=', False)], 'required' : [('delivery_method', '!=', 'warehouse'), ('delivery_scope_id', '!=', False)]}"/>
+<!--                    <field name="transport_route_id"-->
+<!--                           attrs="{'invisible': [('delivery_method', '!=', 'transport')], 'required': [('delivery_method', '=', 'transport')]}"-->
+<!--                           options="{'no_create_edit': True, 'no_quick_create':True}"/>-->
+<!--                    <field name="delivery_scope_id"-->
+<!--                           attrs="{'invisible' : ['|',('delivery_method', '=', 'warehouse'), ('delivery_scope_id', '=', False)], 'required' : [('delivery_method', '!=', 'warehouse'), ('delivery_scope_id', '!=', False)]}"/>-->
 
                     <field name="trang_thai_dh"/>
                     <field name="create_uid" string="Create by"/>
@@ -82,14 +82,12 @@
                         ₫
                     </div>
 
-                    <label for="transport_amount"/>
-                    <div>
-                        <field name="transport_amount" class="oe_inline" modifiers="{}"/>
-                        ₫
-                    </div>
-                    <!--                    <field name="delivery_amount"/>-->
-                    <!--                    <field name="tong_phi_in"/>-->
-                    <!--                    <field name="transport_amount"/>-->
+<!--                    <label for="transport_amount"/>-->
+<!--                    <div>-->
+<!--                        <field name="transport_amount" class="oe_inline" modifiers="{}"/>-->
+<!--                        ₫-->
+<!--                    </div>-->
+
                 </xpath>
 
 

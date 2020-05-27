@@ -46,7 +46,7 @@
                                 <br/>
                                 <span>
                                     <span>Địa chỉ:</span>
-                                    <span t-esc="doc.partner_id.street"/>
+                                    <span t-esc="doc.partner_id.street.name"/>
                                 </span>
                                 <br/>
                                 <span>

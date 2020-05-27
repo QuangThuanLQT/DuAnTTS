@@ -24,7 +24,7 @@ class product_template(models.Model):
         result = super(product_template, self).create(vals)
         return result
 
-    invoice_name = fields.Char(string='Tên Hoá Đơn', required="1")
+    invoice_name = fields.Char(string='Tên Hoá Đơn')
 
     # categ_id = fields.Many2one(
     #     'product.category', 'Internal Category',

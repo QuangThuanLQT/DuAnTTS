@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Top menu item -->
+        <menuitem name="FEOSCO"
+                  id="menu_feosco_root"
+                  parent="sale.menu_sale_config"
+                  sequence="90"/>
+
+        <!-- Localization -->
+        <menuitem id="menu_feosco_localisation" name="Localization" parent="menu_feosco_root"/>
+
+        <menuitem action="base.action_country" id="menu_feosco_country" parent="menu_feosco_localisation"/>
+
+    </data>
+</odoo>

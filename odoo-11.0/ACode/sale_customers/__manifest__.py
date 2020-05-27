@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'sale'],
+    'depends': ['base', 'sale', 'fetchmail'],
 
     # always loaded
     'data': [
@@ -34,7 +34,9 @@
         'views/PrintAttributeValue.xml',
         'views/ly_do_tra_hang.xml',
         'views/attributes.xml',
-        'views/attachment.xml'
+        'views/attachment.xml',
+        'views/Menu_dia_chi.xml',
+        'views/Thong_tin_dia_chi.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

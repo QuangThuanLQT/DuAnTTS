@@ -5,9 +5,10 @@ from odoo import models, fields, api
 
 class sale_customers(models.Model):
     _inherit = 'res.partner'
+    _name = "res.partner"
 
     ref = fields.Char(string='Mã KH Nội Bộ', readonly=True, required=True, copy=False, default='New')
-    maKH = fields.Char(string='Mã KH')
+    maKH = fields.Char(string='Mã KH', required=True)
     kh_birthday = fields.Date(string='Sinh nhật')
     feosco_business_license = fields.Char(u'Giấy phép kinh doanh')
     group_kh1_id = fields.Many2one('partner.group.hk1', string='PK theo Danh Mục KD')
@@ -65,7 +66,6 @@ class sale_customers(models.Model):
         result = super(sale_customers, self).create(vals)
         return result
 
-
     # thêm makh sau tên cho khách hàng
     @api.multi
     def name_get(self):
@@ -76,3 +76,30 @@ class sale_customers(models.Model):
             else:
                 res.append((record.id, "%s" % (record.name)))
         return res
+
+    # cập nhập địa chỉ
+    @api.model
+    def _get_default_country_id(self):
+        search_country = [('code', '=', 'VN')]
+        country = self.env['res.country'].search(search_country, limit=1)
+        return country.id if country else False
+
+    @api.onchange('country_id')
+    def event_country_change(self):
+        if self.country_id:
+            self.city = None
+            self.district_id = None
+
+    @api.onchange('city')
+    def event_city_change(self):
+        if self.city:
+            self.street2 = None
+        else:
+            return {}
+
+    street = fields.Many2one('feosco.city', u'Thành phố')
+    street2 = fields.Many2one('feosco.district', u'Quận (huyện)',
+                              domain="[('city_id', '=', street)]")
+    city = fields.Many2one('feosco.ward', 'Phường/Xã', domain="[('district_id.id', '=', street2)]")
+    country_id = fields.Many2one('res.country', u'Quốc gia', domain="[('code', '=', 'VN')]",
+                                 default=_get_default_country_id)

@@ -46,18 +46,20 @@
                                         <field name="product_id"/>
                                         <field name="invoice_name"/>
                                         <field name="product_uom_qty"/>
-                                        <field name="check_box_prinizi_confirm"/>
-                                        <field name="print_qty"/>
+<!--                                        <field name="check_box_prinizi_confirm"/>-->
+<!--                                        <field name="print_qty"/>-->
                                         <field name="price_unit"/>
+<!--                                        <field name="So_tien_tra_lai"/>-->
                                         <field name="price_subtotal"/>
                                     </tree>
                                     <form string='Thông tin order line'>
                                         <field name="product_id"/>
                                         <field name="invoice_name"/>
                                         <field name="product_uom_qty"/>
-                                        <field name="check_box_prinizi_confirm"/>
-                                        <field name="print_qty"/>
+<!--                                        <field name="check_box_prinizi_confirm"/>-->
+<!--                                        <field name="print_qty"/>-->
                                         <field name="price_unit"/>
+<!--                                        <field name="So_tien_tra_lai"/>-->
                                         <field name="price_subtotal"/>
                                     </form>
                                 </field>
@@ -82,6 +84,7 @@
                                                options="{'currency_field': 'currency_id'}"/>
                                         <field name="amount_untaxed" widget="monetary"
                                                options="{'currency_field': 'currency_id'}"/>
+                                        <field name="So_tien_tra_lai"/>
                                         <field name="amount_tax" widget="monetary"
                                                options="{'currency_field': 'currency_id'}"/>
                                         <div class="oe_subtotal_footer_separator oe_inline">

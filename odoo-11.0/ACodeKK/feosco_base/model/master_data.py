@@ -25,6 +25,7 @@ import os
 import json
 import xlrd
 
+
 class feosco_master_data(models.Model):
     _name = "feosco.master.data"
     _description = "Master data for all feosco modules"
@@ -59,14 +60,16 @@ class feosco_master_data(models.Model):
                 if city_id:
                     if city_id.code != pro_code:
                         city_id.code = pro_code
-                        print "----- Update TP : %s" % (pro_name)
+                        print
+                        "----- Update TP : %s" % (pro_name)
                 else:
                     city_id = self.env['feosco.city'].create({
                         'name': pro_name,
                         'code': pro_code,
                         'country_id': self.env.ref('base.vn').id
                     })
-                    print "----- Tao TP : %s" % (pro_name)
+                    print
+                    "----- Tao TP : %s" % (pro_name)
                 distr_code = row[3].value.strip()
                 distr_name = row[2].value.strip()
                 if distr_code:
@@ -75,14 +78,16 @@ class feosco_master_data(models.Model):
                     if distr_id:
                         if distr_id.code != distr_code:
                             distr_id.code = distr_code
-                            print "+++ Update huyen : %s" % (distr_name)
+                            print
+                            "+++ Update huyen : %s" % (distr_name)
                     else:
                         distr_id = self.env['feosco.district'].create({
                             'name': distr_name,
                             'code': distr_code,
                             'city_id': city_id.id
                         })
-                        print "+++ Tao huyen : %s" % (distr_name)
+                        print
+                        "+++ Tao huyen : %s" % (distr_name)
                     ward_code = row[5].value.strip()
                     ward_name = row[4].value.strip()
                     ward_id = self.env['feosco.ward'].search(
@@ -90,17 +95,16 @@ class feosco_master_data(models.Model):
                     if ward_id:
                         if ward_id.code != ward_code:
                             ward_id.code = ward_code
-                            print "Update xa : %s" % (ward_name)
+                            print
+                            "Update xa : %s" % (ward_name)
                     else:
                         ward_id = self.env['feosco.ward'].create({
                             'name': ward_name,
                             'code': ward_code,
                             'district_id': distr_id.id
                         })
-                        print "Tao xa : %s" % (ward_name)
-
-
-
+                        print
+                        "Tao xa : %s" % (ward_name)
 
         # @api.model
     # def update_vn_location(self):
@@ -158,6 +162,5 @@ class feosco_master_data(models.Model):
     #                                             'district_id': distr_id.id
     #                                         })
     #                                         print "Tao xa : %s" % (ward_name)
-
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

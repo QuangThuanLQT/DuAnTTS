@@ -14,7 +14,14 @@ class sale_order_return(models.Model):
     # sale_order_return_ids = fields.Char(string="Sale Order")
     sale_order_return_ids = fields.Many2one('sale.order', string="Sale Order",
                                             domain="[('partner_id', '=', partner_id)]", required=True)
-    reason_cancel = fields.Many2one('ly.do.tra.hang', string='Lý do', required=True)
+    # reason_cancel = fields.Many2one('ly.do.tra.hang', string='Lý do', required=True)
+    reason_cancel = fields.Selection(
+        [('sp_loi', 'Sản phẩm lỗi'),
+         ('kho_soan_thieu', 'Kho soạn thiếu hàng'),
+         ('sai_hang', 'Sai hàng'), ('khach_doi_y', 'Khách đổi ý'),
+         ('khach_huy_don', 'Khách huỷ đơn')],
+        string='Lý do trả hàng', default='sp_loi', required=1)
+
     receive_method = fields.Selection(
         [('allow', 'Nhận hàng trả lại tại kho'), ('stop', 'Nhận hàng trả lại tại địa chỉ giao hàng')],
         string="Phương thức nhận hàng", required=True)
@@ -33,13 +40,13 @@ class sale_order_return(models.Model):
          ('done_tt', 'Hoàn tất thanh toán')],
         string='Trạng thái thanh toán', default='chua_tt', required=1)
     trang_thai_dh = fields.Selection([
-        ('waiting_pick', 'Waiting to Pick'), ('ready_pick', 'Ready to Pick'), ('picking', 'Picking'),
-        ('waiting_pack', 'Waiting to Pack'), ('packing', 'Packing'),
-        ('waiting_delivery', 'Waiting to Delivery'), ('delivery', 'Delivering'),
-        ('reveive', 'Receive'), ('waiting', 'Waiting to Check'), ('checking', 'Checking'),
-        ('done', 'Done'),
-        ('reverse_tranfer', 'Reverse Tranfer'),
-        ('cancel', 'Cancelled')
+        ('waiting_pick', 'Chờ đợi để chọn'), ('ready_pick', 'Sẵn sàng để nhặt'), ('picking', 'Chọn'),
+        ('waiting_pack', 'Chờ đợi để đóng gói'), ('packing', 'Đóng gói'),
+        ('waiting_delivery', 'Chờ giao hàng'), ('delivery', 'Cung cấp'),
+        ('reveive', 'Nhận được'), ('waiting', 'Chờ đợi để kiểm tra'), ('checking', 'Kiểm tra'),
+        ('done', 'Hoàn thành'),
+        ('reverse_tranfer', 'Đảo ngược'),
+        ('cancel', 'Đã huỷ')
     ], string='Trạng thái đơn hàng', store=True)
     create_uid = fields.Many2one('res.users', 'Created by', index=True, readonly=True)
     confirm_user_id = fields.Many2one('res.users', string='Validate by', readonly=True)
@@ -150,6 +157,20 @@ class sale_order_return(models.Model):
         KetQua = KetQua[1: 2].upper() + KetQua[2:]
         return KetQua
 
+    # ...thay đổi tiền lý do tra...
+    @api.onchange('reason_cancel')
+    def onchange_reason_cancel(self):
+        if self.reason_cancel == 'sp_loi':
+            self.So_tien_tra_lai = 'tralai100'
+        if self.reason_cancel == 'kho_soan_thieu':
+            self.So_tien_tra_lai = 'tralai100'
+        if self.reason_cancel == 'sai_hang':
+            self.So_tien_tra_lai = 'tralai100'
+        if self.reason_cancel == 'khach_doi_y':
+            self.So_tien_tra_lai = 'tralai50'
+        if self.reason_cancel == 'khach_huy_don':
+            self.So_tien_tra_lai = 'tralai50'
+
     @api.multi
     def _compute_total(self):
         for record in self:
@@ -205,6 +226,9 @@ class sale_order_return(models.Model):
     amount_tax = fields.Float(string='Taxes', readonly=True, digits=(16, 0))
     amount_total = fields.Float(string='Total', compute='_amount_all', readonly=True, digits=(16, 0))
 
+    So_tien_tra_lai = fields.Selection([('tralai100', '100%'), ('tralai50', '50%')],
+                                       string='Số tiền hoàn lại')
+
     @api.depends('order_line_ids.product_uom_qty')
     def _get_total_quantity(self):
         for rec in self:
@@ -221,15 +245,22 @@ class sale_order_return(models.Model):
                 amount_untaxed += line.price_subtotal
             rec.amount_untaxed = amount_untaxed
 
-    @api.depends('order_line_ids.price_subtotal')
+    # ................tính lại tiền theo lý do trả.....................
+    @api.depends('order_line_ids.price_subtotal', 'So_tien_tra_lai')
     def _amount_all(self):
         for order in self:
             amount_untaxed = amount_tax = 0.0
             for line in order.order_line_ids:
                 amount_untaxed += line.price_subtotal
-            order.update({
-                'amount_total': amount_untaxed + amount_tax
-            })
+
+            if order.So_tien_tra_lai == 'tralai50':
+                order.update({
+                    'amount_total': (amount_untaxed + amount_tax) / 2
+                })
+            else:
+                order.update({
+                    'amount_total': amount_untaxed + amount_tax
+                })
 
     @api.multi
     def name_get(self):
@@ -245,11 +276,12 @@ class thong_tin_order_line(models.Model):
     order_line_id = fields.Many2one('sale.order.return')
     product_id = fields.Many2one('product.product', string='Sản phẩm')
     invoice_name = fields.Char(string='Tên Hoá Đơn')
-    product_uom_qty = fields.Float(string='Ordered Qty', default=1.0)
-    check_box_prinizi_confirm = fields.Boolean(default=False, string="Confirm Print")
-    print_qty = fields.Float(string='Print Qty', digits=(16, 0))
-    price_unit = fields.Float(string='Unit Price', default=0.0)
-    price_subtotal = fields.Float(string='Subtotal', compute='_compute_amount', default=0.0)
+    product_uom_qty = fields.Float(string='SL trả lại', default=1.0)
+    # check_box_prinizi_confirm = fields.Boolean(default=False, string="Xác nhận in")
+    # print_qty = fields.Float(string='In sô lượng', digits=(16, 0))
+    # sl_dat_hang = fields.Float(string="SL đặt hàng")
+    price_unit = fields.Float(string='Đơn giá', default=0.0)
+    price_subtotal = fields.Float(string='Tổng phụ', compute='_compute_amount', default=0.0)
 
     @api.onchange('product_uom_qty')
     def onchange_product_uom_qty(self):
@@ -264,3 +296,6 @@ class thong_tin_order_line(models.Model):
     def _compute_amount(self):
         for rec in self:
             rec.price_subtotal = rec.price_unit * rec.product_uom_qty
+
+    # lý do trả hàng: lý do là sản phẩm lỗi: hoàn trả lại 100% số tiền
+    # lý do là khách đổi ý, khách hủy đơn, hoàn trả lại cho khách hàng 50% số tiền
