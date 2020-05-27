@@ -20,7 +20,7 @@ class sale_order_return(models.Model):
          ('kho_soan_thieu', 'Kho soạn thiếu hàng'),
          ('sai_hang', 'Sai hàng'), ('khach_doi_y', 'Khách đổi ý'),
          ('khach_huy_don', 'Khách huỷ đơn')],
-        string='Lý do trả hàng', default='sp_loi', required=1)
+        string='Lý do trả hàng', default='sp_loi', required=1, store=True)
 
     receive_method = fields.Selection(
         [('allow', 'Nhận hàng trả lại tại kho'), ('stop', 'Nhận hàng trả lại tại địa chỉ giao hàng')],

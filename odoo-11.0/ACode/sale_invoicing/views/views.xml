@@ -147,17 +147,17 @@
             <field name="model">product.product</field>
             <field name="arch" type="xml">
                 <tree create="false" default_order="amount desc">
-                    <field name="default_code" string='Reference'/>
-                    <field name="name" string='Product Name'/>
-                    <field name="quantity_sold"/>
-                    <field name="amount"/>
+                    <field name="default_code" string='Tài liệu kham khảo'/>
+                    <field name="name" string='Tên sản phẩm'/>
+                    <field name="quantity_sold" string='Số lượng bán'/>
+                    <field name="amount" string='Tổng tiền'/>
                 </tree>
             </field>
         </record>
 
 
         <record model="ir.actions.act_window" id="sale_product_sold_action">
-            <field name="name">Products Sold Well</field>
+            <field name="name">Sản phẩm được bán tốt</field>
             <field name="res_model">product.product</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -166,7 +166,7 @@
         </record>
 
 
-        <menuitem name="Products Sold Well" id="prinizi_sale_product_sold_well" parent="sale.sale_order_menu"
+        <menuitem name="Sản phẩm được bán tốt" id="prinizi_sale_product_sold_well" parent="sale.sale_order_menu"
                   sequence="100" action="sale_product_sold_action"/>
 
 
@@ -176,7 +176,7 @@
         <!--                  action="Customer_Credit_Notes_list_action"/>-->
         <!--        <menuitem id="Sales_Receipts_menu" name="Sales Receipts" parent="sale_invoicing.Documents_menu"-->
         <!--                  action="Sales_Receipts_list_action"/>-->
-        <menuitem id="Payments_menu" name="Payments" parent="sale_invoicing.Documents_menu"
+        <menuitem id="Payments_menu" name="Thanh toán" parent="sale_invoicing.Documents_menu"
                   action="Payments_list_action"/>
 
 <!--        <menuitem id="Sellable_Products_menu" name="Sellable Products" parent="sale.sale_order_menu"-->

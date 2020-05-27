@@ -105,12 +105,12 @@
                                     <td class="padding" style="width:6%">Subject</td>
                                     <td class="padding" colspan="3" style="width:94%;border-right:1px solid black">:
                                         Cung
-                                        cấp vật tư, thiết bị điện.
+                                        cấp đồ thể thao.
                                     </td>
                                 </tr>
                             </table>
                             <br/>
-                            <p style="font-style: italic;">Công Ty Tuấn Huy chân thành cảm ơn sự quan tâm của quý khách
+                            <p style="font-style: italic;">Công Ty Thể thao sỉ chân thành cảm ơn sự quan tâm của quý khách
                                 hàng
                                 đến sản phẩm của Công Ty chúng tôi !
                             </p>
@@ -223,7 +223,7 @@
                                 <br/>
                                 <span>* Thông tin chuyển khoản :</span>
                                 <br/>
-                                <span style="padding-left:25px;">+ Người thụ hưởng:Công ty TNHH điện Tuấn Huy</span>
+                                <span style="padding-left:25px;">+ Người thụ hưởng:Công Ty Cổ Phần Thể Thao Sỉ</span>
                                 <br/>
                                 <span style="padding-left:25px;">+ Số tài khoản :- 0061019700079. Tại ngân hàng ABBank-
                                     CN
@@ -241,7 +241,7 @@
                                     Đà Nẵng,
                                     <span t-esc="datetime.datetime.strptime(doc.date_order,'%Y-%m-%d %H:%M:%S').strftime('ngày %d tháng %m năm %Y')"/>
                                     <br/>
-                                    <strong>ĐẠI DIỆN CÔNG TY TUẤN HUY</strong>
+                                    <strong>ĐẠI DIỆN CÔNG TY THỂ THAO SỈ</strong>
                                     <br/>
                                     Phòng kinh doanh
                                     <br/>

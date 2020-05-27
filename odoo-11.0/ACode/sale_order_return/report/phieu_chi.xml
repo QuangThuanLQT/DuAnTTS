@@ -40,22 +40,22 @@
                                                 <t t-esc="doc.partner_id.zip"/>-
                                             </t>
                                             <t t-if="doc.partner_id.city">
-                                                <t t-esc="doc.partner_id.city"/>-
+                                                <t t-esc="doc.partner_id.city.name"/>-
                                             </t>
                                             <t t-if="doc.partner_id.street2">
-                                                <t t-esc="doc.partner_id.street2"/>-
+                                                <t t-esc="doc.partner_id.street2.name"/>-
                                             </t>
                                             <t t-if="doc.partner_id.street">
-                                                <t t-esc="doc.partner_id.street"/>-
+                                                <t t-esc="doc.partner_id.street.name"/>
                                             </t>
                                         </t>
                                     </span>
                                 </span>
                                 <br/>
                                 <span>
-                                    <span>Lý do nộp:
+                                    <span>Lý do chi:
                                         <span style="border-bottom-style: dotted"/>
-                                        <span t-esc="doc.reason_cancel.name"/>
+                                        <span t-field="doc.reason_cancel"/>
                                     </span>
                                 </span>
                                 <br/>

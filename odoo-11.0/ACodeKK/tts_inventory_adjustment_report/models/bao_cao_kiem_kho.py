@@ -8,10 +8,13 @@ import StringIO
 import xlsxwriter
 import base64
 
+
 class bao_cao_kiem_kho(models.Model):
     _name = 'bao.cao.kiem.kho'
 
-    type_report = fields.Selection([('so_ma_lech', 'Báo cáo số mã lệch'),('so_luong_lech', 'Báo cáo số lượng lệch'), ('all', 'Cả hai')], default='so_ma_lech', string='Loại báo cáo')
+    type_report = fields.Selection(
+        [('so_ma_lech', 'Báo cáo số mã lệch'), ('so_luong_lech', 'Báo cáo số lượng lệch'), ('all', 'Cả hai')],
+        default='so_ma_lech', string='Loại báo cáo')
     type_time = fields.Selection([('tuan', 'Tuần'), ('thang', 'Tháng')], default='tuan', string='Loại thời gian')
     start_date = fields.Date(string='Từ Ngày', required=1, default=datetime.now())
     end_date = fields.Date(string='Đến Ngày', compute='onchange_start_date')
@@ -27,7 +30,8 @@ class bao_cao_kiem_kho(models.Model):
     bao_cao_sml_table9_ids = fields.One2many('bao.cao.sml.table9', 'bao_cao_kiem_kho_id', compute='onchange_end_date')
 
     def get_inventory_by_condition(self):
-        domain = [('validate_date', '>=', self.start_date),('validate_date', '<=', self.end_date),('state', '=', 'done')]
+        domain = [('validate_date', '>=', self.start_date), ('validate_date', '<=', self.end_date),
+                  ('state', '=', 'done')]
         inventory_ids = self.env['stock.inventory'].search(domain)
         return inventory_ids
 
@@ -35,11 +39,12 @@ class bao_cao_kiem_kho(models.Model):
         self.bao_cao_sml_table1_ids = []
         inventory_ids = self.get_inventory_by_condition()
         if inventory_ids:
-            query = """SELECT validate_date, count(id) FROM stock_inventory_line WHERE inventory_id in (%s) GROUP BY validate_date;""" % (', '.join(str(id) for id in inventory_ids.ids))
+            query = """SELECT validate_date, count(id) FROM stock_inventory_line WHERE inventory_id in (%s) GROUP BY validate_date;""" % (
+                ', '.join(str(id) for id in inventory_ids.ids))
             self.env.cr.execute(query)
             inventory_line_sp_kiem = self.env.cr.fetchall()
             query = """SELECT validate_date, count(id) FROM stock_inventory_line WHERE inventory_id in (%s) AND diff_qty != 0 GROUP BY validate_date;""" % (
-            ', '.join(str(id) for id in inventory_ids.ids))
+                ', '.join(str(id) for id in inventory_ids.ids))
             self.env.cr.execute(query)
             inventory_line_sp_lech = self.env.cr.fetchall()
             data = {}
@@ -72,11 +77,12 @@ class bao_cao_kiem_kho(models.Model):
         self.bao_cao_sml_table2_ids = []
         inventory_ids = self.get_inventory_by_condition()
         if inventory_ids:
-            query = """SELECT validate_weeked, count(id) FROM stock_inventory_line WHERE inventory_id in (%s) GROUP BY validate_weeked;""" % (', '.join(str(id) for id in inventory_ids.ids))
+            query = """SELECT validate_weeked, count(id) FROM stock_inventory_line WHERE inventory_id in (%s) GROUP BY validate_weeked;""" % (
+                ', '.join(str(id) for id in inventory_ids.ids))
             self.env.cr.execute(query)
             inventory_line_sp_kiem = self.env.cr.fetchall()
             query = """SELECT validate_weeked, count(id) FROM stock_inventory_line WHERE inventory_id in (%s) AND diff_qty != 0 GROUP BY validate_weeked;""" % (
-            ', '.join(str(id) for id in inventory_ids.ids))
+                ', '.join(str(id) for id in inventory_ids.ids))
             self.env.cr.execute(query)
             inventory_line_sp_lech = self.env.cr.fetchall()
             query = """SELECT validate_weeked, count(DISTINCT product_id) FROM stock_inventory_line WHERE inventory_id in (%s) AND diff_qty != 0 GROUP BY validate_weeked;""" % (
@@ -116,11 +122,10 @@ class bao_cao_kiem_kho(models.Model):
                     'count_sp_lech': value.get('count_sp_lech', 0),
                     'count_sp_kiem': value.get('count_sp_kiem', 0),
                     'ty_le': float(value.get('count_sp_lech', 0)) / float(value.get('count_sp_kiem', 0)) * 100,
-                    'count_sp_duy_nhat' : value.get('count_sp_khong_trung', 0),
+                    'count_sp_duy_nhat': value.get('count_sp_khong_trung', 0),
                     'count_sp_active': len(product_ids),
                     'ty_le_sp': float(value.get('count_sp_khong_trung', 0)) / float(len(product_ids)) * 100,
                 })
-
 
     def get_bao_cao_sml_table3(self):
         week_start = datetime.strptime(self.start_date, DEFAULT_SERVER_DATE_FORMAT).isocalendar()[1]
@@ -192,11 +197,12 @@ class bao_cao_kiem_kho(models.Model):
         self.bao_cao_sml_table4_ids = []
         inventory_ids = self.get_inventory_by_condition()
         if inventory_ids:
-            query = """SELECT validate_month, count(id) FROM stock_inventory_line WHERE inventory_id in (%s) GROUP BY validate_month;""" % (', '.join(str(id) for id in inventory_ids.ids))
+            query = """SELECT validate_month, count(id) FROM stock_inventory_line WHERE inventory_id in (%s) GROUP BY validate_month;""" % (
+                ', '.join(str(id) for id in inventory_ids.ids))
             self.env.cr.execute(query)
             inventory_line_sp_kiem = self.env.cr.fetchall()
             query = """SELECT validate_month, count(id) FROM stock_inventory_line WHERE inventory_id in (%s) AND diff_qty != 0 GROUP BY validate_month;""" % (
-            ', '.join(str(id) for id in inventory_ids.ids))
+                ', '.join(str(id) for id in inventory_ids.ids))
             self.env.cr.execute(query)
             inventory_line_sp_lech = self.env.cr.fetchall()
             query = """SELECT validate_month, count(DISTINCT product_id) FROM stock_inventory_line WHERE inventory_id in (%s) AND diff_qty != 0 GROUP BY validate_month;""" % (
@@ -236,7 +242,7 @@ class bao_cao_kiem_kho(models.Model):
                     'count_sp_lech': value.get('count_sp_lech', 0),
                     'count_sp_kiem': value.get('count_sp_kiem', 0),
                     'ty_le': float(value.get('count_sp_lech', 0)) / float(value.get('count_sp_kiem', 0)) * 100,
-                    'count_sp_duy_nhat' : value.get('count_sp_khong_trung', 0),
+                    'count_sp_duy_nhat': value.get('count_sp_khong_trung', 0),
                     'count_sp_active': len(product_ids),
                     'ty_le_sp': float(value.get('count_sp_khong_trung', 0)) / float(len(product_ids)) * 100,
                 })
@@ -311,11 +317,12 @@ class bao_cao_kiem_kho(models.Model):
         self.bao_cao_sml_table6_ids = []
         inventory_ids = self.get_inventory_by_condition()
         if inventory_ids:
-            query = """SELECT validate_weeked, sum(theoretical_qty) FROM stock_inventory_line WHERE inventory_id in (%s) GROUP BY validate_weeked;""" % (', '.join(str(id) for id in inventory_ids.ids))
+            query = """SELECT validate_weeked, sum(theoretical_qty) FROM stock_inventory_line WHERE inventory_id in (%s) GROUP BY validate_weeked;""" % (
+                ', '.join(str(id) for id in inventory_ids.ids))
             self.env.cr.execute(query)
             inventory_line_sp_kiem = self.env.cr.fetchall()
             query = """SELECT validate_weeked, sum(Abs(diff_qty)) FROM stock_inventory_line WHERE inventory_id in (%s) AND diff_qty != 0 GROUP BY validate_weeked;""" % (
-            ', '.join(str(id) for id in inventory_ids.ids))
+                ', '.join(str(id) for id in inventory_ids.ids))
             self.env.cr.execute(query)
             inventory_line_sp_lech = self.env.cr.fetchall()
             data = {}
@@ -418,11 +425,12 @@ class bao_cao_kiem_kho(models.Model):
         self.bao_cao_sml_table8_ids = []
         inventory_ids = self.get_inventory_by_condition()
         if inventory_ids:
-            query = """SELECT validate_month, sum(theoretical_qty) FROM stock_inventory_line WHERE inventory_id in (%s) GROUP BY validate_month;""" % (', '.join(str(id) for id in inventory_ids.ids))
+            query = """SELECT validate_month, sum(theoretical_qty) FROM stock_inventory_line WHERE inventory_id in (%s) GROUP BY validate_month;""" % (
+                ', '.join(str(id) for id in inventory_ids.ids))
             self.env.cr.execute(query)
             inventory_line_sp_kiem = self.env.cr.fetchall()
             query = """SELECT validate_month, sum(Abs(diff_qty)) FROM stock_inventory_line WHERE inventory_id in (%s) AND diff_qty != 0 GROUP BY validate_month;""" % (
-            ', '.join(str(id) for id in inventory_ids.ids))
+                ', '.join(str(id) for id in inventory_ids.ids))
             self.env.cr.execute(query)
             inventory_line_sp_lech = self.env.cr.fetchall()
             data = {}
@@ -533,14 +541,16 @@ class bao_cao_kiem_kho(models.Model):
                 if start_date != date:
                     self.start_date = start_date
                 self.end_date = end_date
-                print "%s %s" % (start_date, end_date)
+                print
+                "%s %s" % (start_date, end_date)
             elif self.type_time == 'thang':
                 start_date = date.replace(day=1)
                 end_date = start_date + relativedelta(months=1 * self.duration, day=1, days=-1)
                 if start_date != date:
                     self.start_date = start_date
                 self.end_date = end_date
-                print "%s %s" % (start_date, end_date)
+                print
+                "%s %s" % (start_date, end_date)
 
     @api.onchange('start_date')
     def onchange_end_date(self):
@@ -561,14 +571,18 @@ class bao_cao_kiem_kho(models.Model):
         worksheet_1 = workbook.add_worksheet('Data kiểm số mã SP-Ngày')
         worksheet_2 = workbook.add_worksheet('RP_Mã số Lệch')
         worksheet_3 = workbook.add_worksheet('RP_Số lượng lệch')
-        body_bold_color = workbook.add_format({'bold': False, 'font_size': '14', 'align': 'center', 'valign': 'vcenter'})
+        body_bold_color = workbook.add_format(
+            {'bold': False, 'font_size': '14', 'align': 'center', 'valign': 'vcenter'})
         text_bold = workbook.add_format({'bold': True, 'font_size': '14', 'align': 'center', 'valign': 'vcenter'})
-        text_style_red = workbook.add_format({'bold': False, 'font_size': '12', 'align': 'right', 'valign': 'vcenter', 'color': 'red'})
-        text_style_right = workbook.add_format({'bold': False, 'font_size': '12', 'align': 'right', 'valign': 'vcenter'})
+        text_style_red = workbook.add_format(
+            {'bold': False, 'font_size': '12', 'align': 'right', 'valign': 'vcenter', 'color': 'red'})
+        text_style_right = workbook.add_format(
+            {'bold': False, 'font_size': '12', 'align': 'right', 'valign': 'vcenter'})
         text_style_left = workbook.add_format({'bold': False, 'font_size': '12', 'align': 'left', 'valign': 'vcenter'})
-        text_style_center = workbook.add_format({'bold': False, 'font_size': '12', 'align': 'center', 'valign': 'vcenter'})
+        text_style_center = workbook.add_format(
+            {'bold': False, 'font_size': '12', 'align': 'center', 'valign': 'vcenter'})
 
-    # Data kiểm số mã SP - Ngày
+        # Data kiểm số mã SP - Ngày
         worksheet_1.set_column('A:A', 16)
         worksheet_1.set_column('B:B', 16)
         worksheet_1.set_column('C:C', 16)
@@ -586,13 +600,14 @@ class bao_cao_kiem_kho(models.Model):
             worksheet_1.write(row, 2, line.count_sp_kiem, text_style_right)
             worksheet_1.write(row, 3, line.ty_le, text_style_red)
 
-    # RP_Mã số Lệch
+        # RP_Mã số Lệch
         worksheet_2.set_column('A:P', 15)
 
         if self.type_time == 'tuan':
             worksheet_2.merge_range('A1:G1', unicode(("BÁO CÁO KIỂM SỐ MÃ SP - TUẦN"), "utf-8"), text_bold)
             row = 1
-            summary_header_21 = ['Tuần', 'Số mã SP bị lệch', 'Số mã SP kiểm', 'Tỉ lệ (%)', 'SL mã SP duy nhất (tuần)', 'Số mã đang kinh doanh', 'Tỉ lệ (%)']
+            summary_header_21 = ['Tuần', 'Số mã SP bị lệch', 'Số mã SP kiểm', 'Tỉ lệ (%)', 'SL mã SP duy nhất (tuần)',
+                                 'Số mã đang kinh doanh', 'Tỉ lệ (%)']
             [worksheet_2.write(row, header_cell, unicode(summary_header_21[header_cell], "utf-8"), body_bold_color) for
              header_cell in range(0, len(summary_header_21)) if summary_header_21[header_cell]]
             for line in self.bao_cao_sml_table2_ids:
@@ -607,7 +622,9 @@ class bao_cao_kiem_kho(models.Model):
                 worksheet_2.write(row, 6, line.ty_le_sp, text_style_red)
 
             row += 5
-            worksheet_2.merge_range('A%s:E%s' % (row, row), unicode(("BÁO CÁO KIỂM SỐ MÃ SP THEO DANH MỤC SẢN PHẨM - TUẦN"), "utf-8"), text_bold)
+            worksheet_2.merge_range('A%s:E%s' % (row, row),
+                                    unicode(("BÁO CÁO KIỂM SỐ MÃ SP THEO DANH MỤC SẢN PHẨM - TUẦN"), "utf-8"),
+                                    text_bold)
             summary_header_22 = ['Tuần', 'Danh mục sản phẩm', 'Số mã SP bị lệch', 'Số mã SP kiểm', 'Tỉ lệ (%)']
             [worksheet_2.write(row, header_cell, unicode(summary_header_22[header_cell], "utf-8"), body_bold_color) for
              header_cell in range(0, len(summary_header_22)) if summary_header_22[header_cell]]
@@ -623,7 +640,8 @@ class bao_cao_kiem_kho(models.Model):
         if self.type_time == 'thang':
             worksheet_2.merge_range('A1:G1', unicode(("BÁO CÁO KIỂM SỐ MÃ SP - TUẦN"), "utf-8"), text_bold)
             row = 1
-            summary_header_21 = ['Tuần', 'Số mã SP bị lệch', 'Số mã SP kiểm', 'Tỉ lệ (%)', 'SL mã SP duy nhất (tuần)', 'Số mã đang kinh doanh', 'Tỉ lệ (%)']
+            summary_header_21 = ['Tuần', 'Số mã SP bị lệch', 'Số mã SP kiểm', 'Tỉ lệ (%)', 'SL mã SP duy nhất (tuần)',
+                                 'Số mã đang kinh doanh', 'Tỉ lệ (%)']
             [worksheet_2.write(row, header_cell, unicode(summary_header_21[header_cell], "utf-8"), body_bold_color) for
              header_cell in range(0, len(summary_header_21)) if summary_header_21[header_cell]]
             for line in self.bao_cao_sml_table2_ids:
@@ -638,7 +656,9 @@ class bao_cao_kiem_kho(models.Model):
                 worksheet_2.write(row, 6, line.ty_le_sp, text_style_red)
 
             row += 5
-            worksheet_2.merge_range('A%s:E%s' % (row, row), unicode(("BÁO CÁO KIỂM SỐ MÃ SP THEO DANH MỤC SẢN PHẨM - TUẦN"), "utf-8"), text_bold)
+            worksheet_2.merge_range('A%s:E%s' % (row, row),
+                                    unicode(("BÁO CÁO KIỂM SỐ MÃ SP THEO DANH MỤC SẢN PHẨM - TUẦN"), "utf-8"),
+                                    text_bold)
             summary_header_22 = ['Tuần', 'Danh mục sản phẩm', 'Số mã SP bị lệch', 'Số mã SP kiểm', 'Tỉ lệ (%)']
             [worksheet_2.write(row, header_cell, unicode(summary_header_22[header_cell], "utf-8"), body_bold_color) for
              header_cell in range(0, len(summary_header_22)) if summary_header_22[header_cell]]
@@ -651,12 +671,14 @@ class bao_cao_kiem_kho(models.Model):
                 worksheet_2.write(row, 3, line.count_sp_kiem, text_style_right)
                 worksheet_2.write(row, 4, line.ty_le, text_style_red)
 
-# --------------------------
+            # --------------------------
             worksheet_2.merge_range('J1:P1', unicode(("BÁO CÁO KIỂM SỐ MÃ SP - THÁNG"), "utf-8"), text_bold)
             row = 1
             col = 9
-            summary_header_21 = ['Tháng', 'Số mã SP bị lệch', 'Số mã SP kiểm', 'Tỉ lệ (%)', 'SL mã SP duy nhất (tuần)', 'Số mã đang kinh doanh', 'Tỉ lệ (%)']
-            [worksheet_2.write(row, col + header_cell, unicode(summary_header_21[header_cell], "utf-8"), body_bold_color) for
+            summary_header_21 = ['Tháng', 'Số mã SP bị lệch', 'Số mã SP kiểm', 'Tỉ lệ (%)', 'SL mã SP duy nhất (tuần)',
+                                 'Số mã đang kinh doanh', 'Tỉ lệ (%)']
+            [worksheet_2.write(row, col + header_cell, unicode(summary_header_21[header_cell], "utf-8"),
+                               body_bold_color) for
              header_cell in range(0, len(summary_header_21)) if summary_header_21[header_cell]]
             for line in self.bao_cao_sml_table4_ids:
                 row += 1
@@ -670,9 +692,12 @@ class bao_cao_kiem_kho(models.Model):
                 worksheet_2.write(row, 15, line.ty_le_sp, text_style_red)
 
             row += 5
-            worksheet_2.merge_range('J%s:N%s' % (row, row), unicode(("BÁO CÁO KIỂM SỐ MÃ SP THEO DANH MỤC SẢN PHẨM - THÁNG"), "utf-8"), text_bold)
-            summary_header_22 = ['Tháng',  'Danh mục sản phẩm', 'Số mã SP bị lệch', 'Số mã SP kiểm', 'Tỉ lệ (%)']
-            [worksheet_2.write(row, col + header_cell, unicode(summary_header_22[header_cell], "utf-8"), body_bold_color) for
+            worksheet_2.merge_range('J%s:N%s' % (row, row),
+                                    unicode(("BÁO CÁO KIỂM SỐ MÃ SP THEO DANH MỤC SẢN PHẨM - THÁNG"), "utf-8"),
+                                    text_bold)
+            summary_header_22 = ['Tháng', 'Danh mục sản phẩm', 'Số mã SP bị lệch', 'Số mã SP kiểm', 'Tỉ lệ (%)']
+            [worksheet_2.write(row, col + header_cell, unicode(summary_header_22[header_cell], "utf-8"),
+                               body_bold_color) for
              header_cell in range(0, len(summary_header_22)) if summary_header_22[header_cell]]
             for line in self.bao_cao_sml_table5_ids:
                 row += 1
@@ -683,7 +708,7 @@ class bao_cao_kiem_kho(models.Model):
                 worksheet_2.write(row, 12, line.count_sp_kiem, text_style_right)
                 worksheet_2.write(row, 13, line.ty_le, text_style_red)
 
-    # RP_Số lượng lệch
+        # RP_Số lượng lệch
         worksheet_3.set_column('A:P', 15)
 
         if self.type_time == 'tuan':
@@ -701,7 +726,9 @@ class bao_cao_kiem_kho(models.Model):
                 worksheet_3.write(row, 3, line.ty_le, text_style_red)
 
             row += 5
-            worksheet_3.merge_range('A%s:E%s' % (row, row), unicode(("BÁO CÁO KIỂM SỐ LƯỢNG SP THEO DANH MỤC SẢN PHẨM - TUẦN"), "utf-8"), text_bold)
+            worksheet_3.merge_range('A%s:E%s' % (row, row),
+                                    unicode(("BÁO CÁO KIỂM SỐ LƯỢNG SP THEO DANH MỤC SẢN PHẨM - TUẦN"), "utf-8"),
+                                    text_bold)
             summary_header_32 = ['Tuần', 'Danh mục sản phẩm', 'Số mã SP bị lệch', 'Số mã SP kiểm', 'Tỉ lệ (%)']
             [worksheet_3.write(row, header_cell, unicode(summary_header_32[header_cell], "utf-8"), body_bold_color) for
              header_cell in range(0, len(summary_header_32)) if summary_header_32[header_cell]]
@@ -729,7 +756,9 @@ class bao_cao_kiem_kho(models.Model):
                 worksheet_3.write(row, 3, line.ty_le, text_style_red)
 
             row += 5
-            worksheet_3.merge_range('A%s:E%s' % (row, row), unicode(("BÁO CÁO KIỂM SỐ LƯỢNG SP THEO DANH MỤC SẢN PHẨM - TUẦN"), "utf-8"), text_bold)
+            worksheet_3.merge_range('A%s:E%s' % (row, row),
+                                    unicode(("BÁO CÁO KIỂM SỐ LƯỢNG SP THEO DANH MỤC SẢN PHẨM - TUẦN"), "utf-8"),
+                                    text_bold)
             summary_header_32 = ['Tuần', 'Danh mục sản phẩm', 'Số mã SP bị lệch', 'Số mã SP kiểm', 'Tỉ lệ (%)']
             [worksheet_3.write(row, header_cell, unicode(summary_header_32[header_cell], "utf-8"), body_bold_color) for
              header_cell in range(0, len(summary_header_32)) if summary_header_32[header_cell]]
@@ -742,12 +771,13 @@ class bao_cao_kiem_kho(models.Model):
                 worksheet_3.write(row, 3, line.count_sp_kiem, text_style_right)
                 worksheet_3.write(row, 4, line.ty_le, text_style_red)
 
-# --------------------------
+            # --------------------------
             worksheet_3.merge_range('J1:N1', unicode(("BÁO CÁO KIỂM SỐ LƯỢNG SP - THÁNG"), "utf-8"), text_bold)
             row = 1
             col = 9
             summary_header_31 = ['Tháng', 'Số mã SP bị lệch', 'Số mã SP kiểm', 'Tỉ lệ (%)']
-            [worksheet_3.write(row, col + header_cell, unicode(summary_header_31[header_cell], "utf-8"), body_bold_color) for
+            [worksheet_3.write(row, col + header_cell, unicode(summary_header_31[header_cell], "utf-8"),
+                               body_bold_color) for
              header_cell in range(0, len(summary_header_31)) if summary_header_31[header_cell]]
             for line in self.bao_cao_sml_table8_ids:
                 row += 1
@@ -758,9 +788,12 @@ class bao_cao_kiem_kho(models.Model):
                 worksheet_3.write(row, 12, line.ty_le, text_style_red)
 
             row += 5
-            worksheet_3.merge_range('J%s:N%s' % (row, row), unicode(("BÁO CÁO KIỂM SỐ LƯỢNG SP THEO DANH MỤC SẢN PHẨM - THÁNG"), "utf-8"), text_bold)
+            worksheet_3.merge_range('J%s:N%s' % (row, row),
+                                    unicode(("BÁO CÁO KIỂM SỐ LƯỢNG SP THEO DANH MỤC SẢN PHẨM - THÁNG"), "utf-8"),
+                                    text_bold)
             summary_header_32 = ['Tháng', 'Danh mục sản phẩm', 'Số mã SP bị lệch', 'Số mã SP kiểm', 'Tỉ lệ (%)']
-            [worksheet_3.write(row, col + header_cell, unicode(summary_header_32[header_cell], "utf-8"), body_bold_color) for
+            [worksheet_3.write(row, col + header_cell, unicode(summary_header_32[header_cell], "utf-8"),
+                               body_bold_color) for
              header_cell in range(0, len(summary_header_32)) if summary_header_32[header_cell]]
             for line in self.bao_cao_sml_table9_ids:
                 row += 1
@@ -785,6 +818,7 @@ class bao_cao_kiem_kho(models.Model):
         return {"type": "ir.actions.act_url",
                 "url": str(base_url) + str(download_url)}
 
+
 class bao_cao_sml_table1(models.Model):
     _name = 'bao.cao.sml.table1'
 
@@ -793,6 +827,7 @@ class bao_cao_sml_table1(models.Model):
     count_sp_kiem = fields.Integer(string='Số mã SP kiểm')
     ty_le = fields.Float(string='Tỉ lệ (%)', digits=(16, 2))
     bao_cao_kiem_kho_id = fields.Many2one('bao.cao.kiem.kho')
+
 
 class bao_cao_sml_table2(models.Model):
     _name = 'bao.cao.sml.table2'
@@ -805,6 +840,7 @@ class bao_cao_sml_table2(models.Model):
     count_sp_active = fields.Integer(string='Số mã đang kinh doanh')
     ty_le_sp = fields.Float(string='Tỉ lệ (%)', digits=(16, 2))
     bao_cao_kiem_kho_id = fields.Many2one('bao.cao.kiem.kho')
+
 
 class bao_cao_sml_table3(models.Model):
     _name = 'bao.cao.sml.table3'
@@ -825,6 +861,7 @@ class bao_cao_sml_table3(models.Model):
             else:
                 rec.product_category_sub = 'Total'
 
+
 class bao_cao_sml_table4(models.Model):
     _name = 'bao.cao.sml.table4'
 
@@ -836,6 +873,7 @@ class bao_cao_sml_table4(models.Model):
     count_sp_active = fields.Integer(string='Số mã đang kinh doanh')
     ty_le_sp = fields.Float(string='Tỉ lệ (%)', digits=(16, 2))
     bao_cao_kiem_kho_id = fields.Many2one('bao.cao.kiem.kho')
+
 
 class bao_cao_sml_table5(models.Model):
     _name = 'bao.cao.sml.table5'
@@ -856,6 +894,7 @@ class bao_cao_sml_table5(models.Model):
             else:
                 rec.product_category_sub = 'Total'
 
+
 class bao_cao_sml_table6(models.Model):
     _name = 'bao.cao.sml.table6'
 
@@ -864,6 +903,7 @@ class bao_cao_sml_table6(models.Model):
     count_sp_kiem = fields.Integer(string='Số lượng SP kiểm')
     ty_le = fields.Float(string='Tỉ lệ (%)', digits=(16, 2))
     bao_cao_kiem_kho_id = fields.Many2one('bao.cao.kiem.kho')
+
 
 class bao_cao_sml_table7(models.Model):
     _name = 'bao.cao.sml.table7'
@@ -884,6 +924,7 @@ class bao_cao_sml_table7(models.Model):
             else:
                 rec.product_category_sub = 'Total'
 
+
 class bao_cao_sml_table8(models.Model):
     _name = 'bao.cao.sml.table8'
 
@@ -892,6 +933,7 @@ class bao_cao_sml_table8(models.Model):
     count_sp_kiem = fields.Integer(string='Số lượng SP kiểm')
     ty_le = fields.Float(string='Tỉ lệ (%)', digits=(16, 2))
     bao_cao_kiem_kho_id = fields.Many2one('bao.cao.kiem.kho')
+
 
 class bao_cao_sml_table9(models.Model):
     _name = 'bao.cao.sml.table9'
