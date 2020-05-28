@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'sale', 'fetchmail'],
+    'depends': ['base', 'sale', 'fetchmail', 'account', 'stock'],
 
     # always loaded
     'data': [
@@ -37,6 +37,8 @@
         'views/attachment.xml',
         'views/Menu_dia_chi.xml',
         'views/Thong_tin_dia_chi.xml',
+        'views/kiem_tra_cong_no.xml',
+        'views/kiem_tra_ton_kho.xml'
     ],
     # only loaded in demonstration mode
     'demo': [

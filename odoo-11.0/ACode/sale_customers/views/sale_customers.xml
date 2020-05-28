@@ -46,7 +46,7 @@
                 </xpath>
 
                 <xpath expr="//field[@name='type']" position="before">
-                    <field name="ref"/>
+                    <field name="ref" string='Mã KH Nội Bộ'/>
                 </xpath>
 
                 <xpath expr="//field[@name='function']" position="before">

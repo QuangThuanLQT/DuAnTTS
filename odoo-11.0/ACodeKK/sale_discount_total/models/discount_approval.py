@@ -11,7 +11,7 @@ class sale_discount(models.Model):
         ('sale', 'Sales Order'),
         ('done', 'Locked'),
         ('cancel', 'Cancelled'),
-        ], string='Status', readonly=True, copy=False, index=True, track_visibility='onchange', default='draft')
+    ], string='Status', readonly=True, copy=False, index=True, track_visibility='onchange', default='draft')
 
     @api.multi
     def action_confirm(self):
@@ -19,7 +19,8 @@ class sale_discount(models.Model):
         no_line = 0.0
         for order in self:
             if order.company_id.discount_approval:
-                print order.company_id.discount_approval
+                print
+                order.company_id.discount_approval
                 for line in order.order_line:
                     no_line += 1
                     discnt += line.discount
@@ -49,8 +50,6 @@ class sale_discount(models.Model):
         if self.env['ir.values'].get_default('sale.config.settings', 'auto_done_setting'):
             self.action_done()
         return True
-
-
 
 
 class Company(models.Model):
