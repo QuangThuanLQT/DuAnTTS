@@ -30,6 +30,7 @@ import logging
 
 from odoo import http
 from odoo.http import request
+
 _logger = logging.getLogger(__name__)
 
 
@@ -57,9 +58,9 @@ def set_background():
         request.params['background_src'] = param_obj.get_param('login_form_background_default') or ''
 
 
-#----------------------------------------------------------
+# ----------------------------------------------------------
 # Odoo Web web Controllers
-#----------------------------------------------------------
+# ----------------------------------------------------------
 class LoginHome(Home):
 
     @http.route('/web/login', type='http', auth="none")

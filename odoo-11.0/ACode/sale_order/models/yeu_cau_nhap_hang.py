@@ -33,7 +33,6 @@ class nhap_hang(models.Model):
 
 
 
-
 class thong_tin_nhap(models.Model):
     _name = 'thong.tin.nhap.hang'
 

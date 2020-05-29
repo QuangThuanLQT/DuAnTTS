@@ -83,6 +83,7 @@ class ProductImage(models.Model):
 
     image_print = fields.Many2many('ir.attachment', string="Image")
     note_image = fields.Text()
+    yeu_cau_nhap_hang = fields.One2many('purchase.order', string='Yêu cầu nhập hàng')
 
     check_all_tt_its = fields.Boolean(string='Checkbox tất cả')
     phi_its = fields.Float(string='Phí in tên số', store=True)

@@ -11,6 +11,10 @@
                 </xpath>
 
                 <xpath expr="//form/header" position="inside">
+                    <button name="yeu_cau_nhap_hang" string="Yêu cầu nhập hàng" type="object" states="draft,sent"/>
+                </xpath>
+
+                <xpath expr="//form/header" position="inside">
                     <button name="print_excel" string="In Excel" type="object" states="sale,done"/>
                 </xpath>
 
