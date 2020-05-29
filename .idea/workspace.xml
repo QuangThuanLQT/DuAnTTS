@@ -2,13 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ed2daa9-808d-45c8-8f81-4bc5b9bca564" name="Default Changelist" comment="Very good">
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order/models/yeu_cau_nhap_hang.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order/views/yeu_cau_nhap_hang.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_invoicing/views/Documents.xml" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_invoicing/views/Documents.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_invoicing/views/views.xml" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_invoicing/views/views.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order/report/phieu_bao_gia.xml" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order/report/phieu_bao_gia.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order_return/models/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order_return/models/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order_return/report/phieu_chi.xml" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order_return/report/phieu_chi.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACodeKK/tts_inventory_adjustment_report/models/bao_cao_kiem_kho.py" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACodeKK/tts_inventory_adjustment_report/models/bao_cao_kiem_kho.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order/__manifest__.py" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order/__manifest__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order/models/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order/models/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order/models/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order/views/update_order.xml" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order/views/update_order.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/tts_sale_report/models/tts_product_report.py" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/tts_sale_report/models/tts_product_report.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/tts_sale_report/views/tts_sale_report.xml" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/tts_sale_report/views/tts_sale_report.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -397,29 +399,29 @@
     </state>
     <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1583280588905" />
     <state x="553" y="167" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1590243313428" />
-    <state width="1345" height="111" key="GridCell.Tab.0.bottom" timestamp="1590562906008">
+    <state width="1345" height="121" key="GridCell.Tab.0.bottom" timestamp="1590745643556">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="1345" height="224" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1583486636512" />
-    <state width="1345" height="111" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1590562906008" />
+    <state width="1345" height="121" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1590745643556" />
     <state width="1345" height="2" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1583005482440" />
-    <state width="1345" height="111" key="GridCell.Tab.0.center" timestamp="1590562906008">
+    <state width="1345" height="121" key="GridCell.Tab.0.center" timestamp="1590745643555">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="1345" height="224" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1583486636512" />
-    <state width="1345" height="111" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1590562906008" />
+    <state width="1345" height="121" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1590745643555" />
     <state width="1345" height="2" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1583005482440" />
-    <state width="1345" height="111" key="GridCell.Tab.0.left" timestamp="1590562906008">
+    <state width="1345" height="121" key="GridCell.Tab.0.left" timestamp="1590745643555">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="1345" height="224" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1583486636512" />
-    <state width="1345" height="111" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1590562906008" />
+    <state width="1345" height="121" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1590745643555" />
     <state width="1345" height="2" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1583005482439" />
-    <state width="1345" height="111" key="GridCell.Tab.0.right" timestamp="1590562906008">
+    <state width="1345" height="121" key="GridCell.Tab.0.right" timestamp="1590745643555">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="1345" height="224" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1583486636512" />
-    <state width="1345" height="111" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1590562906008" />
+    <state width="1345" height="121" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1590745643555" />
     <state width="1345" height="2" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1583005482440" />
     <state width="1345" height="111" key="GridCell.Tab.1.bottom" timestamp="1590562905870">
       <screen x="0" y="0" width="1366" height="738" />
@@ -467,10 +469,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="379" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1582225748637" />
-    <state x="322" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1590166506137">
+    <state x="322" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1590744018199">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="322" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.738@0.0.1366.738" timestamp="1590166506137" />
+    <state x="322" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.738@0.0.1366.738" timestamp="1590744018199" />
     <state x="492" y="285" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1590464942032">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -479,11 +481,11 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="254" y="104" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1366.738@0.0.1366.738" timestamp="1589342657215" />
-    <state x="446" y="74" width="920" height="536" key="find.popup" timestamp="1590574836637">
+    <state x="446" y="74" width="920" height="536" key="find.popup" timestamp="1590745821269">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="446" y="192" width="920" height="536" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1583297780720" />
-    <state x="446" y="74" width="920" height="536" key="find.popup/0.0.1366.738@0.0.1366.738" timestamp="1590574836637" />
+    <state x="446" y="74" width="920" height="536" key="find.popup/0.0.1366.738@0.0.1366.738" timestamp="1590745821269" />
     <state x="446" y="91" width="920" height="555" key="find.popup/0.0.1366.768@0.0.1366.768" timestamp="1582843597773" />
     <state x="346" y="86" width="672" height="652" key="search.everywhere.popup" timestamp="1590451523883">
       <screen x="0" y="0" width="1366" height="738" />

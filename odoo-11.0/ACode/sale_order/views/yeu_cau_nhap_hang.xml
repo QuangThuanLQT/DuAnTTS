@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="nhap_hang_list">
+            <field name="name">nhap_hang</field>
+            <field name="model">nhap.hang</field>
+            <field name="arch" type="xml">
+                <form string="Form yêu cầu">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="partner_id"/>
+                            </group>
+                            <group>
+                                <field name="ngay_yeu_cau"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Thông tin nhập hàng">
+                                <field name='thong_tin_nhap_id' string='Order Lines'>
+                                    <tree editable="bottom">
+                                        <field name="product_id"/>
+                                        <field name="invoice_name"/>
+                                        <field name="product_uom_qty"/>
+                                        <field name="price_unit"/>
+                                        <field name="price_subtotal"/>
+                                    </tree>
+                                    <form string='Thông tin order line'>
+                                        <field name="product_id"/>
+                                        <field name="invoice_name"/>
+                                        <field name="product_uom_qty"/>
+                                        <field name="price_unit"/>
+                                        <field name="price_subtotal"/>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <footer>
+                        <button name="action_confirm" type="object" class="btn-primary" string="Xác nhận"/>
+                        <button name="cancel" string="Cancel"  class="btn-primary" special="Discard"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="nhap_hang_list_action_popup">
+            <field name="name">Yêu cầu nhập hàng</field>
+            <field name="res_model">nhap.hang</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="nhap_hang_list_action">
+            <field name="name">Yêu cầu nhập hàng</field>
+            <field name="res_model">nhap.hang</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+        </record>
+
+<!--        <menuitem id="nhap_hang_menu" name="Yêu cầu nhập hàng"-->
+<!--                  parent="sale_customers.lydo_menu"-->
+<!--                  action="nhap_hang_list_action"/>-->
+    </data>
+</odoo>

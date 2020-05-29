@@ -32,6 +32,7 @@
         'report/quotaion_report.xml',
         'report/phieu_xuat_kho.xml',
         'report/phieu_bao_gia.xml',
+        'views/yeu_cau_nhap_hang.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

@@ -220,5 +220,9 @@ class ProductImage(models.Model):
             res.append((record.id, "%s - %s" % (record.name, record.partner_id.name)))
         return res
 
-
+    #them action cho yeu cau nhap
+    @api.multi
+    def open_yeu_cau_mua(self):
+        action = self.env.ref('sale_order.nhap_hang_list_action_popup').read()[0]
+        return action
 
