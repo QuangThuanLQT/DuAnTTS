@@ -11,26 +11,26 @@ class nhap_hang(models.Model):
     ngay_yeu_cau = fields.Datetime(string='Ngày yêu cầu', default=fields.Datetime.now)
     thong_tin_nhap_id = fields.One2many('thong.tin.nhap.hang', 'thong_tin_nhap_ids')
 
+    # truyen du lieu qua mua hang
     @api.multi
     def action_confirm(self):
         if self.partner_id:
             purchase_id = self.env['purchase.order'].create({
-                'partner_id' : self.partner_id.id
+                'partner_id': self.partner_id.id
             })
 
             for line in self.thong_tin_nhap_id:
                 pur_line_obj = self.env['purchase.order.line']
                 pur_line_data = pur_line_obj.default_get(pur_line_obj._fields)
                 pur_line_data.update({
-                    'name' : line.product_id.name,
-                    'product_id' : line.product_id.id,
-                    'product_qty' : line.product_uom_qty,
-                    'price_unit' : line.price_unit,
-                    'date_planned' : datetime.now(),
-                    'product_uom' : line.product_id.uom_id.id
+                    'name': line.product_id.name,
+                    'product_id': line.product_id.id,
+                    'product_qty': line.product_uom_qty,
+                    'price_unit': line.price_unit,
+                    'date_planned': datetime.now(),
+                    'product_uom': line.product_id.uom_id.id
                 })
                 purchase_id.order_line += purchase_id.order_line.new(pur_line_data)
-
 
 
 class thong_tin_nhap(models.Model):
