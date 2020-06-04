@@ -56,6 +56,20 @@ class sale_order_return(models.Model):
     # ----------------------chuyển sô tiền qua string
 
     total_text = fields.Char('Total Text', compute='_compute_total')
+    invoice_ids = fields.Many2many('account.invoice')
+    invoice_count = fields.Integer(compute="_compute_invoice", string='# of Bills', copy=False, default=0)
+    delivery_count = fields.Integer(compute="_get_delivery_count")
+
+    def _get_delivery_count(self):
+        for record in self:
+            if record.delivery_count:
+                record.delivery_count = record.delivery_count
+
+    @api.depends('invoice_ids')
+    def _compute_invoice(self):
+        for order in self:
+            order.invoice_count = len(self.invoice_ids.ids)
+
 
     def DocSo3ChuSo(self, baso):
         ChuSo = [" không", " một", " hai", " ba", " bốn", " năm", " sáu", " bảy", " tám", " chín"]
@@ -268,6 +282,11 @@ class sale_order_return(models.Model):
         for record in self:
             res.append((record.id, "%s - %s" % (record.name, record.partner_id.name)))
         return res
+
+    # Print Excel Report In Button
+    @api.multi
+    def print_excel(self):
+        return self.env.ref('sale_order_return.action_report_excel_nhap_kho').report_action(self)
 
 
 class thong_tin_order_line(models.Model):

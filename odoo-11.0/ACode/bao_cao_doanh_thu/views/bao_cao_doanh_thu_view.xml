@@ -4,7 +4,7 @@
         <!--# SHOW POP UP-->
         <record id="bao_cao_doanh_thu_view" model="ir.ui.view">
             <field name="name">Báo cáo doanh thu</field>
-            <field name="model">bao.cao.dt</field>
+            <field name="model">bao.cao.doanh.thu</field>
             <field name="arch" type="xml">
                 <form>
                     <label string=""/>  <!-- binding for inherited views -->
@@ -29,7 +29,7 @@
         <record id="bao_cao_doanh_thu_action" model="ir.actions.act_window">
             <field name="name">Báo cáo doanh thu</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">bao.cao.dt</field>
+            <field name="res_model">bao.cao.doanh.thu</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="target">new</field>

@@ -13,9 +13,22 @@
                         <field name="state_return" widget="statusbar" statusbar_visible="draft,order_return"/>
                     </header>
                     <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button type="object"
+                                    name="action_view_delivery"
+                                    class="oe_stat_button"
+                                    icon="fa-truck"
+                                    groups="base.group_user" attrs="{'invisible': [('delivery_count', '=', 1)]}" modifiers="{'invisible': [['delivery_count', '=', 1]]}">
+                                <field name="delivery_count" widget="statinfo" string="Delivery"/>
+                            </button>
+                            <button name="action_view_invoice" type="object" class="oe_stat_button"
+                                    icon="fa-pencil-square-o" attrs="{'invisible': [('invoice_count', '=', 1)]}" modifiers="{'invisible': [['invoice_count', '=', 1]]}">
+                                <field name="invoice_count" widget="statinfo" string="Hoá đơn"/>
+                            </button>
+                        </div>
                         <div class="oe_title">
                             <h1>
-<!--                                <field name="name" default_focus="1" placeholder="Số đơn" required="1"/>-->
+                                <!--                                <field name="name" default_focus="1" placeholder="Số đơn" required="1"/>-->
                                 <field name="name" readonly="1"/>
                             </h1>
                         </div>
@@ -46,20 +59,20 @@
                                         <field name="product_id"/>
                                         <field name="invoice_name"/>
                                         <field name="product_uom_qty"/>
-<!--                                        <field name="check_box_prinizi_confirm"/>-->
-<!--                                        <field name="print_qty"/>-->
+                                        <!--                                        <field name="check_box_prinizi_confirm"/>-->
+                                        <!--                                        <field name="print_qty"/>-->
                                         <field name="price_unit"/>
-<!--                                        <field name="So_tien_tra_lai"/>-->
+                                        <!--                                        <field name="So_tien_tra_lai"/>-->
                                         <field name="price_subtotal"/>
                                     </tree>
                                     <form string='Thông tin order line'>
                                         <field name="product_id"/>
                                         <field name="invoice_name"/>
                                         <field name="product_uom_qty"/>
-<!--                                        <field name="check_box_prinizi_confirm"/>-->
-<!--                                        <field name="print_qty"/>-->
+                                        <!--                                        <field name="check_box_prinizi_confirm"/>-->
+                                        <!--                                        <field name="print_qty"/>-->
                                         <field name="price_unit"/>
-<!--                                        <field name="So_tien_tra_lai"/>-->
+                                        <!--                                        <field name="So_tien_tra_lai"/>-->
                                         <field name="price_subtotal"/>
                                     </form>
                                 </field>
@@ -72,12 +85,12 @@
                                         <field name="check_box_invoice_gtgt"/>
                                     </group>
 
-<!--                                    <group>-->
-<!--                                        <field name="total_quantity"/>-->
-<!--                                        <field name="amount_untaxed"/>-->
-<!--                                        <field name="amount_tax"/>-->
-<!--                                        <field name="amount_total"/>-->
-<!--                                    </group>-->
+                                    <!--                                    <group>-->
+                                    <!--                                        <field name="total_quantity"/>-->
+                                    <!--                                        <field name="amount_untaxed"/>-->
+                                    <!--                                        <field name="amount_tax"/>-->
+                                    <!--                                        <field name="amount_total"/>-->
+                                    <!--                                    </group>-->
 
                                     <group class="oe_subtotal_footer oe_right">
                                         <field name="total_quantity" digits="(16, 0)" widget='monetary'

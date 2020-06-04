@@ -41,19 +41,20 @@ class IrAttachment(models.Model):
     @api.model
     def _get_storage_client(self):
         storage_client = storage.Client.from_service_account_json(
-            os.path.dirname(os.path.realpath(__file__ + '/../../../../../../')) + '/config/production/99dd971024f5.json')
+            os.path.dirname(
+                os.path.realpath(__file__ + '/../../../../../../')) + '/config/production/99dd971024f5.json')
         return storage_client
 
-    @api.model
-    def _get_gce_resource(self):
-        try:
-            bucket_name = self._get_gce_settings('gce.bucket', 'vieterp')
-
-            storage_client = self._get_storage_client()
-            bucket = storage_client.get_bucket(bucket_name)
-        except Exception, e:
-            return None
-        return bucket
+    # @api.model
+    # def _get_gce_resource(self):
+    #     try:
+    #         bucket_name = self._get_gce_settings('gce.bucket', 'vieterp')
+    #
+    #         storage_client = self._get_storage_client()
+    #         bucket = storage_client.get_bucket(bucket_name)
+    #     except Exception, e:
+    #         return None
+    #     return bucket
 
     def _inverse_datas(self):
         bucket = self._get_gce_resource()
@@ -62,14 +63,15 @@ class IrAttachment(models.Model):
             bucket_name = self._get_gce_settings('gce.bucket', 'vieterp')
 
             gce_records = self
-            gce_records = gce_records.filtered(lambda r: r.res_model == 'ir.ui.view' and r.name.startswith('/web/content/'))
+            gce_records = gce_records.filtered(
+                lambda r: r.res_model == 'ir.ui.view' and r.name.startswith('/web/content/'))
 
             for attachment in gce_records:
                 if not attachment.gce_url:
                     # TODO: Upload protected url to gce
-                    value    = attachment.datas
+                    value = attachment.datas
                     bin_data = value and value.decode('base64') or ''
-                    fname    = hashlib.sha1(bin_data).hexdigest()
+                    fname = hashlib.sha1(bin_data).hexdigest()
 
                     blob = bucket.blob(fname)
                     blob.upload_from_string(bin_data, attachment.mimetype)
@@ -83,9 +85,9 @@ class IrAttachment(models.Model):
 
             attachments = self._filter_protected_attachments()
             for attachment in attachments:
-                value    = attachment.datas
+                value = attachment.datas
                 bin_data = value and value.decode('base64') or ''
-                fname    = hashlib.sha1(bin_data).hexdigest()
+                fname = hashlib.sha1(bin_data).hexdigest()
 
                 blob = bucket.blob(fname)
                 blob.upload_from_string(bin_data, attachment.mimetype)
@@ -118,19 +120,20 @@ class IrAttachment(models.Model):
     def update_attachments(self):
         bucket_name = self._get_gce_settings('gce.bucket', 'vieterp')
 
-        domain      = [('type', '!=', 'url'), ('id', '!=', 0)]
+        domain = [('type', '!=', 'url'), ('id', '!=', 0)]
         attachments = self.env['ir.attachment'].search(domain)
-        bucket      = self._get_gce_resource()
+        bucket = self._get_gce_resource()
 
         if bucket:
-            protecteds = attachments.filtered(lambda r: r.res_model == 'ir.ui.view' and r.name.startswith('/web/content/'))
+            protecteds = attachments.filtered(
+                lambda r: r.res_model == 'ir.ui.view' and r.name.startswith('/web/content/'))
             if protecteds:
                 for attachment in protecteds:
                     # TODO: Upload protected url to gce
                     if not attachment.gce_url:
-                        value    = attachment.datas
+                        value = attachment.datas
                         bin_data = value and value.decode('base64') or ''
-                        fname    = hashlib.sha1(bin_data).hexdigest()
+                        fname = hashlib.sha1(bin_data).hexdigest()
 
                         blob = bucket.blob(fname)
                         blob.upload_from_string(bin_data, attachment.mimetype)
@@ -146,9 +149,9 @@ class IrAttachment(models.Model):
 
             if attachments:
                 for attachment in attachments:
-                    value    = attachment.datas
+                    value = attachment.datas
                     bin_data = value and value.decode('base64') or ''
-                    fname    = hashlib.sha1(bin_data).hexdigest()
+                    fname = hashlib.sha1(bin_data).hexdigest()
 
                     blob = bucket.blob(fname)
                     blob.upload_from_string(bin_data, attachment.mimetype)

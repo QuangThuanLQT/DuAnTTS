@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data>
-        <record model="ir.ui.view" id="kiem_tra_ton_kho_form_view">
-            <field name="name">kiem_tra_ton_kho</field>
-            <field name="model">stock.inventory</field>
-            <field name="inherit_id" ref="stock.view_inventory_form"/>
-            <field name="arch" type="xml">
-                 <xpath expr="//field[@name='name']" position="attributes">
-                    <attribute name="placeholder">VD: Kiểm kho hàng năm</attribute>
-                </xpath>
-            </field>
-        </record>
+<!--        <record model="ir.ui.view" id="kiem_tra_ton_kho_form_view">-->
+<!--            <field name="name">kiem_tra_ton_kho</field>-->
+<!--            <field name="model">stock.inventory</field>-->
+<!--            <field name="inherit_id" ref="stock.view_inventory_form"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                 <xpath expr="//field[@name='name']" position="attributes">-->
+<!--                    <attribute name="placeholder">VD: Kiểm kho hàng năm</attribute>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
 
-        <record model="ir.actions.act_window" id="kiem_tra_ton_kho_list_action">
-            <field name="name">Kiểm tra số lượng tồn kho</field>
-            <field name="res_model">stock.inventory</field>
-            <field name="view_mode">tree,kanban,form</field>
-        </record>
+<!--        <record model="ir.actions.act_window" id="kiem_tra_ton_kho_list_action">-->
+<!--            <field name="name">Kiểm tra số lượng tồn kho</field>-->
+<!--            <field name="res_model">stock.inventory</field>-->
+<!--            <field name="view_mode">tree,kanban,form</field>-->
+<!--        </record>-->
 
-        <menuitem id="kiem_tra_ton_kho_menu" name="Kiểm tra số lượng tồn kho" parent="sale_invoicing.Documents_menu"
-                  action="kiem_tra_ton_kho_list_action"/>
+<!--        <menuitem id="kiem_tra_ton_kho_menu" name="Kiểm tra số lượng tồn kho" parent="sale_invoicing.Documents_menu"-->
+<!--                  action="kiem_tra_ton_kho_list_action"/>-->
     </data>
 </odoo>

@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api, exceptions
 
 
 class sale_customers(models.Model):
     _inherit = 'res.partner'
     _name = "res.partner"
 
-    ref = fields.Char(string='Mã KH Nội Bộ', readonly=True, required=True, copy=False, default='New')
+    ref = fields.Char(string='Mã KH Nội Bộ', readonly=False, required=True, copy=False, default='New')
     maKH = fields.Char(string='Mã KH', required=True)
     kh_birthday = fields.Date(string='Sinh nhật')
     feosco_business_license = fields.Char(u'Giấy phép kinh doanh')
@@ -65,6 +65,25 @@ class sale_customers(models.Model):
             vals['ref'] = self.env['ir.sequence'].next_by_code('res.partner') or 'New'
         result = super(sale_customers, self).create(vals)
         return result
+
+    #kiểm tra mã khách hàng đã nhập
+    @api.constrains('maKH')
+    def _check_ma_KH(self):
+        for r in self:
+            if r.maKH:
+                exists = self.env['res.partner'].search(
+                    [('maKH', '=', r.maKH), ('id', '!=', r.id)])
+                if exists:
+                    raise exceptions.ValidationError("Mã KH Bị Trùng. Xin Vui Lòng Nhập Lại!")
+
+    @api.constrains('ref')
+    def _check_ma_noi_bo(self):
+        for r in self:
+            if r.ref:
+                exists = self.env['res.partner'].search(
+                    [('ref', '=', r.ref), ('id', '!=', r.id)])
+                if exists:
+                    raise exceptions.ValidationError("Mã nội bộ bị trùng. Xin Vui Lòng Nhập Lại!")
 
     # thêm makh sau tên cho khách hàng
     @api.multi

@@ -1,2 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_sale_order_sale_order,sale_order.sale_order,model_sale_order_sale_order,,1,0,0,0
+access_thong_tin_its,name_thong_tin_its,model_thong_tin_its,,1,1,1,1
+access_nhap_hang,name_nhap_hang,model_nhap_hang,,1,1,1,1
+access_thong_tin_nhap_hang,name_thong_tin_nhap_hang,model_thong_tin_nhap_hang,,1,1,1,1
+access_feosco_ward,name_feosco_ward,model_feosco_ward,,1,1,1,1

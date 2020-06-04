@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 from datetime import datetime
 
 
@@ -18,7 +18,6 @@ class nhap_hang(models.Model):
             purchase_id = self.env['purchase.order'].create({
                 'partner_id': self.partner_id.id
             })
-
             for line in self.thong_tin_nhap_id:
                 pur_line_obj = self.env['purchase.order.line']
                 pur_line_data = pur_line_obj.default_get(pur_line_obj._fields)

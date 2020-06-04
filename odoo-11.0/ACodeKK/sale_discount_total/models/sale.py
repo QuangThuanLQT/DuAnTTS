@@ -27,7 +27,8 @@ class SaleOrder(models.Model):
             })
 
     discount_type = fields.Selection([('percent', 'Percentage'), ('amount', 'Amount')], string='Discount type',
-                                     readonly=True,states={'draft': [('readonly', False)], 'sent': [('readonly', False)]},
+                                     readonly=True,
+                                     states={'draft': [('readonly', False)], 'sent': [('readonly', False)]},
                                      default='percent')
     discount_rate = fields.Float('Discount Rate', digits_compute=dp.get_precision('Account'),
                                  readonly=True, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]})
@@ -59,7 +60,7 @@ class SaleOrder(models.Model):
                         line.discount = discount
 
     @api.multi
-    def _prepare_invoice(self,):
+    def _prepare_invoice(self, ):
         invoice_vals = super(SaleOrder, self)._prepare_invoice()
         invoice_vals.update({
             'discount_type': self.discount_type,
@@ -72,12 +73,14 @@ class SaleOrder(models.Model):
         self.supply_rate()
         return True
 
+
 class AccountTax(models.Model):
     _inherit = 'account.tax'
 
     @api.multi
     def compute_all(self, price_unit, currency=None, quantity=1.0, product=None, partner=None):
-        print "hello"
+        print
+        "hello"
         if len(self) == 0:
             company_id = self.env.user.company_id
         else:
@@ -118,9 +121,9 @@ class AccountTax(models.Model):
                 base -= tax_amount
             else:
                 total_included += tax_amount
-            
+
             tax_base = base
-            
+
             if tax.include_base_amount:
                 base += tax_amount
 
@@ -134,8 +137,10 @@ class AccountTax(models.Model):
                 'analytic': tax.analytic,
                 'base': tax_base,
             })
-        print "total_excluded:",total_excluded
-        print "total_included:",total_included
+        print
+        "total_excluded:", total_excluded
+        print
+        "total_included:", total_included
         return {
             'taxes': sorted(taxes, key=lambda k: k['sequence']),
             'total_excluded': total_excluded,
@@ -144,10 +149,8 @@ class AccountTax(models.Model):
         }
 
 
-
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
     discount = fields.Float(string='Discount (%)', digits=(16, 20), default=0.0)
     price_discount = fields.Monetary('Discount Price')
-

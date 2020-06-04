@@ -117,3 +117,7 @@ class tts_modifier_sale(models.Model):
     # trên 20 triệu đồng miễn phí vận chuyển
     # từ 5 triệu đồng - < 20 triệu đồng chịu 50.000 phí vận chuyển
     # còn lại đơn dưới 5 triệu đồng sẽ chịu 30.000 phí vận chuyển
+
+    @api.multi
+    def print_excel(self):
+        return self.env.ref('sale_order_return.action_report_excel_nhap_kho').report_action(self)

@@ -1,2 +1,8 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_sale_order_return_sale_order_return,sale_order_return.sale_order_return,model_sale_order_return_sale_order_return,,1,0,0,0
+access_sale_order_return,name_sale_order_return,model_sale_order_return,,1,1,1,1
+access_order_line,name_order_line,model_order_line,,1,1,1,1
+access_thong_tin_its,name_thong_tin_its,model_thong_tin_its,,1,1,1,1
+access_thong_tin_them_its,name_thong_tin_them_its,model_thong_tin_them_its,,1,1,1,1
+access_thong_tin_in_hinh,name_thong_tin_in_hinh,model_thong_tin_in_hinh,,1,1,1,1
+access_config_thong_tin_its,name_config_thong_tin_its,model_config_thong_tin_its,,1,1,1,1
+access_state_log,name_state_log,model_state_log,,1,1,1,1

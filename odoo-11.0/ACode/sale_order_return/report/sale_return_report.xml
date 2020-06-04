@@ -18,5 +18,15 @@
             file="sale_order_return.report_phieuchi"
             name="sale_order_return.report_phieuchi"
         />
+
+         <report
+            id="action_report_excel_nhap_kho"
+            string="Excel nhập kho"
+            model="sale.order.return"
+            report_type="xlsx"
+            file="sale_order_return.report_excel_nhap_kho"
+            name="sale_order_return.report_excel_nhap_kho"
+        />
+
     </data>
 </odoo>

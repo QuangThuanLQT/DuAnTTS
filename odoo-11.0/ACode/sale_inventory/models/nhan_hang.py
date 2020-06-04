@@ -50,9 +50,9 @@ class stock_picking_ihr(models.Model):
     #             total_quantity += line.product_uom_qty
     #         rec.qty = total_quantity
 
-    @api.multi
-    def name_get(self):
-        res = []
-        for record in self:
-            res.append((record.id, "TTS/PICK/00%s" % (record.name)))
-        return res
+    # @api.multi
+    # def name_get(self):
+    #     res = []
+    #     for record in self:
+    #         res.append((record.id, "TTS/PICK/00%s" % (record.name)))
+    #     return res

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT,DEFAULT_SERVER_DATE_FORMAT
+from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT, DEFAULT_SERVER_DATE_FORMAT
 # import cStringIO
 import base64
 from io import StringIO
@@ -10,7 +10,7 @@ from datetime import datetime
 
 
 class sale_order_line_report(models.TransientModel):
-    _name = 'bao.cao.dt'
+    _name = 'bao.cao.doanh.thu'
 
     start_date = fields.Date(String='Start Date', required=True)
     end_date = fields.Date(String='End Date')
@@ -96,15 +96,15 @@ class sale_order_line_report(models.TransientModel):
         order_line_ids = self.env['sale.order.line'].search(conditions, order='date_order asc')
 
         for order_line in order_line_ids:
-            doanh_thu_sum_1 += order_line.price_subtotal if not order_line.sale_order_return else -order_line.price_subtotal
+            doanh_thu_sum_1 += order_line.price_subtotal
             if order_line.order_partner_id.group_kh2_id.name == 'TUẤN HUY':
-                doanh_thu_sum_2 += order_line.price_subtotal if not order_line.sale_order_return else -order_line.price_subtotal
+                doanh_thu_sum_2 += order_line.price_subtotal
             elif order_line.order_partner_id.group_kh2_id.name == 'CTY':
-                doanh_thu_sum_3 += order_line.price_subtotal if not order_line.sale_order_return else -order_line.price_subtotal
+                doanh_thu_sum_3 += order_line.price_subtotal
             elif order_line.order_partner_id.group_kh2_id.name == 'KHÁCH LẺ':
-                doanh_thu_sum_4 += order_line.price_subtotal if not order_line.sale_order_return else -order_line.price_subtotal
+                doanh_thu_sum_4 += order_line.price_subtotal
             elif order_line.order_partner_id.group_kh2_id.name == 'CỬA HÀNG':
-                doanh_thu_sum_5 += order_line.price_subtotal if not order_line.sale_order_return else -order_line.price_subtotal
+                doanh_thu_sum_5 += order_line.price_subtotal
 
             data_doanh_thu_chi_tiet.append({
                 'date_order': datetime.strptime(order_line.date_order, DEFAULT_SERVER_DATETIME_FORMAT).strftime(
@@ -114,13 +114,13 @@ class sale_order_line_report(models.TransientModel):
                 'default_code': order_line.product_id.default_code,
                 'product_name': order_line.product_id.name,
                 'uom': order_line.product_uom.name,
-                'qty': order_line.product_uom_qty if not order_line.sale_order_return else -order_line.product_uom_qty,
-                'price_unit': order_line.final_price if not order_line.sale_order_return else -order_line.final_price,
-                'price_subtotal': order_line.price_subtotal if not order_line.sale_order_return else -order_line.price_subtotal,
+                'qty': order_line.product_uom_qty,
+                'price_unit': order_line.final_price,
+                'price_subtotal': order_line.price_subtotal,
             })
 
             if order_line.order_partner_id.group_kh1_id.name == 'TT':
-                doanh_thu_tyle_3 += order_line.price_subtotal if not order_line.sale_order_return else -order_line.price_subtotal
+                doanh_thu_tyle_3 += order_line.price_subtotal
                 kh_truc_tiep.append({
                     'date_order': datetime.strptime(order_line.date_order, DEFAULT_SERVER_DATETIME_FORMAT).strftime(
                         "%d/%m/%Y"),
@@ -129,9 +129,9 @@ class sale_order_line_report(models.TransientModel):
                     'default_code': order_line.product_id.default_code,
                     'product_name': order_line.product_id.name,
                     'uom': order_line.product_uom.name,
-                    'qty': order_line.product_uom_qty if not order_line.sale_order_return else -order_line.product_uom_qty,
-                    'price_unit': order_line.final_price if not order_line.sale_order_return else -order_line.final_price,
-                    'price_subtotal': order_line.price_subtotal if not order_line.sale_order_return else -order_line.price_subtotal,
+                    'qty': order_line.product_uom_qty,
+                    'price_unit': order_line.final_price,
+                    'price_subtotal': order_line.price_subtotal,
                 })
             else:
                 doanh_thu_tyle_2 += order_line.price_subtotal if not order_line.sale_order_return else -order_line.price_subtotal
@@ -143,20 +143,20 @@ class sale_order_line_report(models.TransientModel):
                     'default_code': order_line.product_id.default_code,
                     'product_name': order_line.product_id.name,
                     'uom': order_line.product_uom.name,
-                    'qty': order_line.product_uom_qty if not order_line.sale_order_return else -order_line.product_uom_qty,
-                    'price_unit': order_line.final_price if not order_line.sale_order_return else -order_line.final_price,
-                    'price_subtotal': order_line.price_subtotal if not order_line.sale_order_return else -order_line.price_subtotal,
+                    'qty': order_line.product_uom_qty,
+                    'price_unit': order_line.final_price,
+                    'price_subtotal': order_line.price_subtotal,
                 })
             if order_line.product_id.default_code and order_line.product_id.default_code[0:3] == 'LS-':
-                ls_sum_1 += order_line.price_subtotal if not order_line.sale_order_return else -order_line.price_subtotal
+                ls_sum_1 += order_line.price_subtotal
                 if order_line.order_partner_id.group_kh2_id.name == 'TUẤN HUY':
-                    ls_sum_2 += order_line.price_subtotal if not order_line.sale_order_return else -order_line.price_subtotal
+                    ls_sum_2 += order_line.price_subtotal
                 elif order_line.order_partner_id.group_kh2_id.name == 'CTY':
-                    ls_sum_3 += order_line.price_subtotal if not order_line.sale_order_return else -order_line.price_subtotal
+                    ls_sum_3 += order_line.price_subtotal
                 elif order_line.order_partner_id.group_kh2_id.name == 'KHÁCH LẺ':
-                    ls_sum_4 += order_line.price_subtotal if not order_line.sale_order_return else -order_line.price_subtotal
+                    ls_sum_4 += order_line.price_subtotal
                 elif order_line.order_partner_id.group_kh2_id.name == 'CỬA HÀNG':
-                    ls_sum_5 += order_line.price_subtotal if not order_line.sale_order_return else -order_line.price_subtotal
+                    ls_sum_5 += order_line.price_subtotal
                 hang_ls.append({
                     'date_order': datetime.strptime(order_line.date_order, DEFAULT_SERVER_DATETIME_FORMAT).strftime(
                         "%d/%m/%Y"),
@@ -165,21 +165,21 @@ class sale_order_line_report(models.TransientModel):
                     'default_code': order_line.product_id.default_code,
                     'product_name': order_line.product_id.name,
                     'uom': order_line.product_uom.name,
-                    'qty': order_line.product_uom_qty if not order_line.sale_order_return else -order_line.product_uom_qty,
-                    'price_unit': order_line.final_price if not order_line.sale_order_return else -order_line.final_price,
-                    'price_subtotal': order_line.price_subtotal if not order_line.sale_order_return else -order_line.price_subtotal,
+                    'qty': order_line.product_uom_qty,
+                    'price_unit': order_line.final_price,
+                    'price_subtotal': order_line.price_subtotal,
                     'discount': order_line.discount,
                 })
             if order_line.product_id.default_code and order_line.product_id.default_code[0:3] == 'TH-':
-                th_sum_1 += order_line.price_subtotal if not order_line.sale_order_return else -order_line.price_subtotal
+                th_sum_1 += order_line.price_subtotal
                 if order_line.order_partner_id.group_kh2_id.name == 'TUẤN HUY':
-                    th_sum_2 += order_line.price_subtotal if not order_line.sale_order_return else -order_line.price_subtotal
+                    th_sum_2 += order_line.price_subtotal
                 elif order_line.order_partner_id.group_kh2_id.name == 'CTY':
-                    th_sum_3 += order_line.price_subtotal if not order_line.sale_order_return else -order_line.price_subtotal
+                    th_sum_3 += order_line.price_subtotal
                 elif order_line.order_partner_id.group_kh2_id.name == 'KHÁCH LẺ':
-                    th_sum_4 += order_line.price_subtotal if not order_line.sale_order_return else -order_line.price_subtotal
+                    th_sum_4 += order_line.price_subtotal
                 elif order_line.order_partner_id.group_kh2_id.name == 'CỬA HÀNG':
-                    th_sum_5 += order_line.price_subtotal if not order_line.sale_order_return else -order_line.price_subtotal
+                    th_sum_5 += order_line.price_subtotal
                 hang_th.append({
                     'date_order': datetime.strptime(order_line.date_order, DEFAULT_SERVER_DATETIME_FORMAT).strftime(
                         "%d/%m/%Y"),
@@ -188,21 +188,21 @@ class sale_order_line_report(models.TransientModel):
                     'default_code': order_line.product_id.default_code,
                     'product_name': order_line.product_id.name,
                     'uom': order_line.product_uom.name,
-                    'qty': order_line.product_uom_qty if not order_line.sale_order_return else -order_line.product_uom_qty,
-                    'price_unit': order_line.final_price if not order_line.sale_order_return else -order_line.final_price,
-                    'price_subtotal': order_line.price_subtotal if not order_line.sale_order_return else -order_line.price_subtotal,
+                    'qty': order_line.product_uom_qty,
+                    'price_unit': order_line.final_price,
+                    'price_subtotal': order_line.price_subtotal,
                     'discount': order_line.discount,
                 })
             if order_line.product_id.default_code and order_line.product_id.default_code[0:3] == 'SP-':
-                sp_sum_1 += order_line.price_subtotal if not order_line.sale_order_return else -order_line.price_subtotal
+                sp_sum_1 += order_line.price_subtotal
                 if order_line.order_partner_id.group_kh2_id.name == 'TUẤN HUY':
-                    sp_sum_2 += order_line.price_subtotal if not order_line.sale_order_return else -order_line.price_subtotal
+                    sp_sum_2 += order_line.price_subtotal
                 elif order_line.order_partner_id.group_kh2_id.name == 'CTY':
-                    sp_sum_3 += order_line.price_subtotal if not order_line.sale_order_return else -order_line.price_subtotal
+                    sp_sum_3 += order_line.price_subtotal
                 elif order_line.order_partner_id.group_kh2_id.name == 'KHÁCH LẺ':
-                    sp_sum_4 += order_line.price_subtotal if not order_line.sale_order_return else -order_line.price_subtotal
+                    sp_sum_4 += order_line.price_subtotal
                 elif order_line.order_partner_id.group_kh2_id.name == 'CỬA HÀNG':
-                    sp_sum_5 += order_line.price_subtotal if not order_line.sale_order_return else -order_line.price_subtotal
+                    sp_sum_5 += order_line.price_subtotal
                 hang_sp.append({
                     'date_order': datetime.strptime(order_line.date_order, DEFAULT_SERVER_DATETIME_FORMAT).strftime(
                         "%d/%m/%Y"),
@@ -211,20 +211,20 @@ class sale_order_line_report(models.TransientModel):
                     'default_code': order_line.product_id.default_code,
                     'product_name': order_line.product_id.name,
                     'uom': order_line.product_uom.name,
-                    'qty': order_line.product_uom_qty if not order_line.sale_order_return else -order_line.product_uom_qty,
-                    'price_unit': order_line.final_price if not order_line.sale_order_return else -order_line.final_price,
-                    'price_subtotal': order_line.price_subtotal if not order_line.sale_order_return else -order_line.price_subtotal,
+                    'qty': order_line.product_uom_qty,
+                    'price_unit': order_line.final_price,
+                    'price_subtotal': order_line.price_subtotal,
                     'discount': order_line.discount,
                 })
             if order_line.product_id.default_code and (
                     order_line.product_id.default_code[0:3] in ['CV-', 'TS-'] or order_line.product_id.default_code[
                                                                                  0:4] in ['CDV-',
                                                                                           'CDS-'] or 'LIONDAP-' in order_line.product_id.default_code):
-                day_dien_1 += order_line.price_subtotal if not order_line.sale_order_return else -order_line.price_subtotal
+                day_dien_1 += order_line.price_subtotal
                 if order_line.order_partner_id.group_kh2_id.name == 'TUẤN HUY':
-                    day_dien_2 += order_line.price_subtotal if not order_line.sale_order_return else -order_line.price_subtotal
+                    day_dien_2 += order_line.price_subtotal
                 elif order_line.order_partner_id.group_kh2_id.name == 'CTY':
-                    day_dien_3 += order_line.price_subtotal if not order_line.sale_order_return else -order_line.price_subtotal
+                    day_dien_3 += order_line.price_subtotal
                 elif order_line.order_partner_id.group_kh2_id.name == 'KHÁCH LẺ':
                     day_dien_4 += order_line.price_subtotal if not order_line.sale_order_return else -order_line.price_subtotal
                 elif order_line.order_partner_id.group_kh2_id.name == 'CỬA HÀNG':
