@@ -8,7 +8,9 @@ class product_template(models.Model):
     _inherit = 'product.template'
 
     hs_code = fields.Char(string="HS Code", help="Standardized code for international shipping and goods declaration")
-    group_id = fields.Char(string="Group Product")
+    group_id = fields.Char(string="Nhóm SP")
+    # tt_sp = fields.Selection([('con_hang', 'Còn hàng'), ('het_hang', 'Hết hàng')],
+    #                          string="Tình trạng SP")
     # group_id = fields.Many2one('product.group', string="Group Product")
 
     brand_name_select = fields.Many2one('brand.name', string='Thương hiệu')
@@ -16,6 +18,14 @@ class product_template(models.Model):
     purchase_code = fields.Char('Mã mua hàng')
 
     default_code1 = fields.Char(string='Mã SP', readonly=True, required=True, copy=False, default='SP00xx')
+
+    # @api.onchange('product.virtual_available', 'tt_sp')
+    # def onchange_tt_sp(self):
+    #     for rec in self:
+    #         if rec.product.virtual_available == 0:
+    #             self.tt_sp = 'het_hang'
+    #         else:
+    #             self.tt_sp = 'con_hang'
 
     @api.model
     def create(self, vals):
@@ -56,6 +66,12 @@ class product_template(models.Model):
                 amount = record.standard_price
                 qty = 1
                 record.cost_root = float(amount / qty)
+
+    # them action cho yeu cau nhap
+    @api.multi
+    def open_yeu_cau_mua(self):
+        action = self.env.ref('sale_order.nhap_hang_list_action_popup').read()[0]
+        return action
 
 
 class product_variants(models.Model):
