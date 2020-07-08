@@ -154,7 +154,7 @@ class sale_order_return(models.Model):
             lan = 2
         elif (ViTri[1] > 0):
             lan = 1
-        else:
+        else: 
             lan = 0
         i = lan
         while i >= 0:

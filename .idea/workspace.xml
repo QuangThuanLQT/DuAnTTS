@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ed2daa9-808d-45c8-8f81-4bc5b9bca564" name="Default Changelist" comment="Very good">
+      <change afterPath="$PROJECT_DIR$/BaiBaoCao/BẢNG-PHÂN-CHIA-CÔNG-VIỆC.docx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_product/models/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_product/models/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_product/views/views.xml" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_product/views/views.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order_return/models/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/ACode/sale_order_return/models/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/odoo-11.0/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/odoo-11.0/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,19 +53,19 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\QuangThuan\Documents\GitHub\DuAnTTS\odoo-11.0\ACode" />
-      <recent name="C:\odoo-11.0\odoo-11.0\ACode" />
-      <recent name="C:\odoo11\odoo11-server\addons" />
-      <recent name="C:\odoo11" />
-      <recent name="C:\odoo11\odoo11-server\addons\vieterp\vieterp_bao_cao_tour" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\QuangThuan\Documents\GitHub\DuAnTTS\odoo-11.0\ACode\sale_order\models" />
       <recent name="C:\Users\QuangThuan\Documents\GitHub\DuAnTTS\odoo-11.0\ACode\sale_order" />
       <recent name="C:\Users\QuangThuan\Documents\GitHub\DuAnTTS\odoo-11.0\ACode\sale_order\report" />
       <recent name="C:\Users\QuangThuan\Documents\GitHub\DuAnTTS\odoo-11.0\ACode" />
       <recent name="C:\Users\QuangThuan\Documents\GitHub\DuAnTTS\odoo-11.0\ACode\bao_cao_doanh_thu\models" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\QuangThuan\Documents\GitHub\DuAnTTS\odoo-11.0\ACode" />
+      <recent name="C:\odoo-11.0\odoo-11.0\ACode" />
+      <recent name="C:\odoo11\odoo11-server\addons" />
+      <recent name="C:\odoo11" />
+      <recent name="C:\odoo11\odoo11-server\addons\vieterp\vieterp_bao_cao_tour" />
     </key>
   </component>
   <component name="RunManager" selected="Python.DuAnTTS">
@@ -360,7 +361,6 @@
     <state x="62" y="31" width="1092" height="707" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1590990793327">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="274" y="1" width="1092" height="727" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1583281742185" />
     <state x="62" y="31" width="1092" height="707" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.738@0.0.1366.738" timestamp="1590990793327" />
     <state x="425" y="180" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1590121414782">
       <screen x="0" y="0" width="1366" height="738" />
@@ -370,51 +370,46 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="430" y="231" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1366.738@0.0.1366.738" timestamp="1591031667363" />
-    <state x="216" y="0" key="CommitChangelistDialog2" timestamp="1590466309877">
+    <state x="216" y="0" key="CommitChangelistDialog2" timestamp="1591715084013">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="216" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1590466309877" />
+    <state x="216" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1591715084013" />
     <state x="553" y="167" key="FileChooserDialogImpl" timestamp="1591328267309">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1583280588905" />
     <state x="553" y="167" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1591328267309" />
-    <state width="1345" height="225" key="GridCell.Tab.0.bottom" timestamp="1591689673442">
+    <state width="1345" height="96" key="GridCell.Tab.0.bottom" timestamp="1592734477935">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1345" height="224" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1583486636512" />
-    <state width="1345" height="225" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1591689673442" />
-    <state width="1345" height="225" key="GridCell.Tab.0.center" timestamp="1591689673442">
+    <state width="1345" height="96" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1592734477935" />
+    <state width="1345" height="96" key="GridCell.Tab.0.center" timestamp="1592734477935">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1345" height="224" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1583486636512" />
-    <state width="1345" height="225" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1591689673442" />
-    <state width="1345" height="225" key="GridCell.Tab.0.left" timestamp="1591689673442">
+    <state width="1345" height="96" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1592734477935" />
+    <state width="1345" height="96" key="GridCell.Tab.0.left" timestamp="1592734477935">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1345" height="224" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1583486636512" />
-    <state width="1345" height="225" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1591689673442" />
-    <state width="1345" height="225" key="GridCell.Tab.0.right" timestamp="1591689673442">
+    <state width="1345" height="96" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1592734477935" />
+    <state width="1345" height="96" key="GridCell.Tab.0.right" timestamp="1592734477935">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1345" height="224" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1583486636512" />
-    <state width="1345" height="225" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1591689673442" />
-    <state width="1345" height="138" key="GridCell.Tab.1.bottom" timestamp="1591336455702">
+    <state width="1345" height="96" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1592734477935" />
+    <state width="1345" height="280" key="GridCell.Tab.1.bottom" timestamp="1591722710892">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1345" height="138" key="GridCell.Tab.1.bottom/0.0.1366.738@0.0.1366.738" timestamp="1591336455702" />
-    <state width="1345" height="138" key="GridCell.Tab.1.center" timestamp="1591336455701">
+    <state width="1345" height="280" key="GridCell.Tab.1.bottom/0.0.1366.738@0.0.1366.738" timestamp="1591722710892" />
+    <state width="1345" height="280" key="GridCell.Tab.1.center" timestamp="1591722710891">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1345" height="138" key="GridCell.Tab.1.center/0.0.1366.738@0.0.1366.738" timestamp="1591336455701" />
-    <state width="1345" height="138" key="GridCell.Tab.1.left" timestamp="1591336455701">
+    <state width="1345" height="280" key="GridCell.Tab.1.center/0.0.1366.738@0.0.1366.738" timestamp="1591722710891" />
+    <state width="1345" height="280" key="GridCell.Tab.1.left" timestamp="1591722710891">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1345" height="138" key="GridCell.Tab.1.left/0.0.1366.738@0.0.1366.738" timestamp="1591336455701" />
-    <state width="1345" height="138" key="GridCell.Tab.1.right" timestamp="1591336455702">
+    <state width="1345" height="280" key="GridCell.Tab.1.left/0.0.1366.738@0.0.1366.738" timestamp="1591722710891" />
+    <state width="1345" height="280" key="GridCell.Tab.1.right" timestamp="1591722710891">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1345" height="138" key="GridCell.Tab.1.right/0.0.1366.738@0.0.1366.738" timestamp="1591336455702" />
+    <state width="1345" height="280" key="GridCell.Tab.1.right/0.0.1366.738@0.0.1366.738" timestamp="1591722710891" />
     <state x="388" y="84" key="MultipleFileMergeDialog" timestamp="1586771844461">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -423,10 +418,10 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="444" y="79" key="RollbackChangesDialog/0.0.1366.738@0.0.1366.738" timestamp="1589086894227" />
-    <state x="184" y="7" key="SettingsEditor" timestamp="1591108391601">
+    <state x="184" y="7" key="SettingsEditor" timestamp="1591716273731">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="184" y="7" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1591108391601" />
+    <state x="184" y="7" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1591716273731" />
     <state width="546" height="446" key="SwitcherDM" timestamp="1587313561932">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -435,19 +430,18 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="322" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.738@0.0.1366.738" timestamp="1590765179489" />
-    <state x="492" y="285" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1591261076420">
+    <state x="492" y="285" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1591714635796">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="492" y="285" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.738@0.0.1366.738" timestamp="1591261076420" />
+    <state x="492" y="285" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.738@0.0.1366.738" timestamp="1591714635796" />
     <state x="254" y="104" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1591254883524">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="254" y="104" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1366.738@0.0.1366.738" timestamp="1591254883524" />
-    <state x="395" y="130" width="920" height="536" key="find.popup" timestamp="1591317124025">
+    <state x="395" y="130" width="920" height="536" key="find.popup" timestamp="1591715827246">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="446" y="192" width="920" height="536" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1583297780720" />
-    <state x="395" y="130" width="920" height="536" key="find.popup/0.0.1366.738@0.0.1366.738" timestamp="1591317124025" />
+    <state x="395" y="130" width="920" height="536" key="find.popup/0.0.1366.738@0.0.1366.738" timestamp="1591715827246" />
     <state x="275" y="34" key="scopes" timestamp="1591031663618">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
